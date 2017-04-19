@@ -13,11 +13,21 @@ namespace Engine
 
     }
 
-    abstract class GameComponent { }
+    abstract class GameComponent
+    {
+        abstract public void Insert();
+        abstract public void Remove();
+        abstract public void Update();
+    }
 
     class ComponentManager
     {
         Dictionary<int, Dictionary<Type, GameComponent>> entityComponents;
+
+        public ComponentManager()
+        {
+            entityComponents = new Dictionary<int, Dictionary<Type, GameComponent>>();
+        }
 
         public void AddComponents(int entity, params GameComponent[] components)
         {
