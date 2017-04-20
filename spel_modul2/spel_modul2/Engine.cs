@@ -10,7 +10,34 @@ namespace Engine
 
     class SystemManager
     {
+        private Dictionary<Type, ISystem> systems;
+        private static SystemManager systemManagerInstance;
 
+        static SystemManager()
+        {
+            systemManagerInstance = new SystemManager();
+        }
+
+        private SystemManager()
+        {
+            systems = new Dictionary<Type, ISystem>();
+        }
+
+        public static SystemManager GetSystemManager()
+        {
+            return systemManagerInstance;
+        }
+
+        public void AddSystem(ISystem system)
+        {
+            systems.Add(system.GetType(), system);
+        }
+
+        public void RemoveSystem(ISystem system)
+        {
+            if (systems.ContainsKey(system.GetType()))
+                systems.Remove(system.GetType());
+        }
     }
 
     sealed class Entity
@@ -58,24 +85,24 @@ namespace Engine
 
     class ComponentManager
     {
-        Dictionary<int, Dictionary<Type, IComponent>> entityComponents;
-        Dictionary<Type, Dictionary<int, IComponent>> componentEntities;
-        static ComponentManager componentManagerInstance;
+        private Dictionary<int, Dictionary<Type, IComponent>> entityComponents;
+        private Dictionary<Type, Dictionary<int, IComponent>> componentEntities;
+        private static ComponentManager componentManagerInstance;
 
         static ComponentManager()
         {
             componentManagerInstance = new ComponentManager();
         }
 
-        public static ComponentManager GetComponentManager()
-        {
-            return componentManagerInstance;
-        }
-
         private ComponentManager()
         {
             entityComponents = new Dictionary<int, Dictionary<Type, IComponent>>();
             componentEntities = new Dictionary<Type, Dictionary<int, IComponent>>();
+        }
+
+        public static ComponentManager GetComponentManager()
+        {
+            return componentManagerInstance;
         }
 
         public void AddComponentsToEntity(int entity, params IComponent[] components)
