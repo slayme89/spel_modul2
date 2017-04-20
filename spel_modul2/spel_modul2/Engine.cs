@@ -13,6 +13,36 @@ namespace Engine
 
     }
 
+    sealed class Entity
+    {
+        Dictionary<Type, GameComponent> components;
+
+        Entity()
+        {
+            components = new Dictionary<Type, GameComponent>();
+        }
+
+        void Add(GameComponent component)
+        {
+            components.Add(component.GetType(), component);
+        }
+
+        void Remove(Type component)
+        {
+            components.Remove(component);
+        }
+
+        void Remove<T>()
+        {
+            components.Remove(typeof(T));
+        }
+    }
+
+    class EntityManager
+    {
+
+    }
+
     abstract class GameComponent
     {
         abstract public void Insert();
@@ -20,27 +50,58 @@ namespace Engine
         abstract public void Update();
     }
 
+    interface IComponent { }
+    interface ISystem
+    {
+        void Update();
+    }
+
     class ComponentManager
     {
-        Dictionary<int, Dictionary<Type, GameComponent>> entityComponents;
+        Dictionary<int, Dictionary<Type, IComponent>> entityComponents;
+        Dictionary<Type, Dictionary<int, IComponent>> componentEntities;
+        static ComponentManager componentManagerInstance;
 
-        public ComponentManager()
+        static ComponentManager()
         {
-            entityComponents = new Dictionary<int, Dictionary<Type, GameComponent>>();
+            componentManagerInstance = new ComponentManager();
         }
 
-        public void AddComponents(int entity, params GameComponent[] components)
+        public static ComponentManager GetComponentManager()
         {
-            if (!entityComponents.ContainsKey(entity) || entityComponents[entity] == null)
-                entityComponents[entity] = new Dictionary<Type, GameComponent>();
+            return componentManagerInstance;
+        }
 
-            foreach(GameComponent component in components)
+        private ComponentManager()
+        {
+            entityComponents = new Dictionary<int, Dictionary<Type, IComponent>>();
+            componentEntities = new Dictionary<Type, Dictionary<int, IComponent>>();
+        }
+
+        public void AddComponentsToEntity(int entity, params IComponent[] components)
+        {
+            //Check if the current entity have a dictionary
+            if (!entityComponents.ContainsKey(entity) || entityComponents[entity] == null)
+                entityComponents[entity] = new Dictionary<Type, IComponent>();
+
+            foreach(IComponent component in components)
             {
+                //Check if the component have a dictionary
+                if (!componentEntities.ContainsKey(component.GetType()) || componentEntities[component.GetType()] == null)
+                    componentEntities[component.GetType()] = new Dictionary<int, IComponent>();
+
+                //Add the component to both dictionaries
                 entityComponents[entity].Add(component.GetType(), component);
+                componentEntities[component.GetType()][entity] = component;
             }
         }
 
-        public Dictionary<Type, GameComponent> GetComponents(int entity)
+        public Dictionary<int, IComponent> GetComponents<T>()
+        {
+            return componentEntities[typeof(T)];
+        }
+
+        public Dictionary<Type, IComponent> GetComponentsForEntity(int entity)
         {
             if(entityComponents.ContainsKey(entity))
                 return entityComponents[entity];
