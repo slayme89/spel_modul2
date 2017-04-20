@@ -3,11 +3,6 @@ using System.Collections.Generic;
 
 namespace Engine
 {
-    abstract class GameSystem
-    {
-        abstract public void Update();
-    }
-
     class SystemManager
     {
         private Dictionary<Type, ISystem> systems;
@@ -38,43 +33,6 @@ namespace Engine
             if (systems.ContainsKey(system.GetType()))
                 systems.Remove(system.GetType());
         }
-    }
-
-    sealed class Entity
-    {
-        Dictionary<Type, GameComponent> components;
-
-        Entity()
-        {
-            components = new Dictionary<Type, GameComponent>();
-        }
-
-        void Add(GameComponent component)
-        {
-            components.Add(component.GetType(), component);
-        }
-
-        void Remove(Type component)
-        {
-            components.Remove(component);
-        }
-
-        void Remove<T>()
-        {
-            components.Remove(typeof(T));
-        }
-    }
-
-    class EntityManager
-    {
-
-    }
-
-    abstract class GameComponent
-    {
-        abstract public void Insert();
-        abstract public void Remove();
-        abstract public void Update();
     }
 
     interface IComponent { }
