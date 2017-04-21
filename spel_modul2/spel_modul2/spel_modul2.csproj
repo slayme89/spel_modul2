@@ -37,7 +37,9 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <MonoGameContentReference Include="Content\Content.mgcb" />
+    <MonoGameContentReference Include="Content\Content.mgcb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </MonoGameContentReference>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

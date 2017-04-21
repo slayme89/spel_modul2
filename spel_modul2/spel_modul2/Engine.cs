@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine
 {
@@ -20,6 +21,8 @@ namespace GameEngine
 
         protected override void LoadContent()
         {
+            Texture2D h = Content.Load<Texture2D>("hej");
+
             base.LoadContent();
         }
 
