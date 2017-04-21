@@ -44,7 +44,7 @@ namespace GameEngine
             }
         }
 
-        public Dictionary<int, IComponent> GetComponents<T>()
+        public Dictionary<int, IComponent> GetComponentsOfType<T>()
         {
             return componentEntities[typeof(T)];
         }
@@ -54,6 +54,12 @@ namespace GameEngine
             if (entityComponents.ContainsKey(entity))
                 return entityComponents[entity];
             return null;
+        }
+
+        public T GetComponentForEntity<T>(int entity) where T : IComponent
+        {
+            if (entityComponents.ContainsKey(entity))
+                return entityComponents[entity][T.GetType()];
         }
     }
 }
