@@ -19,7 +19,7 @@ namespace GameEngine
             systems = new Dictionary<Type, ISystem>();
         }
 
-        public static SystemManager GetSystemManager()
+        public static SystemManager GetInstance()
         {
             return systemManagerInstance;
         }

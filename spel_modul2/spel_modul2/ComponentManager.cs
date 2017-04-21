@@ -21,7 +21,7 @@ namespace GameEngine
             componentEntities = new Dictionary<Type, Dictionary<int, IComponent>>();
         }
 
-        public static ComponentManager GetComponentManager()
+        public static ComponentManager GetInstance()
         {
             return componentManagerInstance;
         }
@@ -59,7 +59,13 @@ namespace GameEngine
         public T GetComponentForEntity<T>(int entity) where T : IComponent
         {
             if (entityComponents.ContainsKey(entity))
-                return entityComponents[entity][T.GetType()];
+            {
+                var components = entityComponents[entity];
+                IComponent component;
+                components.TryGetValue(typeof(T), out component);
+                return (T)component;
+            }
+            return default(T);
         }
     }
 }

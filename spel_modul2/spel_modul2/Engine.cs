@@ -26,7 +26,7 @@ namespace GameEngine
         {
             h = Content.Load<Texture2D>("hej");
 
-            ComponentManager.GetComponentManager().AddComponentsToEntity(1, new IComponent[] {
+            ComponentManager.GetInstance().AddComponentsToEntity(1, new IComponent[] {
                 new Location() { X = 2, Y = 2 },
                 new Texture() { texture = h }
             });
@@ -40,9 +40,9 @@ namespace GameEngine
         {
             GraphicsDevice gd = graphics.GraphicsDevice;
             SpriteBatch sp = new SpriteBatch(gd);
-            gd.Clear(new Color(0, 0, 255));
+            gd.Clear(Color.Blue);
 
-            /*if (Keyboard.GetState().IsKeyDown(Keys.W))
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
                 pos.Y -= 5;
             }
@@ -58,18 +58,20 @@ namespace GameEngine
             else if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 pos.X += 5;
-            }*/
+            }
 
-            var hej = ComponentManager.GetComponentManager().GetComponentsForEntity(1);
-            var hej2 = ComponentManager.GetComponentManager().GetComponentsOfType<Location>();
+            /*var hej = ComponentManager.GetInstance().GetComponentsForEntity(1);
+            var hej2 = ComponentManager.GetInstance().GetComponentsOfType<Location>();*/
 
             sp.Begin();
 
-            if (hej.ContainsKey(typeof(Texture)))
-            {
-                Texture b = (Texture)hej[typeof(Texture)];
-                sp.Draw(b.texture, position: pos);
-            }
+            //if (hej.ContainsKey(typeof(Texture)))
+            //{
+                //Texture b = (Texture)hej[typeof(Texture)];
+                Texture b = ComponentManager.GetInstance().GetComponentForEntity<Texture>(1);
+                //sp.Draw(b.texture, position: pos);
+                sp.Draw(b.texture, pos, Color.Black);
+            //}
 
             /*if (pos.X < 0)
                 pos.X = 0;
@@ -88,10 +90,10 @@ namespace GameEngine
         }
     }
 
-    sealed class Entity
+    /*sealed class Entity
     {
         public int Id;
-    }
+    }*/
 
     public class Location : IComponent
     {
