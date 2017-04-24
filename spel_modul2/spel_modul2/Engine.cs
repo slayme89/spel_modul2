@@ -38,9 +38,5 @@ namespace GameEngine
         }
     }
 
-    interface IComponent { }
-    interface ISystem
-    {
-        void Update();
-    }
+    
 }
