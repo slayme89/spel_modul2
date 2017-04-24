@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using spel_modul2;
+using GameEngine.Components;
 
 namespace GameEngine
 {

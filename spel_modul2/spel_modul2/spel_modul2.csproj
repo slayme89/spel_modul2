@@ -58,9 +58,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ComponentManager.cs" />
+    <Compile Include="Components\HealthComponent.cs" />
+    <Compile Include="Components\TextureComponent.cs" />
+    <Compile Include="Components\WeightComponent.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Entity\Entity.cs" />
-    <Compile Include="IComponent.cs" />
+    <Compile Include="Components\IComponent.cs" />
     <Compile Include="ISystem.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,6 +92,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
