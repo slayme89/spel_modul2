@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace spel_modul2
+namespace GameEngine
 {
     //implement this interface when creating a component
     public interface IComponent

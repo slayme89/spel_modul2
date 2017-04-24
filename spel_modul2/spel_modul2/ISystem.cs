@@ -1,4 +1,4 @@
-﻿namespace spel_modul2
+﻿namespace GameEngine
 {
     public interface ISystem
     {
