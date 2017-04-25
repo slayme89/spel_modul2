@@ -58,6 +58,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ComponentManager.cs" />
+    <Compile Include="Components\Animation.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Entity\Entity.cs" />
     <Compile Include="IComponent.cs" />
