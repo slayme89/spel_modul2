@@ -115,10 +115,4 @@ namespace GameEngine
     {
         public Texture2D texture;
     }
-
-    interface IComponent { }
-    interface ISystem
-    {
-        void Update();
-    }
 }
