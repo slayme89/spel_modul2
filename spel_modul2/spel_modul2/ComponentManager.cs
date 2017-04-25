@@ -46,7 +46,9 @@ namespace GameEngine
 
         public Dictionary<int, IComponent> GetComponentsOfType<T>()
         {
-            return componentEntities[typeof(T)];
+            Dictionary<int, IComponent> components;
+            componentEntities.TryGetValue(typeof(T), out components);
+            return components;
         }
 
         public Dictionary<Type, IComponent> GetComponentsForEntity(int entity)

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using spel_modul2;
+using Microsoft.Xna.Framework;
 
 namespace GameEngine
 {
@@ -29,10 +29,30 @@ namespace GameEngine
             systems.Add(system.GetType(), system);
         }
 
+        public void AddSystems(params ISystem[] systems)
+        {
+            foreach (ISystem system in systems)
+                AddSystem(system);
+        }
+
         public void RemoveSystem(ISystem system)
         {
             if (systems.ContainsKey(system.GetType()))
                 systems.Remove(system.GetType());
+        }
+
+        public T GetSystem<T>()
+        {
+            ISystem system;
+            systems.TryGetValue(typeof(T), out system);
+            return (T)system;
+        }
+
+        public void Update<T>(GameTime gameTime)
+        {
+            ISystem system;
+            systems.TryGetValue(typeof(T), out system);
+            system?.Update(gameTime);
         }
     }
 }

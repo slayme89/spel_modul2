@@ -19,17 +19,30 @@ namespace GameEngine
 
         protected override void Initialize()
         {
+            SystemManager.GetInstance().AddSystems(new ISystem[] {
+                new AnimationSystem(),
+                new AnimationLoaderSystem(),
+            });
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             h = Content.Load<Texture2D>("hej");
+            ComponentManager cm = ComponentManager.GetInstance();
 
             ComponentManager.GetInstance().AddComponentsToEntity(1, new IComponent[] {
                 new Location() { X = 2, Y = 2 },
                 new Texture() { texture = h }
             });
+
+            cm.AddComponentsToEntity(2, new IComponent[]
+            {
+                new Animation("threerings"),
+            });
+
+            SystemManager.GetInstance().GetSystem<AnimationLoaderSystem>().Load(Content);
 
             base.LoadContent();
         }
@@ -86,6 +99,8 @@ namespace GameEngine
 
         protected override void Update(GameTime gameTime)
         {
+            SystemManager.GetInstance().Update<AnimationSystem>(gameTime);
+
             base.Update(gameTime);
         }
     }
