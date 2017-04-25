@@ -1,7 +1,9 @@
-﻿namespace GameEngine
+﻿using Microsoft.Xna.Framework;
+
+namespace GameEngine
 {
     public interface ISystem
     {
-        void Update();
+        void Update(GameTime gameTime);
     }
 }
