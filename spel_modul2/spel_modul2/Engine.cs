@@ -39,7 +39,7 @@ namespace GameEngine
 
             cm.AddComponentsToEntity(2, new IComponent[]
             {
-                new Animation("threerings", new Point(6, 8), 40),
+                new AnimationComponent("threerings", new Point(6, 8), 40),
             });
 
             SystemManager.GetInstance().GetSystem<AnimationLoaderSystem>().Load(Content);
@@ -92,7 +92,7 @@ namespace GameEngine
             if (pos.Y < 0)
                 pos.Y = 0;*/
 
-            var a = ComponentManager.GetInstance().GetComponentForEntity<Animation>(2);
+            var a = ComponentManager.GetInstance().GetComponentForEntity<AnimationComponent>(2);
             sp.Draw(a.spriteSheet, position: new Vector2(50, 50), sourceRectangle: a.sourceRectangle);
             
             sp.End();
