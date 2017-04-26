@@ -9,7 +9,7 @@ namespace GameEngine.Components
      * Position - start position for the texture.
      * Rotation - rotation of the texture.
      * Sprite - content loaded from the contentmanager(Content/Content.mgcb).
-     * SourceRectangle - 
+     * 
      */
     class TextureComponent
     {
@@ -19,5 +19,6 @@ namespace GameEngine.Components
         public float Rotation { get; set; }
         public Texture2D Sprite { get; set; }
         public Rectangle SourceRectangle { get; set; }
+        public Rectangle DestinationRec { get; set; }
     }
 }

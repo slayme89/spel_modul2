@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace GameEngine
 {
@@ -11,8 +10,13 @@ namespace GameEngine
 
         //test skit - some drawing stuff
         private SpriteBatch spriteBatch;
-        private Texture2D texture;
+        private Texture2D textureforward;
+        private Rectangle sourceRect;
+        private Rectangle destRect;
         private Vector2 position;
+        float elapsed;
+        float delay = 200f;
+        int frames = 0;
 
         public Engine()
         {
@@ -30,16 +34,18 @@ namespace GameEngine
         {
             base.Initialize();
 
-            //test skit - position for the "hej" texture
+            //test skit - position for the texture
             position = new Vector2(0, 0);
+            destRect = new Rectangle(100, 100, 32, 48);
+
         }
 
         protected override void LoadContent()
         {
             base.LoadContent();
-            //test skit - load the "hej" texture
+            //test skit 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            texture = Content.Load<Texture2D>("hej");
+            textureforward = Content.Load<Texture2D>("Player/wizwalk");
         }
 
         protected override void UnloadContent()
@@ -48,32 +54,18 @@ namespace GameEngine
 
         protected override void Update(GameTime gameTime)
         {
-            //test skit - controls keyboard
-            KeyboardState keyState = Keyboard.GetState();
-            //D is pressed
-            if (keyState.IsKeyDown(Keys.D))
-                position.X += 50 * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            //A is pressed
-            if (keyState.IsKeyDown(Keys.A))
-                position.X -= 50 * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            //W is pressed
-            if (keyState.IsKeyDown(Keys.W))
-                position.Y -= 50 * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            //S is pressed
-            if (keyState.IsKeyDown(Keys.S))
-                position.Y += 50 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            elapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            //test skit - controls mouse
-            //MouseState ms = Mouse.GetState();
+            if(elapsed >= delay)
+            {
+                if (frames >= 3)
+                    frames = 0;
+                else
+                    frames++;
+                elapsed = 0;
+            }
 
-            //position.X = ms.X;
-            //position.Y = ms.Y;
-
-
-            //if  out of bounds on the right, reset position to 0
-            if (position.X > GraphicsDevice.Viewport.Width)
-                position.X = 0;
-
+            sourceRect = new Rectangle(32*frames, 0, 32, 48);
             base.Update(gameTime);
         }
 
@@ -86,7 +78,7 @@ namespace GameEngine
 
             //test skit - draw the damn thing
             spriteBatch.Begin();
-            spriteBatch.Draw(texture, position);
+            spriteBatch.Draw(textureforward, destRect, sourceRect, Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
