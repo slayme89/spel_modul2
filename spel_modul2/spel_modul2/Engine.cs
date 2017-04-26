@@ -47,7 +47,7 @@ namespace GameEngine
             base.LoadContent();
         }
 
-        Vector2 pos = new Vector2(10, 10);
+        Vector2 pos = new Vector2(100, 100);
 
         protected override void Draw(GameTime gameTime)
         {
@@ -91,6 +91,9 @@ namespace GameEngine
 
             if (pos.Y < 0)
                 pos.Y = 0;*/
+
+            var a = ComponentManager.GetInstance().GetComponentForEntity<Animation>(2);
+            sp.Draw(a.spriteSheet, position: new Vector2(50, 50), sourceRectangle: a.sourceRectangle);
             
             sp.End();
 

@@ -20,7 +20,19 @@ namespace GameEngine
 
         private void Update(GameTime gameTime, Animation animation)
         {
+            animation.lastFrameDeltaTime += gameTime.ElapsedGameTime.Milliseconds;
+            if(animation.lastFrameDeltaTime > animation.frameDuration)
+            {
+                //Update current frame
+                animation.currentFrame.X = (animation.currentFrame.X + 1) % animation.sheetSize.X;
+                if (animation.currentFrame.X == 0)
+                    animation.currentFrame.Y = (animation.currentFrame.Y + 1) % animation.sheetSize.Y;
 
+                //Calculate new source rectangle into the spritesheet
+                animation.sourceRectangle = new Rectangle(animation.currentFrame * animation.frameSize, animation.frameSize);
+
+                animation.lastFrameDeltaTime = 0;
+            }
         }
     }
 
