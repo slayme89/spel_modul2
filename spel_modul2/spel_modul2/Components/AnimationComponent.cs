@@ -1,10 +1,9 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine
 {
-    class Animation : IComponent
+    class AnimationComponent : IComponent
     {
         public string spritesheetFilename { get; set; }
         public Texture2D spriteSheet { get; set; }
@@ -15,7 +14,7 @@ namespace GameEngine
         public int lastFrameDeltaTime { get; set; }
         public Rectangle sourceRectangle { get; set; }
 
-        public Animation(string spritesheetFilename, Point sheetSize, int frameDuration)
+        public AnimationComponent(string spritesheetFilename, Point sheetSize, int frameDuration)
         {
             this.spritesheetFilename = spritesheetFilename;
             this.sheetSize = sheetSize;

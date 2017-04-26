@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,15 +8,15 @@ namespace GameEngine
     {
         public void Update(GameTime gameTime)
         {
-            var animations = ComponentManager.GetInstance().GetComponentsOfType<Animation>();
+            var animations = ComponentManager.GetInstance().GetComponentsOfType<AnimationComponent>();
 
-            foreach(Animation animation in animations.Values)
+            foreach(AnimationComponent animation in animations.Values)
             {
                 Update(gameTime, animation);
             }
         }
 
-        private void Update(GameTime gameTime, Animation animation)
+        private void Update(GameTime gameTime, AnimationComponent animation)
         {
             animation.lastFrameDeltaTime += gameTime.ElapsedGameTime.Milliseconds;
             if(animation.lastFrameDeltaTime > animation.frameDuration)
@@ -42,11 +40,11 @@ namespace GameEngine
 
         public void Load(ContentManager content)
         {
-            var animations = ComponentManager.GetInstance().GetComponentsOfType<Animation>();
+            var animations = ComponentManager.GetInstance().GetComponentsOfType<AnimationComponent>();
 
             if (animations != null)
             {
-                foreach (Animation animation in animations.Values)
+                foreach (AnimationComponent animation in animations.Values)
                 {
                     animation.spriteSheet = content.Load<Texture2D>(animation.spritesheetFilename);
                     animation.frameSize = new Point(animation.spriteSheet.Width / animation.sheetSize.X, animation.spriteSheet.Height / animation.sheetSize.Y);

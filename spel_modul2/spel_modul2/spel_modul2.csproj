@@ -58,10 +58,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ComponentManager.cs" />
-    <Compile Include="Components\Animation.cs" />
+    <Compile Include="Components\AnimationComponent.cs" />
     <Compile Include="Engine.cs" />
-    <Compile Include="Entity\Entity.cs" />
-    <Compile Include="IComponent.cs" />
+    <Compile Include="Components\IComponent.cs" />
     <Compile Include="ISystem.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
