@@ -39,7 +39,7 @@ namespace GameEngine
 
             cm.AddComponentsToEntity(2, new IComponent[]
             {
-                new AnimationComponent("threerings", new Point(6, 8), 40),
+                new AnimationComponent("PlayerAnimation/NakedFWalk", new Point(4, 1), 150),
             });
 
             SystemManager.GetInstance().GetSystem<AnimationLoaderSystem>().Load(Content);
