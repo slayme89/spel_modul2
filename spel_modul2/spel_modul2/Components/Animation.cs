@@ -11,12 +11,15 @@ namespace GameEngine
         public Point sheetSize { get; set; }
         public Point frameSize { get; set; }
         public Point currentFrame { get; set; }
-        public int frameDuration { get; set; } 
+        public int frameDuration { get; set; }
+        public int lastFrameDelta { get; set; }
         public Rectangle sourceRectangle { get; set; }
 
-        public Animation(string spritesheetFilename)
+        public Animation(string spritesheetFilename, Point sheetSize, int frameDuration)
         {
             this.spritesheetFilename = spritesheetFilename;
+            this.sheetSize = sheetSize;
+            this.frameDuration = frameDuration;
         }
     }
 }

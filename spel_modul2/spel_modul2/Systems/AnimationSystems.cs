@@ -10,6 +10,17 @@ namespace GameEngine
     {
         public void Update(GameTime gameTime)
         {
+            var animations = ComponentManager.GetInstance().GetComponentsOfType<Animation>();
+
+            foreach(Animation animation in animations.Values)
+            {
+                Update(gameTime, animation);
+            }
+        }
+
+        private void Update(GameTime gameTime, Animation animation)
+        {
+
         }
     }
 
@@ -26,6 +37,8 @@ namespace GameEngine
                 foreach (Animation animation in animations.Values)
                 {
                     animation.spriteSheet = content.Load<Texture2D>(animation.spritesheetFilename);
+                    animation.frameSize = new Point(animation.spriteSheet.Width / animation.sheetSize.X, animation.spriteSheet.Height / animation.sheetSize.Y);
+                    animation.sourceRectangle = new Rectangle(new Point(), animation.frameSize);
                 }
             }
         }

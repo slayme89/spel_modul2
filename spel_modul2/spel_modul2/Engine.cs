@@ -39,7 +39,7 @@ namespace GameEngine
 
             cm.AddComponentsToEntity(2, new IComponent[]
             {
-                new Animation("threerings"),
+                new Animation("threerings", new Point(6, 8), 40),
             });
 
             SystemManager.GetInstance().GetSystem<AnimationLoaderSystem>().Load(Content);
