@@ -18,6 +18,9 @@ namespace GameEngine
 
         private void Update(GameTime gameTime, AnimationComponent animation)
         {
+            if (animation.isPaused)
+                return;
+
             animation.lastFrameDeltaTime += gameTime.ElapsedGameTime.Milliseconds;
             if(animation.lastFrameDeltaTime > animation.frameDuration)
             {
@@ -29,7 +32,7 @@ namespace GameEngine
                 //Calculate new source rectangle into the spritesheet
                 animation.sourceRectangle = new Rectangle(animation.currentFrame * animation.frameSize, animation.frameSize);
 
-                animation.lastFrameDeltaTime = 0;
+                animation.lastFrameDeltaTime -= animation.frameDuration;
             }
         }
     }

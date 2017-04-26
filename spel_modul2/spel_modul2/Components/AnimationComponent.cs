@@ -13,6 +13,7 @@ namespace GameEngine
         public int frameDuration { get; set; }
         public int lastFrameDeltaTime { get; set; }
         public Rectangle sourceRectangle { get; set; }
+        public bool isPaused { get; set; }
 
         public AnimationComponent(string spritesheetFilename, Point sheetSize, int frameDuration)
         {

@@ -80,10 +80,10 @@ namespace GameEngine
 
             //if (hej.ContainsKey(typeof(Texture)))
             //{
-                //Texture b = (Texture)hej[typeof(Texture)];
-                Texture b = ComponentManager.GetInstance().GetComponentForEntity<Texture>(1);
-                //sp.Draw(b.texture, position: pos);
-                sp.Draw(b.texture, pos, Color.Black);
+            //Texture b = (Texture)hej[typeof(Texture)];
+            Texture b = ComponentManager.GetInstance().GetComponentForEntity<Texture>(1);
+            //sp.Draw(b.texture, position: pos);
+            sp.Draw(b.texture, pos, Color.Black);
             //}
 
             /*if (pos.X < 0)
@@ -93,16 +93,21 @@ namespace GameEngine
                 pos.Y = 0;*/
 
             var a = ComponentManager.GetInstance().GetComponentForEntity<AnimationComponent>(2);
+
             sp.Draw(a.spriteSheet, position: new Vector2(50, 50), sourceRectangle: a.sourceRectangle);
-            
+
             sp.End();
 
-            base.Draw(gameTime);
+            //base.Draw(gameTime);
         }
 
         protected override void Update(GameTime gameTime)
         {
             SystemManager.GetInstance().Update<AnimationSystem>(gameTime);
+
+            var a = ComponentManager.GetInstance().GetComponentForEntity<AnimationComponent>(2);
+            if (Keyboard.GetState().IsKeyDown(Keys.P))
+                a.isPaused = !a.isPaused;
 
             base.Update(gameTime);
         }
