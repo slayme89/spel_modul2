@@ -7,7 +7,7 @@ namespace GameEngine
     class ComponentManager
     {
         private Dictionary<int, Dictionary<Type, IComponent>> entityComponents;
-        private Dictionary<Type, Dictionary<int, IComponent>> componentEntities;
+        private Dictionary<Type, Dictionary<int, IComponent>> componentGroups;
         private static ComponentManager componentManagerInstance;
 
         static ComponentManager()
@@ -18,7 +18,7 @@ namespace GameEngine
         private ComponentManager()
         {
             entityComponents = new Dictionary<int, Dictionary<Type, IComponent>>();
-            componentEntities = new Dictionary<Type, Dictionary<int, IComponent>>();
+            componentGroups = new Dictionary<Type, Dictionary<int, IComponent>>();
         }
 
         public static ComponentManager GetInstance()
@@ -35,19 +35,19 @@ namespace GameEngine
             foreach (IComponent component in components)
             {
                 //Check if the component have a dictionary
-                if (!componentEntities.ContainsKey(component.GetType()) || componentEntities[component.GetType()] == null)
-                    componentEntities[component.GetType()] = new Dictionary<int, IComponent>();
+                if (!componentGroups.ContainsKey(component.GetType()) || componentGroups[component.GetType()] == null)
+                    componentGroups[component.GetType()] = new Dictionary<int, IComponent>();
 
                 //Add the component to both dictionaries
                 entityComponents[entity].Add(component.GetType(), component);
-                componentEntities[component.GetType()][entity] = component;
+                componentGroups[component.GetType()][entity] = component;
             }
         }
 
         public Dictionary<int, IComponent> GetComponentsOfType<T>()
         {
             Dictionary<int, IComponent> components;
-            componentEntities.TryGetValue(typeof(T), out components);
+            componentGroups.TryGetValue(typeof(T), out components);
             return components;
         }
 
