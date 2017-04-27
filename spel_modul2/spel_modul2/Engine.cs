@@ -40,7 +40,13 @@ namespace GameEngine
                 new AnimationComponent("PlayerAnimation/NakedFWalk", new Point(4, 1), 150),
                 new PositionComponent(50, 50),
             });
-            
+
+            cm.AddComponentsToEntity(3, new IComponent[]
+            {
+                new AnimationComponent("threerings", new Point(6, 8), 40),
+                new PositionComponent(50, 200),
+            });
+
             sm.GetSystem<AnimationLoaderSystem>().Load(Content);
             sm.GetSystem<TextureLoaderSystem>().Load(Content);
 
@@ -58,13 +64,17 @@ namespace GameEngine
             //base.Draw(gameTime);
         }
 
+        KeyboardState previousKeyboardState = new KeyboardState();
+
         protected override void Update(GameTime gameTime)
         {
             SystemManager.GetInstance().Update<AnimationSystem>(gameTime);
 
             var a = cm.GetComponentForEntity<AnimationComponent>(2);
-            if (Keyboard.GetState().IsKeyDown(Keys.P))
+            if (Keyboard.GetState().IsKeyDown(Keys.P) && previousKeyboardState.IsKeyUp(Keys.P))
                 a.isPaused = !a.isPaused;
+
+            previousKeyboardState = Keyboard.GetState();
 
             base.Update(gameTime);
         }
