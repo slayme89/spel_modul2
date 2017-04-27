@@ -22,7 +22,7 @@ namespace GameEngine
                 float y = velocity.Y;
                 x *= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
                 y *= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-                position.Position += new Point((int)x, (int)y);
+                position.position += new Point((int)x, (int)y);
             }
         }
     }
