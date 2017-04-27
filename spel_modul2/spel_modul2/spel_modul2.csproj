@@ -57,12 +57,14 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Components\AIComponent.cs" />
     <Compile Include="Components\PositionComponent.cs" />
     <Compile Include="Components\TextureComponent.cs" />
     <Compile Include="Managers\ComponentManager.cs" />
     <Compile Include="Components\AnimationComponent.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Components\IComponent.cs" />
+    <Compile Include="Systems\AISystem.cs" />
     <Compile Include="Systems\ISystem.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
