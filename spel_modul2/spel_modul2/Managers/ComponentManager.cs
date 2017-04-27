@@ -47,7 +47,8 @@ namespace GameEngine
         {
             Dictionary<int, IComponent> components;
             componentGroups.TryGetValue(typeof(T), out components);
-            return components;
+
+            return components != null ? components : new Dictionary<int, IComponent>();
         }
 
         public Dictionary<Type, IComponent> GetComponentsForEntity(int entity)

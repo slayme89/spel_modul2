@@ -12,12 +12,9 @@ namespace GameEngine
         {
             var textures = ComponentManager.GetInstance().GetComponentsOfType<TextureComponent>();
 
-            if (textures != null)
+            foreach (TextureComponent texture in textures.Values)
             {
-                foreach (TextureComponent texture in textures.Values)
-                {
-                    texture.texture = content.Load<Texture2D>(texture.textureFilename);
-                }
+                texture.texture = content.Load<Texture2D>(texture.textureFilename);
             }
         }
     }
