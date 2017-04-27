@@ -17,6 +17,7 @@ namespace GameEngine
             ComponentManager cm = ComponentManager.GetInstance();
 
             spriteBatch.Begin();
+
             foreach(var entity in cm.GetComponentsOfType<TextureComponent>())
             {
                 TextureComponent texture = (TextureComponent)entity.Value;
@@ -24,7 +25,7 @@ namespace GameEngine
                 
                 if(position != null)
                 {
-                    spriteBatch.Draw(texture: texture.texture, position: position.position);
+                    spriteBatch.Draw(texture: texture.texture, position: position.position.ToVector2());
                 }
             }
 
@@ -35,7 +36,7 @@ namespace GameEngine
 
                 if (position != null)
                 {
-                    spriteBatch.Draw(texture: animation.spriteSheet, position: position.position, sourceRectangle: animation.sourceRectangle);
+                    spriteBatch.Draw(texture: animation.spriteSheet, position: position.position.ToVector2(), sourceRectangle: animation.sourceRectangle);
                 }
             }
 
