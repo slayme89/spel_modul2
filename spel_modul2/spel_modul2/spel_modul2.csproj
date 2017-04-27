@@ -58,6 +58,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Components\PositionComponent.cs" />
+    <Compile Include="Components\TextureComponent.cs" />
     <Compile Include="Managers\ComponentManager.cs" />
     <Compile Include="Components\AnimationComponent.cs" />
     <Compile Include="Engine.cs" />
@@ -67,6 +68,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Managers\SystemManager.cs" />
     <Compile Include="Systems\AnimationSystem.cs" />
+    <Compile Include="Systems\RenderSystem.cs" />
+    <Compile Include="Systems\TextureLoaderSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

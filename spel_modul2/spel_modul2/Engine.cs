@@ -9,7 +9,8 @@ namespace GameEngine
     class Engine : Game
     {
         private GraphicsDeviceManager graphics;
-        Texture2D h;
+        ComponentManager cm = ComponentManager.GetInstance();
+        SystemManager sm = SystemManager.GetInstance();
 
         public Engine()
         {
@@ -19,9 +20,11 @@ namespace GameEngine
 
         protected override void Initialize()
         {
-            SystemManager.GetInstance().AddSystems(new ISystem[] {
+            sm.AddSystems(new ISystem[] {
                 new AnimationSystem(),
                 new AnimationLoaderSystem(),
+                new TextureLoaderSystem(),
+                new RenderSystem(),
             });
 
             base.Initialize();
@@ -29,74 +32,30 @@ namespace GameEngine
 
         protected override void LoadContent()
         {
-            h = Content.Load<Texture2D>("hej");
-            ComponentManager cm = ComponentManager.GetInstance();
-
-            ComponentManager.GetInstance().AddComponentsToEntity(1, new IComponent[] {
-                new Location() { X = 2, Y = 2 },
-                new Texture() { texture = h }
+            cm.AddComponentsToEntity(1, new IComponent[] {
+                new TextureComponent("hej"),
+                new PositionComponent(150, 10),
             });
 
             cm.AddComponentsToEntity(2, new IComponent[]
             {
                 new AnimationComponent("PlayerAnimation/NakedFWalk", new Point(4, 1), 150),
+                new PositionComponent(50, 50),
             });
-
-            SystemManager.GetInstance().GetSystem<AnimationLoaderSystem>().Load(Content);
+            
+            sm.GetSystem<AnimationLoaderSystem>().Load(Content);
+            sm.GetSystem<TextureLoaderSystem>().Load(Content);
 
             base.LoadContent();
         }
 
-        Vector2 pos = new Vector2(100, 100);
-
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice gd = graphics.GraphicsDevice;
-            SpriteBatch sp = new SpriteBatch(gd);
+            SpriteBatch sb = new SpriteBatch(gd);
             gd.Clear(Color.Blue);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
-            {
-                pos.Y -= 5;
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.S))
-            {
-                pos.Y += 5;
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-                pos.X -= 5;
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.D))
-            {
-                pos.X += 5;
-            }
-
-            /*var hej = ComponentManager.GetInstance().GetComponentsForEntity(1);
-            var hej2 = ComponentManager.GetInstance().GetComponentsOfType<Location>();*/
-
-            sp.Begin();
-
-            //if (hej.ContainsKey(typeof(Texture)))
-            //{
-            //Texture b = (Texture)hej[typeof(Texture)];
-            Texture b = ComponentManager.GetInstance().GetComponentForEntity<Texture>(1);
-            //sp.Draw(b.texture, position: pos);
-            sp.Draw(b.texture, pos, Color.Black);
-            //}
-
-            /*if (pos.X < 0)
-                pos.X = 0;
-
-            if (pos.Y < 0)
-                pos.Y = 0;*/
-
-            var a = ComponentManager.GetInstance().GetComponentForEntity<AnimationComponent>(2);
-
-            sp.Draw(a.spriteSheet, position: new Vector2(50, 50), sourceRectangle: a.sourceRectangle);
-
-            sp.End();
+            sm.GetSystem<RenderSystem>().Render(gd, sb);
 
             //base.Draw(gameTime);
         }
@@ -105,37 +64,11 @@ namespace GameEngine
         {
             SystemManager.GetInstance().Update<AnimationSystem>(gameTime);
 
-            var a = ComponentManager.GetInstance().GetComponentForEntity<AnimationComponent>(2);
+            var a = cm.GetComponentForEntity<AnimationComponent>(2);
             if (Keyboard.GetState().IsKeyDown(Keys.P))
                 a.isPaused = !a.isPaused;
 
             base.Update(gameTime);
         }
-    }
-
-    /*sealed class Entity
-    {
-        public int Id;
-    }*/
-
-    public class Location : IComponent
-    {
-        public Vector2 position;
-        public float X
-        {
-            get { return position.X; }
-            set { position.X = value; }
-        }
-
-        public float Y
-        {
-            get { return position.Y; }
-            set { position.Y = value; }
-        }
-    }
-
-    public class Texture : IComponent
-    {
-        public Texture2D texture;
     }
 }
