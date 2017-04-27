@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 
 namespace GameEngine
 {
@@ -23,6 +24,8 @@ namespace GameEngine
                 new AnimationLoaderSystem(),
                 new TextureLoaderSystem(),
                 new RenderSystem(),
+                new MoveSystem(),
+                new AISystem()
             });
 
             base.Initialize();
@@ -35,10 +38,14 @@ namespace GameEngine
                 new PositionComponent(150, 10),
             });
 
+            Debug.WriteLine("APA");
+
             cm.AddComponentsToEntity(2, new IComponent[]
             {
                 new AnimationComponent("PlayerAnimation/NakedFWalk", new Point(4, 1), 150),
-                new PositionComponent(50, 50),
+                new PositionComponent(10, 10),
+                new MoveComponent(),
+                new AIComponent(160, 160),
             });
 
             cm.AddComponentsToEntity(3, new IComponent[]
@@ -49,6 +56,7 @@ namespace GameEngine
 
             sm.GetSystem<AnimationLoaderSystem>().Load(Content);
             sm.GetSystem<TextureLoaderSystem>().Load(Content);
+         
 
             base.LoadContent();
         }
@@ -69,6 +77,8 @@ namespace GameEngine
         protected override void Update(GameTime gameTime)
         {
             SystemManager.GetInstance().Update<AnimationSystem>(gameTime);
+            SystemManager.GetInstance().Update<AISystem>(gameTime);
+            SystemManager.GetInstance().Update<MoveSystem>(gameTime);
 
             var a = cm.GetComponentForEntity<AnimationComponent>(2);
             if (Keyboard.GetState().IsKeyDown(Keys.P) && previousKeyboardState.IsKeyUp(Keys.P))
