@@ -57,6 +57,18 @@ namespace GameEngine
             return null;
         }
 
+        public bool HasEntityComponent<T>(int entity)
+        {
+            Dictionary<Type, IComponent> components;
+
+            if (entityComponents.TryGetValue(entity, out components))
+            {
+                return components.ContainsKey(typeof(T));
+            }
+
+            return false;
+        }
+
         public T GetComponentForEntity<T>(int entity) where T : IComponent
         {
             if (entityComponents.ContainsKey(entity))
