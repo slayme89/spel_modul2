@@ -54,5 +54,11 @@ namespace GameEngine
             systems.TryGetValue(typeof(T), out system);
             system?.Update(gameTime);
         }
+
+        public void UpdateAllSystems(GameTime gameTime)
+        {
+            foreach (ISystem system in systems.Values)
+                system.Update(gameTime);
+        }
     }
 }
