@@ -68,6 +68,7 @@
     <Compile Include="Engine.cs" />
     <Compile Include="Components\IComponent.cs" />
     <Compile Include="Systems\AISystem.cs" />
+    <Compile Include="Systems\CollisionSystem.cs" />
     <Compile Include="Systems\InputSystem.cs" />
     <Compile Include="Systems\ISystem.cs" />
     <Compile Include="Main.cs" />

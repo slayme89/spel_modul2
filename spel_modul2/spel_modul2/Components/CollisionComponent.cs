@@ -2,15 +2,15 @@
 
 namespace GameEngine
 {
-    class CollisionComponent
+    class CollisionComponent : IComponent
     {
-        public Rectangle collisionBox;
+        public Rectangle collisionBox { get; set; }
 
-        public CollisionComponent(int height, int width, Point position)
-        {
-            collisionBox.Height = height;
-            collisionBox.Width = width;
-            collisionBox.Location = position;
-        }
+        //public CollisionComponent(int height, int width, Point position)
+        //{
+        //    collisionBox.Height = height;
+        //    collisionBox.Width = width;
+        //    collisionBox.Location = position;
+        //}
     }
 }
