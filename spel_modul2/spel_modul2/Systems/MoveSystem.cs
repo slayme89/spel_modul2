@@ -20,17 +20,12 @@ namespace GameEngine
                 PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(entity.Key);
                 if (positionComponent == null)
                     throw new Exception("You must have a position component to be able to move an entity. Entity ID:" + entity.Key);
-                Debug.WriteLine(velocity);
                 float x = velocity.X;
                 float y = velocity.Y;
                 // Check for direction
                 moveComponent.Direction = CalcDirection(x, y);
-
-                Debug.WriteLine(moveComponent.Direction);
                 x *= (float)gameTime.ElapsedGameTime.TotalMilliseconds * moveComponent.Speed;
                 y *= (float)gameTime.ElapsedGameTime.TotalMilliseconds * moveComponent.Speed;
-                Debug.WriteLine(x);
-                Debug.WriteLine(y);
                 
                 for (float i = 1; i > 0.1; i *= 0.8f)
                 {
