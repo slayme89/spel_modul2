@@ -34,7 +34,9 @@ namespace GameEngine
                 new AnimationSystem(),
                 new AnimationLoaderSystem(),
                 new TextureLoaderSystem(),
+                new CollisionSystem(),
                 new RenderSystem(),
+                new RenderCollisionBoxSystem(gd),
                 new MoveSystem(),
                 new PlayerMovementSystem(),
                 new AISystem(),
@@ -50,7 +52,7 @@ namespace GameEngine
                 new TextureComponent("hej"),
                 new PositionComponent(150, 10),
                 new MoveComponent(1.0f),
-                new PlayerControlComponent("Keyboard"),
+                new PlayerControlComponent("Gamepad1"),
                 new CollisionComponent(50, 50),
                 new AttackComponent(1, 1, WeaponType.Sword),
             });
@@ -85,7 +87,7 @@ namespace GameEngine
             gd.Clear(Color.Blue);
 
             sm.GetSystem<RenderSystem>().Render(gd, sb);
-
+            sm.GetSystem<RenderCollisionBoxSystem>().Render(gd, sb);
             var fps = 1 / gameTime.ElapsedGameTime.TotalSeconds;
             Window.Title = fps.ToString();
 

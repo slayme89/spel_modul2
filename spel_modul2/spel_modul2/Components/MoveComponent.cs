@@ -2,7 +2,6 @@
 
 namespace GameEngine
 {
-   
     class MoveComponent : IComponent
     {
         public Vector2 Velocity { get; set; }
@@ -12,12 +11,14 @@ namespace GameEngine
         {
             Velocity = new Vector2();
             Speed = 1.0f;
+            Direction = new Point(0, 1);
         }
 
         public MoveComponent(float speed)
         {
             Velocity = new Vector2();
             Speed = speed;
+            Direction = new Point(0, 1);
         }
     }
 }
