@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +52,11 @@ namespace GameEngine
         public bool IsButtonUp()
         {
             return !isDown;
+        }
+
+        public void SetButton(bool isDown)
+        {
+            this.isDown = isDown;
         }
 
     }
