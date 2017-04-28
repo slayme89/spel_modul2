@@ -23,7 +23,7 @@ namespace GameEngine
                     PositionComponent posComp = ComponentManager.GetInstance().GetComponentForEntity<PositionComponent>(pair.Key);
                     if (posComp != null)
                     {
-                        var playerEntity = ComponentManager.GetInstance().GetComponentsOfType<PlayerMovementSystem>();
+                        var playerEntity = ComponentManager.GetInstance().GetComponentsOfType<PlayerControlComponent>();
 
                         foreach (var player in playerEntity)
                         {
