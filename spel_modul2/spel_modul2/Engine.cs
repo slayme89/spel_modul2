@@ -42,7 +42,8 @@ namespace GameEngine
                 new InputSystem(),
                 new AttackSystem(),
                 new PlayerAttackSystem(),
-                new RenderAttackingCollisionBoxSystem(gd)
+                new RenderAttackingCollisionBoxSystem(gd),
+                new WorldSystem()
             });
 
             base.Initialize();
