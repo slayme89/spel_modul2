@@ -23,6 +23,10 @@ namespace GameEngine
                 Debug.WriteLine(velocity);
                 float x = velocity.X;
                 float y = velocity.Y;
+                // Check for direction
+                moveComponent.Direction = CalcDirection(x, y);
+
+                Debug.WriteLine(moveComponent.Direction);
                 x *= (float)gameTime.ElapsedGameTime.TotalMilliseconds * moveComponent.Speed;
                 y *= (float)gameTime.ElapsedGameTime.TotalMilliseconds * moveComponent.Speed;
                 Debug.WriteLine(x);
@@ -40,6 +44,44 @@ namespace GameEngine
                     }
                 }
                 
+            }
+        }
+
+        private Point CalcDirection(float x, float y)
+        {
+            if (x > 0)
+            {
+                if (y > 0)
+                {
+                    if (x > y)
+                        return new Point(1, 0);
+                    else
+                        return new Point(0, -1);
+                }
+                else
+                {
+                    if (x > -y)
+                        return new Point(1, 0);
+                    else
+                        return new Point(0, 1);
+                }
+            }
+            else
+            {
+                if (y > 0)
+                {
+                    if (-x > y)
+                        return new Point(-1, 0);
+                    else
+                        return new Point(0, -1);
+                }
+                else
+                {
+                    if (-x > -y)
+                        return new Point(-1, 0);
+                    else
+                        return new Point(0, 1);
+                }
             }
         }
     }

@@ -10,7 +10,7 @@ namespace GameEngine
 
         }
 
-        public static List<int> DetectAreaCollision(Rectangle area)
+        public List<int> DetectAreaCollision(Rectangle area)
         {
             var cm = ComponentManager.GetInstance();
             List<int> foundEntities = new List<int>();
@@ -29,7 +29,7 @@ namespace GameEngine
 
 
         //Detect if carachters collide
-        public static bool DetectMovementCollision(int entity, Point position)
+        public bool DetectMovementCollision(int entity, Point position)
         {
             var cm = ComponentManager.GetInstance();
             CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(entity);
