@@ -17,18 +17,29 @@ namespace GameEngine
             {
                 MoveComponent moveComponent = (MoveComponent)entity.Value;
                 Vector2 velocity = moveComponent.Velocity;
-                PositionComponent position = cm.GetComponentForEntity<PositionComponent>(entity.Key);
-                if (position == null)
+                PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(entity.Key);
+                if (positionComponent == null)
                     throw new Exception("You must have a position component to be able to move an entity. Entity ID:" + entity.Key);
+                Debug.WriteLine(velocity);
                 float x = velocity.X;
                 float y = velocity.Y;
                 x *= (float)gameTime.ElapsedGameTime.TotalMilliseconds * moveComponent.Speed;
                 y *= (float)gameTime.ElapsedGameTime.TotalMilliseconds * moveComponent.Speed;
-                Point futurePosition = position.position + new Point((int)x, (int)y);
-                if (!CollisionSystem.DetectMovementCollision(entity.Key, futurePosition))
+                Debug.WriteLine(x);
+                Debug.WriteLine(y);
+                
+                for (float i = 1; i > 0.1; i *= 0.8f)
                 {
-                    position.position = futurePosition;
+                    x *= i;
+                    y *= i;
+                    Point futurePosition = positionComponent.position + new Point((int)x, (int)y);
+                    if (!SystemManager.GetInstance().GetSystem<CollisionSystem>().DetectMovementCollision(entity.Key, futurePosition))
+                    {
+                        positionComponent.position = futurePosition;
+                        break;
+                    }
                 }
+                
             }
         }
     }

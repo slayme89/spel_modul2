@@ -10,7 +10,7 @@ namespace GameEngine
           
         }
 
-        public static bool DetectMovementCollision(int entity, Point position)
+        public bool DetectMovementCollision(int entity, Point position)
         {
             var cm = ComponentManager.GetInstance();
             CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(entity);
