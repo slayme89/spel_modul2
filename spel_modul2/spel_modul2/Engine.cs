@@ -18,7 +18,6 @@ namespace GameEngine
         public Engine()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.SynchronizeWithVerticalRetrace = false;
             Content.RootDirectory = "Content";
 
             IsFixedTimeStep = false;
