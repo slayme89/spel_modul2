@@ -14,9 +14,13 @@ namespace GameEngine
         //float elapsed;
         //float delay = 200f;
         //int frames = 0;
+        GraphicsDevice gd;
+        SpriteBatch sb;
+
         public Engine()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.SynchronizeWithVerticalRetrace = false;
             Content.RootDirectory = "Content";
 
             IsFixedTimeStep = false;
@@ -26,6 +30,9 @@ namespace GameEngine
 
         protected override void Initialize()
         {
+            gd = graphics.GraphicsDevice;
+            sb = new SpriteBatch(gd);
+
             sm.AddSystems(new ISystem[] {
                 new AnimationSystem(),
                 new AnimationLoaderSystem(),
@@ -77,8 +84,6 @@ namespace GameEngine
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice gd = graphics.GraphicsDevice;
-            SpriteBatch sb = new SpriteBatch(gd);
             gd.Clear(Color.Blue);
 
             sm.GetSystem<RenderSystem>().Render(gd, sb);
