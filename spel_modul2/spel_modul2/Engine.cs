@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Diagnostics;
 
 namespace GameEngine
@@ -10,15 +11,28 @@ namespace GameEngine
         private GraphicsDeviceManager graphics;
         ComponentManager cm = ComponentManager.GetInstance();
         SystemManager sm = SystemManager.GetInstance();
+        //float elapsed;
+        //float delay = 200f;
+        //int frames = 0;
+        GraphicsDevice gd;
+        SpriteBatch sb;
 
         public Engine()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.SynchronizeWithVerticalRetrace = false;
             Content.RootDirectory = "Content";
+
+            IsFixedTimeStep = false;
+            //graphics.SynchronizeWithVerticalRetrace = false;
+            //TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 100);
         }
 
         protected override void Initialize()
         {
+            gd = graphics.GraphicsDevice;
+            sb = new SpriteBatch(gd);
+
             sm.AddSystems(new ISystem[] {
                 new AnimationSystem(),
                 new AnimationLoaderSystem(),
@@ -70,11 +84,12 @@ namespace GameEngine
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice gd = graphics.GraphicsDevice;
-            SpriteBatch sb = new SpriteBatch(gd);
             gd.Clear(Color.Blue);
 
             sm.GetSystem<RenderSystem>().Render(gd, sb);
+
+            var fps = 1 / gameTime.ElapsedGameTime.TotalSeconds;
+            Window.Title = fps.ToString();
 
             //base.Draw(gameTime);
         }
@@ -83,6 +98,18 @@ namespace GameEngine
 
         protected override void Update(GameTime gameTime)
         {
+
+            //elapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            //if (elapsed >= delay)
+            //{
+            //    if (frames >= 3)
+            //        frames = 0;
+            //    else
+            //        frames++;
+            //    elapsed = 0;
+            //}
+
             SystemManager.GetInstance().Update<AnimationSystem>(gameTime);
             SystemManager.GetInstance().Update<AISystem>(gameTime);
             SystemManager.GetInstance().Update<InputSystem>(gameTime);
