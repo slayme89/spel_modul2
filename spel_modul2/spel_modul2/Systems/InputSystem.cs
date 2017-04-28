@@ -10,6 +10,19 @@ namespace GameEngine
 {
     class InputSystem : ISystem
     {
+        private KeyboardState previousKeyboardState;
+        private GamePadState previousGamepadState1;
+        private GamePadState previousGamepadState2;
+
+        public InputSystem()
+        {
+            previousKeyboardState = Keyboard.GetState();
+            if (GamePad.GetState(PlayerIndex.One).IsConnected)
+                previousGamepadState1 = GamePad.GetState(PlayerIndex.One);
+            if (GamePad.GetState(PlayerIndex.Two).IsConnected)
+                previousGamepadState2 = GamePad.GetState(PlayerIndex.Two);
+        }
+
         public void Update(GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
@@ -34,80 +47,155 @@ namespace GameEngine
                         }
                         KeyboardState keyboard = Keyboard.GetState();
                         // Attack
-                        if(mouse.LeftButton == ButtonState.Pressed)
+                        if(mouse.RightButton == ButtonState.Pressed)
                             playerControl.Attack.SetButton(true);
-                        if (mouse.LeftButton == ButtonState.Released)
+                        else
                             playerControl.Attack.SetButton(false);
                         // Interact
-                        playerControl.Interact.SetButton(keyboard.IsKeyDown(Keys.E));
+                        if(keyboard.IsKeyDown(Keys.E) && previousKeyboardState.IsKeyUp(Keys.E))
+                            playerControl.Interact.SetButton(true);
+                        else
+                            playerControl.Interact.SetButton(false);
                         // Menu
-                        playerControl.Menu.SetButton(keyboard.IsKeyDown(Keys.Escape));
+                        if (keyboard.IsKeyDown(Keys.Escape) && previousKeyboardState.IsKeyUp(Keys.Escape))
+                            playerControl.Menu.SetButton(true);
+                        else
+                            playerControl.Menu.SetButton(false);
                         // Inventory
-                        playerControl.Inventory.SetButton(keyboard.IsKeyDown(Keys.C));
+                        if (keyboard.IsKeyDown(Keys.C) && previousKeyboardState.IsKeyUp(Keys.C))
+                            playerControl.Inventory.SetButton(true);
+                        else
+                            playerControl.Inventory.SetButton(false);
                         // Actionbar 1
-                        playerControl.ActionBar1.SetButton(keyboard.IsKeyDown(Keys.D1));
+                        if (keyboard.IsKeyDown(Keys.D1) && previousKeyboardState.IsKeyUp(Keys.D1))
+                            playerControl.ActionBar1.SetButton(true);
+                        else
+                            playerControl.ActionBar1.SetButton(false);
                         // Actionbar 2
-                        playerControl.ActionBar2.SetButton(keyboard.IsKeyDown(Keys.D2));
+                        if (keyboard.IsKeyDown(Keys.D2) && previousKeyboardState.IsKeyUp(Keys.D2))
+                            playerControl.ActionBar2.SetButton(true);
+                        else
+                            playerControl.ActionBar2.SetButton(false);
                         // Actionbar 3
-                        playerControl.ActionBar3.SetButton(keyboard.IsKeyDown(Keys.D3));
+                        if (keyboard.IsKeyDown(Keys.D3) && previousKeyboardState.IsKeyUp(Keys.D3))
+                            playerControl.ActionBar3.SetButton(true);
+                        else
+                            playerControl.ActionBar3.SetButton(false);
                         // Actionbar 4
-                        playerControl.ActionBar4.SetButton(keyboard.IsKeyDown(Keys.D4));
+                        if (keyboard.IsKeyDown(Keys.D4) && previousKeyboardState.IsKeyUp(Keys.D4))
+                            playerControl.ActionBar4.SetButton(true);
+                        else
+                            playerControl.ActionBar4.SetButton(false);
+                        // Set previous keyboard state
+                        previousKeyboardState = Keyboard.GetState();
                         break;
                     case "Gamepad1":
                         // Movement
                         gamepad = GamePad.GetState(PlayerIndex.One);
                         playerControl.Movement.SetDirection(gamepad.ThumbSticks.Left);
                         // Menu
-                        playerControl.Menu.SetButton(gamepad.IsButtonDown(Buttons.Start));
+                        if (gamepad.IsButtonDown(Buttons.Start) && previousGamepadState1.IsButtonUp(Buttons.Start))
+                            playerControl.Menu.SetButton(true);
+                        else
+                            playerControl.Menu.SetButton(false);
 
                         if(gamepad.IsButtonDown(Buttons.RightTrigger))
                         {
                             // Actionbar 1
-                            playerControl.ActionBar1.SetButton(gamepad.IsButtonDown(Buttons.A));
+                            if (gamepad.IsButtonDown(Buttons.A) && previousGamepadState1.IsButtonUp(Buttons.A))
+                                playerControl.ActionBar1.SetButton(true);
+                            else
+                                playerControl.ActionBar1.SetButton(false);
                             // Actionbar 2
-                            playerControl.ActionBar2.SetButton(gamepad.IsButtonDown(Buttons.B));
+                            if (gamepad.IsButtonDown(Buttons.B) && previousGamepadState1.IsButtonUp(Buttons.B))
+                                playerControl.ActionBar2.SetButton(true);
+                            else
+                                playerControl.ActionBar2.SetButton(false);
                             // Actionbar 3
-                            playerControl.ActionBar3.SetButton(gamepad.IsButtonDown(Buttons.X));
+                            if (gamepad.IsButtonDown(Buttons.X) && previousGamepadState1.IsButtonUp(Buttons.X))
+                                playerControl.ActionBar3.SetButton(true);
+                            else
+                                playerControl.ActionBar3.SetButton(false);
                             // Actionbar 4
-                            playerControl.ActionBar4.SetButton(gamepad.IsButtonDown(Buttons.Y));
+                            if (gamepad.IsButtonDown(Buttons.Y) && previousGamepadState1.IsButtonUp(Buttons.Y))
+                                playerControl.ActionBar4.SetButton(true);
+                            else
+                                playerControl.ActionBar4.SetButton(false);
                         }
                         else
                         {
                             // Attack
-                            playerControl.Attack.SetButton(gamepad.IsButtonDown(Buttons.X));
+                            if (gamepad.IsButtonDown(Buttons.X) && previousGamepadState1.IsButtonUp(Buttons.X))
+                                playerControl.Attack.SetButton(true);
+                            else
+                                playerControl.Attack.SetButton(false);
                             // Interact
-                            playerControl.Interact.SetButton(gamepad.IsButtonDown(Buttons.A));
+                            if (gamepad.IsButtonDown(Buttons.A) && previousGamepadState1.IsButtonUp(Buttons.A))
+                                playerControl.Interact.SetButton(true);
+                            else
+                                playerControl.Interact.SetButton(false);
                             // Inventory
-                            playerControl.Inventory.SetButton(gamepad.IsButtonDown(Buttons.Y));
+                            if (gamepad.IsButtonDown(Buttons.Y) && previousGamepadState1.IsButtonUp(Buttons.Y))
+                                playerControl.Inventory.SetButton(true);
+                            else
+                                playerControl.Inventory.SetButton(false);
                         }
+                        // Set previous gamepad state
+                        previousGamepadState1 = GamePad.GetState(PlayerIndex.One);
                         break;
                     case "Gamepad2":
                         // Movement
                         gamepad = GamePad.GetState(PlayerIndex.Two);
                         playerControl.Movement.SetDirection(gamepad.ThumbSticks.Left);
                         // Menu
-                        playerControl.Menu.SetButton(gamepad.IsButtonDown(Buttons.Start));
+                        if (gamepad.IsButtonDown(Buttons.Start) && previousGamepadState2.IsButtonUp(Buttons.Start))
+                            playerControl.Menu.SetButton(true);
+                        else
+                            playerControl.Menu.SetButton(false);
 
                         if (gamepad.IsButtonDown(Buttons.RightTrigger))
                         {
                             // Actionbar 1
-                            playerControl.ActionBar1.SetButton(gamepad.IsButtonDown(Buttons.A));
+                            if (gamepad.IsButtonDown(Buttons.A) && previousGamepadState2.IsButtonUp(Buttons.A))
+                                playerControl.ActionBar1.SetButton(true);
+                            else
+                                playerControl.ActionBar1.SetButton(false);
                             // Actionbar 2
-                            playerControl.ActionBar2.SetButton(gamepad.IsButtonDown(Buttons.B));
+                            if (gamepad.IsButtonDown(Buttons.B) && previousGamepadState2.IsButtonUp(Buttons.B))
+                                playerControl.ActionBar2.SetButton(true);
+                            else
+                                playerControl.ActionBar2.SetButton(false);
                             // Actionbar 3
-                            playerControl.ActionBar3.SetButton(gamepad.IsButtonDown(Buttons.X));
+                            if (gamepad.IsButtonDown(Buttons.X) && previousGamepadState2.IsButtonUp(Buttons.X))
+                                playerControl.ActionBar3.SetButton(true);
+                            else
+                                playerControl.ActionBar3.SetButton(false);
                             // Actionbar 4
-                            playerControl.ActionBar4.SetButton(gamepad.IsButtonDown(Buttons.Y));
+                            if (gamepad.IsButtonDown(Buttons.Y) && previousGamepadState2.IsButtonUp(Buttons.Y))
+                                playerControl.ActionBar4.SetButton(true);
+                            else
+                                playerControl.ActionBar4.SetButton(false);
                         }
                         else
                         {
                             // Attack
-                            playerControl.Attack.SetButton(gamepad.IsButtonDown(Buttons.X));
+                            if (gamepad.IsButtonDown(Buttons.X) && previousGamepadState2.IsButtonUp(Buttons.X))
+                                playerControl.Attack.SetButton(true);
+                            else
+                                playerControl.Attack.SetButton(false);
                             // Interact
-                            playerControl.Interact.SetButton(gamepad.IsButtonDown(Buttons.A));
+                            if (gamepad.IsButtonDown(Buttons.A) && previousGamepadState2.IsButtonUp(Buttons.A))
+                                playerControl.Interact.SetButton(true);
+                            else
+                                playerControl.Interact.SetButton(false);
                             // Inventory
-                            playerControl.Inventory.SetButton(gamepad.IsButtonDown(Buttons.Y));
+                            if (gamepad.IsButtonDown(Buttons.Y) && previousGamepadState2.IsButtonUp(Buttons.Y))
+                                playerControl.Inventory.SetButton(true);
+                            else
+                                playerControl.Inventory.SetButton(false);
                         }
+                        // Set previous gamepad state
+                        previousGamepadState2 = GamePad.GetState(PlayerIndex.Two);
                         break;
                     default:
                         break;

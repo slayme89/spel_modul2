@@ -25,6 +25,7 @@ namespace GameEngine
                 new TextureLoaderSystem(),
                 new RenderSystem(),
                 new MoveSystem(),
+                new PlayerMovementSystem(),
                 new AISystem()
             });
 
@@ -78,6 +79,7 @@ namespace GameEngine
         {
             SystemManager.GetInstance().Update<AnimationSystem>(gameTime);
             SystemManager.GetInstance().Update<AISystem>(gameTime);
+            SystemManager.GetInstance().Update<PlayerMovementSystem>(gameTime);
             SystemManager.GetInstance().Update<MoveSystem>(gameTime);
 
             var a = cm.GetComponentForEntity<AnimationComponent>(2);
