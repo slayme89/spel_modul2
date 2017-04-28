@@ -14,7 +14,6 @@ namespace GameEngine
                 AttackComponent attackComponent = cm.GetComponentForEntity<AttackComponent>(Entity.Key);
                 if (attackComponent.IsAttacking)
                 {
-                    Debug.WriteLine("Attack");
                     attackComponent.IsAttacking = false;
                     EntityAttack(Entity.Key);
                 }
@@ -34,7 +33,6 @@ namespace GameEngine
                 Rectangle hitArea = new Rectangle(positionComponent.position + moveComponent.Direction * new Point(range, range), collisionComponent.collisionBox.Size);
 
                 List<int> entitiesHit = CollisionSystem.DetectAreaCollision(hitArea);
-                Debug.WriteLine("inne");
                 foreach (int entityHit in entitiesHit)
                 {
                     if(entityHit != entity)

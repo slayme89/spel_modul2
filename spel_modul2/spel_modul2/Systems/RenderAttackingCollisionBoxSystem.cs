@@ -22,7 +22,7 @@ namespace GameEngine
             ComponentManager cm = ComponentManager.GetInstance();
             foreach (var Entity in cm.GetComponentsOfType<AttackComponent>())
             {
-                AttackComponent attackComponent = cm.GetComponentForEntity<AttackComponent>(Entity.Key);
+                AttackComponent attackComponent = (AttackComponent)Entity.Value;
                 if (attackComponent.AttackCooldown > 0.0f)
                 {
                     MoveComponent moveComponent = cm.GetComponentForEntity<MoveComponent>(Entity.Key);
@@ -41,7 +41,6 @@ namespace GameEngine
 
         public void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
         }
     }
 }

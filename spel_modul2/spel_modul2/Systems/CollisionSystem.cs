@@ -16,7 +16,7 @@ namespace GameEngine
             List<int> foundEntities = new List<int>();
             foreach (KeyValuePair<int, IComponent> entity in cm.GetComponentsOfType<CollisionComponent>())
             {
-                CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(entity.Key);
+                CollisionComponent collisionComponent = (CollisionComponent)entity.Value;
                 collisionComponent.collisionBox.Location = cm.GetComponentForEntity<PositionComponent>(entity.Key).position;
                 if (area.Intersects(collisionComponent.collisionBox))
                 {
@@ -28,7 +28,7 @@ namespace GameEngine
         }
 
 
-        //Detect if carachters collide
+        //Detect if characters collide
         public bool DetectMovementCollision(int entity, Point position)
         {
             var cm = ComponentManager.GetInstance();
@@ -39,7 +39,7 @@ namespace GameEngine
             {
                 if (entity2.Key != entity)
                 {
-                    CollisionComponent collisionComponent2 = cm.GetComponentForEntity<CollisionComponent>(entity2.Key);
+                    CollisionComponent collisionComponent2 = (CollisionComponent)entity2.Value;
                     collisionComponent2.collisionBox.Location = cm.GetComponentForEntity<PositionComponent>(entity2.Key).position;
                     if (rectToCheck.Intersects(collisionComponent2.collisionBox))
                     {

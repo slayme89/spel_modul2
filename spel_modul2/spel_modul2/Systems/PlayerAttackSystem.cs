@@ -10,15 +10,19 @@ namespace GameEngine
             ComponentManager cm = ComponentManager.GetInstance();
             foreach (var Entity in cm.GetComponentsOfType<PlayerControlComponent>())
             {
-                PlayerControlComponent playerControl = cm.GetComponentForEntity<PlayerControlComponent>(Entity.Key);
+                PlayerControlComponent playerControl = (PlayerControlComponent)Entity.Value;
                 AttackComponent attackComponent = cm.GetComponentForEntity<AttackComponent>(Entity.Key);
+                MoveComponent moveComponent = cm.GetComponentForEntity<MoveComponent>(Entity.Key);
                 if (attackComponent.AttackCooldown <= 0.0f && playerControl.Attack.IsButtonDown())
                 {
+                    moveComponent.canMove = false;
                     attackComponent.AttackCooldown = attackComponent.RateOfFire;
                     attackComponent.IsAttacking = true;
                 }
-                if(attackComponent.AttackCooldown > 0.0f)
+                if (attackComponent.AttackCooldown > 0.0f)
                     attackComponent.AttackCooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                else
+                    moveComponent.canMove = true;
             }
         }
     }
