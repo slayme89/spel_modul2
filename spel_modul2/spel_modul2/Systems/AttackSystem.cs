@@ -7,10 +7,18 @@ namespace GameEngine
     {
         public void Update(GameTime gameTime)
         {
-            
+            ComponentManager cm = ComponentManager.GetInstance();
+            foreach (var Entity in cm.GetComponentsOfType<PlayerControlComponent>())
+            {
+                PlayerControlComponent PlayerControl = cm.GetComponentForEntity<PlayerControlComponent>(Entity.Key);
+                if (PlayerControl.Attack.IsButtonDown())
+                {
+                    EntityAttack(Entity.Key);
+                }
+            }
         }
 
-        public void entityAttack(int entity)
+        public void EntityAttack(int entity)
         {
             ComponentManager cm = ComponentManager.GetInstance();
             AttackComponent attackComponent = cm.GetComponentForEntity<AttackComponent>(entity);

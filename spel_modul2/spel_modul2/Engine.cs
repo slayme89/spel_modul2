@@ -51,7 +51,7 @@ namespace GameEngine
                 new TextureComponent("hej"),
                 new PositionComponent(150, 10),
                 new MoveComponent(1.0f),
-                new PlayerControlComponent("Gamepad1"),
+                new PlayerControlComponent("Keyboard"),
                 new CollisionComponent(50, 50),
                 new AttackComponent(1, 1, WeaponType.Sword),
             });

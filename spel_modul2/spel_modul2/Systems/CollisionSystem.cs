@@ -10,7 +10,7 @@ namespace GameEngine
 
         }
 
-        public List<int> DetectAreaCollision(Rectangle area)
+        public static List<int> DetectAreaCollision(Rectangle area)
         {
             var cm = ComponentManager.GetInstance();
             List<int> foundEntities = new List<int>();
