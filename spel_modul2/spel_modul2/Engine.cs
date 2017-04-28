@@ -39,7 +39,8 @@ namespace GameEngine
                 new TextureComponent("hej"),
                 new PositionComponent(150, 10),
                 new MoveComponent(1.0f),
-                new PlayerControlComponent("Gamepad1"),
+                new PlayerControlComponent("Keyboard"),
+                new CollisionComponent(50, 50, new Point(150, 10))
             });
 
             Debug.WriteLine("APA");
@@ -48,14 +49,16 @@ namespace GameEngine
             {
                 new AnimationComponent("PlayerAnimation/NakedFWalk", new Point(4, 1), 150),
                 new PositionComponent(10, 10),
-                new MoveComponent(),
+                new MoveComponent(0.2f),
                 new AIComponent(160, 160),
+                new CollisionComponent(50, 50, new Point(160, 160))
             });
 
             cm.AddComponentsToEntity(3, new IComponent[]
             {
                 new AnimationComponent("threerings", new Point(6, 8), 40),
                 new PositionComponent(50, 200),
+                new CollisionComponent(50, 50, new Point(50, 200))
             });
 
             sm.GetSystem<AnimationLoaderSystem>().Load(Content);

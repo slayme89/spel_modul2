@@ -159,7 +159,7 @@ namespace GameEngine
                     case "Gamepad2":
                         // Movement
                         gamepad = GamePad.GetState(PlayerIndex.Two);
-                        playerControl.Movement.SetDirection(gamepad.ThumbSticks.Left);
+                        playerControl.Movement.SetDirection(new Vector2(gamepad.ThumbSticks.Left.X, -gamepad.ThumbSticks.Left.Y));
                         // Menu
                         if (gamepad.IsButtonDown(Buttons.Start) && previousGamepadState2.IsButtonUp(Buttons.Start))
                             playerControl.Menu.SetButton(true);

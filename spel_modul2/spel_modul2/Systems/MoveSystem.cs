@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using System.Diagnostics;
 
 namespace GameEngine
 {
@@ -23,7 +24,17 @@ namespace GameEngine
                 float y = velocity.Y;
                 x *= (float)gameTime.ElapsedGameTime.TotalMilliseconds * moveComponent.Speed;
                 y *= (float)gameTime.ElapsedGameTime.TotalMilliseconds * moveComponent.Speed;
-                position.position += new Point((int)x, (int)y);
+                Point futurePosition = position.position + new Point((int)x, (int)y);
+                if (!CollisionSystem.DetectMovementCollision(entity.Key, futurePosition))
+                {
+                    position.position = futurePosition;
+                }
+                else
+                {
+                    Debug.WriteLine("Collision");
+                }
+                    
+                //position.position = futurePosition;
             }
         }
     }
