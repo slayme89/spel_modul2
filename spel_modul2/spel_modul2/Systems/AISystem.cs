@@ -23,6 +23,13 @@ namespace GameEngine
                     PositionComponent posComp = ComponentManager.GetInstance().GetComponentForEntity<PositionComponent>(pair.Key);
                     if (posComp != null)
                     {
+                        var playerEntity = ComponentManager.GetInstance().GetComponentsOfType<PlayerMovementSystem>();
+
+                        foreach (var player in playerEntity)
+                        {
+                            ((AIComponent)pair.Value).Destination = cm.GetComponentForEntity<PositionComponent>(player.Key).position;
+                        }
+
                         Vector2 nextMovement = new Vector2(((AIComponent)pair.Value).Destination.X - posComp.position.X, ((AIComponent)pair.Value).Destination.Y - posComp.position.Y);
                         float distance = (float)Math.Sqrt(nextMovement.X * nextMovement.X + nextMovement.Y * nextMovement.Y);
                         if (distance > 5)
