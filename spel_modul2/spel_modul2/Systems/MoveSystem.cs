@@ -23,7 +23,8 @@ namespace GameEngine
                 float x = velocity.X;
                 float y = velocity.Y;
                 // Check for direction
-                moveComponent.Direction = CalcDirection(x, y);
+                if(x != 0 && y != 0)
+                    moveComponent.Direction = CalcDirection(x, y);
                 x *= (float)gameTime.ElapsedGameTime.TotalMilliseconds * moveComponent.Speed;
                 y *= (float)gameTime.ElapsedGameTime.TotalMilliseconds * moveComponent.Speed;
                 
@@ -58,7 +59,7 @@ namespace GameEngine
                     if (x > -y)
                         return new Point(1, 0);
                     else
-                        return new Point(0, 1);
+                        return new Point(0, -1);
                 }
             }
             else
@@ -68,14 +69,14 @@ namespace GameEngine
                     if (-x > y)
                         return new Point(-1, 0);
                     else
-                        return new Point(0, -1);
+                        return new Point(0, 1);
                 }
                 else
                 {
                     if (-x > -y)
                         return new Point(-1, 0);
                     else
-                        return new Point(0, 1);
+                        return new Point(0, -1);
                 }
             }
         }

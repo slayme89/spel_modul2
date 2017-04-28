@@ -38,8 +38,11 @@ namespace GameEngine
                 new RenderCollisionBoxSystem(gd),
                 new MoveSystem(),
                 new PlayerMovementSystem(),
-                new AISystem(),
-                new InputSystem()
+                new AIMovementSystem(),
+                new InputSystem(),
+                new AttackSystem(),
+                new PlayerAttackSystem(),
+                new RenderAttackingCollisionBoxSystem(gd)
             });
 
             base.Initialize();
@@ -87,6 +90,7 @@ namespace GameEngine
 
             sm.GetSystem<RenderSystem>().Render(gd, sb);
             sm.GetSystem<RenderCollisionBoxSystem>().Render(gd, sb);
+            sm.GetSystem<RenderAttackingCollisionBoxSystem>().Render(gd, sb);
             var fps = 1 / gameTime.ElapsedGameTime.TotalSeconds;
             Window.Title = fps.ToString();
 
@@ -110,10 +114,12 @@ namespace GameEngine
             //}
 
             SystemManager.GetInstance().Update<AnimationSystem>(gameTime);
-            SystemManager.GetInstance().Update<AISystem>(gameTime);
+            SystemManager.GetInstance().Update<AIMovementSystem>(gameTime);
             SystemManager.GetInstance().Update<InputSystem>(gameTime);
             SystemManager.GetInstance().Update<PlayerMovementSystem>(gameTime);
             SystemManager.GetInstance().Update<MoveSystem>(gameTime);
+            SystemManager.GetInstance().Update<PlayerAttackSystem>(gameTime);
+            SystemManager.GetInstance().Update<AttackSystem>(gameTime);
 
             var a = cm.GetComponentForEntity<AnimationComponent>(2);
             if (Keyboard.GetState().IsKeyDown(Keys.P) && previousKeyboardState.IsKeyUp(Keys.P))

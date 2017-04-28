@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace GameEngine
 {
@@ -8,11 +9,13 @@ namespace GameEngine
         public void Update(GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-            foreach (var Entity in cm.GetComponentsOfType<PlayerControlComponent>())
+            foreach (var Entity in cm.GetComponentsOfType<AttackComponent>())
             {
-                PlayerControlComponent PlayerControl = cm.GetComponentForEntity<PlayerControlComponent>(Entity.Key);
-                if (PlayerControl.Attack.IsButtonDown())
+                AttackComponent attackComponent = cm.GetComponentForEntity<AttackComponent>(Entity.Key);
+                if (attackComponent.IsAttacking)
                 {
+                    Debug.WriteLine("Attack");
+                    attackComponent.IsAttacking = false;
                     EntityAttack(Entity.Key);
                 }
             }
@@ -27,16 +30,19 @@ namespace GameEngine
             if(attackComponent.Type == WeaponType.Sword)
             {
                 CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(entity);
-                int range = collisionComponent.collisionBox.Size.X / 2;
+                int range = collisionComponent.collisionBox.Size.X;
                 Rectangle hitArea = new Rectangle(positionComponent.position + moveComponent.Direction * new Point(range, range), collisionComponent.collisionBox.Size);
 
                 List<int> entitiesHit = CollisionSystem.DetectAreaCollision(hitArea);
-
-                foreach(int entityHit in entitiesHit)
+                Debug.WriteLine("inne");
+                foreach (int entityHit in entitiesHit)
                 {
-                    
+                    if(entityHit != entity)
+                    {
+                        //apply damage to entitieshit
+                        Debug.WriteLine(entityHit);
+                    }
                 }
-                //apply damage to entitieshit
             }else if (attackComponent.Type == WeaponType.Bow)
             {
 

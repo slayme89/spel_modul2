@@ -1,18 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace GameEngine
 {
-    class AISystem : ISystem
+    class AIMovementSystem : ISystem
     {
         public void Update(GameTime gameTime)
-        {
-            updateAIMovements();
-        }
-
-        void updateAIMovements()
         {
             var cm = ComponentManager.GetInstance();
 
