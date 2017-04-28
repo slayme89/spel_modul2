@@ -29,12 +29,6 @@ namespace GameEngine
                 {
                     position.position = futurePosition;
                 }
-                else
-                {
-                    Debug.WriteLine("Collision");
-                }
-                    
-                //position.position = futurePosition;
             }
         }
     }

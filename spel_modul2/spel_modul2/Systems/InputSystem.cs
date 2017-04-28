@@ -34,7 +34,6 @@ namespace GameEngine
                 switch (playerControl.ControllerType)
                 {
                     case "Keyboard":
-                        Debug.WriteLine("Keyboard");
                         // Movement
                         MouseState mouse = Mouse.GetState();
                         if(mouse.LeftButton == ButtonState.Pressed)
