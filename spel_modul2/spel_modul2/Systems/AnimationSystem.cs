@@ -45,16 +45,12 @@ namespace GameEngine
         {
             var animations = ComponentManager.GetInstance().GetComponentsOfType<AnimationComponent>();
 
-            if (animations != null)
+            foreach (AnimationComponent animation in animations.Values)
             {
-                foreach (AnimationComponent animation in animations.Values)
-                {
-                    animation.spriteSheet = content.Load<Texture2D>(animation.spritesheetFilename);
-                    animation.frameSize = new Point(animation.spriteSheet.Width / animation.sheetSize.X, animation.spriteSheet.Height / animation.sheetSize.Y);
-                    animation.sourceRectangle = new Rectangle(new Point(), animation.frameSize);
-                }
+                animation.spriteSheet = content.Load<Texture2D>(animation.spritesheetFilename);
+                animation.frameSize = new Point(animation.spriteSheet.Width / animation.sheetSize.X, animation.spriteSheet.Height / animation.sheetSize.Y);
+                animation.sourceRectangle = new Rectangle(new Point(), animation.frameSize);
             }
         }
-
     }
 }

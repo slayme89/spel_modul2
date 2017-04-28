@@ -58,6 +58,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Components\AIComponent.cs" />
+    <Compile Include="Components\CollisionComponent.cs" />
     <Compile Include="Components\MoveComponent.cs" />
     <Compile Include="Components\PlayerControlComponent.cs" />
     <Compile Include="Components\PositionComponent.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Engine.cs" />
     <Compile Include="Components\IComponent.cs" />
     <Compile Include="Systems\AISystem.cs" />
+    <Compile Include="Systems\CollisionSystem.cs" />
     <Compile Include="Systems\InputSystem.cs" />
     <Compile Include="Systems\ISystem.cs" />
     <Compile Include="Main.cs" />
