@@ -26,7 +26,8 @@ namespace GameEngine
                 new RenderSystem(),
                 new MoveSystem(),
                 new PlayerMovementSystem(),
-                new AISystem()
+                new AISystem(),
+                new InputSystem()
             });
 
             base.Initialize();
@@ -37,6 +38,8 @@ namespace GameEngine
             cm.AddComponentsToEntity(1, new IComponent[] {
                 new TextureComponent("hej"),
                 new PositionComponent(150, 10),
+                new MoveComponent(1.0f),
+                new PlayerControlComponent("Gamepad1"),
             });
 
             Debug.WriteLine("APA");
@@ -79,6 +82,7 @@ namespace GameEngine
         {
             SystemManager.GetInstance().Update<AnimationSystem>(gameTime);
             SystemManager.GetInstance().Update<AISystem>(gameTime);
+            SystemManager.GetInstance().Update<InputSystem>(gameTime);
             SystemManager.GetInstance().Update<PlayerMovementSystem>(gameTime);
             SystemManager.GetInstance().Update<MoveSystem>(gameTime);
 

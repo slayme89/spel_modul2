@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 
 namespace GameEngine
 {
@@ -33,6 +34,7 @@ namespace GameEngine
                 switch (playerControl.ControllerType)
                 {
                     case "Keyboard":
+                        Debug.WriteLine("Keyboard");
                         // Movement
                         MouseState mouse = Mouse.GetState();
                         if(mouse.LeftButton == ButtonState.Pressed)
@@ -40,10 +42,21 @@ namespace GameEngine
                             PositionComponent position = cm.GetComponentForEntity<PositionComponent>(entity.Key);
                             if (position == null)
                                 throw new Exception("Couldn't find a position component when handling input. Entity ID: " + entity.Key);
-                            Point direction = new Point(position.position.X - mouse.X, position.position.Y - mouse.Y);
+                            Point direction = new Point(mouse.X - position.position.X, mouse.Y - position.position.Y);
                             float distance = (float)Math.Sqrt(direction.X * direction.X + direction.Y * direction.Y);
-                            Vector2 dir = new Vector2(direction.X / distance, direction.Y / distance);
-                            playerControl.Movement.SetDirection(dir);
+                            if(distance > 10)
+                            {
+                                Vector2 dir = new Vector2(direction.X / distance, direction.Y / distance);
+                                playerControl.Movement.SetDirection(dir);
+                            }
+                            else
+                            {
+                                playerControl.Movement.SetDirection(new Vector2());
+                            }
+                        }
+                        else
+                        {
+                            playerControl.Movement.SetDirection(new Vector2());
                         }
                         KeyboardState keyboard = Keyboard.GetState();
                         // Attack
@@ -92,7 +105,7 @@ namespace GameEngine
                     case "Gamepad1":
                         // Movement
                         gamepad = GamePad.GetState(PlayerIndex.One);
-                        playerControl.Movement.SetDirection(gamepad.ThumbSticks.Left);
+                        playerControl.Movement.SetDirection(new Vector2(gamepad.ThumbSticks.Left.X, -gamepad.ThumbSticks.Left.Y));
                         // Menu
                         if (gamepad.IsButtonDown(Buttons.Start) && previousGamepadState1.IsButtonUp(Buttons.Start))
                             playerControl.Menu.SetButton(true);
