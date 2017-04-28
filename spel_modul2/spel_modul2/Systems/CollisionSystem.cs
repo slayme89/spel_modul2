@@ -10,25 +10,26 @@ namespace GameEngine
           
         }
 
-        void DetectCollisions()
+        public bool DetectMovementCollision(int entity, Point position)
         {
             var cm = ComponentManager.GetInstance();
+            CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(entity);
+            Rectangle rectToCheck = new Rectangle(position, collisionComponent.collisionBox.Size);
 
-            foreach (KeyValuePair<int, IComponent> entity1 in cm.GetComponentsOfType<CollisionComponent>())
+            foreach (KeyValuePair<int, IComponent> entity2 in cm.GetComponentsOfType<CollisionComponent>())
             {
-                CollisionComponent collisionBox1 = ComponentManager.GetInstance().GetComponentForEntity<CollisionComponent>(entity1.Key);
-
-                foreach (KeyValuePair<int, IComponent> entity2 in cm.GetComponentsOfType<CollisionComponent>())
+                if(entity2.Key != entity)
                 {
-                    CollisionComponent collisionBox2 = ComponentManager.GetInstance().GetComponentForEntity<CollisionComponent>(entity2.Key);
+                    CollisionComponent collisionComponent2 = cm.GetComponentForEntity<CollisionComponent>(entity2.Key);
 
-                    if(collisionBox1 != collisionBox2 && collisionBox1.collisionBox.Intersects(collisionBox2.collisionBox))
+                    if (rectToCheck.Intersects(collisionComponent2.collisionBox))
                     {
-                        //krock har skett, kolla vidare om de är en spelare eller ngt annat.
-                        
+                        //Collision detected
+                        return true;
                     }
-                }
+                }  
             }
+            return false;
         }
     }
 }
