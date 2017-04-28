@@ -6,11 +6,11 @@ namespace GameEngine
     {
         public Rectangle collisionBox;
 
-        public CollisionComponent(int height, int width, Point position)
+        public CollisionComponent(int height, int width)
         {
             collisionBox.Height = height;
             collisionBox.Width = width;
-            collisionBox.Location = position;
+      
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Diagnostics;
 
 namespace GameEngine
 {
@@ -54,10 +52,10 @@ namespace GameEngine
                 new PositionComponent(150, 10),
                 new MoveComponent(1.0f),
                 new PlayerControlComponent("Keyboard"),
-                new CollisionComponent(50, 50, new Point(150, 10))
+                new CollisionComponent(50, 50)
             });
 
-            Debug.WriteLine("APA");
+           
 
             cm.AddComponentsToEntity(2, new IComponent[]
             {
@@ -65,14 +63,14 @@ namespace GameEngine
                 new PositionComponent(10, 10),
                 new MoveComponent(0.2f),
                 new AIComponent(160, 160),
-                new CollisionComponent(50, 50, new Point(160, 160))
+                new CollisionComponent(50, 50)
             });
 
             cm.AddComponentsToEntity(3, new IComponent[]
             {
                 new AnimationComponent("threerings", new Point(6, 8), 40),
                 new PositionComponent(50, 200),
-                new CollisionComponent(50, 50, new Point(50, 200))
+                new CollisionComponent(50, 50)
             });
 
             sm.GetSystem<AnimationLoaderSystem>().Load(Content);

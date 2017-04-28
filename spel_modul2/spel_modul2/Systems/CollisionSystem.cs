@@ -21,7 +21,7 @@ namespace GameEngine
                 if(entity2.Key != entity)
                 {
                     CollisionComponent collisionComponent2 = cm.GetComponentForEntity<CollisionComponent>(entity2.Key);
-
+                    collisionComponent2.collisionBox.Location = cm.GetComponentForEntity<PositionComponent>(entity2.Key).position;
                     if (rectToCheck.Intersects(collisionComponent2.collisionBox))
                     {
                         //Collision detected
