@@ -77,8 +77,14 @@ namespace GameEngine
                 new CollisionComponent(50, 50)
             });
 
+            cm.AddComponentsToEntity(4, new IComponent[]
+            {
+                new WorldComponent(),
+            });
+
             sm.GetSystem<AnimationLoaderSystem>().Load(Content);
             sm.GetSystem<TextureLoaderSystem>().Load(Content);
+            sm.GetSystem<WorldSystem>().Load(Content);
          
 
             base.LoadContent();
@@ -120,6 +126,7 @@ namespace GameEngine
             SystemManager.GetInstance().Update<MoveSystem>(gameTime);
             SystemManager.GetInstance().Update<PlayerAttackSystem>(gameTime);
             SystemManager.GetInstance().Update<AttackSystem>(gameTime);
+            SystemManager.GetInstance().Update<WorldSystem>(gameTime);
 
             var a = cm.GetComponentForEntity<AnimationComponent>(2);
             if (Keyboard.GetState().IsKeyDown(Keys.P) && previousKeyboardState.IsKeyUp(Keys.P))
