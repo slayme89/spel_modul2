@@ -18,11 +18,10 @@ namespace GameEngine
         public Engine()
         {
             graphics = new GraphicsDeviceManager(this);
-            //graphics.SynchronizeWithVerticalRetrace = false;
+            graphics.SynchronizeWithVerticalRetrace = false;
             Content.RootDirectory = "Content";
 
             IsFixedTimeStep = false;
-            //graphics.SynchronizeWithVerticalRetrace = false;
             //TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 100);
         }
 
@@ -36,8 +35,6 @@ namespace GameEngine
                 new AnimationLoaderSystem(),
                 new TextureLoaderSystem(),
                 new RenderSystem(),
-                new CollisionSystem(),
-                new RenderCollisionBoxSystem(gd),
                 new MoveSystem(),
                 new PlayerMovementSystem(),
                 new AISystem(),
@@ -53,8 +50,9 @@ namespace GameEngine
                 new TextureComponent("hej"),
                 new PositionComponent(150, 10),
                 new MoveComponent(1.0f),
-                new PlayerControlComponent("Gamepad1"),
-                new CollisionComponent(50, 50)
+                new PlayerControlComponent("Keyboard"),
+                new CollisionComponent(50, 50),
+                new AttackComponent(1, 1, WeaponType.Sword),
             });
 
            
@@ -87,7 +85,6 @@ namespace GameEngine
             gd.Clear(Color.Blue);
 
             sm.GetSystem<RenderSystem>().Render(gd, sb);
-            sm.GetSystem<RenderCollisionBoxSystem>().Render(gd, sb);
 
             var fps = 1 / gameTime.ElapsedGameTime.TotalSeconds;
             Window.Title = fps.ToString();

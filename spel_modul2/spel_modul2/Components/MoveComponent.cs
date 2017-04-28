@@ -1,17 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameEngine
 {
+    public enum Direction
+    {
+        Up,
+        Down,
+        Left,
+        Right
+    }
     class MoveComponent : IComponent
     {
         public Vector2 Velocity { get; set; }
         public float Speed { get; set; }
-
+        public Direction Direction { get; set; }
         public MoveComponent()
         {
             Velocity = new Vector2();

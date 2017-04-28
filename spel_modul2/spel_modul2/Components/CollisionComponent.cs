@@ -10,7 +10,6 @@ namespace GameEngine
         {
             collisionBox.Height = height;
             collisionBox.Width = width;
-      
         }
     }
 }
