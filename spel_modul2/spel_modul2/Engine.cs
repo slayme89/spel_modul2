@@ -22,7 +22,6 @@ namespace GameEngine
             Content.RootDirectory = "Content";
 
             IsFixedTimeStep = false;
-            //graphics.SynchronizeWithVerticalRetrace = false;
             //TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 100);
         }
 
@@ -52,7 +51,8 @@ namespace GameEngine
                 new PositionComponent(150, 10),
                 new MoveComponent(1.0f),
                 new PlayerControlComponent("Keyboard"),
-                new CollisionComponent(50, 50)
+                new CollisionComponent(50, 50),
+                new AttackComponent(1, 1, WeaponType.Sword),
             });
 
            
