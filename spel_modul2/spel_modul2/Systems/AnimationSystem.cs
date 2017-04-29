@@ -49,6 +49,7 @@ namespace GameEngine
             {
                 animation.spriteSheet = content.Load<Texture2D>(animation.spritesheetFilename);
                 animation.frameSize = new Point(animation.spriteSheet.Width / animation.sheetSize.X, animation.spriteSheet.Height / animation.sheetSize.Y);
+                animation.offset = new Point(animation.frameSize.X / 2, animation.frameSize.Y / 2);
                 animation.sourceRectangle = new Rectangle(new Point(), animation.frameSize);
             }
         }

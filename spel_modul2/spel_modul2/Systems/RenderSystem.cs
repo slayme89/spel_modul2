@@ -25,7 +25,7 @@ namespace GameEngine
                 
                 if(position != null)
                 {
-                    spriteBatch.Draw(texture: texture.texture, position: position.position.ToVector2());
+                    spriteBatch.Draw(texture.texture, (position.position - texture.offset).ToVector2(), Color.White);
                 }
             }
 
@@ -36,7 +36,7 @@ namespace GameEngine
 
                 if (position != null)
                 {
-                    spriteBatch.Draw(texture: animation.spriteSheet, position: position.position.ToVector2(), sourceRectangle: animation.sourceRectangle);
+                    spriteBatch.Draw(animation.spriteSheet, (position.position - animation.offset).ToVector2(), animation.sourceRectangle, Color.White);
                 }
             }
 

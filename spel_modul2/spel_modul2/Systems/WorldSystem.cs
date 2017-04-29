@@ -18,6 +18,7 @@ namespace GameEngine
             if (players.Count == 1)
             {
                 var player1 = cm.GetComponentForEntity<PositionComponent>(players[0]);
+                world.center = player1.position;
             }
             else if (players.Count == 2)
             {

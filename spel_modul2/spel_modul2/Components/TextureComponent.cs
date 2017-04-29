@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine
 {
@@ -6,6 +7,7 @@ namespace GameEngine
     {
         public string textureFilename;
         public Texture2D texture;
+        public Point offset;
 
         public TextureComponent(string textureFilename)
         {
