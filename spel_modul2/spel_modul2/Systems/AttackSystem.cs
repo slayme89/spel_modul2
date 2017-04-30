@@ -37,8 +37,13 @@ namespace GameEngine
                 {
                     if(entityHit != entity)
                     {
-                        //apply damage to entitieshit
-                        Debug.WriteLine(entityHit);
+                        
+                        //Debug.WriteLine(entityHit);
+                        var entityHitHealth = cm.GetComponentForEntity<HealthComponent>(entityHit);
+                        if (entityHitHealth != null && entityHitHealth.Current > 0)
+                        {
+                            //apply damage to entitieshit
+                        }
                     }
                 }
             }else if (attackComponent.Type == WeaponType.Bow)

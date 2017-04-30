@@ -60,6 +60,7 @@
     <Compile Include="Components\AIComponent.cs" />
     <Compile Include="Components\AttackComponent.cs" />
     <Compile Include="Components\CollisionComponent.cs" />
+    <Compile Include="Components\HealthComponent.cs" />
     <Compile Include="Components\MoveComponent.cs" />
     <Compile Include="Components\PlayerControlComponent.cs" />
     <Compile Include="Components\PositionComponent.cs" />
