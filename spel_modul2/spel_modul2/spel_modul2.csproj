@@ -63,6 +63,7 @@
     <Compile Include="Components\HealthComponent.cs" />
     <Compile Include="Components\MoveComponent.cs" />
     <Compile Include="Components\MusicComponent.cs" />
+    <Compile Include="Components\PlayerComponent.cs" />
     <Compile Include="Components\PlayerControlComponent.cs" />
     <Compile Include="Components\PositionComponent.cs" />
     <Compile Include="Components\TextureComponent.cs" />

@@ -37,6 +37,7 @@ namespace GameEngine
                 if (player)
                 {
                     int playNum = cm.GetComponentForEntity<PlayerComponent>(entity).Number;
+
                     //check if its player 1 entity
                     if (playNum == 1)
                     {

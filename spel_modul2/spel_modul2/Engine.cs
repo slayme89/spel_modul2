@@ -62,6 +62,7 @@ namespace GameEngine
                 new PlayerControlComponent("Keyboard"),
                 new CollisionComponent(50, 50),
                 new AttackComponent(100, 0.3f, WeaponType.Sword),
+                new PlayerComponent(1),
             });
 
             cm.AddComponentsToEntity(2, new IComponent[]
