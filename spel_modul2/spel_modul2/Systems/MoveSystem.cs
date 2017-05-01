@@ -52,7 +52,7 @@ namespace GameEngine
                     if (x > y)
                         return new Point(1, 0);
                     else
-                        return new Point(0, -1);
+                        return new Point(0, 1);
                 }
                 else
                 {

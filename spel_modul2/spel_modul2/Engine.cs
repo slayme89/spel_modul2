@@ -43,7 +43,8 @@ namespace GameEngine
                 new AttackSystem(),
                 new PlayerAttackSystem(),
                 new RenderAttackingCollisionBoxSystem(gd),
-                new WorldSystem()
+                new WorldSystem(),
+                new AIAttackSystem()
             });
 
             base.Initialize();
@@ -68,7 +69,8 @@ namespace GameEngine
                 new PositionComponent(10, 10),
                 new MoveComponent(0.2f),
                 new AIComponent(160, 160),
-                new CollisionComponent(50, 50)
+                new CollisionComponent(50, 50),
+                new AttackComponent(1, 2, WeaponType.Sword)
             });
 
             cm.AddComponentsToEntity(3, new IComponent[]
@@ -86,7 +88,6 @@ namespace GameEngine
             sm.GetSystem<AnimationLoaderSystem>().Load(Content);
             sm.GetSystem<TextureLoaderSystem>().Load(Content);
             sm.GetSystem<WorldSystem>().Load(Content);
-         
 
             base.LoadContent();
         }
@@ -128,6 +129,7 @@ namespace GameEngine
             SystemManager.GetInstance().Update<PlayerAttackSystem>(gameTime);
             SystemManager.GetInstance().Update<AttackSystem>(gameTime);
             SystemManager.GetInstance().Update<WorldSystem>(gameTime);
+            SystemManager.GetInstance().Update<AIAttackSystem>(gameTime);
 
             var a = cm.GetComponentForEntity<AnimationComponent>(2);
             if (Keyboard.GetState().IsKeyDown(Keys.P) && previousKeyboardState.IsKeyUp(Keys.P))

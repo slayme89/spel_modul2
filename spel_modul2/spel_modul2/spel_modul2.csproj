@@ -70,6 +70,7 @@
     <Compile Include="Components\AnimationComponent.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Components\IComponent.cs" />
+    <Compile Include="Systems\AIAttackSystem.cs" />
     <Compile Include="Systems\AIMovementSystem.cs" />
     <Compile Include="Systems\AttackSystem.cs" />
     <Compile Include="Systems\CollisionSystem.cs" />
