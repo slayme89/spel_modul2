@@ -61,14 +61,12 @@ namespace GameEngine
                 new AttackComponent(1, 1, WeaponType.Sword),
             });
 
-           
-
             cm.AddComponentsToEntity(2, new IComponent[]
             {
                 new AnimationComponent("PlayerAnimation/NakedFWalk", new Point(4, 1), 150),
                 new PositionComponent(10, 10),
                 new MoveComponent(0.2f),
-                new AIComponent(160, 160),
+                new AIComponent(160, 160, false),
                 new CollisionComponent(50, 50),
                 new AttackComponent(1, 2, WeaponType.Sword)
             });
