@@ -8,7 +8,7 @@ namespace GameEngine
         {
         }
 
-        public void Update(GameTime gameTime, int entityHit, int attackingEntity)
+        public void Update(int entityHit, int attackingEntity)
         {
             ApplyDamageToEntity(entityHit, attackingEntity);
         }

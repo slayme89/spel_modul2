@@ -36,12 +36,15 @@ namespace GameEngine
                 {
                     if(entityHit != entity)
                     {
-                        var entityHitHealth = cm.GetComponentForEntity<HealthComponent>(entityHit);
+                        HealthComponent entityHitHealth = cm.GetComponentForEntity<HealthComponent>(entityHit);
                         if (entityHitHealth != null && entityHitHealth.IsAlive == true)
                         {
-                            //apply damage to the entity that was hit via the DamageSystem
+                            //Update health on entity
                             DamageSystem dmgSys = new DamageSystem();
-                            dmgSys.Update(gameTime, entityHit, entity);
+                            dmgSys.Update(entityHit, entity);
+                            //Update Level on entity
+                            LevelSystem lvlSys = new LevelSystem();
+                            lvlSys.Update(entity, entityHit);
                         }
                     }
                 }

@@ -46,7 +46,8 @@ namespace GameEngine
                 new WorldSystem(),
                 new AIAttackSystem(),
                 new DamageSystem(),
-                new RenderHealthSystem()
+                new RenderHealthSystem(),
+                new LevelSystem(),
             });
 
             base.Initialize();
@@ -63,6 +64,7 @@ namespace GameEngine
                 new CollisionComponent(50, 50),
                 new AttackComponent(100, 0.3f, WeaponType.Sword),
                 new PlayerComponent(1),
+                new LevelComponent(2),
             });
 
             cm.AddComponentsToEntity(2, new IComponent[]
@@ -73,7 +75,8 @@ namespace GameEngine
                 new MoveComponent(0.2f),
                 new AIComponent(160, 160, false),
                 new CollisionComponent(50, 50),
-                new AttackComponent(33, 0.5f, WeaponType.Sword)
+                new AttackComponent(33, 0.5f, WeaponType.Sword),
+                new LevelComponent(3),
             });
 
             cm.AddComponentsToEntity(3, new IComponent[]

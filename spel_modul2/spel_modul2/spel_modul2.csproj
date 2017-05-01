@@ -61,6 +61,7 @@
     <Compile Include="Components\AttackComponent.cs" />
     <Compile Include="Components\CollisionComponent.cs" />
     <Compile Include="Components\HealthComponent.cs" />
+    <Compile Include="Components\LevelComponent.cs" />
     <Compile Include="Components\MoveComponent.cs" />
     <Compile Include="Components\MusicComponent.cs" />
     <Compile Include="Components\PlayerComponent.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Managers\SystemManager.cs" />
     <Compile Include="Systems\AnimationSystem.cs" />
+    <Compile Include="Systems\LevelSystem.cs" />
     <Compile Include="Systems\MusicSystem.cs" />
     <Compile Include="Systems\PlayerAttackSystem.cs" />
     <Compile Include="Systems\PlayerMovementSystem.cs" />
