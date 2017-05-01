@@ -21,16 +21,16 @@ namespace GameEngine
                 int lvl = levelComponent.CurrentLevel;
                 switch (lvl)
                 {
-                    case 1: LevelCalculator(entityKilled, -45.0f);      break;
-                    case 2:LevelCalculator(entityKilled, -46.0f);       break;
-                    case 3:LevelCalculator(entityKilled, -61.0f);       break;
-                    case 4:LevelCalculator(entityKilled, -91.0f);       break;
-                    case 5:LevelCalculator(entityKilled, -183.0f);      break;
-                    case 6: LevelCalculator(entityKilled, -183.0f);     break;
-                    case 7:LevelCalculator(entityKilled, -185.0f);      break;
-                    case 8: LevelCalculator(entityKilled, -367.0f);     break;
-                    case 9:LevelCalculator(entityKilled, -400.0f);      break;
-                    case 10: LevelCalculator(entityKilled, -400.0f);    break;
+                    case 1:  LevelCalculator(entityKilled, -45.0f);  break;
+                    case 2:  LevelCalculator(entityKilled, -46.0f);  break;
+                    case 3:  LevelCalculator(entityKilled, -61.0f);  break;
+                    case 4:  LevelCalculator(entityKilled, -91.0f);  break;
+                    case 5:  LevelCalculator(entityKilled, -183.0f); break;
+                    case 6:  LevelCalculator(entityKilled, -183.0f); break;
+                    case 7:  LevelCalculator(entityKilled, -185.0f); break;
+                    case 8:  LevelCalculator(entityKilled, -367.0f); break;
+                    case 9:  LevelCalculator(entityKilled, -400.0f); break;
+                    case 10: LevelCalculator(entityKilled, -400.0f); break;
                 }
             }
         }

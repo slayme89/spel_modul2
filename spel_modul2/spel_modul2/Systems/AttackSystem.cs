@@ -42,9 +42,13 @@ namespace GameEngine
                             //Update health on entity
                             DamageSystem dmgSys = new DamageSystem();
                             dmgSys.Update(entityHit, entity);
+                           
                             //Update Level on entity
-                            LevelSystem lvlSys = new LevelSystem();
-                            lvlSys.Update(entity, entityHit);
+                            if(cm.HasEntityComponent<LevelComponent>(entity) || cm.HasEntityComponent<LevelComponent>(entityHit))
+                            {
+                                LevelSystem lvlSys = new LevelSystem();
+                                lvlSys.Update(entity, entityHit);
+                            }
                         }
                     }
                 }
