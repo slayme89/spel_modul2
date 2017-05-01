@@ -74,6 +74,7 @@
     <Compile Include="Systems\AIMovementSystem.cs" />
     <Compile Include="Systems\AttackSystem.cs" />
     <Compile Include="Systems\CollisionSystem.cs" />
+    <Compile Include="Systems\DamageSystem.cs" />
     <Compile Include="Systems\InputSystem.cs" />
     <Compile Include="Systems\ISystem.cs" />
     <Compile Include="Main.cs" />

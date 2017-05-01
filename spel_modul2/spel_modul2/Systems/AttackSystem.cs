@@ -9,18 +9,18 @@ namespace GameEngine
         public void Update(GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-            foreach (var Entity in cm.GetComponentsOfType<AttackComponent>())
+            foreach (var entity in cm.GetComponentsOfType<AttackComponent>())
             {
-                AttackComponent attackComponent = cm.GetComponentForEntity<AttackComponent>(Entity.Key);
+                AttackComponent attackComponent = cm.GetComponentForEntity<AttackComponent>(entity.Key);
                 if (attackComponent.IsAttacking)
                 {
                     attackComponent.IsAttacking = false;
-                    EntityAttack(Entity.Key);
+                    EntityAttack(gameTime, entity.Key);
                 }
             }
         }
 
-        public void EntityAttack(int entity)
+        public void EntityAttack(GameTime gameTime, int entity)
         {
             ComponentManager cm = ComponentManager.GetInstance();
             AttackComponent attackComponent = cm.GetComponentForEntity<AttackComponent>(entity);
@@ -37,12 +37,12 @@ namespace GameEngine
                 {
                     if(entityHit != entity)
                     {
-                        
-                        //Debug.WriteLine(entityHit);
                         var entityHitHealth = cm.GetComponentForEntity<HealthComponent>(entityHit);
-                        if (entityHitHealth != null && entityHitHealth.Current > 0)
+                        if (entityHitHealth.IsAlive == true)
                         {
-                            //apply damage to entitieshit
+                            //apply damage to the entity that was hit via the DamageSystem
+                            DamageSystem dmgSys = new DamageSystem();
+                            dmgSys.Update(gameTime, entityHit, entity);
                         }
                     }
                 }
