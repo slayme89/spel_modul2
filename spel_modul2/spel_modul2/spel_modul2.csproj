@@ -85,6 +85,7 @@
     <Compile Include="Systems\PlayerMovementSystem.cs" />
     <Compile Include="Systems\RenderAttackingCollisionBoxSystem.cs" />
     <Compile Include="Systems\RenderCollisionBoxSystem.cs" />
+    <Compile Include="Systems\RenderHealthSystem.cs" />
     <Compile Include="Systems\RenderSystem.cs" />
     <Compile Include="Systems\TextureLoaderSystem.cs" />
     <Compile Include="Systems\MoveSystem.cs" />
