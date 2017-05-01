@@ -44,7 +44,8 @@ namespace GameEngine
                 new PlayerAttackSystem(),
                 new RenderAttackingCollisionBoxSystem(gd),
                 new WorldSystem(),
-                new AIAttackSystem()
+                new AIAttackSystem(),
+                new MusicSystem()
             });
 
             base.Initialize();
@@ -83,11 +84,13 @@ namespace GameEngine
             cm.AddComponentsToEntity(4, new IComponent[]
             {
                 new WorldComponent(),
+                new MusicComponent("Sound/LostWoods")
             });
 
             sm.GetSystem<AnimationLoaderSystem>().Load(Content);
             sm.GetSystem<TextureLoaderSystem>().Load(Content);
             sm.GetSystem<WorldSystem>().Load(Content);
+            sm.GetSystem<MusicSystem>().Load(Content);
 
             base.LoadContent();
         }
