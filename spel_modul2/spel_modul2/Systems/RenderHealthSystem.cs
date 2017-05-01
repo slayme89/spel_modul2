@@ -30,16 +30,24 @@ namespace GameEngine
             {
                 int maxHealth = healthComponent.Max;
                 int currHealth = healthComponent.Current;
-                bool player = cm.HasEntityComponent<PlayerControlComponent>(entity);
+                bool player = cm.HasEntityComponent<PlayerComponent>(entity);
                 bool ai = cm.HasEntityComponent<AIComponent>(entity);
-
                 Rectangle healthRectangle = new Rectangle();
-                //check if it is a player entity
+
                 if (player)
                 {
-                    healthRectangle = new Rectangle(2, 2, currHealth, 10);
+                    int playNum = cm.GetComponentForEntity<PlayerComponent>(entity).Number;
+                    //check if its player 1 entity
+                    if (playNum == 1)
+                    {
+                        healthRectangle = new Rectangle(2, 2, currHealth, 20);
+                    }
+                    //check if its player 2 entity
+                    else if (playNum == 2)
+                    {
+                        healthRectangle = new Rectangle(300, 2, currHealth, 20);
+                    }
                 }
-
                 //else its an AI
                 else if (ai)
                 {
@@ -47,7 +55,7 @@ namespace GameEngine
                     healthRectangle = new Rectangle(
                         aiCollisionBox.collisionBox.Location.X - (aiCollisionBox.collisionBox.Width / 2),
                         aiCollisionBox.collisionBox.Location.Y - (aiCollisionBox.collisionBox.Height / 2),
-                        currHealth,
+                        currHealth/2,
                         10);
                 }
                 sb.Begin();
