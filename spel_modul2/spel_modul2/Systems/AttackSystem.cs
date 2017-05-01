@@ -37,7 +37,7 @@ namespace GameEngine
                     if(entityHit != entity)
                     {
                         var entityHitHealth = cm.GetComponentForEntity<HealthComponent>(entityHit);
-                        if (entityHitHealth.IsAlive == true && entityHitHealth != null)
+                        if (entityHitHealth != null && entityHitHealth.IsAlive == true)
                         {
                             //apply damage to the entity that was hit via the DamageSystem
                             DamageSystem dmgSys = new DamageSystem();
