@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace GameEngine
 {
@@ -38,7 +37,7 @@ namespace GameEngine
                     if(entityHit != entity)
                     {
                         var entityHitHealth = cm.GetComponentForEntity<HealthComponent>(entityHit);
-                        if (entityHitHealth.IsAlive == true)
+                        if (entityHitHealth.IsAlive == true && entityHitHealth != null)
                         {
                             //apply damage to the entity that was hit via the DamageSystem
                             DamageSystem dmgSys = new DamageSystem();
