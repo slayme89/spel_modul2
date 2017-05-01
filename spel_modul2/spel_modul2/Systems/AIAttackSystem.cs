@@ -50,13 +50,14 @@ namespace GameEngine
                     else
                         ai.TargetEntity = 0;
 
+                    MoveComponent moveComp = cm.GetComponentForEntity<MoveComponent>(entity.Key);
                     AttackComponent attackComponent = cm.GetComponentForEntity<AttackComponent>(entity.Key);
-                    MoveComponent moveComponent = cm.GetComponentForEntity<MoveComponent>(entity.Key);
                     if (ai.TargetEntity != 0)
                     {
-                        if (attackComponent.AttackCooldown <= 0.0f && closestDist <= 100)
+                        Point pointToCompare = posComp.position + new Point(moveComp.Direction.X * 5, moveComp.Direction.Y * 5);
+                        if (attackComponent.AttackCooldown <= 0.0f && Vector2.Distance(cm.GetComponentForEntity<PositionComponent>(closestEntity).position.ToVector2(), pointToCompare.ToVector2()) <= 70)
                         {
-                            moveComponent.canMove = false;
+                            moveComp.canMove = false;
                             attackComponent.AttackCooldown = attackComponent.RateOfFire;
                             attackComponent.IsAttacking = true;
                         }
@@ -64,7 +65,7 @@ namespace GameEngine
                     if (attackComponent.AttackCooldown > 0.0f)
                         attackComponent.AttackCooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                     else
-                        moveComponent.canMove = true;
+                        moveComp.canMove = true;
                 }
             }
         }
