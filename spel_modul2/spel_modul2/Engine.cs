@@ -61,7 +61,7 @@ namespace GameEngine
                 new MoveComponent(1.0f),
                 new PlayerControlComponent("Keyboard"),
                 new CollisionComponent(50, 50),
-                new AttackComponent(100, 1, WeaponType.Sword),
+                new AttackComponent(100, 0.3f, WeaponType.Sword),
             });
 
             cm.AddComponentsToEntity(2, new IComponent[]
@@ -72,7 +72,7 @@ namespace GameEngine
                 new MoveComponent(0.2f),
                 new AIComponent(160, 160, false),
                 new CollisionComponent(50, 50),
-                new AttackComponent(33, 2, WeaponType.Sword)
+                new AttackComponent(33, 0.5f, WeaponType.Sword)
             });
 
             cm.AddComponentsToEntity(3, new IComponent[]
