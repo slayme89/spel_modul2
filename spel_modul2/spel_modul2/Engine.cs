@@ -21,6 +21,7 @@ namespace GameEngine
             Content.RootDirectory = "Content";
 
             IsFixedTimeStep = false;
+            IsMouseVisible = true;
             //TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 100);
         }
 
