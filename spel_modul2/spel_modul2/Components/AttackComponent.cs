@@ -21,6 +21,5 @@
             Type = weaponType;
             AttackCooldown = 0.0f;
         }
-
     }
 }

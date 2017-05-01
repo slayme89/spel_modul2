@@ -45,7 +45,8 @@ namespace GameEngine
                 new RenderAttackingCollisionBoxSystem(gd),
                 new WorldSystem(),
                 new AIAttackSystem(),
-                new MusicSystem()
+                new DamageSystem(),
+                new RenderHealthSystem()
             });
 
             base.Initialize();
@@ -55,23 +56,23 @@ namespace GameEngine
         {
             cm.AddComponentsToEntity(1, new IComponent[] {
                 new TextureComponent("hej"),
+                new HealthComponent(100),
                 new PositionComponent(150, 10),
                 new MoveComponent(1.0f),
                 new PlayerControlComponent("Keyboard"),
                 new CollisionComponent(50, 50),
-                new AttackComponent(1, 1, WeaponType.Sword),
+                new AttackComponent(100, 1, WeaponType.Sword),
             });
-
-           
 
             cm.AddComponentsToEntity(2, new IComponent[]
             {
                 new AnimationComponent("PlayerAnimation/NakedFWalk", new Point(4, 1), 150),
-                new PositionComponent(10, 10),
+                new HealthComponent(100),
+                new PositionComponent(300, 10),
                 new MoveComponent(0.2f),
-                new AIComponent(160, 160),
+                new AIComponent(160, 160, false),
                 new CollisionComponent(50, 50),
-                new AttackComponent(1, 2, WeaponType.Sword)
+                new AttackComponent(33, 2, WeaponType.Sword)
             });
 
             cm.AddComponentsToEntity(3, new IComponent[]
@@ -84,21 +85,21 @@ namespace GameEngine
             cm.AddComponentsToEntity(4, new IComponent[]
             {
                 new WorldComponent(),
-                new MusicComponent("Sound/LostWoods")
             });
 
             sm.GetSystem<AnimationLoaderSystem>().Load(Content);
             sm.GetSystem<TextureLoaderSystem>().Load(Content);
             sm.GetSystem<WorldSystem>().Load(Content);
-            sm.GetSystem<MusicSystem>().Load(Content);
-
+            sm.GetSystem<RenderHealthSystem>().Load(Content);
+            
+            
             base.LoadContent();
         }
 
         protected override void Draw(GameTime gameTime)
         {
             gd.Clear(Color.Blue);
-
+            sm.GetSystem<RenderHealthSystem>().Render(gd, sb);
             sm.GetSystem<RenderSystem>().Render(gd, sb);
             sm.GetSystem<RenderCollisionBoxSystem>().Render(gd, sb);
             sm.GetSystem<RenderAttackingCollisionBoxSystem>().Render(gd, sb);
