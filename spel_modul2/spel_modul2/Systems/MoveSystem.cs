@@ -20,26 +20,28 @@ namespace GameEngine
                 PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(entity.Key);
                 if (positionComponent == null)
                     throw new Exception("You must have a position component to be able to move an entity. Entity ID:" + entity.Key);
-                float x = velocity.X;
-                float y = velocity.Y;
-                // Check for direction
-                if(x != 0 && y != 0)
-                    moveComponent.Direction = CalcDirection(x, y);
-                x *= (float)gameTime.ElapsedGameTime.TotalMilliseconds * moveComponent.Speed;
-                y *= (float)gameTime.ElapsedGameTime.TotalMilliseconds * moveComponent.Speed;
-                
-                for (float i = 1; i > 0.1; i *= 0.8f)
+                if(moveComponent.canMove)
                 {
-                    x *= i;
-                    y *= i;
-                    Point futurePosition = positionComponent.position + new Point((int)x, (int)y);
-                    if (!SystemManager.GetInstance().GetSystem<CollisionSystem>().DetectMovementCollision(entity.Key, futurePosition))
+                    float x = velocity.X;
+                    float y = velocity.Y;
+                    // Check for direction
+                    if (x != 0 && y != 0)
+                        moveComponent.Direction = CalcDirection(x, y);
+                    x *= (float)gameTime.ElapsedGameTime.TotalMilliseconds * moveComponent.Speed;
+                    y *= (float)gameTime.ElapsedGameTime.TotalMilliseconds * moveComponent.Speed;
+
+                    for (float i = 1; i > 0.1; i *= 0.8f)
                     {
-                        positionComponent.position = futurePosition;
-                        break;
+                        x *= i;
+                        y *= i;
+                        Point futurePosition = positionComponent.position + new Point((int)x, (int)y);
+                        if (!SystemManager.GetInstance().GetSystem<CollisionSystem>().DetectMovementCollision(entity.Key, futurePosition))
+                        {
+                            positionComponent.position = futurePosition;
+                            break;
+                        }
                     }
                 }
-                
             }
         }
 
