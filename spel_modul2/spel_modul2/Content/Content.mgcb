@@ -97,7 +97,7 @@
 /processorParam:Quality=Best
 /build:Sound/damage.wav
 
-#begin UI/HealthContainer.png
+#begin UI\Health-Energy-Container.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -107,5 +107,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:UI/HealthContainer.png
+/build:UI\Health-Energy-Container.png
 

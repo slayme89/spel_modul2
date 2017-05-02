@@ -20,6 +20,11 @@ namespace GameEngine
                 {
                     DrawPlayerHealthContainer(entity.Key, gd, sb);
                 }
+                //Its a player, draw PlayerEnergyContainer
+                if (cm.HasEntityComponent<PlayerComponent>(entity.Key) && cm.HasEntityComponent<HealthComponent>(entity.Key))
+                {
+                   
+                }
             }
         }
 

@@ -70,7 +70,7 @@ namespace GameEngine
                 new PlayerComponent(1),
                 new LevelComponent(2),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
-                new GUIComponent("UI/HealthContainer", gd.Viewport.TitleSafeArea.Left, gd.Viewport.TitleSafeArea.Top),
+                new GUIComponent("UI/Health-Energy-Container", gd.Viewport.TitleSafeArea.Left, gd.Viewport.TitleSafeArea.Top),
             });
 
             cm.AddComponentsToEntity(5, new IComponent[] {

@@ -60,6 +60,7 @@
     <Compile Include="Components\AIComponent.cs" />
     <Compile Include="Components\AttackComponent.cs" />
     <Compile Include="Components\CollisionComponent.cs" />
+    <Compile Include="Components\EnergyComponent.cs" />
     <Compile Include="Components\GUIComponent.cs" />
     <Compile Include="Components\HealthComponent.cs" />
     <Compile Include="Components\InteractComponent.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Systems\AttackSystem.cs" />
     <Compile Include="Systems\CollisionSystem.cs" />
     <Compile Include="Systems\DamageSystem.cs" />
+    <Compile Include="Systems\RenderEnergySystem.cs" />
     <Compile Include="Systems\InputSystem.cs" />
     <Compile Include="Systems\InteractSystem.cs" />
     <Compile Include="Systems\ISystem.cs" />
