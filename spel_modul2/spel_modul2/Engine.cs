@@ -60,7 +60,7 @@ namespace GameEngine
             cm.AddComponentsToEntity(1, new IComponent[] {
                 new TextureComponent("hej"),
                 new HealthComponent(100),
-                new PositionComponent(150, 10),
+                new PositionComponent(500, 500),
                 new MoveComponent(1.0f),
                 new PlayerControlComponent("Gamepad1"),
                 new CollisionComponent(50, 50),
