@@ -50,6 +50,7 @@ namespace GameEngine
                 new DamageSystem(),
                 new RenderHealthSystem(),
                 new LevelSystem(),
+                new InteractSystem(),
                 new RenderGUISystem(),
             });
 
@@ -62,7 +63,7 @@ namespace GameEngine
                 new TextureComponent("hej"),
                 new HealthComponent(100),
                 new PositionComponent(500, 500),
-                new MoveComponent(1.0f),
+                new MoveComponent(0.2f),
                 new PlayerControlComponent("Keyboard"),
                 new CollisionComponent(50, 50),
                 new AttackComponent(100, 0.3f, 0.1f, WeaponType.Sword),
@@ -72,12 +73,25 @@ namespace GameEngine
                 new GUIComponent("UI/HealthContainer", gd.Viewport.TitleSafeArea.Left, gd.Viewport.TitleSafeArea.Top),
             });
 
+            cm.AddComponentsToEntity(5, new IComponent[] {
+                new TextureComponent("hej"),
+                new HealthComponent(100),
+                new PositionComponent(100, 500),
+                new MoveComponent(0.2f),
+                new PlayerControlComponent("Keyboard"),
+                new CollisionComponent(50, 50),
+                new AttackComponent(100, 0.3f, 0.1f, WeaponType.Sword),
+                new PlayerComponent(2),
+                new LevelComponent(2),
+                new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage")
+            });
+
             cm.AddComponentsToEntity(2, new IComponent[]
             {
                 new AnimationComponent("PlayerAnimation/NakedFWalk", new Point(4, 1), 150),
                 new HealthComponent(100),
                 new PositionComponent(300, 10),
-                new MoveComponent(0.2f),
+                new MoveComponent(0.1f),
                 new AIComponent(160, 160, false),
                 new CollisionComponent(50, 50),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
@@ -89,7 +103,9 @@ namespace GameEngine
             {
                 new AnimationComponent("threerings", new Point(6, 8), 40),
                 new PositionComponent(50, 200),
-                new CollisionComponent(50, 50)
+                new CollisionComponent(50, 50),
+                new InteractComponent(),
+                new AttackComponent(10, 0.5f, 0.3f, WeaponType.Sword),
             });
 
             cm.AddComponentsToEntity(4, new IComponent[]
@@ -150,6 +166,7 @@ namespace GameEngine
             SystemManager.GetInstance().Update<WorldSystem>(gameTime);
             SystemManager.GetInstance().Update<AIAttackSystem>(gameTime);
             SystemManager.GetInstance().Update<SoundSystem>(gameTime);
+            SystemManager.GetInstance().Update<InteractSystem>(gameTime);
 
             var a = cm.GetComponentForEntity<AnimationComponent>(2);
             if (Keyboard.GetState().IsKeyDown(Keys.P) && previousKeyboardState.IsKeyUp(Keys.P))

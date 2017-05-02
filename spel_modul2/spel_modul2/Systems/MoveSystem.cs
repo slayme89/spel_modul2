@@ -49,7 +49,10 @@ namespace GameEngine
                             }
                         }
                     }
-                    
+                }
+                else
+                {
+                    cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
                 }
             }
         }

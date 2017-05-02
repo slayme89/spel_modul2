@@ -30,31 +30,37 @@ namespace GameEngine
                 {
                     case "Keyboard":
                         // Movement
-                        MouseState mouse = Mouse.GetState();
-                        if(mouse.LeftButton == ButtonState.Pressed)
-                        {
-                            PositionComponent position = cm.GetComponentForEntity<PositionComponent>(entity.Key);
-                            if (position == null)
-                                throw new Exception("Couldn't find a position component when handling input. Entity ID: " + entity.Key);
-                            Point direction = new Point(mouse.X - position.position.X, mouse.Y - position.position.Y);
-                            float distance = (float)Math.Sqrt(direction.X * direction.X + direction.Y * direction.Y);
-                            if(distance > 10)
-                            {
-                                Vector2 dir = new Vector2(direction.X / distance, direction.Y / distance);
-                                playerControl.Movement.SetDirection(dir);
-                            }
-                            else
-                            {
-                                playerControl.Movement.SetDirection(new Vector2());
-                            }
-                        }
-                        else
-                        {
-                            playerControl.Movement.SetDirection(new Vector2());
-                        }
                         KeyboardState keyboard = Keyboard.GetState();
+                        Vector2 dir = new Vector2();
+                        if (keyboard.IsKeyDown(Keys.W))
+                        {
+                            if (keyboard.IsKeyDown(Keys.D))
+                                dir = new Vector2(0.7071f, -0.7071f);
+                            else if(keyboard.IsKeyDown(Keys.A))
+                                dir = new Vector2(-0.7071f, -0.7071f);
+                            else
+                                dir = new Vector2(0.0f, -1.0f);
+                        }
+                        else if (keyboard.IsKeyDown(Keys.S))
+                        {
+                            if (keyboard.IsKeyDown(Keys.D))
+                                dir = new Vector2(0.7071f, 0.7071f);
+                            else if (keyboard.IsKeyDown(Keys.A))
+                                dir = new Vector2(-0.7071f, 0.7071f);
+                            else
+                                dir = new Vector2(0.0f, 1.0f);
+                        }
+                        else if (keyboard.IsKeyDown(Keys.A))
+                            dir = new Vector2(-1.0f, 0.0f);
+                        else if (keyboard.IsKeyDown(Keys.D))
+                            dir = new Vector2(1.0f, 0.0f);
+                        else
+                            dir = new Vector2(0.0f, 0.0f);
+                        playerControl.Movement.SetDirection(dir);
+
+                        MouseState mouse = Mouse.GetState();
                         // Attack
-                        if(mouse.RightButton == ButtonState.Pressed)
+                        if (mouse.RightButton == ButtonState.Pressed)
                             playerControl.Attack.SetButton(true);
                         else
                             playerControl.Attack.SetButton(false);
