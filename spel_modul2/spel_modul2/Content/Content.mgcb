@@ -73,12 +73,6 @@
 /processorParam:Quality=Best
 /build:Sound/walk.wav
 
-#begin Sound/damage.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sound/damage.wav
-
 #begin Sound/theme.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -96,4 +90,10 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:UI/Health.png
+
+#begin Sound/damage.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/damage.wav
 

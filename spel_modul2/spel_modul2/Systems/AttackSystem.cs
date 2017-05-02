@@ -50,6 +50,9 @@ namespace GameEngine
                             //Update health on entity
                             DamageSystem dmgSys = new DamageSystem();
                             dmgSys.Update(entityHit, entity);
+
+                            //Play damage sound
+                            cm.GetComponentForEntity<SoundComponent>(entity).PlayDamageSound = true;
                            
                             //Update Level on entity
                             if(cm.HasEntityComponent<LevelComponent>(entity) || cm.HasEntityComponent<LevelComponent>(entityHit))
