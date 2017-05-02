@@ -50,7 +50,7 @@ namespace GameEngine
                 new DamageSystem(),
                 new RenderHealthSystem(),
                 new LevelSystem(),
-                new InventorySystem(gd)
+                new InventorySystem(gd),
                 new InteractSystem(),
                 new RenderGUISystem(),
             });
