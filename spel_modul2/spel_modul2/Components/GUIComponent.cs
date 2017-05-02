@@ -5,13 +5,21 @@ namespace GameEngine
 {
     class GUIComponent : IComponent
     {
+        public string TextureName { get; set; }
         public Texture2D Texture { get; set; }
-        public Point ScreenPosition { get; set; }
+        public Point ScreenPosition;
 
-        public GUIComponent(Texture2D texture, Point screenPosition)
+        public GUIComponent(string textureName, Point screenPosition)
         {
-            Texture = texture;
+            TextureName = textureName;
             ScreenPosition = screenPosition;
+        }
+
+        public GUIComponent(string textureName, int xPos, int yPos)
+        {
+            TextureName = textureName;
+            ScreenPosition.X = xPos;
+            ScreenPosition.Y = yPos;
         }
     }
 }

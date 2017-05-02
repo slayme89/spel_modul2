@@ -50,6 +50,7 @@ namespace GameEngine
                 new DamageSystem(),
                 new RenderHealthSystem(),
                 new LevelSystem(),
+                new RenderGUISystem(),
             });
 
             base.Initialize();
@@ -62,12 +63,13 @@ namespace GameEngine
                 new HealthComponent(100),
                 new PositionComponent(500, 500),
                 new MoveComponent(1.0f),
-                new PlayerControlComponent("Gamepad1"),
+                new PlayerControlComponent("Keyboard"),
                 new CollisionComponent(50, 50),
                 new AttackComponent(100, 0.3f, 0.1f, WeaponType.Sword),
                 new PlayerComponent(1),
                 new LevelComponent(2),
-                new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage")
+                new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
+                new GUIComponent("UI/HealthContainer", gd.Viewport.TitleSafeArea.Left, gd.Viewport.TitleSafeArea.Top),
             });
 
             cm.AddComponentsToEntity(2, new IComponent[]
@@ -102,7 +104,7 @@ namespace GameEngine
             sm.GetSystem<SoundLoaderSystem>().Load(Content);
 
             sm.GetSystem<RenderHealthSystem>().Load(Content);
-            
+            sm.GetSystem<RenderGUISystem>().Load(Content);
             
             base.LoadContent();
         }
@@ -114,6 +116,8 @@ namespace GameEngine
             sm.GetSystem<RenderSystem>().Render(gd, sb);
             sm.GetSystem<RenderCollisionBoxSystem>().Render(gd, sb);
             sm.GetSystem<RenderAttackingCollisionBoxSystem>().Render(gd, sb);
+            sm.GetSystem<RenderGUISystem>().Render(gd, sb);
+
             var fps = 1 / gameTime.ElapsedGameTime.TotalSeconds;
             Window.Title = fps.ToString();
 

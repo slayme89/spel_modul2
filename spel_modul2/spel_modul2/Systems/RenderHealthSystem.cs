@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
@@ -21,7 +20,7 @@ namespace GameEngine
             }
         }
 
-        void DrawHealth(int entity, GraphicsDevice gd, SpriteBatch sb)
+        private void DrawHealth(int entity, GraphicsDevice gd, SpriteBatch sb)
         {
             ComponentManager cm = ComponentManager.GetInstance();
             HealthComponent healthComponent = cm.GetComponentForEntity<HealthComponent>(entity);
@@ -41,7 +40,7 @@ namespace GameEngine
                     //check if its player 1 entity
                     if (playNum == 1)
                     {
-                        healthRectangle = new Rectangle(2, 2, currHealth, 20);
+                        healthRectangle = new Rectangle(gd.Viewport.TitleSafeArea.Left + 5, gd.Viewport.TitleSafeArea.Top + 3, currHealth, 14);
                     }
                     //check if its player 2 entity
                     else if (playNum == 2)
