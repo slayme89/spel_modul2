@@ -13,8 +13,15 @@ namespace GameEngine
                 AttackComponent attackComponent = cm.GetComponentForEntity<AttackComponent>(entity.Key);
                 if (attackComponent.IsAttacking)
                 {
-                    attackComponent.IsAttacking = false;
-                    EntityAttack(gameTime, entity.Key);
+                    if(attackComponent.AttackChargeUp <= 0.0f)
+                    {
+                        attackComponent.IsAttacking = false;
+                        attackComponent.AttackChargeUp = attackComponent.AttackDelay;
+                        EntityAttack(gameTime, entity.Key);
+                    }
+                    else
+                        attackComponent.AttackChargeUp -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    
                 }
             }
         }

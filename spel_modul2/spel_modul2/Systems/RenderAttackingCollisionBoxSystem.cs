@@ -33,7 +33,10 @@ namespace GameEngine
                         int range = collisionComponent.collisionBox.Size.X;
                         Point hitOffset = new Point((collisionComponent.collisionBox.Width / 2), (collisionComponent.collisionBox.Height / 2));
                         Rectangle hitArea = new Rectangle(positionComponent.position - hitOffset + moveComponent.Direction * new Point(range, range), collisionComponent.collisionBox.Size);
-                        spriteBatch.Draw(t, hitArea, Color.Black);
+                        if(attackComponent.IsAttacking)
+                            spriteBatch.Draw(t, hitArea, Color.Black);
+                        else
+                            spriteBatch.Draw(t, hitArea, Color.Green);
                     }
                 }
             }
