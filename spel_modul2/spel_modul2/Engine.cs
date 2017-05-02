@@ -46,8 +46,7 @@ namespace GameEngine
                 new WorldSystem(),
                 new AIAttackSystem(),
                 new SoundSystem(),
-                new SoundLoaderSystem()
-                new AIAttackSystem(),
+                new SoundLoaderSystem(),
                 new DamageSystem(),
                 new RenderHealthSystem(),
                 new LevelSystem(),
@@ -63,7 +62,7 @@ namespace GameEngine
                 new HealthComponent(100),
                 new PositionComponent(150, 10),
                 new MoveComponent(1.0f),
-                new PlayerControlComponent("Keyboard"),
+                new PlayerControlComponent("Gamepad1"),
                 new CollisionComponent(50, 50),
                 new AttackComponent(100, 0.3f, WeaponType.Sword),
                 new PlayerComponent(1),
@@ -79,7 +78,7 @@ namespace GameEngine
                 new MoveComponent(0.2f),
                 new AIComponent(160, 160, false),
                 new CollisionComponent(50, 50),
-                new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage")
+                new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
                 new AttackComponent(33, 0.5f, WeaponType.Sword),
                 new LevelComponent(3),
             });
