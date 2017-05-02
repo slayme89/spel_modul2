@@ -54,7 +54,7 @@ namespace GameEngine
                 {
                     CollisionComponent aiCollisionBox = cm.GetComponentForEntity<CollisionComponent>(entity);
                     healthRectangle = new Rectangle(
-                        aiCollisionBox.collisionBox.Location.X - (aiCollisionBox.collisionBox.Width / 2),
+                        aiCollisionBox.collisionBox.Location.X,
                         aiCollisionBox.collisionBox.Location.Y - (aiCollisionBox.collisionBox.Height / 2),
                         currHealth/2,
                         10);
