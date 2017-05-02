@@ -57,6 +57,11 @@ namespace GameEngine
                         Point pointToCompare = posComp.position + new Point(moveComp.Direction.X * 5, moveComp.Direction.Y * 5);
                         if (attackComponent.AttackCooldown <= 0.0f && Vector2.Distance(cm.GetComponentForEntity<PositionComponent>(closestEntity).position.ToVector2(), pointToCompare.ToVector2()) <= 70)
                         {
+                            PositionComponent posOftarget = cm.GetComponentForEntity<PositionComponent>(ai.TargetEntity);
+                            Point unNormalizedDir = new Point(posOftarget.position.X - posComp.position.X, posOftarget.position.Y - posComp.position.Y);
+                            float distance = (float)Math.Sqrt(unNormalizedDir.X * unNormalizedDir.X + unNormalizedDir.Y * unNormalizedDir.Y);
+                            Vector2 direction = new Vector2(unNormalizedDir.X / distance, unNormalizedDir.Y / distance);
+                            moveComp.Direction = SystemManager.GetInstance().GetSystem<MoveSystem>().CalcDirection(direction.X, direction.Y);
                             moveComp.canMove = false;
                             attackComponent.AttackCooldown = attackComponent.RateOfFire;
                             attackComponent.IsAttacking = true;

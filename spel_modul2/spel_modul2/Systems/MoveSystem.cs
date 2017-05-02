@@ -54,7 +54,7 @@ namespace GameEngine
             }
         }
 
-        private Point CalcDirection(float x, float y)
+        public Point CalcDirection(float x, float y)
         {
             if (x > 0)
             {
