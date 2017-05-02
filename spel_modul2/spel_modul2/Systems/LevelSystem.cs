@@ -42,6 +42,8 @@ namespace GameEngine
             int entityKilledLvl = cm.GetComponentForEntity<LevelComponent>(entityKilled).CurrentLevel;
             int entitylvl = entityToGainExpComponent.CurrentLevel;
             float xpGained = 22.0f * entityKilledLvl - entitylvl;
+            if (xpGained <= 0)
+                xpGained = 2.0f;
             
             return xpGained;
         }
