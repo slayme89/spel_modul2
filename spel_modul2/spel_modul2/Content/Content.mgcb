@@ -97,9 +97,3 @@
 /processorParam:TextureFormat=Color
 /build:UI/Health.png
 
-#begin Sound/LostWoods.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Sound/LostWoods.mp3
-
