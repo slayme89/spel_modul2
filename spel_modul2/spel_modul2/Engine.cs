@@ -50,6 +50,7 @@ namespace GameEngine
                 new DamageSystem(),
                 new RenderHealthSystem(),
                 new LevelSystem(),
+                new InventorySystem(gd)
                 new InteractSystem(),
                 new RenderGUISystem(),
             });
@@ -71,6 +72,7 @@ namespace GameEngine
                 new LevelComponent(2),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
                 new GUIComponent("UI/Health-Energy-Container", gd.Viewport.TitleSafeArea.Left, gd.Viewport.TitleSafeArea.Top),
+                new InventoryComponent(5, 5)
             });
 
             cm.AddComponentsToEntity(5, new IComponent[] {
@@ -96,7 +98,7 @@ namespace GameEngine
                 new CollisionComponent(50, 50),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
                 new AttackComponent(33, 0.5f, 0.3f, WeaponType.Sword),
-                new LevelComponent(3),
+                new LevelComponent(3)
             });
 
             cm.AddComponentsToEntity(3, new IComponent[]
@@ -132,6 +134,8 @@ namespace GameEngine
             sm.GetSystem<RenderSystem>().Render(gd, sb);
             sm.GetSystem<RenderCollisionBoxSystem>().Render(gd, sb);
             sm.GetSystem<RenderAttackingCollisionBoxSystem>().Render(gd, sb);
+            sm.GetSystem<InventorySystem>().Render(gd, sb);
+
             sm.GetSystem<RenderGUISystem>().Render(gd, sb);
 
             var fps = 1 / gameTime.ElapsedGameTime.TotalSeconds;
@@ -167,6 +171,7 @@ namespace GameEngine
             SystemManager.GetInstance().Update<AIAttackSystem>(gameTime);
             SystemManager.GetInstance().Update<SoundSystem>(gameTime);
             SystemManager.GetInstance().Update<InteractSystem>(gameTime);
+            SystemManager.GetInstance().Update<InventorySystem>(gameTime);
 
             var a = cm.GetComponentForEntity<AnimationComponent>(2);
             if (Keyboard.GetState().IsKeyDown(Keys.P) && previousKeyboardState.IsKeyUp(Keys.P))

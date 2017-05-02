@@ -64,6 +64,7 @@
     <Compile Include="Components\GUIComponent.cs" />
     <Compile Include="Components\HealthComponent.cs" />
     <Compile Include="Components\InteractComponent.cs" />
+    <Compile Include="Components\InventoryComponent.cs" />
     <Compile Include="Components\LevelComponent.cs" />
     <Compile Include="Components\MoveComponent.cs" />
     <Compile Include="Components\MusicComponent.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Systems\RenderEnergySystem.cs" />
     <Compile Include="Systems\InputSystem.cs" />
     <Compile Include="Systems\InteractSystem.cs" />
+    <Compile Include="Systems\InventorySystem.cs" />
     <Compile Include="Systems\ISystem.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
