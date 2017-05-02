@@ -45,7 +45,7 @@ namespace GameEngine
                     //check if its player 2 entity
                     else if (playNum == 2)
                     {
-                        healthRectangle = new Rectangle(300, 2, currHealth, 20);
+                        healthRectangle = new Rectangle(gd.Viewport.TitleSafeArea.Left + 305, gd.Viewport.TitleSafeArea.Top + 3, currHealth, 14);
                     }
                 }
                 //else its an AI

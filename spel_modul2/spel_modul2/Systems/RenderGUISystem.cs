@@ -32,9 +32,13 @@ namespace GameEngine
         {
             ComponentManager cm = ComponentManager.GetInstance();
             GUIComponent guiComponent = cm.GetComponentForEntity<GUIComponent>(entity);
+            PlayerComponent playerComponent = cm.GetComponentForEntity<PlayerComponent>(entity);
 
             Rectangle titleSafeArea = gd.Viewport.TitleSafeArea;
             Rectangle containerRect = new Rectangle(titleSafeArea.Left, titleSafeArea.Top, guiComponent.Texture.Width, guiComponent.Texture.Height);
+
+            if (playerComponent.Number == 2)
+                containerRect = new Rectangle(titleSafeArea.Left + 300, titleSafeArea.Top, guiComponent.Texture.Width, guiComponent.Texture.Height);
             Texture2D texture = guiComponent.Texture;
 
             sb.Begin();

@@ -85,6 +85,7 @@ namespace GameEngine
                 new AttackComponent(100, 0.3f, 0.1f, WeaponType.Sword),
                 new PlayerComponent(2),
                 new LevelComponent(2),
+                new GUIComponent("UI/Health-Energy-Container", gd.Viewport.TitleSafeArea.Left + 800, gd.Viewport.TitleSafeArea.Top + 3),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage")
             });
 
