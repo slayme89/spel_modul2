@@ -61,6 +61,30 @@
 /processorParam:TextureFormat=Color
 /build:tile.png
 
+#begin Sound/sword.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/sword.wav
+
+#begin Sound/walk.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/walk.wav
+
+#begin Sound/damage.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/damage.wav
+
+#begin Sound/theme.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/theme.wav
+
 #begin UI/Health.png
 /importer:TextureImporter
 /processor:TextureProcessor

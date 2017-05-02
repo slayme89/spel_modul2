@@ -67,6 +67,8 @@
     <Compile Include="Components\PlayerComponent.cs" />
     <Compile Include="Components\PlayerControlComponent.cs" />
     <Compile Include="Components\PositionComponent.cs" />
+    <Compile Include="Components\SoundComponent.cs" />
+    <Compile Include="Components\SoundThemeComponent.cs" />
     <Compile Include="Components\TextureComponent.cs" />
     <Compile Include="Components\WorldComponent.cs" />
     <Compile Include="Managers\ComponentManager.cs" />
@@ -92,6 +94,8 @@
     <Compile Include="Systems\RenderCollisionBoxSystem.cs" />
     <Compile Include="Systems\RenderHealthSystem.cs" />
     <Compile Include="Systems\RenderSystem.cs" />
+    <Compile Include="Systems\SoundLoaderSystem.cs" />
+    <Compile Include="Systems\SoundSystem.cs" />
     <Compile Include="Systems\TextureLoaderSystem.cs" />
     <Compile Include="Systems\MoveSystem.cs" />
     <Compile Include="Systems\WorldSystem.cs" />

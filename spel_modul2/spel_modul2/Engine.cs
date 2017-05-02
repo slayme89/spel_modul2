@@ -45,6 +45,9 @@ namespace GameEngine
                 new RenderAttackingCollisionBoxSystem(gd),
                 new WorldSystem(),
                 new AIAttackSystem(),
+                new SoundSystem(),
+                new SoundLoaderSystem()
+                new AIAttackSystem(),
                 new DamageSystem(),
                 new RenderHealthSystem(),
                 new LevelSystem(),
@@ -65,6 +68,7 @@ namespace GameEngine
                 new AttackComponent(100, 0.3f, WeaponType.Sword),
                 new PlayerComponent(1),
                 new LevelComponent(2),
+                new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage")
             });
 
             cm.AddComponentsToEntity(2, new IComponent[]
@@ -75,6 +79,7 @@ namespace GameEngine
                 new MoveComponent(0.2f),
                 new AIComponent(160, 160, false),
                 new CollisionComponent(50, 50),
+                new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage")
                 new AttackComponent(33, 0.5f, WeaponType.Sword),
                 new LevelComponent(3),
             });
@@ -89,11 +94,14 @@ namespace GameEngine
             cm.AddComponentsToEntity(4, new IComponent[]
             {
                 new WorldComponent(),
+                new SoundThemeComponent("Sound/theme"),
             });
 
             sm.GetSystem<AnimationLoaderSystem>().Load(Content);
             sm.GetSystem<TextureLoaderSystem>().Load(Content);
             sm.GetSystem<WorldSystem>().Load(Content);
+            sm.GetSystem<SoundLoaderSystem>().Load(Content);
+
             sm.GetSystem<RenderHealthSystem>().Load(Content);
             
             
@@ -138,6 +146,7 @@ namespace GameEngine
             SystemManager.GetInstance().Update<AttackSystem>(gameTime);
             SystemManager.GetInstance().Update<WorldSystem>(gameTime);
             SystemManager.GetInstance().Update<AIAttackSystem>(gameTime);
+            SystemManager.GetInstance().Update<SoundSystem>(gameTime);
 
             var a = cm.GetComponentForEntity<AnimationComponent>(2);
             if (Keyboard.GetState().IsKeyDown(Keys.P) && previousKeyboardState.IsKeyUp(Keys.P))

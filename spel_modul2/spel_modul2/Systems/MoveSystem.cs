@@ -24,23 +24,32 @@ namespace GameEngine
                 {
                     float x = velocity.X;
                     float y = velocity.Y;
-                    // Check for direction
-                    if (x != 0 && y != 0)
-                        moveComponent.Direction = CalcDirection(x, y);
-                    x *= (float)gameTime.ElapsedGameTime.TotalMilliseconds * moveComponent.Speed;
-                    y *= (float)gameTime.ElapsedGameTime.TotalMilliseconds * moveComponent.Speed;
-
-                    for (float i = 1; i > 0.1; i *= 0.8f)
+                    if (x == 0 && y == 0)
                     {
-                        x *= i;
-                        y *= i;
-                        Point futurePosition = positionComponent.position + new Point((int)x, (int)y);
-                        if (!SystemManager.GetInstance().GetSystem<CollisionSystem>().DetectMovementCollision(entity.Key, futurePosition))
+                        cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
+                    }
+                    else
+                    {
+                        // Check for direction
+                        moveComponent.Direction = CalcDirection(x, y);
+
+                        cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = true;
+                        x *= (float)gameTime.ElapsedGameTime.TotalMilliseconds * moveComponent.Speed;
+                        y *= (float)gameTime.ElapsedGameTime.TotalMilliseconds * moveComponent.Speed;
+
+                        for (float i = 1; i > 0.1; i *= 0.8f)
                         {
-                            positionComponent.position = futurePosition;
-                            break;
+                            x *= i;
+                            y *= i;
+                            Point futurePosition = positionComponent.position + new Point((int)x, (int)y);
+                            if (!SystemManager.GetInstance().GetSystem<CollisionSystem>().DetectMovementCollision(entity.Key, futurePosition))
+                            {
+                                positionComponent.position = futurePosition;
+                                break;
+                            }
                         }
                     }
+                    
                 }
             }
         }

@@ -16,6 +16,7 @@ namespace GameEngine
                 if (attackComponent.AttackCooldown <= 0.0f && playerControl.Attack.IsButtonDown())
                 {
                     moveComponent.canMove = false;
+                    cm.GetComponentForEntity<SoundComponent>(Entity.Key).PlayAttackSound = true;
                     attackComponent.AttackCooldown = attackComponent.RateOfFire;
                     attackComponent.IsAttacking = true;
                 }
