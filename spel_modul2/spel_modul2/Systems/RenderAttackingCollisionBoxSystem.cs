@@ -31,7 +31,8 @@ namespace GameEngine
                     {
                         CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(Entity.Key);
                         int range = collisionComponent.collisionBox.Size.X;
-                        Rectangle hitArea = new Rectangle(positionComponent.position + moveComponent.Direction * new Point(range, range), collisionComponent.collisionBox.Size);
+                        Point hitOffset = new Point((collisionComponent.collisionBox.Width / 2), (collisionComponent.collisionBox.Height / 2));
+                        Rectangle hitArea = new Rectangle(positionComponent.position - hitOffset + moveComponent.Direction * new Point(range, range), collisionComponent.collisionBox.Size);
                         spriteBatch.Draw(t, hitArea, Color.Black);
                     }
                 }

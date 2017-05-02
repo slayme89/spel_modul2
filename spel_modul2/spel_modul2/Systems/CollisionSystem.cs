@@ -17,7 +17,9 @@ namespace GameEngine
             foreach (KeyValuePair<int, IComponent> entity in cm.GetComponentsOfType<CollisionComponent>())
             {
                 CollisionComponent collisionComponent = (CollisionComponent)entity.Value;
-                collisionComponent.collisionBox.Location = cm.GetComponentForEntity<PositionComponent>(entity.Key).position;
+                Point entity2Pos = cm.GetComponentForEntity<PositionComponent>(entity.Key).position;
+                Point correctedPos = new Point(entity2Pos.X - (collisionComponent.collisionBox.Width / 2), entity2Pos.Y - (collisionComponent.collisionBox.Height / 2));
+                collisionComponent.collisionBox.Location = correctedPos;
                 if (area.Intersects(collisionComponent.collisionBox))
                 {
                     //Collision detected, add them to the list
@@ -33,14 +35,16 @@ namespace GameEngine
         {
             var cm = ComponentManager.GetInstance();
             CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(entity);
-            Rectangle rectToCheck = new Rectangle(position, collisionComponent.collisionBox.Size);
+            Rectangle rectToCheck = new Rectangle(new Point(position.X - (collisionComponent.collisionBox.Width / 2), position.Y - (collisionComponent.collisionBox.Height / 2)), collisionComponent.collisionBox.Size);
 
             foreach (KeyValuePair<int, IComponent> entity2 in cm.GetComponentsOfType<CollisionComponent>())
             {
                 if (entity2.Key != entity)
                 {
                     CollisionComponent collisionComponent2 = (CollisionComponent)entity2.Value;
-                    collisionComponent2.collisionBox.Location = cm.GetComponentForEntity<PositionComponent>(entity2.Key).position;
+                    Point entity2Pos = cm.GetComponentForEntity<PositionComponent>(entity2.Key).position;
+                    Point correctedPos = new Point(entity2Pos.X - (collisionComponent2.collisionBox.Width / 2), entity2Pos.Y - (collisionComponent2.collisionBox.Height / 2));
+                    collisionComponent2.collisionBox.Location = correctedPos;
                     if (rectToCheck.Intersects(collisionComponent2.collisionBox))
                     {
                         //Collision detected

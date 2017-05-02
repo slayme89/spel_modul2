@@ -29,7 +29,8 @@ namespace GameEngine
             {
                 CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(entity);
                 int range = collisionComponent.collisionBox.Size.X;
-                Rectangle hitArea = new Rectangle(positionComponent.position + moveComponent.Direction * new Point(range, range), collisionComponent.collisionBox.Size);
+                Point hitOffset = new Point((collisionComponent.collisionBox.Width / 2), (collisionComponent.collisionBox.Height / 2));
+                Rectangle hitArea = new Rectangle(positionComponent.position - hitOffset + moveComponent.Direction * new Point(range, range), collisionComponent.collisionBox.Size);
 
                 List<int> entitiesHit = CollisionSystem.DetectAreaCollision(hitArea);
                 foreach (int entityHit in entitiesHit)
