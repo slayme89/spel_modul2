@@ -39,16 +39,17 @@ namespace GameEngine
 
             return new Viewport(bounds);
         }
-
+        static Texture2D rectTexture;
         public static void DrawRectangle(this SpriteBatch spriteBatch, Rectangle rectangle, int strokeWidth, Color color)
         {
-            Texture2D texture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-            texture.SetData(new[] { Color.White });
+            if(rectTexture == null)
+                rectTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+            rectTexture.SetData(new[] { Color.White });
 
-            spriteBatch.Draw(texture, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width, strokeWidth), color);
-            spriteBatch.Draw(texture, new Rectangle(rectangle.Left, rectangle.Bottom, rectangle.Width + strokeWidth, strokeWidth), color);
-            spriteBatch.Draw(texture, new Rectangle(rectangle.Left, rectangle.Top, strokeWidth, rectangle.Height), color);
-            spriteBatch.Draw(texture, new Rectangle(rectangle.Right, rectangle.Top, strokeWidth, rectangle.Height), color);
+            spriteBatch.Draw(rectTexture, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width, strokeWidth), color);
+            spriteBatch.Draw(rectTexture, new Rectangle(rectangle.Left, rectangle.Bottom, rectangle.Width + strokeWidth, strokeWidth), color);
+            spriteBatch.Draw(rectTexture, new Rectangle(rectangle.Left, rectangle.Top, strokeWidth, rectangle.Height), color);
+            spriteBatch.Draw(rectTexture, new Rectangle(rectangle.Right, rectangle.Top, strokeWidth, rectangle.Height), color);
         }
     }
 }
