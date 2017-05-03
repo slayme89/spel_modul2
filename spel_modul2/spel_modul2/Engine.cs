@@ -126,7 +126,7 @@ namespace GameEngine
             sm.GetSystem<SoundLoaderSystem>().Load(Content);
 
             sm.GetSystem<RenderHealthSystem>().Load(Content);
-            //sm.GetSystem<RenderGUISystem>().Load(Content);
+            sm.GetSystem<RenderGUISystem>().Load(Content);
             
             base.LoadContent();
         }
@@ -140,7 +140,7 @@ namespace GameEngine
             sm.GetSystem<RenderAttackingCollisionBoxSystem>().Render(gd, sb);
             sm.GetSystem<InventorySystem>().Render(gd, sb);
 
-            //sm.GetSystem<RenderGUISystem>().Render(gd, sb);
+            sm.GetSystem<RenderGUISystem>().Render(gd, sb);
 
             var fps = 1 / gameTime.ElapsedGameTime.TotalSeconds;
             Window.Title = fps.ToString();
@@ -173,7 +173,7 @@ namespace GameEngine
             SystemManager.GetInstance().Update<AttackSystem>(gameTime);
             SystemManager.GetInstance().Update<WorldSystem>(gameTime);
             SystemManager.GetInstance().Update<AIAttackSystem>(gameTime);
-            //SystemManager.GetInstance().Update<SoundSystem>(gameTime);
+            SystemManager.GetInstance().Update<SoundSystem>(gameTime);
             SystemManager.GetInstance().Update<InteractSystem>(gameTime);
             SystemManager.GetInstance().Update<InventorySystem>(gameTime);
 
