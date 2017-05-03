@@ -15,6 +15,7 @@
         public WeaponType Type { get; set; }
         public bool IsAttacking { get; set; } = false;
         public float AttackDelay { get; set; }
+        public bool CanAttack { get; set; }
 
         public AttackComponent(int damage, float rateOfFire, float attackDelay,  WeaponType weaponType)
         {
@@ -24,6 +25,7 @@
             AttackCooldown = 0.0f;
             AttackChargeUp = attackDelay;
             AttackDelay = attackDelay;
+            CanAttack = true;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace GameEngine
             foreach (var entity in cm.GetComponentsOfType<AttackComponent>())
             {
                 AttackComponent attackComponent = cm.GetComponentForEntity<AttackComponent>(entity.Key);
-                if (attackComponent.IsAttacking)
+                if (attackComponent.CanAttack && attackComponent.IsAttacking)
                 {
                     if(attackComponent.AttackChargeUp <= 0.0f)
                     {
@@ -21,7 +21,6 @@ namespace GameEngine
                     }
                     else
                         attackComponent.AttackChargeUp -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    
                 }
             }
         }

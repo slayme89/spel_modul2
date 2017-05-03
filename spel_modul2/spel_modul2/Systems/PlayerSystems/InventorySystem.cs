@@ -28,27 +28,45 @@ namespace GameEngine
                 {
                     if (((PlayerControlComponent)entity.Value).Inventory.IsButtonDown())
                     {
+                        MoveComponent moveComp = cm.GetComponentForEntity<MoveComponent>(entity.Key);
+                        AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity.Key);
                         if (invenComp.IsOpen)
+                        {
+                            attackComp.CanAttack = true;
+                            moveComp.canMove = true;
                             invenComp.IsOpen = false;
+                        }
                         else
+                        {
+                            attackComp.CanAttack = false;
+                            moveComp.canMove = false;
                             invenComp.IsOpen = true;
+                        }
+                            
                     }
                     if (invenComp.IsOpen)
                     {
-                        Vector2 stickDir = new Vector2(((PlayerControlComponent)entity.Value).Movement.GetDirection().Y, ((PlayerControlComponent)entity.Value).Movement.GetDirection().X);
-                        if (Math.Abs(stickDir.X) > 0.5f || Math.Abs(stickDir.Y) > 0.5f)
+                        if (invenComp.selectSlotCurCooldown <= 0.0f)
                         {
-                            Point direction = SystemManager.GetInstance().GetSystem<MoveSystem>().CalcDirection(stickDir.X, stickDir.Y);
-                            Point nextSlot = invenComp.SelectedSlot + direction;
-                            Debug.WriteLine(nextSlot + " " + invenComp.SelectedSlot);
-                            if (nextSlot.X >= 0
-                             && nextSlot.Y >= 0
-                             && nextSlot.X < invenComp.ColumnsRows.X
-                             && nextSlot.Y < invenComp.ColumnsRows.Y)
+                            Vector2 stickDir = new Vector2(((PlayerControlComponent)entity.Value).Movement.GetDirection().Y, ((PlayerControlComponent)entity.Value).Movement.GetDirection().X);
+                            if (Math.Abs(stickDir.X) > 0.5f || Math.Abs(stickDir.Y) > 0.5f)
                             {
-                                invenComp.SelectedSlot = nextSlot;
+                                Point direction = SystemManager.GetInstance().GetSystem<MoveSystem>().CalcDirection(stickDir.X, stickDir.Y);
+                                Point nextSlot = invenComp.SelectedSlot + direction;
+                                if (nextSlot.X >= 0
+                                 && nextSlot.Y >= 0
+                                 && nextSlot.X < invenComp.ColumnsRows.X
+                                 && nextSlot.Y < invenComp.ColumnsRows.Y)
+                                {
+                                    invenComp.SelectedSlot = nextSlot;
+                                    invenComp.selectSlotCurCooldown = invenComp.SelectSlotDelay;
+                                }
                             }
                         }
+                        else
+                            invenComp.selectSlotCurCooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+
                     }
                 }
             }

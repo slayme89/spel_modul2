@@ -29,7 +29,6 @@ namespace GameEngine
             return foundEntities;
         }
 
-
         //Detect if characters collide
         public bool DetectMovementCollision(int entity, Point position)
         {
