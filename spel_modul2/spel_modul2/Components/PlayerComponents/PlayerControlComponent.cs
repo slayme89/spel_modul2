@@ -23,6 +23,7 @@ namespace GameEngine
             Attack = new Button();
             Interact = new Button();
             Menu = new Button();
+            Back = new Button();
             Inventory = new Button();
             ActionBar1 = new Button();
             ActionBar2 = new Button();
