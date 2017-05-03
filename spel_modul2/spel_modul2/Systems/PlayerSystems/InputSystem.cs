@@ -78,6 +78,7 @@ namespace GameEngine
                         if (keyboard.IsKeyDown(Keys.C) && previousKeyboardState.IsKeyUp(Keys.C))
                             playerControl.Inventory.SetButton(true);
                         else
+                            playerControl.Inventory.SetButton(false);
                         // Back
                         if (keyboard.IsKeyDown(Keys.Q) && previousKeyboardState.IsKeyUp(Keys.Q))
                             playerControl.Back.SetButton(true);
