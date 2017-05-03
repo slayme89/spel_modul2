@@ -67,6 +67,15 @@ namespace GameEngine
 
         protected override void LoadContent()
         {
+            for (int i = -640; i <= 640; i += 128)
+            {
+                cm.AddComponentsToEntity(i, new IComponent[]
+                {
+                    new TextureComponent("road1"),
+                    new PositionComponent(i, 150),
+                });
+            }
+
             cm.AddComponentsToEntity(1, new IComponent[]
             {
                 new TextureComponent("hej"),
@@ -86,13 +95,25 @@ namespace GameEngine
                 new StatsComponent(5, 1, 0, 0),
             });
 
+            cm.AddComponentsToEntity(7, new IComponent[]
+            {
+                new TextureComponent("tree1"),
+                new PositionComponent(10, 10),
+            });
+
+            cm.AddComponentsToEntity(8, new IComponent[]
+            {
+                new TextureComponent("trees1"),
+                new PositionComponent(200, -25),
+            });
+
             /*cm.AddComponentsToEntity(60, new IComponent[]
             {
                 new TextureComponent("hej"),
                 new PositionComponent(40, 0),
             });*/
 
-            cm.AddComponentsToEntity(5, new IComponent[] {
+            /*cm.AddComponentsToEntity(5, new IComponent[] {
                 new TextureComponent("hej"),
                 new HealthComponent(100),
                 new PositionComponent(100, 500),
@@ -120,14 +141,14 @@ namespace GameEngine
                 new DamageComponent(),
             });
 
-            cm.AddComponentsToEntity(3, new IComponent[]
+            /*cm.AddComponentsToEntity(3, new IComponent[]
             {
                 new AnimationComponent("threerings", new Point(6, 8), 40),
                 new PositionComponent(50, 200),
                 new CollisionComponent(50, 50),
                 new InteractComponent(),
                 new AttackComponent(10, 0.5f, 0.3f, WeaponType.Sword),
-            });
+            });*/
 
             cm.AddComponentsToEntity(4, new IComponent[]
             {
