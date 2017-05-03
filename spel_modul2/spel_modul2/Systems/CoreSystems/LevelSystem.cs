@@ -23,8 +23,8 @@ namespace GameEngine
                     if (oldLevel > newLevel)
                     {
                         int num = oldLevel - newLevel;
-                        statComponent.StatPoints -= num * 5;
-                        statComponent.StatHistory = statComponent.StatHistory.Substring(0, statComponent.StatHistory.Length - 5);
+                        statComponent.StatPoints -= num * 6;
+                        statComponent.StatHistory = statComponent.StatHistory.Substring(0, statComponent.StatHistory.Length - 6);
                     }
                     if (levelComponent.CurrentLevel == -1)
                     {
@@ -49,7 +49,7 @@ namespace GameEngine
                     if (oldLevel < newLevel)
                     {
                         int num = newLevel - oldLevel;
-                        statComponent.StatPoints += num * 5;
+                        statComponent.StatPoints += num * 6;
                     }
                 }
                 if (levelComponent.ExperienceGains.Count > 0)
