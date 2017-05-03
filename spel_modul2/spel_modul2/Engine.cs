@@ -53,10 +53,12 @@ namespace GameEngine
                 new DamageSystem(),
                 new RenderHealthSystem(),
                 new LevelSystem(),
-                new InventorySystem(gd),
+                new InventorySystem(),
+                new RenderInventorySystem(),
                 new InteractSystem(),
                 new RenderGUISystem(),
                 new RenderEnergySystem(),
+                new ItemIconLoaderSystem(),
             });
 
             base.Initialize();
@@ -131,11 +133,11 @@ namespace GameEngine
 
             cm.AddComponentsToEntity(10, new IComponent[]
             {
-                new ItemComponent(),
+                new ItemComponent("Staff"),
             });
             cm.AddComponentsToEntity(11, new IComponent[]
             {
-                new ItemComponent(),
+                new ItemComponent("Sword"),
             });
 
             sm.GetSystem<AnimationLoaderSystem>().Load(Content);
@@ -145,6 +147,7 @@ namespace GameEngine
             sm.GetSystem<RenderEnergySystem>().Load(Content);
             sm.GetSystem<RenderHealthSystem>().Load(Content);
             sm.GetSystem<RenderGUISystem>().Load(Content);
+            sm.GetSystem<ItemIconLoaderSystem>().Load(Content);
 
             
             
@@ -159,7 +162,7 @@ namespace GameEngine
             sm.GetSystem<RenderSystem>().Render(gd, sb);
             sm.GetSystem<RenderCollisionBoxSystem>().Render(gd, sb);
             sm.GetSystem<RenderAttackingCollisionBoxSystem>().Render(gd, sb);
-            sm.GetSystem<InventorySystem>().Render(gd, sb);
+            sm.GetSystem<RenderInventorySystem>().Render(gd, sb);
             sm.GetSystem<RenderGUISystem>().Render(gd, sb);
 
             var fps = 1 / gameTime.ElapsedGameTime.TotalSeconds;

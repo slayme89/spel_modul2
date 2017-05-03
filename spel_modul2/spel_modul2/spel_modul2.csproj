@@ -85,6 +85,7 @@
     <Compile Include="Systems\CoreSystems\AttackSystem.cs" />
     <Compile Include="Systems\CoreSystems\CollisionSystem.cs" />
     <Compile Include="Systems\CoreSystems\DamageSystem.cs" />
+    <Compile Include="Systems\LoaderSystems\ItemIconLoaderSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderEnergySystem.cs" />
     <Compile Include="Systems\PlayerSystems\InputSystem.cs" />
     <Compile Include="Systems\PlayerSystems\InteractSystem.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="Systems\RenderSystems\RenderCollisionBoxSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderGUISystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderHealthSystem.cs" />
+    <Compile Include="Systems\RenderSystems\RenderInventorySystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderSystem.cs" />
     <Compile Include="Systems\LoaderSystems\SoundLoaderSystem.cs" />
     <Compile Include="Systems\CoreSystems\SoundSystem.cs" />
