@@ -28,7 +28,7 @@ namespace GameEngine
                 GamePadState gamepad;
                 switch (playerControl.ControllerType)
                 {
-                    case "Keyboard":
+                    case ControllerType.Keyboard:
                         // Movement
                         KeyboardState keyboard = Keyboard.GetState();
                         Vector2 dir = new Vector2();
@@ -107,7 +107,7 @@ namespace GameEngine
                         // Set previous keyboard state
                         previousKeyboardState = Keyboard.GetState();
                         break;
-                    case "Gamepad1":
+                    case ControllerType.Gamepad1:
                         // Movement
                         gamepad = GamePad.GetState(PlayerIndex.One);
                         playerControl.Movement.SetDirection(new Vector2(gamepad.ThumbSticks.Left.X, -gamepad.ThumbSticks.Left.Y));
@@ -166,7 +166,7 @@ namespace GameEngine
                         // Set previous gamepad state
                         previousGamepadState1 = GamePad.GetState(PlayerIndex.One);
                         break;
-                    case "Gamepad2":
+                    case ControllerType.Gamepad2:
                         // Movement
                         gamepad = GamePad.GetState(PlayerIndex.Two);
                         playerControl.Movement.SetDirection(new Vector2(gamepad.ThumbSticks.Left.X, -gamepad.ThumbSticks.Left.Y));

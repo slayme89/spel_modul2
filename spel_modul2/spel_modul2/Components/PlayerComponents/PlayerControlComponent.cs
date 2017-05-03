@@ -2,9 +2,11 @@
 
 namespace GameEngine
 {
+    enum ControllerType { Keyboard, Gamepad1, Gamepad2 };
+
     class PlayerControlComponent : IComponent
     {
-        public string ControllerType { get; set; }
+        public ControllerType ControllerType { get; set; }
         public Stick Movement { get; set; }
         public Button Attack { get; set; }
         public Button Interact { get; set; }
@@ -16,7 +18,7 @@ namespace GameEngine
         public Button ActionBar3 { get; set; }
         public Button ActionBar4 { get; set; }
 
-        public PlayerControlComponent(string controller)
+        public PlayerControlComponent(ControllerType controller)
         {
             ControllerType = controller;
             Movement = new Stick();

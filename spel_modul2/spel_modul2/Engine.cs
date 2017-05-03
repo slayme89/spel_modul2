@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace GameEngine
 {
@@ -73,7 +72,7 @@ namespace GameEngine
                 new HealthComponent(100),
                 new PositionComponent(0, 0),
                 new MoveComponent(0.2f),
-                new PlayerControlComponent("Keyboard"),
+                new PlayerControlComponent(ControllerType.Keyboard),
                 new CollisionComponent(50, 50),
                 new AttackComponent(50, 0.3f, 0.1f, WeaponType.Sword),
                 new PlayerComponent(1),
@@ -92,19 +91,19 @@ namespace GameEngine
                 new PositionComponent(40, 0),
             });*/
 
-            /*cm.AddComponentsToEntity(5, new IComponent[] {
+            cm.AddComponentsToEntity(5, new IComponent[] {
                 new TextureComponent("hej"),
                 new HealthComponent(100),
                 new PositionComponent(100, 500),
                 new MoveComponent(0.2f),
-                new PlayerControlComponent("Keyboard"),
+                new PlayerControlComponent(ControllerType.Gamepad1),
                 new CollisionComponent(50, 50),
                 new AttackComponent(100, 0.3f, 0.1f, WeaponType.Sword),
                 new PlayerComponent(2),
                 new LevelComponent(2),
                 new GUIComponent("UI/Health-Energy-Container", gd.Viewport.TitleSafeArea.Left + 800, gd.Viewport.TitleSafeArea.Top + 3),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage")
-            });*/
+            });
 
             cm.AddComponentsToEntity(2, new IComponent[]
             {
