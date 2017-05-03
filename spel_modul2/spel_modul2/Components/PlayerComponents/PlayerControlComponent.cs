@@ -9,6 +9,7 @@ namespace GameEngine
         public Button Attack { get; set; }
         public Button Interact { get; set; }
         public Button Menu { get; set; }
+        public Button Back { get; set; }
         public Button Inventory { get; set; }
         public Button ActionBar1 { get; set; }
         public Button ActionBar2 { get; set; }

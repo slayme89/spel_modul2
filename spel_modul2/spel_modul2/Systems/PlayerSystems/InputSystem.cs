@@ -78,7 +78,11 @@ namespace GameEngine
                         if (keyboard.IsKeyDown(Keys.C) && previousKeyboardState.IsKeyUp(Keys.C))
                             playerControl.Inventory.SetButton(true);
                         else
-                            playerControl.Inventory.SetButton(false);
+                        // Back
+                        if (keyboard.IsKeyDown(Keys.Q) && previousKeyboardState.IsKeyUp(Keys.Q))
+                            playerControl.Back.SetButton(true);
+                        else
+                            playerControl.Back.SetButton(false);
                         // Actionbar 1
                         if (keyboard.IsKeyDown(Keys.D1) && previousKeyboardState.IsKeyUp(Keys.D1))
                             playerControl.ActionBar1.SetButton(true);
@@ -152,6 +156,11 @@ namespace GameEngine
                                 playerControl.Inventory.SetButton(true);
                             else
                                 playerControl.Inventory.SetButton(false);
+                            // Back
+                            if (gamepad.IsButtonDown(Buttons.B) && previousGamepadState1.IsButtonUp(Buttons.B))
+                                playerControl.Back.SetButton(true);
+                            else
+                                playerControl.Back.SetButton(false);
                         }
                         // Set previous gamepad state
                         previousGamepadState1 = GamePad.GetState(PlayerIndex.One);
@@ -206,6 +215,11 @@ namespace GameEngine
                                 playerControl.Inventory.SetButton(true);
                             else
                                 playerControl.Inventory.SetButton(false);
+                            // Back
+                            if (gamepad.IsButtonDown(Buttons.B) && previousGamepadState1.IsButtonUp(Buttons.B))
+                                playerControl.Back.SetButton(true);
+                            else
+                                playerControl.Back.SetButton(false);
                         }
                         // Set previous gamepad state
                         previousGamepadState2 = GamePad.GetState(PlayerIndex.Two);
