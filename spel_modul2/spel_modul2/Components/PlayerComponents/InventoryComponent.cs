@@ -19,6 +19,7 @@ namespace GameEngine
         public Point SlotSpace { get; set; }
         public bool IsOpen { get; set; }
         public int HeldItem { get; set; }
+        public int[] WeaponBodyHead = new int[3];
         public InventoryComponent(int columns, int rows)
         {
             HeldItem = 0;

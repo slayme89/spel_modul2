@@ -64,7 +64,6 @@
     <Compile Include="Components\CoreComponents\EnergyComponent.cs" />
     <Compile Include="Components\GUIComponent.cs" />
     <Compile Include="Components\CoreComponents\HealthComponent.cs" />
-    <Compile Include="Components\PlayerComponents\EquipmentComponent.cs" />
     <Compile Include="Components\PlayerComponents\InteractComponent.cs" />
     <Compile Include="Components\PlayerComponents\InventoryComponent.cs" />
     <Compile Include="Components\CoreComponents\LevelComponent.cs" />

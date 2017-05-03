@@ -20,7 +20,6 @@ namespace GameEngine
             foreach (var entity in cm.GetComponentsOfType<InventoryComponent>())
             {
                 InventoryComponent invenComp = (InventoryComponent)entity.Value;
-                EquipmentComponent equipComp = cm.GetComponentForEntity<EquipmentComponent>(entity.Key);
 
                 if (invenComp.IsOpen)
                 {
@@ -50,44 +49,23 @@ namespace GameEngine
                             }
                         }
                     }
-                    if(equipComp != null)
-                    {
                         Point HeadPos = new Point(5, 15) + invenComp.PositionOnScreen;
                         Point BodyPos = new Point(5, 60) + invenComp.PositionOnScreen;
                         Point WeaponPos = new Point(5, 105) + invenComp.PositionOnScreen;
                         Rectangle equipmentSlot = new Rectangle(HeadPos, invenComp.SlotSize);
 
                         spriteBatch.Draw(t, equipmentBackground, Color.DarkGray);
-                        if (invenComp.SelectedSlot.X == -3)
-                            spriteBatch.Draw(t, equipmentSlot, Color.Green);
-                        else
-                            spriteBatch.Draw(t, equipmentSlot, Color.Gray);
-                        equipmentSlot.Location = BodyPos;
-                        if (invenComp.SelectedSlot.X == -2)
-                            spriteBatch.Draw(t, equipmentSlot, Color.Green);
-                        else
-                            spriteBatch.Draw(t, equipmentSlot, Color.Gray);
-                            equipmentSlot.Location = WeaponPos;
-                        if (invenComp.SelectedSlot.X == -1)
-                            spriteBatch.Draw(t, equipmentSlot, Color.Green);
-                        else
-                            spriteBatch.Draw(t, equipmentSlot, Color.Gray);
-                        if (equipComp.Head != 0)
+                        for (int y = 0; y < invenComp.WeaponBodyHead.Length; y++)
                         {
-                            equipmentSlot.Location = HeadPos;
-                            spriteBatch.Draw(cm.GetComponentForEntity<ItemComponent>(equipComp.Head).ItemIcon, equipmentSlot, Color.Yellow);
+                            equipmentSlot.Location = new Point(5, 105 - 45 * y) + invenComp.PositionOnScreen;
+
+                            if(-y -1 == invenComp.SelectedSlot.X)
+                                spriteBatch.Draw(t, equipmentSlot, Color.Green);
+                            else
+                                spriteBatch.Draw(t, equipmentSlot, Color.Gray);
+                            if(invenComp.WeaponBodyHead[y] != 0)
+                                spriteBatch.Draw(cm.GetComponentForEntity<ItemComponent>(invenComp.WeaponBodyHead[y]).ItemIcon, equipmentSlot, Color.Yellow);
                         }
-                        if(equipComp.Body != 0)
-                        {
-                            equipmentSlot.Location = BodyPos;
-                            spriteBatch.Draw(cm.GetComponentForEntity<ItemComponent>(equipComp.Body).ItemIcon, equipmentSlot, Color.Yellow);
-                        }
-                        if(equipComp.Weapon != 0)
-                        {
-                            equipmentSlot.Location = WeaponPos;
-                            spriteBatch.Draw(cm.GetComponentForEntity<ItemComponent>(equipComp.Weapon).ItemIcon, equipmentSlot, Color.Yellow);
-                        }
-                    }
                 }
             }
             spriteBatch.End();

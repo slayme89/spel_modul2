@@ -7,14 +7,23 @@ using System.Threading.Tasks;
 
 namespace GameEngine
 {
+    public enum ItemType
+    {
+        Weapon = 0,
+        ArmorBody,
+        ArmorHead,
+        Consumable,
+    }
     class ItemComponent : IComponent
     {
         public int InventoryPosition { get; set; }
         public string TextureFileName { get; set; }
         public Texture2D ItemIcon { get; set; }
+        public ItemType Type { get; set; }
 
-        public ItemComponent(string ItemIconFileName)
+        public ItemComponent(string ItemIconFileName, ItemType type)
         {
+            Type = type;
             TextureFileName = ItemIconFileName;
         }
     }
