@@ -56,6 +56,7 @@ namespace GameEngine
                 new InventorySystem(gd),
                 new InteractSystem(),
                 new RenderGUISystem(),
+                new RenderEnergySystem(),
             });
 
             base.Initialize();
@@ -63,7 +64,8 @@ namespace GameEngine
 
         protected override void LoadContent()
         {
-            cm.AddComponentsToEntity(1, new IComponent[] {
+            cm.AddComponentsToEntity(1, new IComponent[]
+            {
                 new TextureComponent("hej"),
                 new HealthComponent(100),
                 new PositionComponent(0, 0),
@@ -75,7 +77,15 @@ namespace GameEngine
                 new LevelComponent(2),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
                 new GUIComponent("UI/Health-Energy-Container", gd.Viewport.TitleSafeArea.Left, gd.Viewport.TitleSafeArea.Top),
-                new InventoryComponent(5, 5)
+             
+                new InventoryComponent(5, 5),
+                new EnergyComponent(100),
+            });
+
+            cm.AddComponentsToEntity(60, new IComponent[]
+            {
+                new TextureComponent("hej"),
+                new PositionComponent(40, 0),
             });
 
             /*cm.AddComponentsToEntity(5, new IComponent[] {
@@ -125,8 +135,11 @@ namespace GameEngine
             sm.GetSystem<WorldSystem>().Load(Content);
             sm.GetSystem<SoundLoaderSystem>().Load(Content);
 
+            sm.GetSystem<RenderEnergySystem>().Load(Content);
             sm.GetSystem<RenderHealthSystem>().Load(Content);
             sm.GetSystem<RenderGUISystem>().Load(Content);
+
+            
             
             base.LoadContent();
         }
@@ -134,6 +147,7 @@ namespace GameEngine
         protected override void Draw(GameTime gameTime)
         {
             gd.Clear(Color.Blue);
+            sm.GetSystem<RenderEnergySystem>().Render(gd, sb);
             sm.GetSystem<RenderHealthSystem>().Render(gd, sb);
             sm.GetSystem<RenderSystem>().Render(gd, sb);
             sm.GetSystem<RenderCollisionBoxSystem>().Render(gd, sb);

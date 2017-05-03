@@ -41,7 +41,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\$(MonoGamePlatform)\$(Platform)\$(Configuration)\</OutputPath>
@@ -105,6 +105,7 @@
     <Compile Include="Systems\LoaderSystems\TextureLoaderSystem.cs" />
     <Compile Include="Systems\CoreSystems\MoveSystem.cs" />
     <Compile Include="Systems\CoreSystems\WorldSystem.cs" />
+    <Compile Include="Systems\RenderSystems\RenderTexture.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
