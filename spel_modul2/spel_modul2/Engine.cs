@@ -77,7 +77,6 @@ namespace GameEngine
                 new LevelComponent(2),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
                 new GUIComponent("UI/Health-Energy-Container", gd.Viewport.TitleSafeArea.Left, gd.Viewport.TitleSafeArea.Top),
-             
                 new InventoryComponent(5, 5),
                 new EnergyComponent(100),
             });
@@ -134,7 +133,6 @@ namespace GameEngine
             sm.GetSystem<TextureLoaderSystem>().Load(Content);
             sm.GetSystem<WorldSystem>().Load(Content);
             sm.GetSystem<SoundLoaderSystem>().Load(Content);
-
             sm.GetSystem<RenderEnergySystem>().Load(Content);
             sm.GetSystem<RenderHealthSystem>().Load(Content);
             sm.GetSystem<RenderGUISystem>().Load(Content);
@@ -153,7 +151,6 @@ namespace GameEngine
             sm.GetSystem<RenderCollisionBoxSystem>().Render(gd, sb);
             sm.GetSystem<RenderAttackingCollisionBoxSystem>().Render(gd, sb);
             sm.GetSystem<InventorySystem>().Render(gd, sb);
-
             sm.GetSystem<RenderGUISystem>().Render(gd, sb);
 
             var fps = 1 / gameTime.ElapsedGameTime.TotalSeconds;
