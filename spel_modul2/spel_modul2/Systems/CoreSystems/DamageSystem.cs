@@ -24,7 +24,6 @@ namespace GameEngine
 
         private void ApplyDamageToEntity(int entityHit, int attackingEntity)
         {
-            Debug.WriteLine("entityHit " + entityHit + " attackingEntity " + attackingEntity);
             ComponentManager cm = ComponentManager.GetInstance();
             HealthComponent entityHitHealth = cm.GetComponentForEntity<HealthComponent>(entityHit);
             AttackComponent attackingEntityDamage = cm.GetComponentForEntity<AttackComponent>(attackingEntity);

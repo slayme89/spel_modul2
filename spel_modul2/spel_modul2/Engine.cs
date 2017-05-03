@@ -83,6 +83,7 @@ namespace GameEngine
                 new InventoryComponent(5, 5),
                 new EnergyComponent(100),
                 new DamageComponent(),
+                new StatsComponent(5, 2, 2, 0),
             });
 
             /*cm.AddComponentsToEntity(60, new IComponent[]
