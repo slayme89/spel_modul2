@@ -25,6 +25,7 @@ namespace GameEngine
             ComponentManager cm = ComponentManager.GetInstance();
             HealthComponent healthComponent = cm.GetComponentForEntity<HealthComponent>(entity);
             EnergyComponent energyComponent = cm.GetComponentForEntity<EnergyComponent>(entity);
+            GUIComponent guiComp = cm.GetComponentForEntity<GUIComponent>(entity);
 
             if (energyComponent != null && healthComponent != null && healthComponent.IsAlive == true)
             {
@@ -40,12 +41,14 @@ namespace GameEngine
                     //check if its player 1 entity
                     if (playNum == 1)
                     {
-                        energyRectangle = new Rectangle(gd.Viewport.TitleSafeArea.Left + 5, gd.Viewport.TitleSafeArea.Top + 22 + 3, currEnergy, 14);
+                        float scaledEnergy = (float)currEnergy / energyComponent.Max * guiComp.Texture.Width - 10f;
+                        energyRectangle = new Rectangle(gd.Viewport.TitleSafeArea.Left + 5, gd.Viewport.TitleSafeArea.Top + 22 + 3, (int)scaledEnergy, 14);
                     }
                     //check if its player 2 entity
                     else if (playNum == 2)
                     {
-                        energyRectangle = new Rectangle(gd.Viewport.TitleSafeArea.Left + 305, gd.Viewport.TitleSafeArea.Top +22 + 3, currEnergy, 14);
+                        float scaledEnergy = (float)currEnergy / energyComponent.Max * guiComp.Texture.Width - 10f;
+                        energyRectangle = new Rectangle(gd.Viewport.TitleSafeArea.Left + 305, gd.Viewport.TitleSafeArea.Top +22 + 3, (int)scaledEnergy, 14);
                     }
                 }
                 //else its an AI

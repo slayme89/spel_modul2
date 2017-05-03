@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using System.Diagnostics;
 
 namespace GameEngine
 {
@@ -32,6 +33,7 @@ namespace GameEngine
                 bool ai = cm.HasEntityComponent<AIComponent>(entity);
                 Rectangle healthRectangle = new Rectangle();
                 Viewport viewport = Extensions.GetCurrentViewport(gd);
+                GUIComponent guiComp = cm.GetComponentForEntity<GUIComponent>(entity);
 
                 if (player)
                 {
@@ -39,13 +41,16 @@ namespace GameEngine
 
                     //check if its player 1 entity
                     if (playNum == 1)
-                    {
-                        healthRectangle = new Rectangle(gd.Viewport.TitleSafeArea.Left + 5, gd.Viewport.TitleSafeArea.Top + 3, currHealth, 14);
+                    { 
+                        float scaledHealth = (float)currHealth / healthComponent.Max * guiComp.Texture.Width - 10f;
+                        healthRectangle = new Rectangle(gd.Viewport.TitleSafeArea.Left + 5, gd.Viewport.TitleSafeArea.Top + 3, (int)scaledHealth, 14);
+                        
                     }
                     //check if its player 2 entity
                     else if (playNum == 2)
                     {
-                        healthRectangle = new Rectangle(gd.Viewport.TitleSafeArea.Left + 305, gd.Viewport.TitleSafeArea.Top + 3, currHealth, 14);
+                        float scaledHealth = (float)currHealth / healthComponent.Max * guiComp.Texture.Width - 10f;
+                        healthRectangle = new Rectangle(gd.Viewport.TitleSafeArea.Left + 305, gd.Viewport.TitleSafeArea.Top + 3, (int)scaledHealth, 14);
                     }
                 }
                 //else its an AI
