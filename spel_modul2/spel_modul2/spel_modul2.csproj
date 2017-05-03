@@ -60,6 +60,7 @@
     <Compile Include="Components\AIComponents\AIComponent.cs" />
     <Compile Include="Components\CoreComponents\AttackComponent.cs" />
     <Compile Include="Components\CoreComponents\CollisionComponent.cs" />
+    <Compile Include="Components\CoreComponents\DamageComponent.cs" />
     <Compile Include="Components\CoreComponents\EnergyComponent.cs" />
     <Compile Include="Components\GUIComponent.cs" />
     <Compile Include="Components\CoreComponents\HealthComponent.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Systems\CoreSystems\AttackSystem.cs" />
     <Compile Include="Systems\CoreSystems\CollisionSystem.cs" />
     <Compile Include="Systems\CoreSystems\DamageSystem.cs" />
+    <Compile Include="Systems\CoreSystems\HealthSystem.cs" />
     <Compile Include="Systems\PlayerSystems\StatsSystem.cs" />
     <Compile Include="Systems\LoaderSystems\ItemIconLoaderSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderEnergySystem.cs" />

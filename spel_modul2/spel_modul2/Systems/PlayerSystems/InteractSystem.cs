@@ -25,7 +25,6 @@ namespace GameEngine
                     {
                         // Interact with closest interactable entity
                         // Temp
-                        SystemManager.GetInstance().GetSystem<DamageSystem>().Update(player.Key, closestInteractable);
                     }
                 }
 

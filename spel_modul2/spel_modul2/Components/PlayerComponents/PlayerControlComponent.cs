@@ -25,6 +25,7 @@ namespace GameEngine
             Menu = new Button();
             Back = new Button();
             Inventory = new Button();
+            Back = new Button();
             ActionBar1 = new Button();
             ActionBar2 = new Button();
             ActionBar3 = new Button();

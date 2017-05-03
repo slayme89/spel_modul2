@@ -1,20 +1,21 @@
-﻿namespace GameEngine
+﻿using System.Collections.Generic;
+
+namespace GameEngine
 {
     class LevelComponent : IComponent
     {
         public int StartLevel { get; set; } = 1;
         public int CurrentLevel { get; set; }
-        public float Experience { get; set; } = 0;
-
-
-        public LevelComponent()
-        {
-        }
+        public int Experience { get; set; } = 0;
+        public List<int> ExperienceGains { get; set; }
+        public List<int> ExperienceLoss { get; set; }
 
         public LevelComponent(int startLevel)
         {
             StartLevel = startLevel;
             CurrentLevel = startLevel;
+            ExperienceGains = new List<int>();
+            ExperienceLoss = new List<int>();
         }
     }
 }

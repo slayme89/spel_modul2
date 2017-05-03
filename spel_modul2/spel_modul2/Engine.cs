@@ -59,6 +59,7 @@ namespace GameEngine
                 new RenderGUISystem(),
                 new RenderEnergySystem(),
                 new ItemIconLoaderSystem(),
+                new HealthSystem(),
             });
 
             base.Initialize();
@@ -74,13 +75,14 @@ namespace GameEngine
                 new MoveComponent(0.2f),
                 new PlayerControlComponent("Keyboard"),
                 new CollisionComponent(50, 50),
-                new AttackComponent(100, 0.3f, 0.1f, WeaponType.Sword),
+                new AttackComponent(50, 0.3f, 0.1f, WeaponType.Sword),
                 new PlayerComponent(1),
                 new LevelComponent(2),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
                 new GUIComponent("UI/Health-Energy-Container", gd.Viewport.TitleSafeArea.Left, gd.Viewport.TitleSafeArea.Top),
                 new InventoryComponent(5, 5),
                 new EnergyComponent(100),
+                new DamageComponent(),
             });
 
             /*cm.AddComponentsToEntity(60, new IComponent[]
@@ -106,14 +108,15 @@ namespace GameEngine
             cm.AddComponentsToEntity(2, new IComponent[]
             {
                 new AnimationComponent("PlayerAnimation/NakedFWalk", new Point(4, 1), 150),
-                new HealthComponent(100),
+                new HealthComponent(50),
                 new PositionComponent(300, 10),
                 new MoveComponent(0.1f),
                 new AIComponent(160, 160, false),
                 new CollisionComponent(50, 50),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
-                new AttackComponent(33, 0.5f, 0.3f, WeaponType.Sword),
-                new LevelComponent(3)
+                new AttackComponent(10, 0.5f, 0.3f, WeaponType.Sword),
+                new LevelComponent(3),
+                new DamageComponent(),
             });
 
             cm.AddComponentsToEntity(3, new IComponent[]

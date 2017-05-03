@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System;
 
 namespace GameEngine
 {
@@ -11,64 +12,50 @@ namespace GameEngine
             foreach (var entity in cm.GetComponentsOfType<AttackComponent>())
             {
                 AttackComponent attackComponent = cm.GetComponentForEntity<AttackComponent>(entity.Key);
-                if (attackComponent.CanAttack && attackComponent.IsAttacking)
+                if(attackComponent.Type == WeaponType.Sword)
                 {
-                    if(attackComponent.AttackChargeUp <= 0.0f)
+                    CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(entity.Key);
+                    if (attackComponent.CanAttack && attackComponent.IsAttacking)
                     {
-                        attackComponent.IsAttacking = false;
-                        attackComponent.AttackChargeUp = attackComponent.AttackDelay;
-                        EntityAttack(gameTime, entity.Key);
+                        if (attackComponent.AttackChargeUp <= 0.0f)
+                        {
+                            attackComponent.IsAttacking = false;
+                            attackComponent.AttackChargeUp = attackComponent.AttackDelay;
+                            collisionComponent.attackCollisionBox = GetAttackRect(entity.Key);
+                            collisionComponent.checkAttackColision = true;
+                        }
+                        else
+                        {
+                            attackComponent.AttackChargeUp -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                            collisionComponent.checkAttackColision = false;
+                        }
                     }
                     else
-                        attackComponent.AttackChargeUp -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    {
+                        collisionComponent.checkAttackColision = false;
+                    }
                 }
+                else if(attackComponent.Type == WeaponType.Bow)
+                {
+
+                }
+                else if (attackComponent.Type == WeaponType.Magic)
+                {
+
+                }
+
             }
         }
 
-        public void EntityAttack(GameTime gameTime, int entity)
+        private Rectangle GetAttackRect(int key)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-            AttackComponent attackComponent = cm.GetComponentForEntity<AttackComponent>(entity);
-            MoveComponent moveComponent = cm.GetComponentForEntity<MoveComponent>(entity);
-            PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(entity);
-            if(attackComponent.Type == WeaponType.Sword)
-            {
-                CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(entity);
-                int range = collisionComponent.collisionBox.Size.X;
-                Point hitOffset = new Point((collisionComponent.collisionBox.Width / 2), (collisionComponent.collisionBox.Height / 2));
-                Rectangle hitArea = new Rectangle(positionComponent.position - hitOffset + moveComponent.Direction * new Point(range, range), collisionComponent.collisionBox.Size);
-
-                List<int> entitiesHit = CollisionSystem.DetectAreaCollision(hitArea);
-                foreach (int entityHit in entitiesHit)
-                {
-                    if(entityHit != entity)
-                    {
-                        HealthComponent entityHitHealth = cm.GetComponentForEntity<HealthComponent>(entityHit);
-                        if (entityHitHealth != null && entityHitHealth.IsAlive == true)
-                        {
-                            //Update health on entity
-                            DamageSystem dmgSys = new DamageSystem();
-                            dmgSys.Update(entityHit, entity);
-
-                            //Play damage sound
-                            cm.GetComponentForEntity<SoundComponent>(entity).PlayDamageSound = true;
-                           
-                            //Update Level on entity
-                            if(cm.HasEntityComponent<LevelComponent>(entity) || cm.HasEntityComponent<LevelComponent>(entityHit))
-                            {
-                                LevelSystem lvlSys = new LevelSystem();
-                                lvlSys.Update(entity, entityHit);
-                            }
-                        }
-                    }
-                }
-            }else if (attackComponent.Type == WeaponType.Bow)
-            {
-
-            }else if (attackComponent.Type == WeaponType.Magic)
-            {
-
-            }
+            MoveComponent moveComponent = cm.GetComponentForEntity<MoveComponent>(key);
+            CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(key);
+            PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(key);
+            int range = collisionComponent.collisionBox.Size.X;
+            Point hitOffset = new Point((collisionComponent.collisionBox.Width / 2), (collisionComponent.collisionBox.Height / 2));
+            return new Rectangle(positionComponent.position - hitOffset + moveComponent.Direction * new Point(range, range), collisionComponent.collisionBox.Size);
         }
     }
 }
