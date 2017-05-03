@@ -52,34 +52,49 @@ namespace GameEngine
         {
             ComponentManager cm = ComponentManager.GetInstance();
             LevelComponent levelComponent = cm.GetComponentForEntity<LevelComponent>(entity);
-            int lvl = levelComponent.CurrentLevel;
-            float xp = levelComponent.Experience;
+            StatsComponent statComponent = cm.GetComponentForEntity<StatsComponent>(entity);
+            int currLevel = levelComponent.CurrentLevel;
+            float currXp = levelComponent.Experience;
 
-            levelComponent.Experience = xp + experience;
-            if(xp + experience <= 0)
+            levelComponent.Experience = currXp + experience;
+            if(currXp + experience <= 0)
             {
                 HealthComponent entityHealth = cm.GetComponentForEntity<HealthComponent>(entity);
                 entityHealth.IsAlive = false;
+                levelComponent.Experience = 0;
             }
-            else if (xp + experience >= 83.0f)
+            else if (currXp + experience >= 83.0f)
                 levelComponent.CurrentLevel = 2;
-            else if(xp + experience >= 174.0f)
+            else if(currXp + experience >= 174.0f)
                 levelComponent.CurrentLevel = 3;
-            else if (xp + experience >= 266.0f)
+            else if (currXp + experience >= 266.0f)
                 levelComponent.CurrentLevel = 4;
-            else if (xp + experience >= 389.0f)
+            else if (currXp + experience >= 389.0f)
                 levelComponent.CurrentLevel = 5;
-            else if (xp + experience >= 572.0f)
+            else if (currXp + experience >= 572.0f)
                 levelComponent.CurrentLevel = 6;
-            else if (xp + experience >= 939.0f)
+            else if (currXp + experience >= 939.0f)
                 levelComponent.CurrentLevel = 7;
-            else if (xp + experience >= 1306.0f)
+            else if (currXp + experience >= 1306.0f)
                 levelComponent.CurrentLevel = 8;
-            else if (xp + experience >= 1673.0f)
+            else if (currXp + experience >= 1673.0f)
                 levelComponent.CurrentLevel = 9;
-            else if (xp + experience >= 2407.0f)
+            else if (currXp + experience >= 2407.0f)
                 levelComponent.CurrentLevel = 10;
-        }
 
+            //see if entity leveled up
+            if(currLevel < levelComponent.CurrentLevel)
+            {
+                int num = levelComponent.CurrentLevel - currLevel;
+                statComponent.StatPoints += num * 5;
+             
+            }
+            //see if entity lost level
+            if (currLevel > levelComponent.CurrentLevel)
+            {
+                int num = currLevel - levelComponent.CurrentLevel;
+                statComponent.StatPoints -= num * 5;
+            }
+        }
     }
 }

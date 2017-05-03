@@ -71,11 +71,11 @@
     <Compile Include="Components\PlayerComponents\PlayerComponent.cs" />
     <Compile Include="Components\PlayerComponents\PlayerControlComponent.cs" />
     <Compile Include="Components\CoreComponents\PositionComponent.cs" />
+    <Compile Include="Components\PlayerComponents\StatsComponent.cs" />
     <Compile Include="Components\SoundComponents\SoundComponent.cs" />
     <Compile Include="Components\SoundComponents\SoundThemeComponent.cs" />
     <Compile Include="Components\CoreComponents\TextureComponent.cs" />
     <Compile Include="Components\WorldComponent.cs" />
-    <Compile Include="Extensions.cs" />
     <Compile Include="Managers\ComponentManager.cs" />
     <Compile Include="Components\CoreComponents\AnimationComponent.cs" />
     <Compile Include="Engine.cs" />
@@ -85,6 +85,7 @@
     <Compile Include="Systems\CoreSystems\AttackSystem.cs" />
     <Compile Include="Systems\CoreSystems\CollisionSystem.cs" />
     <Compile Include="Systems\CoreSystems\DamageSystem.cs" />
+    <Compile Include="Systems\PlayerSystems\StatsSystem.cs" />
     <Compile Include="Systems\LoaderSystems\ItemIconLoaderSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderEnergySystem.cs" />
     <Compile Include="Systems\PlayerSystems\InputSystem.cs" />
