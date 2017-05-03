@@ -163,19 +163,7 @@ namespace GameEngine
             //        frames++;
             //    elapsed = 0;
             //}
-
-            SystemManager.GetInstance().Update<AnimationSystem>(gameTime);
-            SystemManager.GetInstance().Update<AIMovementSystem>(gameTime);
-            SystemManager.GetInstance().Update<InputSystem>(gameTime);
-            SystemManager.GetInstance().Update<PlayerMovementSystem>(gameTime);
-            SystemManager.GetInstance().Update<MoveSystem>(gameTime);
-            SystemManager.GetInstance().Update<PlayerAttackSystem>(gameTime);
-            SystemManager.GetInstance().Update<AttackSystem>(gameTime);
-            SystemManager.GetInstance().Update<WorldSystem>(gameTime);
-            SystemManager.GetInstance().Update<AIAttackSystem>(gameTime);
-            SystemManager.GetInstance().Update<SoundSystem>(gameTime);
-            SystemManager.GetInstance().Update<InteractSystem>(gameTime);
-            SystemManager.GetInstance().Update<InventorySystem>(gameTime);
+            SystemManager.GetInstance().UpdateAllSystems(gameTime);
 
             var a = cm.GetComponentForEntity<AnimationComponent>(2);
             if (Keyboard.GetState().IsKeyDown(Keys.P) && previousKeyboardState.IsKeyUp(Keys.P))
