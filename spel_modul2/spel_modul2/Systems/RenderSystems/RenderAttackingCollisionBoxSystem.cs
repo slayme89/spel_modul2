@@ -20,6 +20,7 @@ namespace GameEngine
         {
             spriteBatch.Begin();
             ComponentManager cm = ComponentManager.GetInstance();
+            Viewport viewport = Extensions.GetCurrentViewport(graphicsDeive);
             foreach (var Entity in cm.GetComponentsOfType<AttackComponent>())
             {
                 AttackComponent attackComponent = (AttackComponent)Entity.Value;
@@ -32,7 +33,7 @@ namespace GameEngine
                         CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(Entity.Key);
                         int range = collisionComponent.collisionBox.Size.X;
                         Point hitOffset = new Point((collisionComponent.collisionBox.Width / 2), (collisionComponent.collisionBox.Height / 2));
-                        Rectangle hitArea = new Rectangle(positionComponent.position - hitOffset + moveComponent.Direction * new Point(range, range), collisionComponent.collisionBox.Size);
+                        Rectangle hitArea = new Rectangle(positionComponent.position - hitOffset + moveComponent.Direction * new Point(range, range), collisionComponent.collisionBox.Size).WorldToScreen(ref viewport);
                         if(attackComponent.IsAttacking)
                             spriteBatch.Draw(t, hitArea, Color.Black);
                         else

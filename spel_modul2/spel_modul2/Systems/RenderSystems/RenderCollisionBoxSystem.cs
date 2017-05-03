@@ -25,14 +25,15 @@ namespace GameEngine
         public void Render(GraphicsDevice graphicsDeive, SpriteBatch spriteBatch)
         {
             ComponentManager cm = ComponentManager.GetInstance();
+            Viewport viewport = Extensions.GetCurrentViewport(graphicsDeive);
             foreach (var entity in cm.GetComponentsOfType<CollisionComponent>())
             {
                 CollisionComponent collisionComponent = (CollisionComponent)entity.Value;
                 spriteBatch.Begin();
-                spriteBatch.Draw(t, new Rectangle(collisionComponent.collisionBox.Left, collisionComponent.collisionBox.Top, 2, collisionComponent.collisionBox.Height), Color.Black); // Left
-                spriteBatch.Draw(t, new Rectangle(collisionComponent.collisionBox.Right, collisionComponent.collisionBox.Top, 2, collisionComponent.collisionBox.Height), Color.Black); // Right
-                spriteBatch.Draw(t, new Rectangle(collisionComponent.collisionBox.Left, collisionComponent.collisionBox.Top, collisionComponent.collisionBox.Width, 2), Color.Black); // Top
-                spriteBatch.Draw(t, new Rectangle(collisionComponent.collisionBox.Left, collisionComponent.collisionBox.Bottom, collisionComponent.collisionBox.Width, 2), Color.Black); // Bottom
+                spriteBatch.Draw(t, new Rectangle(collisionComponent.collisionBox.Left, collisionComponent.collisionBox.Top, 2, collisionComponent.collisionBox.Height).WorldToScreen(ref viewport), Color.Black); // Left
+                spriteBatch.Draw(t, new Rectangle(collisionComponent.collisionBox.Right, collisionComponent.collisionBox.Top, 2, collisionComponent.collisionBox.Height).WorldToScreen(ref viewport), Color.Black); // Right
+                spriteBatch.Draw(t, new Rectangle(collisionComponent.collisionBox.Left, collisionComponent.collisionBox.Top, collisionComponent.collisionBox.Width, 2).WorldToScreen(ref viewport), Color.Black); // Top
+                spriteBatch.Draw(t, new Rectangle(collisionComponent.collisionBox.Left, collisionComponent.collisionBox.Bottom, collisionComponent.collisionBox.Width, 2).WorldToScreen(ref viewport), Color.Black); // Bottom
                 spriteBatch.End();
             }
         }
