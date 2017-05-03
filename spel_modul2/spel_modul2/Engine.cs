@@ -148,29 +148,9 @@ namespace GameEngine
             //base.Draw(gameTime);
         }
 
-        KeyboardState previousKeyboardState = new KeyboardState();
-
         protected override void Update(GameTime gameTime)
         {
-
-            //elapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-
-            //if (elapsed >= delay)
-            //{
-            //    if (frames >= 3)
-            //        frames = 0;
-            //    else
-            //        frames++;
-            //    elapsed = 0;
-            //}
             SystemManager.GetInstance().UpdateAllSystems(gameTime);
-
-            var a = cm.GetComponentForEntity<AnimationComponent>(2);
-            if (Keyboard.GetState().IsKeyDown(Keys.P) && previousKeyboardState.IsKeyUp(Keys.P))
-                a.isPaused = !a.isPaused;
-
-            previousKeyboardState = Keyboard.GetState();
-
             base.Update(gameTime);
         }
     }
