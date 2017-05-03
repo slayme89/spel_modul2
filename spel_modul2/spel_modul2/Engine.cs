@@ -125,7 +125,7 @@ namespace GameEngine
                 new LevelComponent(2),
                 new GUIComponent("UI/Player2-Hp-Ene-Xp", gd.Viewport.TitleSafeArea.Right, gd.Viewport.TitleSafeArea.Top),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
-            });
+            });*/
 
             cm.AddComponentsToEntity(2, new IComponent[]
             {
