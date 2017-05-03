@@ -37,7 +37,11 @@ namespace GameEngine
                             else
                                 spriteBatch.Draw(t, inventorySlot, Color.Gray);
                             if (invenComp.Items[column + (invenComp.ColumnsRows.X) * row] != 0)
+                            {
+                                if(invenComp.HeldItem == invenComp.Items[column + (invenComp.ColumnsRows.X) * row])
+                                    spriteBatch.Draw(t, inventorySlot, Color.Yellow);
                                 spriteBatch.Draw(cm.GetComponentForEntity<ItemComponent>(invenComp.Items[column + (invenComp.ColumnsRows.X) * row]).ItemIcon, inventorySlot, Color.Yellow);
+                            }
                         }
                     }
                 }

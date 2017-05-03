@@ -24,7 +24,6 @@ namespace GameEngine
                     if (playerComp.ActionBar1.IsButtonDown())
                     {
                         AddItemToInventory(entity.Key, 10);
-                        
                     }
                     //Test to add item
                     if (playerComp.ActionBar2.IsButtonDown())
