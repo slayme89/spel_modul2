@@ -11,7 +11,7 @@ namespace GameEngine
             foreach (var entity in cm.GetComponentsOfType<LevelComponent>())
             {
                 LevelComponent levelComponent = (LevelComponent)entity.Value;
-                StatComponent statComponent = cm.GetComponentOfType<statComponent>(entity.Key);
+                StatsComponent statComponent = cm.GetComponentForEntity<StatsComponent>(entity.Key);
                 foreach (int xpLoss in levelComponent.ExperienceLoss)
                 {
                     levelComponent.Experience += xpLoss;
