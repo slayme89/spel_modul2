@@ -10,11 +10,15 @@ namespace GameEngine
 {
     class RenderInventorySystem : IRenderSystem, ISystem
     {
+        Texture2D t;
+        public RenderInventorySystem(GraphicsDevice graphicsDevice)
+        {
+            t = new Texture2D(graphicsDevice, 1, 1);
+            t.SetData(new[] { Color.White });
+        }
         public void Render(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-            Texture2D t = new Texture2D(graphicsDevice, 1, 1);
-            t.SetData(new[] { Color.White });
 
             spriteBatch.Begin();
             foreach (var entity in cm.GetComponentsOfType<InventoryComponent>())

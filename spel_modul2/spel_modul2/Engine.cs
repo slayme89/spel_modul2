@@ -53,7 +53,7 @@ namespace GameEngine
                 new RenderHealthSystem(),
                 new LevelSystem(),
                 new InventorySystem(),
-                new RenderInventorySystem(),
+                new RenderInventorySystem(gd),
                 new InteractSystem(),
                 new RenderGUISystem(),
                 new RenderEnergySystem(),
