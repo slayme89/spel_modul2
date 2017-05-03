@@ -43,6 +43,12 @@ namespace GameEngine
             }
         }
 
+        public void AddEntityWithComponents(params IComponent[] components)
+        {
+            int entity = EntityManager.GetEntityId();
+            AddComponentsToEntity(entity, components);
+        }
+
         public Dictionary<int, IComponent> GetComponentsOfType<T>()
         {
             Dictionary<int, IComponent> components;

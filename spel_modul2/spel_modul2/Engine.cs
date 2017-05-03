@@ -69,14 +69,14 @@ namespace GameEngine
         {
             for (int i = -640; i <= 640; i += 128)
             {
-                cm.AddComponentsToEntity(i, new IComponent[]
+                cm.AddEntityWithComponents(new IComponent[]
                 {
                     new TextureComponent("road1"),
                     new PositionComponent(i, 150),
                 });
             }
 
-            cm.AddComponentsToEntity(1, new IComponent[]
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new TextureComponent("hej"),
                 new HealthComponent(100),
@@ -95,25 +95,25 @@ namespace GameEngine
                 new StatsComponent(5, 1, 0, 0),
             });
 
-            cm.AddComponentsToEntity(7, new IComponent[]
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new TextureComponent("tree1"),
                 new PositionComponent(10, 10),
             });
 
-            cm.AddComponentsToEntity(8, new IComponent[]
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new TextureComponent("trees1"),
                 new PositionComponent(200, -25),
             });
 
-            /*cm.AddComponentsToEntity(60, new IComponent[]
+            /*cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new TextureComponent("hej"),
                 new PositionComponent(40, 0),
             });*/
 
-            /*cm.AddComponentsToEntity(5, new IComponent[] {
+            /*cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[] {
                 new TextureComponent("hej"),
                 new HealthComponent(100),
                 new PositionComponent(100, 500),
@@ -127,7 +127,7 @@ namespace GameEngine
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
             });*/
 
-            cm.AddComponentsToEntity(2, new IComponent[]
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new AnimationComponent("PlayerAnimation/NakedFWalk", new Point(4, 1), 150),
                 new HealthComponent(50),
@@ -141,7 +141,7 @@ namespace GameEngine
                 new DamageComponent(),
             });
 
-            /*cm.AddComponentsToEntity(3, new IComponent[]
+            /*cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new AnimationComponent("threerings", new Point(6, 8), 40),
                 new PositionComponent(50, 200),
@@ -150,17 +150,17 @@ namespace GameEngine
                 new AttackComponent(10, 0.5f, 0.3f, WeaponType.Sword),
             });*/
 
-            cm.AddComponentsToEntity(4, new IComponent[]
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new WorldComponent(),
                 new SoundThemeComponent("Sound/theme"),
             });
 
-            cm.AddComponentsToEntity(10, new IComponent[]
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new ItemComponent("Staff", ItemType.Weapon),
             });
-            cm.AddComponentsToEntity(11, new IComponent[]
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new ItemComponent("Sword", ItemType.Weapon),
             });
