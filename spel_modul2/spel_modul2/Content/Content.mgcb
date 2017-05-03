@@ -79,6 +79,12 @@
 /processorParam:Quality=Best
 /build:Sound/theme.wav
 
+#begin Sound/damage.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/damage.wav
+
 #begin UI/Health.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -91,9 +97,15 @@
 /processorParam:TextureFormat=Color
 /build:UI/Health.png
 
-#begin Sound/damage.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sound/damage.wav
+#begin UI/Health-Energy-Container.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UI/Health-Energy-Container.png
 
