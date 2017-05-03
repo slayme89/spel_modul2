@@ -81,5 +81,14 @@ namespace GameEngine
             }
             return default(T);
         }
+
+        public void RemoveComponentFromEntity<T>(int entity) where T : IComponent
+        {
+            if (entityComponents[entity].ContainsKey(typeof(T)))
+            {
+                entityComponents[entity].Remove(typeof(T));
+                componentGroups[typeof(T)].Remove(entity);
+            }
+        }
     }
 }
