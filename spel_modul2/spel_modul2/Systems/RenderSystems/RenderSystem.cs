@@ -19,6 +19,8 @@ namespace GameEngine
 
             spriteBatch.Begin();
 
+            RenderTiles(graphicsDevice, spriteBatch);
+
             //Render all textures
             foreach (var entity in cm.GetComponentsOfType<TextureComponent>())
             {
@@ -51,14 +53,24 @@ namespace GameEngine
                 }
             }
 
-            RenderTiles(graphicsDevice, spriteBatch);
-
             spriteBatch.End();
         }
 
         void RenderTiles(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
+            ComponentManager cm = ComponentManager.GetInstance();
+            WorldComponent world = (from w in cm.GetComponentsOfType<WorldComponent>().Values select w).First() as WorldComponent;
+            Viewport viewport = Extensions.GetCurrentViewport(graphicsDevice);
+            Rectangle viewportBounds = viewport.Bounds;
 
+            foreach (var tile in world.tiles)
+            {
+                Point point = new Point(tile.Key.X * tile.Value.Width, tile.Key.Y * tile.Value.Height);
+                Rectangle tileBounds = new Rectangle(point.X, point.Y, tile.Value.Width, tile.Value.Height);
+
+                if (viewportBounds.Intersects(tileBounds))
+                    spriteBatch.Draw(tile.Value, point.WorldToScreen(ref viewport).ToVector2(), Color.White);
+            }
         }
 
         private Viewport GetCurrentViewport(GraphicsDevice graphicsDevice)

@@ -47,8 +47,8 @@ namespace GameEngine
                 Texture2D texture = content.Load<Texture2D>(textureFile);
                 Point p = new Point(x, y);
 
-                world.tiles.Add(p, texture);
-
+                if (!world.tiles.ContainsKey(p))
+                    world.tiles.Add(p, texture);
             }
         }
     }

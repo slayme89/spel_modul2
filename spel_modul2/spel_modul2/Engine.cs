@@ -83,11 +83,11 @@ namespace GameEngine
                 new EnergyComponent(100),
             });
 
-            cm.AddComponentsToEntity(60, new IComponent[]
+            /*cm.AddComponentsToEntity(60, new IComponent[]
             {
                 new TextureComponent("hej"),
                 new PositionComponent(40, 0),
-            });
+            });*/
 
             /*cm.AddComponentsToEntity(5, new IComponent[] {
                 new TextureComponent("hej"),
