@@ -15,35 +15,37 @@ namespace GameEngine
         {
             ComponentManager cm = ComponentManager.GetInstance();
             Viewport viewport = GetCurrentViewport(graphicsDevice);
-            Rectangle bounds = viewport.Bounds;
+            Rectangle viewportBounds = viewport.Bounds;
 
             spriteBatch.Begin();
 
             foreach (var entity in cm.GetComponentsOfType<TextureComponent>())
             {
-                TextureComponent texture = (TextureComponent)entity.Value;
+                TextureComponent textureComponent = (TextureComponent)entity.Value;
                 PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(entity.Key);
-                
-                if(positionComponent != null)
-                {
-                    Point position = positionComponent.position - texture.offset;
 
-                    if (bounds.Contains(position))
-                        spriteBatch.Draw(texture.texture, position.WorldToScreen(ref viewport).ToVector2(), Color.White);
+                if (positionComponent != null)
+                {
+                    Point position = positionComponent.position - textureComponent.offset;
+                    Rectangle textureBounds = new Rectangle(position.X, position.Y, textureComponent.texture.Width, textureComponent.texture.Height);
+
+                    if (viewportBounds.Intersects(textureBounds))
+                        spriteBatch.Draw(textureComponent.texture, position.WorldToScreen(ref viewport).ToVector2(), Color.White);
                 }
             }
 
             foreach (var entity in cm.GetComponentsOfType<AnimationComponent>())
             {
-                AnimationComponent animation = (AnimationComponent)entity.Value;
+                AnimationComponent animationComponent = (AnimationComponent)entity.Value;
                 PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(entity.Key);
 
                 if (positionComponent != null)
                 {
-                    Point position = positionComponent.position - animation.offset;
+                    Point position = positionComponent.position - animationComponent.offset;
+                    Rectangle animationBounds = new Rectangle(position.X, position.Y, animationComponent.frameSize.X, animationComponent.frameSize.Y);
 
-                    if (bounds.Contains(position))
-                        spriteBatch.Draw(animation.spriteSheet, position.WorldToScreen(ref viewport).ToVector2(), animation.sourceRectangle, Color.White);
+                    if (viewportBounds.Intersects(animationBounds))
+                        spriteBatch.Draw(animationComponent.spriteSheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.sourceRectangle, Color.White);
                 }
             }
 

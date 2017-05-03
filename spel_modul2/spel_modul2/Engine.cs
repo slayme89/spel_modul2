@@ -63,7 +63,8 @@ namespace GameEngine
 
         protected override void LoadContent()
         {
-            cm.AddComponentsToEntity(1, new IComponent[] {
+            cm.AddComponentsToEntity(1, new IComponent[]
+            {
                 new TextureComponent("hej"),
                 new HealthComponent(100),
                 new PositionComponent(0, 0),
@@ -76,6 +77,12 @@ namespace GameEngine
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
                 new GUIComponent("UI/Health-Energy-Container", gd.Viewport.TitleSafeArea.Left, gd.Viewport.TitleSafeArea.Top),
                 new InventoryComponent(5, 5)
+            });
+
+            cm.AddComponentsToEntity(60, new IComponent[]
+            {
+                new TextureComponent("hej"),
+                new PositionComponent(40, 0),
             });
 
             /*cm.AddComponentsToEntity(5, new IComponent[] {
