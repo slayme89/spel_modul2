@@ -24,14 +24,18 @@ namespace GameEngine
                     {
                         int num = oldLevel - newLevel;
                         statComponent.StatPoints -= num * 5;
+                        statComponent.StatHistory = statComponent.StatHistory.Substring(0, statComponent.StatHistory.Length - 5);
                     }
                     if (levelComponent.CurrentLevel == -1)
                     {
                         // Permadeath
                     }
+
+                    
                 }
-                if(levelComponent.ExperienceLoss.Count > 0)
+                if (levelComponent.ExperienceLoss.Count > 0)
                     levelComponent.ExperienceLoss = new List<int>();
+              
 
                 foreach (int entityKilled in levelComponent.ExperienceGains)
                 {
@@ -46,7 +50,6 @@ namespace GameEngine
                     {
                         int num = newLevel - oldLevel;
                         statComponent.StatPoints += num * 5;
-
                     }
                 }
                 if (levelComponent.ExperienceGains.Count > 0)

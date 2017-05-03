@@ -8,7 +8,6 @@
         public int Intellect { get; set; }
         public int StatPoints { get; set; }
         public int CurrNumStatPoints { get; set; }
-
         public string StatHistory;
 
         public StatsComponent(int strength, int agillity, int stamina, int intellect)

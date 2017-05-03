@@ -15,9 +15,39 @@ namespace GameEngine
                 UpdateEntityAgillity(entity.Key);
                 UpdateEntityStamina(entity.Key);
                 UpdateEntityIntellect(entity.Key);
+
+                UpdateEntityStats((StatsComponent)entity.Value);
             }
         }
         
+        private void UpdateEntityStats(StatsComponent comp)
+        {
+            int numIterations = comp.StatHistory.Length / 3;
+
+            comp.Agillity = 0;
+            comp.Intellect = 0;
+            comp.Stamina = 0;
+            comp.Strength = 0;
+
+            for (int i = 0; i <= numIterations; i++)
+            {
+                int start = 0;
+                int end = 2;
+                string stat = comp.StatHistory.Substring(start, end);
+
+                switch (stat)
+                {
+                    case "str": comp.Strength += 1;  break;
+                    case "int": comp.Intellect += 1; break;
+                    case "agi": comp.Agillity += 1;  break;
+                    case "sta": comp.Stamina += 1;   break;
+                }
+                start += 3;
+                end += 3;
+            }
+        }
+
+
         private void UpdateEntityStrength(int entity)
         {
             ComponentManager cm = ComponentManager.GetInstance();
