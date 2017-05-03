@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace spel_modul2.Components.PlayerComponents
+namespace GameEngine
 {
-    class EquipmentComponent
+    class EquipmentComponent : IComponent
     {
+        public int Head { get; set; }
+        public int Body { get; set; }
+        public int Weapon { get; set; }
     }
 }
