@@ -38,7 +38,7 @@ namespace GameEngine
                 new TextureLoaderSystem(),
                 new CollisionSystem(),
                 new RenderSystem(),
-                new RenderCollisionBoxSystem(gd),
+                new RenderCollisionBoxSystem(),
                 new MoveSystem(),
                 new PlayerMovementSystem(),
                 new AIMovementSystem(),

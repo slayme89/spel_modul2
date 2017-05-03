@@ -39,5 +39,16 @@ namespace GameEngine
 
             return new Viewport(bounds);
         }
+
+        public static void DrawRectangle(this SpriteBatch spriteBatch, Rectangle rectangle, int strokeWidth, Color color)
+        {
+            Texture2D texture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+            texture.SetData(new[] { Color.White });
+
+            spriteBatch.Draw(texture, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width, strokeWidth), color);
+            spriteBatch.Draw(texture, new Rectangle(rectangle.Left, rectangle.Bottom, rectangle.Width + strokeWidth, strokeWidth), color);
+            spriteBatch.Draw(texture, new Rectangle(rectangle.Left, rectangle.Top, strokeWidth, rectangle.Height), color);
+            spriteBatch.Draw(texture, new Rectangle(rectangle.Right, rectangle.Top, strokeWidth, rectangle.Height), color);
+        }
     }
 }
