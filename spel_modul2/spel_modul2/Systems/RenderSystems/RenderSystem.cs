@@ -19,6 +19,7 @@ namespace GameEngine
 
             spriteBatch.Begin();
 
+            //Render all textures
             foreach (var entity in cm.GetComponentsOfType<TextureComponent>())
             {
                 TextureComponent textureComponent = (TextureComponent)entity.Value;
@@ -34,6 +35,7 @@ namespace GameEngine
                 }
             }
 
+            //Render all animations
             foreach (var entity in cm.GetComponentsOfType<AnimationComponent>())
             {
                 AnimationComponent animationComponent = (AnimationComponent)entity.Value;
@@ -49,7 +51,14 @@ namespace GameEngine
                 }
             }
 
+            RenderTiles(graphicsDevice, spriteBatch);
+
             spriteBatch.End();
+        }
+
+        void RenderTiles(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
+        {
+
         }
 
         private Viewport GetCurrentViewport(GraphicsDevice graphicsDevice)

@@ -31,6 +31,7 @@ namespace GameEngine
                 bool player = cm.HasEntityComponent<PlayerComponent>(entity);
                 bool ai = cm.HasEntityComponent<AIComponent>(entity);
                 Rectangle healthRectangle = new Rectangle();
+                Viewport viewport = Extensions.GetCurrentViewport(gd);
 
                 if (player)
                 {
@@ -55,7 +56,7 @@ namespace GameEngine
                         aiCollisionBox.collisionBox.Location.X,
                         aiCollisionBox.collisionBox.Location.Y - (aiCollisionBox.collisionBox.Height / 2),
                         currHealth/2,
-                        10);
+                        10).WorldToScreen(ref viewport);
                 }
                 sb.Begin();
                 sb.Draw(healthTexture, healthRectangle, Color.White);
