@@ -39,19 +39,18 @@ namespace GameEngine
                                 (int)scaledHealth,
                                 12
                                 );
-
                         }
                         //check if its player 2 entity - FIXXXXAA
-                        else if (playerNumber == 2)
-                        {
-                            float scaledHealth = (float)currHealth / healthComponent.Max * 100f;
-                            healthRectangle = new Rectangle(
-                                gd.Viewport.TitleSafeArea.Left + 305,
-                                gd.Viewport.TitleSafeArea.Top + 6,
-                                (int)scaledHealth,
-                                14
-                                );
-                        }
+                        //else if (playerNumber == 2)
+                        //{
+                        //    float scaledHealth = (float)currHealth / healthComponent.Max * 100f;
+                        //    healthRectangle = new Rectangle(
+                        //        gd.Viewport.TitleSafeArea.Left + 305,
+                        //        gd.Viewport.TitleSafeArea.Top + 6,
+                        //        (int)scaledHealth,
+                        //        14
+                        //        );
+                        //}
                     }
                     //else its an AI
                     else if (cm.HasEntityComponent<AIComponent>(entity.Key))

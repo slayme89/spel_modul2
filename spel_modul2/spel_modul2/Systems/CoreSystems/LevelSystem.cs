@@ -25,8 +25,8 @@ namespace GameEngine
                         int num = oldLevel - newLevel;
                         
                         // FIXXXXAA
-                        statComponent.StatPoints -= num * 6;
-                        statComponent.StatHistory = statComponent.StatHistory.Substring(0, statComponent.StatHistory.Length - 6);
+                        //statComponent.StatPoints -= num * 6;
+                        //statComponent.StatHistory = statComponent.StatHistory.Substring(0, statComponent.StatHistory.Length - 6);
                         
                         
                     }
@@ -52,8 +52,9 @@ namespace GameEngine
                     // See if entity leveled up
                     if (oldLevel < newLevel)
                     {
+                        //FIXXAAA
                         int num = newLevel - oldLevel;
-                        statComponent.StatPoints += num * 6;
+                        //statComponent.StatPoints += num * 6;
                     }
                 }
                 if (levelComponent.ExperienceGains.Count > 0)

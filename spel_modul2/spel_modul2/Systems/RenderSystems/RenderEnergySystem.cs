@@ -37,16 +37,15 @@ namespace GameEngine
                             );
                     }
                     //check if its player 2 entity - FIXXXXAAA
-                    else if (playNum == 2)
-                    {
-                        energyRectangle = new Rectangle(
-                            gd.Viewport.TitleSafeArea.Left + 305,
-                            gd.Viewport.TitleSafeArea.Top + 30,
-                            (int)scaledEnergy,
-                            12
-                            );
-                    }
-
+                    //else if (playNum == 2)
+                    //{
+                    //    energyRectangle = new Rectangle(
+                    //        gd.Viewport.TitleSafeArea.Left + 305,
+                    //        gd.Viewport.TitleSafeArea.Top + 30,
+                    //        (int)scaledEnergy,
+                    //        12
+                    //        );
+                    //}
                     sb.Begin();
                     sb.Draw(energyTexture, energyRectangle, Color.White);
                     sb.End();
