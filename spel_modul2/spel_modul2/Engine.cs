@@ -14,6 +14,7 @@ namespace GameEngine
         //int frames = 0;
         GraphicsDevice gd;
         SpriteBatch sb;
+        public static GraphicsDevice graphicsDevice;
 
         public Engine()
         {
@@ -28,6 +29,7 @@ namespace GameEngine
         protected override void Initialize()
         {
             gd = graphics.GraphicsDevice;
+            graphicsDevice = graphics.GraphicsDevice;
             sb = new SpriteBatch(gd);
 
             sm.AddSystems(new ISystem[] {
@@ -64,7 +66,7 @@ namespace GameEngine
             cm.AddComponentsToEntity(1, new IComponent[] {
                 new TextureComponent("hej"),
                 new HealthComponent(100),
-                new PositionComponent(500, 500),
+                new PositionComponent(0, 0),
                 new MoveComponent(0.2f),
                 new PlayerControlComponent("Keyboard"),
                 new CollisionComponent(50, 50),
@@ -76,7 +78,7 @@ namespace GameEngine
                 new InventoryComponent(5, 5)
             });
 
-            cm.AddComponentsToEntity(5, new IComponent[] {
+            /*cm.AddComponentsToEntity(5, new IComponent[] {
                 new TextureComponent("hej"),
                 new HealthComponent(100),
                 new PositionComponent(100, 500),
@@ -88,7 +90,7 @@ namespace GameEngine
                 new LevelComponent(2),
                 new GUIComponent("UI/Health-Energy-Container", gd.Viewport.TitleSafeArea.Left + 800, gd.Viewport.TitleSafeArea.Top + 3),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage")
-            });
+            });*/
 
             cm.AddComponentsToEntity(2, new IComponent[]
             {
@@ -124,7 +126,7 @@ namespace GameEngine
             sm.GetSystem<SoundLoaderSystem>().Load(Content);
 
             sm.GetSystem<RenderHealthSystem>().Load(Content);
-            sm.GetSystem<RenderGUISystem>().Load(Content);
+            //sm.GetSystem<RenderGUISystem>().Load(Content);
             
             base.LoadContent();
         }
@@ -138,7 +140,7 @@ namespace GameEngine
             sm.GetSystem<RenderAttackingCollisionBoxSystem>().Render(gd, sb);
             sm.GetSystem<InventorySystem>().Render(gd, sb);
 
-            sm.GetSystem<RenderGUISystem>().Render(gd, sb);
+            //sm.GetSystem<RenderGUISystem>().Render(gd, sb);
 
             var fps = 1 / gameTime.ElapsedGameTime.TotalSeconds;
             Window.Title = fps.ToString();
@@ -171,7 +173,7 @@ namespace GameEngine
             SystemManager.GetInstance().Update<AttackSystem>(gameTime);
             SystemManager.GetInstance().Update<WorldSystem>(gameTime);
             SystemManager.GetInstance().Update<AIAttackSystem>(gameTime);
-            SystemManager.GetInstance().Update<SoundSystem>(gameTime);
+            //SystemManager.GetInstance().Update<SoundSystem>(gameTime);
             SystemManager.GetInstance().Update<InteractSystem>(gameTime);
             SystemManager.GetInstance().Update<InventorySystem>(gameTime);
 

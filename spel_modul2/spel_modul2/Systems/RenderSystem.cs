@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine
@@ -12,43 +14,76 @@ namespace GameEngine
         public void Render(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
             ComponentManager cm = ComponentManager.GetInstance();
+            Viewport viewport = GetCurrentViewport(graphicsDevice);
+            Rectangle bounds = viewport.Bounds;
 
             spriteBatch.Begin();
-
-            //TODO: Calculate the viewport rectangle in world coordinates.
-            //      Group all entities with a position component by tileId.
-            //      Get all tiles which bounds intersect the viewport rectangle OR
-            //      store a bound rectangle and iterate over them and do an intersect test. //Probably easier for a small game.
-            //      
-            //      
-            //      
-            //Rectangle r = new Rectangle();
 
             foreach (var entity in cm.GetComponentsOfType<TextureComponent>())
             {
                 TextureComponent texture = (TextureComponent)entity.Value;
-                PositionComponent position = cm.GetComponentForEntity<PositionComponent>(entity.Key);
+                PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(entity.Key);
                 
-                if(position != null)
+                if(positionComponent != null)
                 {
-                    spriteBatch.Draw(texture.texture, (position.position - texture.offset).ToVector2(), Color.White);
+                    Point position = positionComponent.position - texture.offset;
+
+                    if (bounds.Contains(position))
+                        spriteBatch.Draw(texture.texture, position.WorldToScreen(ref viewport).ToVector2(), Color.White);
                 }
             }
 
             foreach (var entity in cm.GetComponentsOfType<AnimationComponent>())
             {
                 AnimationComponent animation = (AnimationComponent)entity.Value;
-                PositionComponent position = cm.GetComponentForEntity<PositionComponent>(entity.Key);
+                PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(entity.Key);
 
-                if (position != null)
+                if (positionComponent != null)
                 {
-                    spriteBatch.Draw(animation.spriteSheet, (position.position - animation.offset).ToVector2(), animation.sourceRectangle, Color.White);
+                    Point position = positionComponent.position - animation.offset;
+
+                    if (bounds.Contains(position))
+                        spriteBatch.Draw(animation.spriteSheet, position.WorldToScreen(ref viewport).ToVector2(), animation.sourceRectangle, Color.White);
                 }
             }
 
-            Viewport hej = graphicsDevice.Viewport;
-
             spriteBatch.End();
+        }
+
+        private Viewport GetCurrentViewport(GraphicsDevice graphicsDevice)
+        {
+            ComponentManager cm = ComponentManager.GetInstance();
+            WorldComponent world = (from w in cm.GetComponentsOfType<WorldComponent>().Values select w).First() as WorldComponent;
+            Rectangle bounds = new Rectangle(0, 0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
+            bounds.Offset(world.center - new Point(graphicsDevice.Viewport.Width / 2, graphicsDevice.Viewport.Height / 2));
+
+            return new Viewport(bounds);
+        }
+    }
+
+    public static class Extensions
+    {
+        public static Point ScreenToWorld(this Point point, ref Viewport viewport)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static Rectangle ScreenToWorld(this Rectangle rectangle, ref Viewport viewport)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static Point WorldToScreen(this Point point, ref Viewport viewport)
+        {
+            point.X += viewport.Width / 2 - viewport.Bounds.Center.X;
+            point.Y += viewport.Height / 2 - viewport.Bounds.Center.Y;
+            return point;
+        }
+
+        public static Rectangle WorldToScreen(this Rectangle rectangle, ref Viewport viewport)
+        {
+            rectangle.Offset(viewport.Width / 2 - viewport.Bounds.Center.X, viewport.Height / 2 - viewport.Bounds.Center.Y);
+            return rectangle;
         }
     }
 }
