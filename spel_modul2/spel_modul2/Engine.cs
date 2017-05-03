@@ -80,6 +80,7 @@ namespace GameEngine
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
                 new GUIComponent("UI/Health-Energy-Container", gd.Viewport.TitleSafeArea.Left, gd.Viewport.TitleSafeArea.Top),
                 new InventoryComponent(5, 4),
+                new EquipmentComponent(),
                 new EnergyComponent(100),
                 new DamageComponent(),
                 new StatsComponent(5, 2, 2, 0),
