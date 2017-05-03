@@ -27,7 +27,6 @@ namespace GameEngine
 
             if (healthComponent != null && healthComponent.IsAlive == true)
             {
-                int maxHealth = healthComponent.Max;
                 int currHealth = healthComponent.Current;
                 bool player = cm.HasEntityComponent<PlayerComponent>(entity);
                 bool ai = cm.HasEntityComponent<AIComponent>(entity);
