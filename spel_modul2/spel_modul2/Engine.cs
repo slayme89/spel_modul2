@@ -129,6 +129,15 @@ namespace GameEngine
                 new SoundThemeComponent("Sound/theme"),
             });
 
+            cm.AddComponentsToEntity(10, new IComponent[]
+            {
+                new ItemComponent(),
+            });
+            cm.AddComponentsToEntity(11, new IComponent[]
+            {
+                new ItemComponent(),
+            });
+
             sm.GetSystem<AnimationLoaderSystem>().Load(Content);
             sm.GetSystem<TextureLoaderSystem>().Load(Content);
             sm.GetSystem<WorldSystem>().Load(Content);
