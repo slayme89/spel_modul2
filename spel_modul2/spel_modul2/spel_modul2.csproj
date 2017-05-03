@@ -77,6 +77,7 @@
     <Compile Include="Components\SoundComponents\SoundThemeComponent.cs" />
     <Compile Include="Components\CoreComponents\TextureComponent.cs" />
     <Compile Include="Components\WorldComponent.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Managers\ComponentManager.cs" />
     <Compile Include="Components\CoreComponents\AnimationComponent.cs" />
     <Compile Include="Engine.cs" />
