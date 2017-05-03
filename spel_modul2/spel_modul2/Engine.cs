@@ -157,9 +157,9 @@ namespace GameEngine
         protected override void Draw(GameTime gameTime)
         {
             gd.Clear(Color.Blue);
+            sm.GetSystem<RenderSystem>().Render(gd, sb);
             sm.GetSystem<RenderEnergySystem>().Render(gd, sb);
             sm.GetSystem<RenderHealthSystem>().Render(gd, sb);
-            sm.GetSystem<RenderSystem>().Render(gd, sb);
             sm.GetSystem<RenderCollisionBoxSystem>().Render(gd, sb);
             sm.GetSystem<RenderAttackingCollisionBoxSystem>().Render(gd, sb);
             sm.GetSystem<RenderInventorySystem>().Render(gd, sb);
