@@ -18,59 +18,6 @@ namespace GameEngine
             }
         }
         
-        //add 1 of the given statType to the entity
-        public void AddStatToEntity(int entity, string statType)
-        {
-            ComponentManager cm = ComponentManager.GetInstance();
-            StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity);
-
-            switch (statType)
-            {
-                case "str":
-                    statComp.Strength += 1;
-                    statComp.StatHistory += "str";
-                    break;
-                case "agi":
-                    statComp.Agillity += 1;
-                    statComp.StatHistory += "agi";
-                    break;
-                case "sta":
-                    statComp.Stamina += 1;
-                    statComp.StatHistory += "sta";
-                    break;
-                case "int":
-                    statComp.Intellect += 1;
-                    statComp.StatHistory += "int";
-                    break;
-            }
-            
-        }
-
-        //Remove 1 of the given statType from entity
-        public void RemoveStatFromEntity(int entity, string statType)
-        {
-            ComponentManager cm = ComponentManager.GetInstance();
-            StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity);
-
-            switch (statType)
-            {
-                case "str":
-                    statComp.Strength -= 1;
-                    break;
-                case "agi":
-                    statComp.Agillity -= 1;
-                    break;
-                case "sta":
-                    statComp.Stamina -= 1;
-                    break;
-                case "int":
-                    statComp.Intellect -= 1;
-                    break;
-            }
-            statComp.StatHistory.Substring(0, statComp.StatHistory.Length - 4);
-        }
-
-        
         private void UpdateEntityStrength(int entity)
         {
             ComponentManager cm = ComponentManager.GetInstance();
