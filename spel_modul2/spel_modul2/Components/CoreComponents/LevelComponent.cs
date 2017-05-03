@@ -17,5 +17,14 @@ namespace GameEngine
             ExperienceGains = new List<int>();
             ExperienceLoss = new List<int>();
         }
+
+        public LevelComponent(int startLevel, int startExperience)
+        {
+            StartLevel = startLevel;
+            CurrentLevel = startLevel;
+            Experience = startExperience;
+            ExperienceGains = new List<int>();
+            ExperienceLoss = new List<int>();
+        }
     }
 }

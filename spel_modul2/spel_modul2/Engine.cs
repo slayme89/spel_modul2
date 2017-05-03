@@ -59,6 +59,7 @@ namespace GameEngine
                 new RenderEnergySystem(),
                 new ItemIconLoaderSystem(),
                 new HealthSystem(),
+                new RenderExperienceSystem(),
             });
 
             base.Initialize();
@@ -76,13 +77,13 @@ namespace GameEngine
                 new CollisionComponent(50, 50),
                 new AttackComponent(50, 0.3f, 0.1f, WeaponType.Sword),
                 new PlayerComponent(1),
-                new LevelComponent(2),
+                new LevelComponent(2, 44),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
-                new GUIComponent("UI/Health-Energy-Container", gd.Viewport.TitleSafeArea.Left, gd.Viewport.TitleSafeArea.Top),
+                new GUIComponent("UI/Player1-Hp-Ene-Xp", gd.Viewport.TitleSafeArea.Left, gd.Viewport.TitleSafeArea.Top),
                 new InventoryComponent(5, 4),
                 new EnergyComponent(100),
                 new DamageComponent(),
-                new StatsComponent(5, 2, 2, 0),
+                new StatsComponent(5, 1, 0, 0),
             });
 
             /*cm.AddComponentsToEntity(60, new IComponent[]
@@ -101,8 +102,8 @@ namespace GameEngine
                 new AttackComponent(100, 0.3f, 0.1f, WeaponType.Sword),
                 new PlayerComponent(2),
                 new LevelComponent(2),
-                new GUIComponent("UI/Health-Energy-Container", gd.Viewport.TitleSafeArea.Left + 800, gd.Viewport.TitleSafeArea.Top + 3),
-                new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage")
+                new GUIComponent("UI/Player2-Hp-Ene-Xp", gd.Viewport.TitleSafeArea.Right, gd.Viewport.TitleSafeArea.Top),
+                new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
             });
 
             cm.AddComponentsToEntity(2, new IComponent[]
@@ -149,6 +150,7 @@ namespace GameEngine
             sm.GetSystem<SoundLoaderSystem>().Load(Content);
             sm.GetSystem<RenderEnergySystem>().Load(Content);
             sm.GetSystem<RenderHealthSystem>().Load(Content);
+            sm.GetSystem<RenderExperienceSystem>().Load(Content);
             sm.GetSystem<RenderGUISystem>().Load(Content);
             sm.GetSystem<ItemIconLoaderSystem>().Load(Content);
 
@@ -163,10 +165,11 @@ namespace GameEngine
             sm.GetSystem<RenderSystem>().Render(gd, sb);
             sm.GetSystem<RenderEnergySystem>().Render(gd, sb);
             sm.GetSystem<RenderHealthSystem>().Render(gd, sb);
+            sm.GetSystem<RenderExperienceSystem>().Render(gd, sb);
             sm.GetSystem<RenderCollisionBoxSystem>().Render(gd, sb);
             sm.GetSystem<RenderAttackingCollisionBoxSystem>().Render(gd, sb);
             sm.GetSystem<RenderInventorySystem>().Render(gd, sb);
-            sm.GetSystem<RenderGUISystem>().Render(gd, sb);
+            sm.GetSystem<RenderGUISystem>().Render(sb);
 
             var fps = 1 / gameTime.ElapsedGameTime.TotalSeconds;
             Window.Title = fps.ToString();

@@ -104,6 +104,7 @@
     <Compile Include="Systems\PlayerSystems\PlayerMovementSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderAttackingCollisionBoxSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderCollisionBoxSystem.cs" />
+    <Compile Include="Systems\RenderSystems\RenderExperienceSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderGUISystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderHealthSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderInventorySystem.cs" />

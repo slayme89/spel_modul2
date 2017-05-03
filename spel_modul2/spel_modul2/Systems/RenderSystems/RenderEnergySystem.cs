@@ -6,7 +6,8 @@ namespace GameEngine
 {
     class RenderEnergySystem : ISystem
     {
-        Texture2D energyTexture;
+        private Texture2D energyTexture;
+
         public void Update(GameTime gameTime)
         {
         }
@@ -14,56 +15,42 @@ namespace GameEngine
         public void Render(GraphicsDevice gd, SpriteBatch sb)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-            foreach (var entity in cm.GetComponentsOfType<HealthComponent>())
+            foreach (var entity in cm.GetComponentsOfType<PlayerComponent>())
             {
-                DrawEnergy(entity.Key, gd, sb);
-            }
-        }
+                HealthComponent healthComponent = cm.GetComponentForEntity<HealthComponent>(entity.Key);
+                EnergyComponent energyComponent = cm.GetComponentForEntity<EnergyComponent>(entity.Key);
 
-        private void DrawEnergy(int entity, GraphicsDevice gd, SpriteBatch sb)
-        {
-            ComponentManager cm = ComponentManager.GetInstance();
-            HealthComponent healthComponent = cm.GetComponentForEntity<HealthComponent>(entity);
-            EnergyComponent energyComponent = cm.GetComponentForEntity<EnergyComponent>(entity);
-            GUIComponent guiComp = cm.GetComponentForEntity<GUIComponent>(entity);
-
-            if (energyComponent != null && healthComponent != null && healthComponent.IsAlive == true)
-            {
-                int currEnergy = energyComponent.Current;
-                bool player = cm.HasEntityComponent<PlayerComponent>(entity);
-                bool ai = cm.HasEntityComponent<AIComponent>(entity);
-                Rectangle energyRectangle = new Rectangle();
-
-                if (player)
+                if (energyComponent != null && healthComponent != null && healthComponent.IsAlive == true)
                 {
-                    int playNum = cm.GetComponentForEntity<PlayerComponent>(entity).Number;
-
+                    int currEnergy = energyComponent.Current;
+                    Rectangle energyRectangle = new Rectangle();
+                    int playNum = cm.GetComponentForEntity<PlayerComponent>(entity.Key).Number;
+                    float scaledEnergy = (float)currEnergy / energyComponent.Max * 100f;
                     //check if its player 1 entity
                     if (playNum == 1)
                     {
-                        float scaledEnergy = (float)currEnergy / energyComponent.Max * guiComp.Texture.Width - 10f;
-                        energyRectangle = new Rectangle(gd.Viewport.TitleSafeArea.Left + 5, gd.Viewport.TitleSafeArea.Top + 22 + 3, (int)scaledEnergy, 14);
+                        energyRectangle = new Rectangle(
+                            gd.Viewport.TitleSafeArea.Left + 5,
+                            gd.Viewport.TitleSafeArea.Top + 28,
+                            (int)scaledEnergy,
+                            12
+                            );
                     }
-                    //check if its player 2 entity
+                    //check if its player 2 entity - FIXXXXAAA
                     else if (playNum == 2)
                     {
-                        float scaledEnergy = (float)currEnergy / energyComponent.Max * guiComp.Texture.Width - 10f;
-                        energyRectangle = new Rectangle(gd.Viewport.TitleSafeArea.Left + 305, gd.Viewport.TitleSafeArea.Top +22 + 3, (int)scaledEnergy, 14);
+                        energyRectangle = new Rectangle(
+                            gd.Viewport.TitleSafeArea.Left + 305,
+                            gd.Viewport.TitleSafeArea.Top + 30,
+                            (int)scaledEnergy,
+                            12
+                            );
                     }
+
+                    sb.Begin();
+                    sb.Draw(energyTexture, energyRectangle, Color.White);
+                    sb.End();
                 }
-                //else its an AI
-                else if (ai)
-                {
-                    CollisionComponent aiCollisionBox = cm.GetComponentForEntity<CollisionComponent>(entity);
-                    energyRectangle = new Rectangle(
-                        aiCollisionBox.collisionBox.Location.X,
-                        aiCollisionBox.collisionBox.Location.Y - (aiCollisionBox.collisionBox.Height / 2),
-                        currEnergy / 2,
-                        10);
-                }
-                sb.Begin();
-                sb.Draw(energyTexture, energyRectangle, Color.White);
-                sb.End();
             }
         }
 
