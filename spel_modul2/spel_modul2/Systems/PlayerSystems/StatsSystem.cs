@@ -11,8 +11,10 @@ namespace GameEngine
             //Update all stats for entities with StatsComponent
             foreach (var entity in cm.GetComponentsOfType<StatsComponent>())
             {
-                //Skall köras vid levelLost
-                //UpdateEntityStats((StatsComponent)entity.Value);
+                StatsComponent stats = (StatsComponent)entity.Value;
+                //See if there is any stats to remove
+                if (stats.RemoveStats > 0)
+                    UpdateEntityStatsFromHistory(stats);
 
                 //Gain stats bonuses
                 UpdateEntityStrength(entity.Key);
@@ -25,28 +27,31 @@ namespace GameEngine
 
         private void UpdateEntityStatsFromHistory(StatsComponent comp)
         {
-            int numIterations = comp.StatHistory.Length / 3;
-            comp.Agillity = 0;
-            comp.Intellect = 0;
-            comp.Stamina = 0;
-            comp.Strength = 0;
-
-            for (int i = 0; i <= numIterations; i++)
+            if(comp.StatHistory.Length > 3)
             {
-                int start = 0;
-                int end = 2;
-                string stat = comp.StatHistory.Substring(start, end);
-
-                switch (stat)
+                comp.StatHistory = comp.StatHistory.Substring(0, comp.RemoveStats * 3);
+                comp.Agillity = 0;
+                comp.Intellect = 0;
+                comp.Stamina = 0;
+                comp.Strength = 0;
+                
+            for (int i = 0; i <= comp.StatHistory.Length; i++)
                 {
-                    case "str": comp.Strength += 1;  break;
-                    case "int": comp.Intellect += 1; break;
-                    case "agi": comp.Agillity += 1;  break;
-                    case "sta": comp.Stamina += 1;   break;
+                    int start = 0;
+                    int end = 2;
+                    string stat = comp.StatHistory.Substring(start, end);
+
+                    switch (stat)
+                    {
+                        case "str": comp.Strength += 1; break;
+                        case "int": comp.Intellect += 1; break;
+                        case "agi": comp.Agillity += 1; break;
+                        case "sta": comp.Stamina += 1; break;
+                    }
+                    start += 3;
+                    end += 3;
                 }
-                start += 3;
-                end += 3;
-            }
+            }    
         }
 
 
@@ -56,6 +61,7 @@ namespace GameEngine
             StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity);
             AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity);
             HealthComponent healthComp = cm.GetComponentForEntity<HealthComponent>(entity);
+
             int dmg = attackComp.Damage + (2 * statComp.Strength);
             int health = healthComp.Max + (1 * statComp.Strength);
 

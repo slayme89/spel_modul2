@@ -6,8 +6,8 @@
         public int Agillity { get; set; }
         public int Stamina { get; set; }
         public int Intellect { get; set; }
-        public int StatPoints { get; set; }
-        public int CurrNumStatPoints { get; set; }
+        public int AddStats { get; set; }
+        public int RemoveStats { get; set; }
         public string StatHistory;
 
         public StatsComponent(int strength, int agillity, int stamina, int intellect)
@@ -16,9 +16,9 @@
             Agillity = agillity;
             Stamina = stamina;
             Intellect = intellect;
-            StatPoints = 0;
+            AddStats = 0;
             StatHistory = "";
-            CurrNumStatPoints = 0;
+            RemoveStats = 0;
         }
     }
 }

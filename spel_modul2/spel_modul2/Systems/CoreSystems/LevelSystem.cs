@@ -23,12 +23,7 @@ namespace GameEngine
                     if (oldLevel > newLevel)
                     {
                         int num = oldLevel - newLevel;
-                        
-                        // FIXXXXAA
-                        //statComponent.StatPoints -= num * 6;
-                        //statComponent.StatHistory = statComponent.StatHistory.Substring(0, statComponent.StatHistory.Length - 6);
-                        
-                        
+                         
                     }
                     if (levelComponent.CurrentLevel == -1)
                     {

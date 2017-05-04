@@ -91,6 +91,7 @@
     <Compile Include="Systems\CoreSystems\HealthSystem.cs" />
     <Compile Include="Systems\PlayerSystems\StatsSystem.cs" />
     <Compile Include="Systems\LoaderSystems\ItemIconLoaderSystem.cs" />
+    <Compile Include="Systems\RenderSystems\IRenderSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderEnergySystem.cs" />
     <Compile Include="Systems\PlayerSystems\InputSystem.cs" />
     <Compile Include="Systems\PlayerSystems\InteractSystem.cs" />
@@ -127,9 +128,21 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+    <None Include="Class Diagrams\Components\AIComponents Class Diagram.cd" />
+    <None Include="Class Diagrams\Components\CoreComponent Class Diagram.cd" />
+    <None Include="Class Diagrams\Components\OtherComponents Class Diagram.cd" />
+    <None Include="Class Diagrams\Components\PlayerComponents Class Diagram.cd" />
+    <None Include="Class Diagrams\Components\SoundComponents Class Diagram.cd" />
+    <None Include="Class Diagrams\Systems\AISystems Class Diagram.cd" />
+    <None Include="Class Diagrams\Systems\CoreSystems Class Diagram.cd" />
+    <None Include="Class Diagrams\Interfaces\Interfaces Class Diagram.cd" />
+    <None Include="Class Diagrams\Systems\LoaderSystems Class Diagram.cd" />
+    <None Include="Class Diagrams\Systems\PlayerSystems Class Diagram.cd" />
+    <None Include="Class Diagrams\Systems\RenderSystems Class Diagram.cd" />
     <None Include="Content\TutorialMap.tmx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Class Diagrams\Managers\Managers Class Diagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -148,6 +161,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
