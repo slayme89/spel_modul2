@@ -64,7 +64,6 @@
     <Compile Include="Components\CoreComponents\DamageComponent.cs" />
     <Compile Include="Components\CoreComponents\EnergyComponent.cs" />
     <Compile Include="Components\CoreComponents\SkillComponent.cs" />
-    <Compile Include="Components\GUIComponent.cs" />
     <Compile Include="Components\CoreComponents\KnockbackComponent.cs" />
     <Compile Include="Components\VisualComponents\GUIComponent.cs" />
     <Compile Include="Components\CoreComponents\HealthComponent.cs" />
