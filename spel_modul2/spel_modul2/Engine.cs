@@ -81,6 +81,18 @@ namespace GameEngine
                 });
             }
 
+            cm.AddEntityWithComponents(new IComponent[]
+            {
+                new TextureComponent("stone1"),
+                new PositionComponent(250, 100),
+            });
+
+            cm.AddEntityWithComponents(new IComponent[]
+            {
+                new TextureComponent("grave1"),
+                new PositionComponent(-200, -100),
+            });
+
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 //new TextureComponent("hej"),
