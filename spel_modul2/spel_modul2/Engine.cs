@@ -166,6 +166,22 @@ namespace GameEngine
             {
                 new ItemComponent("Sword", ItemType.Weapon),
             });
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                new ItemComponent("GoldArmorHead", ItemType.ArmorHead),
+            });
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                new ItemComponent("GoldArmorBody", ItemType.ArmorBody),
+            });
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                new ItemComponent("ChainArmorHead", ItemType.ArmorHead),
+            });
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                new ItemComponent("ChainArmorBody", ItemType.ArmorBody),
+            });
 
             sm.GetSystem<AnimationLoaderSystem>().Load(Content);
             sm.GetSystem<TextureLoaderSystem>().Load(Content);

@@ -53,23 +53,21 @@ namespace GameEngine
                             }
                         }
                     }
-                        Point HeadPos = new Point(5, 15) + invenComp.PositionOnScreen;
-                        Point BodyPos = new Point(5, 60) + invenComp.PositionOnScreen;
-                        Point WeaponPos = new Point(5, 105) + invenComp.PositionOnScreen;
-                        Rectangle equipmentSlot = new Rectangle(HeadPos, invenComp.SlotSize);
+                    Rectangle equipmentSlot = new Rectangle();
+                    equipmentSlot.Size = invenComp.SlotSize;
 
-                        spriteBatch.Draw(t, equipmentBackground, Color.DarkGray);
-                        for (int y = 0; y < invenComp.WeaponBodyHead.Length; y++)
-                        {
-                            equipmentSlot.Location = new Point(5, 105 - 45 * y) + invenComp.PositionOnScreen;
+                    spriteBatch.Draw(t, equipmentBackground, Color.DarkGray);
+                    for (int y = 0; y < invenComp.WeaponBodyHead.Length; y++)
+                    {
+                        equipmentSlot.Location = new Point(5, 105 - 45 * y) + invenComp.PositionOnScreen;
 
-                            if(-y -1 == invenComp.SelectedSlot.X)
-                                spriteBatch.Draw(t, equipmentSlot, Color.Green);
-                            else
-                                spriteBatch.Draw(t, equipmentSlot, Color.Gray);
-                            if(invenComp.WeaponBodyHead[y] != 0)
-                                spriteBatch.Draw(cm.GetComponentForEntity<ItemComponent>(invenComp.WeaponBodyHead[y]).ItemIcon, equipmentSlot, Color.Yellow);
-                        }
+                        if (-y - 1 == invenComp.SelectedSlot.X)
+                            spriteBatch.Draw(t, equipmentSlot, Color.Green);
+                        else
+                            spriteBatch.Draw(t, equipmentSlot, Color.Gray);
+                        if (invenComp.WeaponBodyHead[y] != 0)
+                            spriteBatch.Draw(cm.GetComponentForEntity<ItemComponent>(invenComp.WeaponBodyHead[y]).ItemIcon, equipmentSlot, Color.Yellow);
+                    }
                 }
             }
             spriteBatch.End();
