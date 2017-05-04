@@ -113,21 +113,22 @@ namespace GameEngine
                 new PositionComponent(40, 0),
             });*/
 
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[] {
-                new TextureComponent("hej"),
-                new HealthComponent(100),
-                new EnergyComponent(100),
-                new DamageComponent(),
-                new PositionComponent(100, 500),
-                new MoveComponent(0.2f),
-                new PlayerControlComponent(ControllerType.Gamepad1),
-                new CollisionComponent(50, 50),
-                new AttackComponent(100, 0.3f, 0.1f, WeaponType.Sword),
-                new PlayerComponent(2),
-                new LevelComponent(2, 55),
-                new GUIComponent("UI/Player2-Hp-Ene-Xp", gd.Viewport.TitleSafeArea.Right-108, gd.Viewport.TitleSafeArea.Top),
-                new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
-            });
+            //Player two
+            //cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[] {
+            //    new TextureComponent("hej"),
+            //    new HealthComponent(100),
+            //    new EnergyComponent(100),
+            //    new DamageComponent(),
+            //    new PositionComponent(100, 500),
+            //    new MoveComponent(0.2f),
+            //    new PlayerControlComponent(ControllerType.Gamepad1),
+            //    new CollisionComponent(50, 50),
+            //    new AttackComponent(100, 0.3f, 0.1f, WeaponType.Sword),
+            //    new PlayerComponent(2),
+            //    new LevelComponent(2, 55),
+            //    new GUIComponent("UI/Player2-Hp-Ene-Xp", gd.Viewport.TitleSafeArea.Right-108, gd.Viewport.TitleSafeArea.Top),
+            //    new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
+            //});
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {

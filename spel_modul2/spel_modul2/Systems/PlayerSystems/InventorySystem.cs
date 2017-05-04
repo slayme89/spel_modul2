@@ -20,7 +20,7 @@ namespace GameEngine
                 PlayerControlComponent playerComp = (PlayerControlComponent)entity.Value;
                 if (invenComp != null)
                 {
-                    //Test to add item
+                    //Test to add item press 1 on the keyboard or rt + a on gamepad
                     if (playerComp.ActionBar1.IsButtonDown())
                     {
                         foreach(var item in cm.GetComponentsOfType<ItemComponent>())
@@ -146,8 +146,6 @@ namespace GameEngine
 
                                             cm.GetComponentForEntity<ItemComponent>(itemToMove).InventoryPosition = selectedItemComp.InventoryPosition;
                                             selectedItemComp.InventoryPosition = -(int)selectedItemComp.Type - 1;
-
-                                            
                                         }
                                     }
                                 }
