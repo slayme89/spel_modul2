@@ -53,6 +53,22 @@ namespace GameEngine
                 }
             }
 
+            //Render all animationgroups
+            foreach (var entity in cm.GetComponentsOfType<AnimationGroupComponent>())
+            {
+                AnimationGroupComponent animationComponent = (AnimationGroupComponent)entity.Value;
+                PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(entity.Key);
+
+                if (positionComponent != null)
+                {
+                    Point position = positionComponent.position - animationComponent.offset;
+                    Rectangle animationBounds = new Rectangle(position.X, position.Y, animationComponent.frameSize.X, animationComponent.frameSize.Y);
+
+                    if (viewportBounds.Intersects(animationBounds))
+                        spriteBatch.Draw(animationComponent.spritesheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.sourceRectangle, Color.White);
+                }
+            }
+
             spriteBatch.End();
         }
 

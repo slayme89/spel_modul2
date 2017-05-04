@@ -58,6 +58,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Components\AIComponents\AIComponent.cs" />
+    <Compile Include="Components\CoreComponents\AnimationGroupComponent.cs" />
     <Compile Include="Components\CoreComponents\AttackComponent.cs" />
     <Compile Include="Components\CoreComponents\CollisionComponent.cs" />
     <Compile Include="Components\CoreComponents\DamageComponent.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Managers\EntityManager.cs" />
     <Compile Include="Systems\AISystems\AIAttackSystem.cs" />
     <Compile Include="Systems\AISystems\AIMovementSystem.cs" />
+    <Compile Include="Systems\CoreSystems\AnimationGroupSystem.cs" />
     <Compile Include="Systems\CoreSystems\AttackSystem.cs" />
     <Compile Include="Systems\CoreSystems\CollisionSystem.cs" />
     <Compile Include="Systems\CoreSystems\DamageSystem.cs" />

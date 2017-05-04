@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine
@@ -60,6 +61,9 @@ namespace GameEngine
                 new ItemIconLoaderSystem(),
                 new HealthSystem(),
                 new RenderExperienceSystem(),
+                new AnimationGroupSystem(),
+                new AnimationGroupLoaderSystem(),
+                new RenderAnimationGroupSystem(),
             });
 
             base.Initialize();
@@ -78,7 +82,15 @@ namespace GameEngine
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new TextureComponent("hej"),
+                //new TextureComponent("hej"),
+                new AnimationGroupComponent("PlayerSpritesheet", new Point(4, 4), 150,
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                }),
                 new HealthComponent(100),
                 new PositionComponent(0, 0),
                 new MoveComponent(0.2f),
@@ -106,6 +118,18 @@ namespace GameEngine
                 new TextureComponent("trees1"),
                 new PositionComponent(200, -25),
             });
+
+            /*cm.AddEntityWithComponents(new IComponent[]
+            {
+                new AnimationGroupComponent("PlayerSpritesheet", new Point(4, 4), 150,
+                new[] {
+                    //new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                }),
+                new PositionComponent(200, 200),
+            });*/
 
             /*cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
@@ -193,8 +217,7 @@ namespace GameEngine
             sm.GetSystem<RenderExperienceSystem>().Load(Content);
             sm.GetSystem<RenderGUISystem>().Load(Content);
             sm.GetSystem<ItemIconLoaderSystem>().Load(Content);
-
-            
+            sm.GetSystem<AnimationGroupLoaderSystem>().Load(Content);
             
             base.LoadContent();
         }
@@ -210,6 +233,7 @@ namespace GameEngine
             sm.GetSystem<RenderAttackingCollisionBoxSystem>().Render(gd, sb);
             sm.GetSystem<RenderInventorySystem>().Render(gd, sb);
             sm.GetSystem<RenderGUISystem>().Render(sb);
+            sm.GetSystem<RenderAnimationGroupSystem>().Render(gd, sb);
 
             var fps = 1 / gameTime.ElapsedGameTime.TotalSeconds;
             Window.Title = fps.ToString();
