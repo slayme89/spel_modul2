@@ -21,7 +21,7 @@ namespace GameEngine
                     Texture2D texture = guiComponent.Texture;
                     Rectangle containerRect = new Rectangle(
                         guiComponent.ScreenPosition.X,
-                        guiComponent.ScreenPosition.X,
+                        guiComponent.ScreenPosition.Y,
                         guiComponent.Texture.Width,
                         guiComponent.Texture.Height
                         );

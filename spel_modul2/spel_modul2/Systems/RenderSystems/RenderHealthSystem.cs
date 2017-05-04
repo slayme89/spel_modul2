@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using System.Diagnostics;
 
 namespace GameEngine
 {
@@ -28,11 +29,11 @@ namespace GameEngine
                     if (cm.HasEntityComponent<PlayerComponent>(entity.Key))
                     {
                         int playerNumber = cm.GetComponentForEntity<PlayerComponent>(entity.Key).Number;
-
+                        float scaledHealth = (float)currHealth / healthComponent.Max * 100f;
                         //check if its player 1 entity
                         if (playerNumber == 1)
                         {
-                            float scaledHealth = (float)currHealth / healthComponent.Max * 100f;
+                            
                             healthRectangle = new Rectangle(
                                 gd.Viewport.TitleSafeArea.Left + 5,
                                 gd.Viewport.TitleSafeArea.Top + 8,
@@ -40,17 +41,17 @@ namespace GameEngine
                                 12
                                 );
                         }
-                        //check if its player 2 entity - FIXXXXAA
-                        //else if (playerNumber == 2)
-                        //{
-                        //    float scaledHealth = (float)currHealth / healthComponent.Max * 100f;
-                        //    healthRectangle = new Rectangle(
-                        //        gd.Viewport.TitleSafeArea.Left + 305,
-                        //        gd.Viewport.TitleSafeArea.Top + 6,
-                        //        (int)scaledHealth,
-                        //        14
-                        //        );
-                        //}
+                        //check if its player 2 entity
+                        else if (playerNumber == 2)
+                        {
+                            
+                            healthRectangle = new Rectangle(
+                                gd.Viewport.TitleSafeArea.Right - 105 + 100 - (int)scaledHealth,
+                                gd.Viewport.TitleSafeArea.Top + 8,
+                                (int)scaledHealth,
+                                12
+                                );
+                        }
                     }
                     //else its an AI
                     else if (cm.HasEntityComponent<AIComponent>(entity.Key))

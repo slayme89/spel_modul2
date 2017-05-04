@@ -11,9 +11,8 @@ namespace GameEngine
             //Update all stats for entities with StatsComponent
             foreach (var entity in cm.GetComponentsOfType<StatsComponent>())
             {
-                //Skall köras vid levelLost och levelGain
+                //Skall köras vid levelLost
                 //UpdateEntityStats((StatsComponent)entity.Value);
-
 
                 //Gain stats bonuses
                 UpdateEntityStrength(entity.Key);
@@ -23,18 +22,6 @@ namespace GameEngine
             }
         }
         
-
-        //void AddStat(int entity, string Stat)
-        //{
-        //    switch (stat)
-        //    {
-        //        case "str": comp.Strength += 1; break;
-        //        case "int": comp.Intellect += 1; break;
-        //        case "agi": comp.Agillity += 1; break;
-        //        case "sta": comp.Stamina += 1; break;
-        //    }
-        //}
-
 
         private void UpdateEntityStatsFromHistory(StatsComponent comp)
         {

@@ -54,15 +54,15 @@ namespace GameEngine
                             );
                     }
                     //check if its player 2 entity - FIXXXXAAA
-                    //else if (playerNumber == 2)
-                    //{
-                    //    experienceRectangle = new Rectangle(
-                    //        gd.Viewport.TitleSafeArea.Left + 305,
-                    //        gd.Viewport.TitleSafeArea.Top + 30,
-                    //        (int)scaledExperience,
-                    //        5
-                    //        );
-                    //}
+                    else if (playerNumber == 2)
+                    {
+                        experienceRectangle = new Rectangle(
+                            gd.Viewport.TitleSafeArea.Right - 105 + 100 - (int)scaledExperience,
+                            gd.Viewport.TitleSafeArea.Top + 48,
+                            (int)scaledExperience,
+                            5
+                            );
+                    }
                     sb.Begin();
                     sb.Draw(ExperienceTexture, experienceRectangle, Color.White);
                     sb.End();
