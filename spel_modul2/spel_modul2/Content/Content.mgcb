@@ -313,6 +313,12 @@
 /processorParam:TextureFormat=Color
 /build:ItemIcons/GoldArmorHead.png
 
+#begin NewSpriteFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:NewSpriteFont.spritefont
+
 #begin PlayerSpritesheet.png
 /importer:TextureImporter
 /processor:TextureProcessor

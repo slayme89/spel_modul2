@@ -10,8 +10,8 @@ namespace GameEngine
     public enum ItemType
     {
         Weapon = 0,
-        ArmorBody,
-        ArmorHead,
+        Body,
+        Head,
         Consumable,
     }
     class ItemComponent : IComponent
@@ -20,7 +20,6 @@ namespace GameEngine
         public string TextureFileName { get; set; }
         public Texture2D ItemIcon { get; set; }
         public ItemType Type { get; set; }
-
         public ItemComponent(string ItemIconFileName, ItemType type)
         {
             Type = type;

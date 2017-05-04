@@ -6,6 +6,7 @@ namespace GameEngine
     class RenderInventorySystem : IRenderSystem, ISystem
     {
         Texture2D t;
+        SpriteFont sf;
         public RenderInventorySystem(GraphicsDevice graphicsDevice)
         {
             t = new Texture2D(graphicsDevice, 1, 1);
@@ -56,12 +57,17 @@ namespace GameEngine
                     {
                         equipmentSlot.Location = new Point(5, 105 - 45 * y) + invenComp.PositionOnScreen;
 
+                        spriteBatch.DrawString(invenComp.font, ((ItemType)y).ToString(), (equipmentSlot.Location - new Point(0, 15)).ToVector2(), Color.Black);
+
                         if (-y - 1 == invenComp.SelectedSlot.X)
                             spriteBatch.Draw(t, equipmentSlot, Color.Green);
                         else
                             spriteBatch.Draw(t, equipmentSlot, Color.Gray);
                         if (invenComp.WeaponBodyHead[y] != 0)
+                        {
                             spriteBatch.Draw(cm.GetComponentForEntity<ItemComponent>(invenComp.WeaponBodyHead[y]).ItemIcon, equipmentSlot, Color.Yellow);
+                        }
+                            
                     }
                 }
             }

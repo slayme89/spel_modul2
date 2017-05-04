@@ -94,6 +94,7 @@
     <Compile Include="Systems\CoreSystems\DamageSystem.cs" />
     <Compile Include="Systems\CoreSystems\HealthSystem.cs" />
     <Compile Include="Systems\PlayerSystems\SkillSystem.cs" />
+    <Compile Include="Systems\LoaderSystems\InventoryLoaderSystem.cs" />
     <Compile Include="Systems\PlayerSystems\StatsSystem.cs" />
     <Compile Include="Systems\LoaderSystems\ItemIconLoaderSystem.cs" />
     <Compile Include="Systems\RenderSystems\IRenderSystem.cs" />

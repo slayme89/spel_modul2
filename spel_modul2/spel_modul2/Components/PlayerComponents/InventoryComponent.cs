@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace GameEngine
         public bool IsOpen { get; set; }
         public int HeldItem { get; set; }
         public int[] WeaponBodyHead = new int[3];
+        public SpriteFont font { get; set; }
         public InventoryComponent(int columns, int rows)
         {
             HeldItem = 0;

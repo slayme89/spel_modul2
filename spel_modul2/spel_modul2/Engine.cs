@@ -64,6 +64,7 @@ namespace GameEngine
                 new AnimationGroupSystem(),
                 new AnimationGroupLoaderSystem(),
                 new RenderAnimationGroupSystem(),
+                new InventoryLoaderSystem(),
             });
 
             base.Initialize();
@@ -193,19 +194,19 @@ namespace GameEngine
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new ItemComponent("GoldArmorHead", ItemType.ArmorHead),
+                new ItemComponent("GoldArmorHead", ItemType.Head),
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new ItemComponent("GoldArmorBody", ItemType.ArmorBody),
+                new ItemComponent("GoldArmorBody", ItemType.Body),
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new ItemComponent("ChainArmorHead", ItemType.ArmorHead),
+                new ItemComponent("ChainArmorHead", ItemType.Head),
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new ItemComponent("ChainArmorBody", ItemType.ArmorBody),
+                new ItemComponent("ChainArmorBody", ItemType.Body),
             });
 
             sm.GetSystem<AnimationLoaderSystem>().Load(Content);
@@ -217,6 +218,9 @@ namespace GameEngine
             sm.GetSystem<RenderExperienceSystem>().Load(Content);
             sm.GetSystem<RenderGUISystem>().Load(Content);
             sm.GetSystem<ItemIconLoaderSystem>().Load(Content);
+            sm.GetSystem<InventoryLoaderSystem>().Load(Content);
+
+
             sm.GetSystem<AnimationGroupLoaderSystem>().Load(Content);
             
             base.LoadContent();
