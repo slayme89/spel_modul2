@@ -7,7 +7,6 @@ namespace GameEngine
         public void Update(GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-            
             //Update all stats for entities with StatsComponent
             foreach (var entity in cm.GetComponentsOfType<StatsComponent>())
             {
@@ -16,15 +15,18 @@ namespace GameEngine
                 if (stats.RemoveStats > 0)
                     UpdateEntityStatsFromHistory(stats);
 
-                //Gain stats bonuses
-                UpdateEntityStrength(entity.Key);
-                UpdateEntityAgillity(entity.Key);
-                UpdateEntityStamina(entity.Key);
-                UpdateEntityIntellect(entity.Key);
+                if(stats.AddStats > 0)
+                {
+                    //Gain stats bonuses
+                    UpdateEntityStrength(entity.Key);
+                    UpdateEntityAgillity(entity.Key);
+                    UpdateEntityStamina(entity.Key);
+                    UpdateEntityIntellect(entity.Key);
+                }
             }
         }
         
-
+        //Update stats according to the history (if player died)
         private void UpdateEntityStatsFromHistory(StatsComponent comp)
         {
             if(comp.StatHistory.Length > 3)
@@ -35,7 +37,7 @@ namespace GameEngine
                 comp.Stamina = 0;
                 comp.Strength = 0;
                 
-            for (int i = 0; i <= comp.StatHistory.Length; i++)
+                for (int i = 0; i <= comp.StatHistory.Length; i++)
                 {
                     int start = 0;
                     int end = 2;
@@ -51,10 +53,11 @@ namespace GameEngine
                     start += 3;
                     end += 3;
                 }
+                comp.RemoveStats = 0;
             }    
         }
 
-
+        //Strength
         private void UpdateEntityStrength(int entity)
         {
             ComponentManager cm = ComponentManager.GetInstance();
@@ -68,7 +71,7 @@ namespace GameEngine
             attackComp.Damage = dmg;
             healthComp.Max = health;
         }
-
+        //Agillity
         private void UpdateEntityAgillity(int entity)
         {
             ComponentManager cm = ComponentManager.GetInstance();
@@ -81,7 +84,7 @@ namespace GameEngine
             attackComp.RateOfFire = fireRate;
             moveComp.Speed = moveSpeed;
         }
-
+        //Stamina
         private void UpdateEntityStamina(int entity)
         {
             ComponentManager cm = ComponentManager.GetInstance();
@@ -91,7 +94,7 @@ namespace GameEngine
 
             healthComp.Max = health;
         }
-
+        //Intellect
         private void UpdateEntityIntellect(int entity)
         {
             ComponentManager cm = ComponentManager.GetInstance();

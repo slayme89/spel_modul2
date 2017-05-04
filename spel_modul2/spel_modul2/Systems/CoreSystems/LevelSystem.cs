@@ -23,9 +23,11 @@ namespace GameEngine
                     if (oldLevel > newLevel)
                     {
                         int num = oldLevel - newLevel;
+                        statComponent.RemoveStats += 3 * num;
+
                          
                     }
-                    if (levelComponent.CurrentLevel == -1)
+                    if (levelComponent.CurrentLevel == 0)
                     {
                         // Permadeath
                     }
@@ -49,7 +51,7 @@ namespace GameEngine
                     {
                         //FIXXAAA
                         int num = newLevel - oldLevel;
-                        //statComponent.StatPoints += num * 6;
+                        statComponent.AddStats += 3 * num;
                     }
                 }
                 if (levelComponent.ExperienceGains.Count > 0)
@@ -72,17 +74,17 @@ namespace GameEngine
 
         private int LevelCalculator(int experience)
         {
-            if(experience <= 0)         return -1;
-            else if(experience <= 83)   return  1;
-            else if(experience <= 174)  return  2;
-            else if(experience <= 266)  return  3;
-            else if(experience <= 389)  return  4;
-            else if(experience <= 572)  return  5;
-            else if(experience <= 939)  return  6;
-            else if(experience <= 1306) return  7;
-            else if(experience <= 1673) return  8;
-            else if(experience <= 2407) return  9;
-            else                        return  10;
+            if(experience <= 0)         return 0;
+            else if(experience <= 83)   return 1;
+            else if(experience <= 174)  return 2;
+            else if(experience <= 266)  return 3;
+            else if(experience <= 389)  return 4;
+            else if(experience <= 572)  return 5;
+            else if(experience <= 939)  return 6;
+            else if(experience <= 1306) return 7;
+            else if(experience <= 1673) return 8;
+            else if(experience <= 2407) return 9;
+            else                        return 10;
         }
     }
 }

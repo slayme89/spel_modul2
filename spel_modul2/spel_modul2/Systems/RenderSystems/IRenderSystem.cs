@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 namespace GameEngine
 {
-    interface IRenderSystem
+    public interface IRenderSystem
     {
         void Render(GraphicsDevice graphicsDeive, SpriteBatch spriteBatch);
     }
