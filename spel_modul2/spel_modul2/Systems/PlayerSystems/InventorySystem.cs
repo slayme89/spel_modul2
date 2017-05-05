@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
 
 namespace GameEngine
@@ -16,10 +11,11 @@ namespace GameEngine
             ComponentManager cm = ComponentManager.GetInstance();
             foreach (var entity in cm.GetComponentsOfType<PlayerControlComponent>())
             {
-                InventoryComponent invenComp = cm.GetComponentForEntity<InventoryComponent>(entity.Key);
                 PlayerControlComponent playerComp = (PlayerControlComponent)entity.Value;
-                if (invenComp != null)
+                
+                if (cm.HasEntityComponent<InventoryComponent>(entity.Key))
                 {
+                    InventoryComponent invenComp = cm.GetComponentForEntity<InventoryComponent>(entity.Key);
                     //Test to add item press 1 on the keyboard or rt + a on gamepad
                     if (playerComp.ActionBar1.IsButtonDown())
                     {
@@ -29,20 +25,23 @@ namespace GameEngine
 
                     if (playerComp.Inventory.IsButtonDown())
                     {
-                        MoveComponent moveComp = cm.GetComponentForEntity<MoveComponent>(entity.Key);
-                        AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity.Key);
-                        if (invenComp.IsOpen)
+                        if(cm.HasEntityComponent<MoveComponent>(entity.Key) && cm.HasEntityComponent<AttackComponent>(entity.Key))
                         {
-                            attackComp.CanAttack = true;
-                            moveComp.canMove = true;
-                            invenComp.HeldItem = 0;
-                            invenComp.IsOpen = false;
-                        }
-                        else
-                        {
-                            attackComp.CanAttack = false;
-                            moveComp.canMove = false;
-                            invenComp.IsOpen = true;
+                            MoveComponent moveComp = cm.GetComponentForEntity<MoveComponent>(entity.Key);
+                            AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity.Key);
+                            if (invenComp.IsOpen)
+                            {
+                                attackComp.CanAttack = true;
+                                moveComp.canMove = true;
+                                invenComp.HeldItem = 0;
+                                invenComp.IsOpen = false;
+                            }
+                            else
+                            {
+                                attackComp.CanAttack = false;
+                                moveComp.canMove = false;
+                                invenComp.IsOpen = true;
+                            }
                         }
                     }
                     if (invenComp.IsOpen)
@@ -131,7 +130,7 @@ namespace GameEngine
 
                                     if (selectedItemComp != null && (int)selectedItemComp.Type <= 2)
                                     {
-                                        Debug.WriteLine("item is equippable");
+                                        //Debug.WriteLine("item is equippable");
                                         if(invenComp.WeaponBodyHead[(int)selectedItemComp.Type] == 0)
                                         {
                                             invenComp.WeaponBodyHead[(int)selectedItemComp.Type] = invenComp.Items[selectedArraySlot];

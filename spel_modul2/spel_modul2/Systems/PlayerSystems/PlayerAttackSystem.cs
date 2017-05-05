@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace GameEngine
 {
@@ -10,26 +9,31 @@ namespace GameEngine
             ComponentManager cm = ComponentManager.GetInstance();
             foreach (var Entity in cm.GetComponentsOfType<PlayerControlComponent>())
             {
-                
-                AttackComponent attackComponent = cm.GetComponentForEntity<AttackComponent>(Entity.Key);
-                if (attackComponent.CanAttack)
+                if (cm.HasEntityComponent<AttackComponent>(Entity.Key))
                 {
-                    PlayerControlComponent playerControl = (PlayerControlComponent)Entity.Value;
-                    MoveComponent moveComponent = cm.GetComponentForEntity<MoveComponent>(Entity.Key);
-                    if (playerControl.Attack.IsButtonDown())
+                    AttackComponent attackComponent = cm.GetComponentForEntity<AttackComponent>(Entity.Key);
+                    if (attackComponent.CanAttack)
                     {
-                        if (attackComponent.AttackCooldown <= 0.0f)
+                        PlayerControlComponent playerControl = (PlayerControlComponent)Entity.Value;
+                        if (cm.HasEntityComponent<MoveComponent>(Entity.Key))
                         {
-                            moveComponent.canMove = false;
-                            cm.GetComponentForEntity<SoundComponent>(Entity.Key).PlayAttackSound = true;
-                            attackComponent.AttackCooldown = attackComponent.RateOfFire;
-                            attackComponent.IsAttacking = true;
+                            MoveComponent moveComponent = cm.GetComponentForEntity<MoveComponent>(Entity.Key);
+                            if (playerControl.Attack.IsButtonDown())
+                            {
+                                if (attackComponent.AttackCooldown <= 0.0f)
+                                {
+                                    moveComponent.canMove = false;
+                                    cm.GetComponentForEntity<SoundComponent>(Entity.Key).PlayAttackSound = true;
+                                    attackComponent.AttackCooldown = attackComponent.RateOfFire;
+                                    attackComponent.IsAttacking = true;
+                                }
+                            }
+                            if (attackComponent.AttackCooldown > 0.0f)
+                                attackComponent.AttackCooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                            else
+                                moveComponent.canMove = true;
                         }
                     }
-                    if (attackComponent.AttackCooldown > 0.0f)
-                        attackComponent.AttackCooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    else
-                        moveComponent.canMove = true;
                 }
             }
         }

@@ -61,48 +61,59 @@ namespace GameEngine
         private void UpdateEntityStrength(int entity)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-            StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity);
-            AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity);
-            HealthComponent healthComp = cm.GetComponentForEntity<HealthComponent>(entity);
+            if(cm.HasEntityComponent<AttackComponent>(entity) && cm.HasEntityComponent<HealthComponent>(entity))
+            {
+                StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity);
+                AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity);
+                HealthComponent healthComp = cm.GetComponentForEntity<HealthComponent>(entity);
+                int dmg = attackComp.Damage + (2 * statComp.Strength);
+                int health = healthComp.Max + (1 * statComp.Strength);
 
-            int dmg = attackComp.Damage + (2 * statComp.Strength);
-            int health = healthComp.Max + (1 * statComp.Strength);
-
-            attackComp.Damage = dmg;
-            healthComp.Max = health;
+                attackComp.Damage = dmg;
+                healthComp.Max = health;
+            }
         }
         //Agillity
         private void UpdateEntityAgillity(int entity)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-            StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity);
-            MoveComponent moveComp = cm.GetComponentForEntity<MoveComponent>(entity);
-            AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity);
-            float fireRate = attackComp.RateOfFire + (0.05f * statComp.Agillity);
-            float moveSpeed = moveComp.Speed + (0.03f * statComp.Agillity);
+            if (cm.HasEntityComponent<MoveComponent>(entity) && cm.HasEntityComponent<AttackComponent>(entity))
+            {
+                StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity);
+                MoveComponent moveComp = cm.GetComponentForEntity<MoveComponent>(entity);
+                AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity);
+                float fireRate = attackComp.RateOfFire + (0.05f * statComp.Agillity);
+                float moveSpeed = moveComp.Speed + (0.03f * statComp.Agillity);
 
-            attackComp.RateOfFire = fireRate;
-            moveComp.Speed = moveSpeed;
+                attackComp.RateOfFire = fireRate;
+                moveComp.Speed = moveSpeed;
+            }
         }
         //Stamina
         private void UpdateEntityStamina(int entity)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-            StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity);
-            HealthComponent healthComp = cm.GetComponentForEntity<HealthComponent>(entity);
-            int health = healthComp.Max + (2 * statComp.Stamina);
+            if (cm.HasEntityComponent<HealthComponent>(entity))
+            {
+                StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity);
+                HealthComponent healthComp = cm.GetComponentForEntity<HealthComponent>(entity);
+                int health = healthComp.Max + (2 * statComp.Stamina);
 
-            healthComp.Max = health;
+                healthComp.Max = health;
+            }
         }
         //Intellect
         private void UpdateEntityIntellect(int entity)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-            StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity);
-            EnergyComponent energyComp = cm.GetComponentForEntity<EnergyComponent>(entity);
-            int energy = energyComp.Max + (2 * statComp.Intellect);
+            if (cm.HasEntityComponent<EnergyComponent>(entity))
+            {
+                StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity);
+                EnergyComponent energyComp = cm.GetComponentForEntity<EnergyComponent>(entity);
+                int energy = energyComp.Max + (2 * statComp.Intellect);
 
-            energyComp.Max = energy;
+                energyComp.Max = energy;
+            }
         }
     }
 }

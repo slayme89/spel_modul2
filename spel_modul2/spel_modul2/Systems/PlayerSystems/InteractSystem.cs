@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
 namespace GameEngine
@@ -15,20 +11,21 @@ namespace GameEngine
             foreach (var player in cm.GetComponentsOfType<PlayerComponent>())
             {
                 PlayerComponent playerComponent = (PlayerComponent)player.Value;
-                PlayerControlComponent controlComponent = cm.GetComponentForEntity<PlayerControlComponent>(player.Key);
-                
-                PositionComponent playerPositionComponent = cm.GetComponentForEntity<PositionComponent>(player.Key);
-                int closestInteractable = FindClosestInteractable(playerPositionComponent.position);
-                if(closestInteractable != -1)
+                if(cm.HasEntityComponent<PlayerControlComponent>(player.Key) && cm.HasEntityComponent<PositionComponent>(player.Key))
                 {
-                    if (controlComponent.Interact.IsButtonDown())
+                    PlayerControlComponent controlComponent = cm.GetComponentForEntity<PlayerControlComponent>(player.Key);
+                    PositionComponent playerPositionComponent = cm.GetComponentForEntity<PositionComponent>(player.Key);
+                    int closestInteractable = FindClosestInteractable(playerPositionComponent.position);
+
+                    if (closestInteractable != -1)
                     {
-                        // Interact with closest interactable entity
-                        // Temp
+                        if (controlComponent.Interact.IsButtonDown())
+                        {
+                            // Interact with closest interactable entity
+                            // Temp
+                        }
                     }
                 }
-
-                
             }
         }
 
