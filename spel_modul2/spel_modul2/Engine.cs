@@ -64,6 +64,7 @@ namespace GameEngine
                 new AnimationGroupLoaderSystem(),
                 new RenderAnimationGroupSystem(),
                 new InventoryLoaderSystem(),
+                new ActionBarSystem()
             });
 
             base.Initialize();
@@ -112,6 +113,8 @@ namespace GameEngine
                 new PlayerComponent(1),
                 new LevelComponent(2, 44),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
+                
+                new ActionBarComponent("ActionBarBox",new Point(5,5)),
                 new GUIComponent("UI/Player1-Hp-Ene-Xp", gd.Viewport.TitleSafeArea.Left, gd.Viewport.TitleSafeArea.Top),
                 new InventoryComponent(5, 4),
                 new EnergyComponent(100),
@@ -178,6 +181,7 @@ namespace GameEngine
                 new AttackComponent(10, 0.5f, 0.3f, WeaponType.Sword),
                 new LevelComponent(3),
                 new DamageComponent(),
+               
             });
 
             /*cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
