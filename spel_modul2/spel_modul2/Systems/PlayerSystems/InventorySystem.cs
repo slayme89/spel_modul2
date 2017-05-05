@@ -53,7 +53,7 @@ namespace GameEngine
                             invenComp.selectSlotCurCooldown = invenComp.SelectSlotDelay;
                             if (Math.Abs(stickDir.X) > 0.5f || Math.Abs(stickDir.Y) > 0.5f)
                             {
-                                Point direction = SystemManager.GetInstance().GetSystem<MoveSystem>().CalcDirection(stickDir.X, stickDir.Y);
+                                Point direction = MoveSystem.CalcDirection(stickDir.X, stickDir.Y);
                                 Point nextSlot = invenComp.SelectedSlot + direction;
                                 if (nextSlot.X >= -3
                                  && nextSlot.Y >= 0

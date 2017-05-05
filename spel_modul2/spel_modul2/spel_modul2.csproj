@@ -63,8 +63,8 @@
     <Compile Include="Components\CoreComponents\CollisionComponent.cs" />
     <Compile Include="Components\CoreComponents\DamageComponent.cs" />
     <Compile Include="Components\CoreComponents\EnergyComponent.cs" />
-    <Compile Include="Components\CoreComponents\SkillComponent.cs" />
     <Compile Include="Components\CoreComponents\KnockbackComponent.cs" />
+    <Compile Include="Components\CoreComponents\SkillComponent.cs" />
     <Compile Include="Components\VisualComponents\GUIComponent.cs" />
     <Compile Include="Components\CoreComponents\HealthComponent.cs" />
     <Compile Include="Components\PlayerComponents\ActionBarComponent.cs" />
@@ -94,6 +94,7 @@
     <Compile Include="Systems\CoreSystems\CollisionSystem.cs" />
     <Compile Include="Systems\CoreSystems\DamageSystem.cs" />
     <Compile Include="Systems\CoreSystems\HealthSystem.cs" />
+    <Compile Include="Systems\CoreSystems\KnockbackSystem.cs" />
     <Compile Include="Systems\PlayerSystems\ActionBarSystem.cs" />
     <Compile Include="Systems\PlayerSystems\SkillSystem.cs" />
     <Compile Include="Systems\LoaderSystems\InventoryLoaderSystem.cs" />

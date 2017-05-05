@@ -123,6 +123,7 @@ namespace GameEngine
                 new EnergyComponent(100),
                 new DamageComponent(),
                 new StatsComponent(5, 1, 0, 0),
+                new KnockbackComponent(2),
             });
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
@@ -184,7 +185,7 @@ namespace GameEngine
                 new AttackComponent(10, 0.5f, 0.3f, WeaponType.Sword),
                 new LevelComponent(3),
                 new DamageComponent(),
-               
+                new KnockbackComponent(2),
             });
 
             /*cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
@@ -272,7 +273,6 @@ namespace GameEngine
 
         protected override void Update(GameTime gameTime)
         {
-
             SystemManager.GetInstance().UpdateAllSystems(gameTime);
             base.Update(gameTime);
         }

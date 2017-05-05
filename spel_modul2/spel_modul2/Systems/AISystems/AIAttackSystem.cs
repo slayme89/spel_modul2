@@ -61,7 +61,7 @@ namespace GameEngine
                             Vector2 unNormalizedDir = new Vector2(posOftarget.position.X - posComp.position.X, posOftarget.position.Y - posComp.position.Y);
                             float distance = (float)Math.Sqrt(unNormalizedDir.X * unNormalizedDir.X + unNormalizedDir.Y * unNormalizedDir.Y);
                             Vector2 direction = new Vector2(unNormalizedDir.X / distance, unNormalizedDir.Y / distance);
-                            moveComp.Direction = SystemManager.GetInstance().GetSystem<MoveSystem>().CalcDirection(direction.X, direction.Y);
+                            moveComp.Direction = MoveSystem.CalcDirection(direction.X, direction.Y);
                             moveComp.canMove = false;
                             attackComponent.AttackCooldown = attackComponent.RateOfFire;
                             attackComponent.IsAttacking = true;

@@ -57,7 +57,7 @@ namespace GameEngine
             }
         }
 
-        public Point CalcDirection(float x, float y)
+        public static Point CalcDirection(float x, float y)
         {
             if (x > 0)
             {
