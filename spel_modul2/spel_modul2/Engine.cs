@@ -21,7 +21,7 @@ namespace GameEngine
             IsFixedTimeStep = false;
             IsMouseVisible = true;
 
-            //graphics.SynchronizeWithVerticalRetrace = false;
+            graphics.SynchronizeWithVerticalRetrace = false;
             //TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 100.0f);
         }
 

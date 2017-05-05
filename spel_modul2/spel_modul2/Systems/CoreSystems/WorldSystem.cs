@@ -18,7 +18,7 @@ namespace GameEngine
             if (players.Count == 1)
             {
                 var player1 = cm.GetComponentForEntity<PositionComponent>(players[0]);
-                world.center = player1.position;
+                world.center = player1.position.ToPoint();
             }
             else if (players.Count == 2)
             {
@@ -28,7 +28,7 @@ namespace GameEngine
                 /*var player1MoveComponent = cm.GetComponentForEntity<MoveComponent>(players[0]);
                 var player2MoveComponent = cm.GetComponentForEntity<MoveComponent>(players[1]);*/
 
-                world.center = Vector2.Lerp(player1.position.ToVector2(), player2.position.ToVector2(), 0.5f).ToPoint();
+                world.center = Vector2.Lerp(player1.position, player2.position, 0.5f).ToPoint();
             }
         }
 

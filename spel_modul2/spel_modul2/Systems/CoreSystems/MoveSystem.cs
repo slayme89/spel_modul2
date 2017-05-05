@@ -41,7 +41,7 @@ namespace GameEngine
                         {
                             x *= i;
                             y *= i;
-                            Point futurePosition = positionComponent.position + new Point((int)x, (int)y);
+                            Vector2 futurePosition = positionComponent.position + new Vector2(x, y);
                             if (!SystemManager.GetInstance().GetSystem<CollisionSystem>().DetectMovementCollision(entity.Key, futurePosition))
                             {
                                 positionComponent.position = futurePosition;

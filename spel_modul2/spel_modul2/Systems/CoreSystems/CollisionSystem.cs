@@ -36,9 +36,9 @@ namespace GameEngine
             foreach (KeyValuePair<int, IComponent> entity in cm.GetComponentsOfType<CollisionComponent>())
             {
                 CollisionComponent collisionComponent = (CollisionComponent)entity.Value;
-                Point entity2Pos = cm.GetComponentForEntity<PositionComponent>(entity.Key).position;
-                Point correctedPos = new Point(entity2Pos.X - (collisionComponent.collisionBox.Width / 2), entity2Pos.Y - (collisionComponent.collisionBox.Height / 2));
-                collisionComponent.collisionBox.Location = correctedPos;
+                Vector2 entity2Pos = cm.GetComponentForEntity<PositionComponent>(entity.Key).position;
+                Vector2 correctedPos = new Vector2(entity2Pos.X - (collisionComponent.collisionBox.Width / 2), entity2Pos.Y - (collisionComponent.collisionBox.Height / 2));
+                collisionComponent.collisionBox.Location = correctedPos.ToPoint();
                 if (area.Intersects(collisionComponent.collisionBox))
                 {
                     //Collision detected, add them to the list
@@ -49,11 +49,11 @@ namespace GameEngine
         }
 
         //Detect if characters collide
-        public bool DetectMovementCollision(int entity, Point position)
+        public bool DetectMovementCollision(int entity, Vector2 position)
         {
             var cm = ComponentManager.GetInstance();
             CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(entity);
-            Rectangle rectToCheck = new Rectangle(new Point(position.X - (collisionComponent.collisionBox.Width / 2), position.Y - (collisionComponent.collisionBox.Height / 2)), collisionComponent.collisionBox.Size);
+            Rectangle rectToCheck = new Rectangle(new Vector2(position.X - (collisionComponent.collisionBox.Width / 2), position.Y - (collisionComponent.collisionBox.Height / 2)).ToPoint(), collisionComponent.collisionBox.Size);
 
             foreach (var entity2 in cm.GetComponentsOfType<CollisionComponent>())
             {
@@ -62,7 +62,7 @@ namespace GameEngine
                     CollisionComponent collisionComponent2 = (CollisionComponent)entity2.Value;
                     if (cm.HasEntityComponent<PositionComponent>(entity2.Key))
                     {
-                        Point entity2Pos = cm.GetComponentForEntity<PositionComponent>(entity2.Key).position;
+                        Point entity2Pos = cm.GetComponentForEntity<PositionComponent>(entity2.Key).position.ToPoint();
                         Point correctedPos = new Point(entity2Pos.X - (collisionComponent2.collisionBox.Width / 2), entity2Pos.Y - (collisionComponent2.collisionBox.Height / 2));
                         collisionComponent2.collisionBox.Location = correctedPos;
                         if (rectToCheck.Intersects(collisionComponent2.collisionBox))

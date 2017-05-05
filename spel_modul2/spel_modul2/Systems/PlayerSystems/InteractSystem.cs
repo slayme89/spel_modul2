@@ -29,7 +29,7 @@ namespace GameEngine
             }
         }
 
-        private int FindClosestInteractable(Point position)
+        private int FindClosestInteractable(Vector2 position)
         {
             ComponentManager cm = ComponentManager.GetInstance();
             int closestNr = -1;
@@ -37,7 +37,7 @@ namespace GameEngine
             foreach (var entity in cm.GetComponentsOfType<InteractComponent>())
             {
                 PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(entity.Key);
-                float distance = CalcDistance(position, positionComponent.position);
+                float distance = Vector2.Distance(position, positionComponent.position);
                 if(distance < closestDist)
                 {
                     closestNr = entity.Key;

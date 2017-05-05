@@ -59,7 +59,7 @@ namespace GameEngine
                 PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(key);
                 int range = collisionComponent.collisionBox.Size.X;
                 Point hitOffset = new Point((collisionComponent.collisionBox.Width / 2), (collisionComponent.collisionBox.Height / 2));
-                return new Rectangle(positionComponent.position - hitOffset + moveComponent.Direction * new Point(range, range), collisionComponent.collisionBox.Size);
+                return new Rectangle(positionComponent.position.ToPoint() - hitOffset + moveComponent.Direction * new Point(range, range), collisionComponent.collisionBox.Size);
             }
             else
             {

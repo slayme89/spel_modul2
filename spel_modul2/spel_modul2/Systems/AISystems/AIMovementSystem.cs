@@ -19,8 +19,8 @@ namespace GameEngine
                         if (cm.HasEntityComponent<PositionComponent>(entity.Key))
                         {
                             PositionComponent posComp = ComponentManager.GetInstance().GetComponentForEntity<PositionComponent>(entity.Key);
-                            ((AIComponent)entity.Value).Destination = cm.GetComponentForEntity<PositionComponent>(((AIComponent)entity.Value).TargetEntity).position;
-                            Point pointToCompare = posComp.position + new Point(moveComp.Direction.X * 5, moveComp.Direction.Y * 5);
+                            ((AIComponent)entity.Value).Destination = cm.GetComponentForEntity<PositionComponent>(((AIComponent)entity.Value).TargetEntity).position.ToPoint();
+                            Vector2 pointToCompare = posComp.position + new Vector2(moveComp.Direction.X * 5, moveComp.Direction.Y * 5);
                             Vector2 nextMovement = new Vector2(((AIComponent)entity.Value).Destination.X - pointToCompare.X, ((AIComponent)entity.Value).Destination.Y - pointToCompare.Y);
                             float distance = (float)Math.Sqrt(nextMovement.X * nextMovement.X + nextMovement.Y * nextMovement.Y);
 

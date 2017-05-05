@@ -29,7 +29,7 @@ namespace GameEngine
 
                 if (positionComponent != null)
                 {
-                    Point position = positionComponent.position - textureComponent.offset;
+                    Point position = positionComponent.position.ToPoint() - textureComponent.offset;
                     Rectangle textureBounds = new Rectangle(position.X, position.Y, textureComponent.texture.Width, textureComponent.texture.Height);
 
                     if (viewportBounds.Intersects(textureBounds))
@@ -45,7 +45,7 @@ namespace GameEngine
 
                 if (positionComponent != null)
                 {
-                    Point position = positionComponent.position - animationComponent.offset;
+                    Point position = positionComponent.position.ToPoint() - animationComponent.offset;
                     Rectangle animationBounds = new Rectangle(position.X, position.Y, animationComponent.frameSize.X, animationComponent.frameSize.Y);
 
                     if (viewportBounds.Intersects(animationBounds))
@@ -61,7 +61,7 @@ namespace GameEngine
 
                 if (positionComponent != null)
                 {
-                    Point position = positionComponent.position - animationComponent.offset;
+                    Point position = positionComponent.position.ToPoint() - animationComponent.offset;
                     Rectangle animationBounds = new Rectangle(position.X, position.Y, animationComponent.frameSize.X, animationComponent.frameSize.Y);
 
                     if (viewportBounds.Intersects(animationBounds))

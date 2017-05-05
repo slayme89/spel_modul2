@@ -4,16 +4,16 @@ namespace GameEngine
 {
     class PositionComponent : IComponent
     {
-        public Point position;
+        public Vector2 position;
 
-        public PositionComponent(Point position)
+        public PositionComponent(Vector2 position)
         {
             this.position = position;
         }
 
         public PositionComponent(int x, int y)
         {
-            position = new Point(x, y);
+            position = new Vector2(x, y);
         }
     }
 }
