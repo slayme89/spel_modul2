@@ -14,8 +14,9 @@ namespace GameEngine
         public static GraphicsDevice graphicsDevice;
 
         // Frame rate related stuff
-        private float frameCount = 0;
-        private float fps = 0;
+        private float frameCount = 0.0f;
+        private float fps = 0.0f;
+        private float elapsedTime = 0.0f;
 
         public Engine()
         {
@@ -256,8 +257,15 @@ namespace GameEngine
             sm.GetSystem<RenderInventorySystem>().Render(gd, sb);
             sm.GetSystem<RenderGUISystem>().Render(sb);
             sm.GetSystem<RenderAnimationGroupSystem>().Render(gd, sb);
+
             frameCount++;
-            fps = frameCount / gameTime.TotalGameTime.Seconds;
+            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (elapsedTime >= 1.0f)
+            {
+                frameCount = 0.0f;
+                elapsedTime -= 1.0f;
+            }
+            fps = frameCount / elapsedTime;
             Window.Title = fps.ToString();
 
             //base.Draw(gameTime);
@@ -265,6 +273,7 @@ namespace GameEngine
 
         protected override void Update(GameTime gameTime)
         {
+
             SystemManager.GetInstance().UpdateAllSystems(gameTime);
             base.Update(gameTime);
         }
