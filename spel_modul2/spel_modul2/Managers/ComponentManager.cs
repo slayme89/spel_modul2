@@ -8,6 +8,7 @@ namespace GameEngine
         private Dictionary<int, Dictionary<Type, IComponent>> entityComponents;
         private Dictionary<Type, Dictionary<int, IComponent>> componentGroups;
         private static ComponentManager componentManagerInstance;
+        private List<int> removedEntities;
 
         static ComponentManager()
         {
@@ -18,6 +19,7 @@ namespace GameEngine
         {
             entityComponents = new Dictionary<int, Dictionary<Type, IComponent>>();
             componentGroups = new Dictionary<Type, Dictionary<int, IComponent>>();
+            removedEntities = new List<int>();
         }
 
         public static ComponentManager GetInstance()
@@ -49,12 +51,32 @@ namespace GameEngine
             AddComponentsToEntity(entity, components);
         }
 
+        public void RemoveEntity(int entity)
+        {
+            removedEntities.Add(entity);
+        }
+
+        public void Update()
+        {
+            foreach(int entity in removedEntities)
+            {
+                var components = entityComponents[entity];
+                var type = components.GetType().GetGenericArguments()[0];
+                var group = componentGroups[type];
+
+                group.Remove(entity);
+                entityComponents.Remove(entity);
+            }
+
+            removedEntities.Clear();
+        }
+
         public Dictionary<int, IComponent> GetComponentsOfType<T>()
         {
             Dictionary<int, IComponent> components;
             componentGroups.TryGetValue(typeof(T), out components);
 
-            return components != null ? components : new Dictionary<int, IComponent>();
+            return components ?? new Dictionary<int, IComponent>();
         }
 
         public Dictionary<Type, IComponent> GetComponentsForEntity(int entity)
