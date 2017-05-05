@@ -28,7 +28,8 @@ namespace GameEngine
             AttackComponent attackingEntityDamage = cm.GetComponentForEntity<AttackComponent>(attackingEntity);
 
             // Påverkas av stats??? JAA!
-            entityHitHealth.Current -= attackingEntityDamage.Damage;
+            if(entityHit != attackingEntity)
+                entityHitHealth.Current -= attackingEntityDamage.Damage;
             
         }
     }
