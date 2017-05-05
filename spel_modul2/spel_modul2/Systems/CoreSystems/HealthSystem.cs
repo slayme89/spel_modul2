@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace GameEngine
 {
@@ -19,7 +14,7 @@ namespace GameEngine
                 {
                     // Dead
                     healthComponent.IsAlive = false;
-                    if(cm.GetComponentForEntity<PlayerComponent>(entity.Key) == null)
+                    if(cm.HasEntityComponent<PlayerComponent>(entity.Key))
                     {
                         // Enemy dead
                         cm.GetComponentForEntity<LevelComponent>(cm.GetComponentForEntity<DamageComponent>(entity.Key).LastAttacker).ExperienceGains.Add(entity.Key);

@@ -11,29 +11,32 @@ namespace GameEngine
             ComponentManager cm = ComponentManager.GetInstance();
             foreach (var entity in cm.GetComponentsOfType<AttackComponent>())
             {
-                AttackComponent attackComponent = cm.GetComponentForEntity<AttackComponent>(entity.Key);
+                AttackComponent attackComponent = (AttackComponent)entity.Value;
                 if(attackComponent.Type == WeaponType.Sword)
                 {
-                    CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(entity.Key);
-                    if (attackComponent.CanAttack && attackComponent.IsAttacking)
+                    if (cm.HasEntityComponent<CollisionComponent>(entity.Key))
                     {
-                        if (attackComponent.AttackChargeUp <= 0.0f)
+                        CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(entity.Key);
+                        if (attackComponent.CanAttack && attackComponent.IsAttacking)
                         {
-                            attackComponent.IsAttacking = false;
-                            attackComponent.AttackChargeUp = attackComponent.AttackDelay;
-                            collisionComponent.attackCollisionBox = GetAttackRect(entity.Key);
-                            collisionComponent.checkAttackColision = true;
+                            if (attackComponent.AttackChargeUp <= 0.0f)
+                            {
+                                attackComponent.IsAttacking = false;
+                                attackComponent.AttackChargeUp = attackComponent.AttackDelay;
+                                collisionComponent.attackCollisionBox = GetAttackRect(entity.Key);
+                                collisionComponent.checkAttackColision = true;
+                            }
+                            else
+                            {
+                                attackComponent.AttackChargeUp -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                                collisionComponent.checkAttackColision = false;
+                            }
                         }
                         else
                         {
-                            attackComponent.AttackChargeUp -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                             collisionComponent.checkAttackColision = false;
                         }
-                    }
-                    else
-                    {
-                        collisionComponent.checkAttackColision = false;
-                    }
+                    }   
                 }
                 else if(attackComponent.Type == WeaponType.Bow)
                 {
@@ -43,19 +46,25 @@ namespace GameEngine
                 {
 
                 }
-
             }
         }
 
         private Rectangle GetAttackRect(int key)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-            MoveComponent moveComponent = cm.GetComponentForEntity<MoveComponent>(key);
-            CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(key);
-            PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(key);
-            int range = collisionComponent.collisionBox.Size.X;
-            Point hitOffset = new Point((collisionComponent.collisionBox.Width / 2), (collisionComponent.collisionBox.Height / 2));
-            return new Rectangle(positionComponent.position - hitOffset + moveComponent.Direction * new Point(range, range), collisionComponent.collisionBox.Size);
+            if (cm.HasEntityComponent<MoveComponent>(key))
+            {
+                MoveComponent moveComponent = cm.GetComponentForEntity<MoveComponent>(key);
+                CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(key);
+                PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(key);
+                int range = collisionComponent.collisionBox.Size.X;
+                Point hitOffset = new Point((collisionComponent.collisionBox.Width / 2), (collisionComponent.collisionBox.Height / 2));
+                return new Rectangle(positionComponent.position - hitOffset + moveComponent.Direction * new Point(range, range), collisionComponent.collisionBox.Size);
+            }
+            else
+            {
+                throw new Exception("Error in GetAttackRectangle method.");
+            }
         }
     }
 }

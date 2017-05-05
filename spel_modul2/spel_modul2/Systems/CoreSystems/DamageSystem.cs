@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace GameEngine
 {
@@ -28,7 +27,7 @@ namespace GameEngine
             HealthComponent entityHitHealth = cm.GetComponentForEntity<HealthComponent>(entityHit);
             AttackComponent attackingEntityDamage = cm.GetComponentForEntity<AttackComponent>(attackingEntity);
 
-            // Påverkas av stats???
+            // Påverkas av stats??? JAA!
             entityHitHealth.Current -= attackingEntityDamage.Damage;
             
         }

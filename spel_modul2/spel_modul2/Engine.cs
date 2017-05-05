@@ -9,9 +9,6 @@ namespace GameEngine
         private GraphicsDeviceManager graphics;
         ComponentManager cm = ComponentManager.GetInstance();
         SystemManager sm = SystemManager.GetInstance();
-        //float elapsed;
-        //float delay = 200f;
-        //int frames = 0;
         GraphicsDevice gd;
         SpriteBatch sb;
         public static GraphicsDevice graphicsDevice;
@@ -23,7 +20,9 @@ namespace GameEngine
 
             IsFixedTimeStep = false;
             IsMouseVisible = true;
-            //TargetElapsedTime = new TimeSpan(0, 0, 0, 0, 100);
+
+            //graphics.SynchronizeWithVerticalRetrace = false;
+            //TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 100.0f);
         }
 
         protected override void Initialize()
