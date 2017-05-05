@@ -15,7 +15,6 @@ namespace GameEngine
 
         // Frame rate related stuff
         private float frameCount = 0.0f;
-        private float fps = 0.0f;
         private float elapsedTime = 0.0f;
 
         public Engine()
@@ -262,11 +261,11 @@ namespace GameEngine
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime >= 1.0f)
             {
-                frameCount = 0.0f;
                 elapsedTime -= 1.0f;
+                Window.Title = frameCount.ToString();
+                frameCount = 0.0f;
             }
-            fps = frameCount / elapsedTime;
-            Window.Title = fps.ToString();
+            
 
             //base.Draw(gameTime);
         }
