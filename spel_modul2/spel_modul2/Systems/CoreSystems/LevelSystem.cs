@@ -11,51 +11,51 @@ namespace GameEngine
             foreach (var entity in cm.GetComponentsOfType<LevelComponent>())
             {
                 LevelComponent levelComponent = (LevelComponent)entity.Value;
-                StatsComponent statComponent = cm.GetComponentForEntity<StatsComponent>(entity.Key);
-                foreach (int xpLoss in levelComponent.ExperienceLoss)
+                if (cm.HasEntityComponent<StatsComponent>(entity.Key))
                 {
-                    levelComponent.Experience += xpLoss;
-                    int oldLevel = levelComponent.CurrentLevel;
-                    int newLevel = LevelCalculator(levelComponent.Experience);
-                    levelComponent.CurrentLevel = newLevel;
-                    
-                    // See if entity lost level
-                    if (oldLevel > newLevel)
+                    StatsComponent statComponent = cm.GetComponentForEntity<StatsComponent>(entity.Key);
+                    foreach (int xpLoss in levelComponent.ExperienceLoss)
                     {
-                        int num = oldLevel - newLevel;
-                        statComponent.RemoveStats += 3 * num;
+                        levelComponent.Experience += xpLoss;
+                        int oldLevel = levelComponent.CurrentLevel;
+                        int newLevel = LevelCalculator(levelComponent.Experience);
+                        levelComponent.CurrentLevel = newLevel;
 
-                         
+                        // See if entity lost level
+                        if (oldLevel > newLevel)
+                        {
+                            int num = oldLevel - newLevel;
+                            statComponent.RemoveStats += 3 * num;
+
+
+                        }
+                        if (levelComponent.CurrentLevel == 0)
+                        {
+                            // Permadeath
+                        }
                     }
-                    if (levelComponent.CurrentLevel == 0)
+                    if (levelComponent.ExperienceLoss.Count > 0)
+                        levelComponent.ExperienceLoss = new List<int>();
+
+
+                    foreach (int entityKilled in levelComponent.ExperienceGains)
                     {
-                        // Permadeath
-                    }
+                        int xpGained = CalculateKillExperience(entity.Key, entityKilled);
+                        levelComponent.Experience += xpGained;
+                        int oldLevel = levelComponent.CurrentLevel;
+                        int newLevel = LevelCalculator(levelComponent.Experience);
+                        levelComponent.CurrentLevel = newLevel;
 
-                    
+                        // See if entity leveled up
+                        if (oldLevel < newLevel)
+                        {
+                            int num = newLevel - oldLevel;
+                            statComponent.AddStats += 3 * num;
+                        }
+                    }
+                    if (levelComponent.ExperienceGains.Count > 0)
+                        levelComponent.ExperienceGains = new List<int>();
                 }
-                if (levelComponent.ExperienceLoss.Count > 0)
-                    levelComponent.ExperienceLoss = new List<int>();
-              
-
-                foreach (int entityKilled in levelComponent.ExperienceGains)
-                {
-                    int xpGained = CalculateKillExperience(entity.Key, entityKilled);
-                    levelComponent.Experience += xpGained;
-                    int oldLevel = levelComponent.CurrentLevel;
-                    int newLevel = LevelCalculator(levelComponent.Experience);
-                    levelComponent.CurrentLevel = newLevel;
-
-                    // See if entity leveled up
-                    if (oldLevel < newLevel)
-                    {
-                        //FIXXAAA
-                        int num = newLevel - oldLevel;
-                        statComponent.AddStats += 3 * num;
-                    }
-                }
-                if (levelComponent.ExperienceGains.Count > 0)
-                    levelComponent.ExperienceGains = new List<int>();
             }
         }
         

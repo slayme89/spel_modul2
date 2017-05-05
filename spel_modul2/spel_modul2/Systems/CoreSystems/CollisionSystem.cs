@@ -33,7 +33,9 @@ namespace GameEngine
         {
             var cm = ComponentManager.GetInstance();
             List<int> foundEntities = new List<int>();
-            foreach (KeyValuePair<int, IComponent> entity in cm.GetComponentsOfType<CollisionComponent>())
+            foreach (var entity in cm.GetComponentsOfType<CollisionComponent>())
+            {
+                if (cm.HasEntityComponent<PositionComponent>(entity.Key))
             {
                 CollisionComponent collisionComponent = (CollisionComponent)entity.Value;
                 Vector2 entity2Pos = cm.GetComponentForEntity<PositionComponent>(entity.Key).position;
@@ -44,6 +46,7 @@ namespace GameEngine
                     //Collision detected, add them to the list
                     foundEntities.Add(entity.Key);
                 }
+            }
             }
             return foundEntities;
         }
