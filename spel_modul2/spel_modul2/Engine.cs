@@ -13,6 +13,10 @@ namespace GameEngine
         SpriteBatch sb;
         public static GraphicsDevice graphicsDevice;
 
+        // Frame rate related stuff
+        private float frameCount = 0;
+        private float fps = 0;
+
         public Engine()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -22,7 +26,6 @@ namespace GameEngine
             IsMouseVisible = true;
 
             graphics.SynchronizeWithVerticalRetrace = false;
-            //TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 100.0f);
         }
 
         protected override void Initialize()
@@ -253,8 +256,8 @@ namespace GameEngine
             sm.GetSystem<RenderInventorySystem>().Render(gd, sb);
             sm.GetSystem<RenderGUISystem>().Render(sb);
             sm.GetSystem<RenderAnimationGroupSystem>().Render(gd, sb);
-
-            var fps = 1 / gameTime.ElapsedGameTime.TotalSeconds;
+            frameCount++;
+            fps = frameCount / gameTime.TotalGameTime.Seconds;
             Window.Title = fps.ToString();
 
             //base.Draw(gameTime);
