@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using System.Diagnostics;
 
 namespace GameEngine
 {
@@ -16,15 +11,18 @@ namespace GameEngine
 
             foreach(var entity in cm.GetComponentsOfType<AttackComponent>())
             {
-                AIComponent ai = cm.GetComponentForEntity<AIComponent>(entity.Key);
-                if(ai != null)
+                
+                if(cm.HasEntityComponent<AIComponent>(entity.Key) && cm.HasEntityComponent<PositionComponent>(entity.Key))
                 {
+                    AIComponent ai = cm.GetComponentForEntity<AIComponent>(entity.Key);
                     PositionComponent posComp = cm.GetComponentForEntity<PositionComponent>(entity.Key);
                     Rectangle detectArea = new Rectangle(new Point(posComp.position.X - (ai.DetectRange.X / 2), posComp.position.Y - (ai.DetectRange.Y / 2)), ai.DetectRange);
 
                     //find closest target
                     int closestEntity = 0;
                     float closestDist = 0;
+
+                    // Can this be changed? (not calling methoth from other system) 
                     foreach (int entityFound in CollisionSystem.DetectAreaCollision(detectArea))
                     {
                         if (entityFound == entity.Key || !cm.HasEntityComponent<HealthComponent>(entityFound) && !cm.HasEntityComponent<PlayerControlComponent>(entityFound))
@@ -50,6 +48,8 @@ namespace GameEngine
                     else
                         ai.TargetEntity = 0;
 
+
+                    // Do some check here: cm.HasEntity....<movecomp> / <attackcomp> ?
                     MoveComponent moveComp = cm.GetComponentForEntity<MoveComponent>(entity.Key);
                     AttackComponent attackComponent = cm.GetComponentForEntity<AttackComponent>(entity.Key);
                     if (ai.TargetEntity != 0)
