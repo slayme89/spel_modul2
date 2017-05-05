@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Drawing;
 
 namespace GameEngine
 {
@@ -29,7 +30,6 @@ namespace GameEngine
                     int inventoryWidth = invenComp.ColumnsRows.X * invenComp.SlotSize.Y + invenComp.ColumnsRows.X;
                     Rectangle inventoryBackground = new Rectangle(itemInventoryPos, new Point(inventoryWidth, inventoryHeight) + invenComp.SlotSpace * invenComp.ColumnsRows );
 
-                    
                     spriteBatch.Draw(t, inventoryBackground, Color.DarkGray);
                     for (int row = 0; row < invenComp.ColumnsRows.Y; row++)
                     {
@@ -67,7 +67,19 @@ namespace GameEngine
                         {
                             spriteBatch.Draw(cm.GetComponentForEntity<ItemComponent>(invenComp.WeaponBodyHead[y]).ItemIcon, equipmentSlot, Color.Yellow);
                         }
-                            
+                    }
+                    if (cm.HasEntityComponent<StatsComponent>(entity.Key))
+                    {
+                        StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity.Key);
+                        equipmentSlot.Location = new Point(equipmentBackground.Size.X - 55, 0) + invenComp.PositionOnScreen;
+                        int statYOffset = 20;
+                        string[] statNames = new string[4] {"Str: ", "Agi: ", "Sta: ", "Int: " };
+                        int[] statNumbers = new int[4] { statComp.Strength, statComp.Agillity, statComp.Stamina, statComp.Intellect };
+                        for(int i = 0; i < 4; i++)
+                        {
+                            spriteBatch.DrawString(invenComp.font, statNames[i], (equipmentSlot.Location + new Point(0, i * statYOffset + 5)).ToVector2(), Color.Black);
+                            spriteBatch.DrawString(invenComp.font, "" + statNumbers[i], (equipmentSlot.Location + new Point(25, i * statYOffset + 5)).ToVector2(), Color.Black);
+                        }
                     }
                 }
             }

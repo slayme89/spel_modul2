@@ -31,7 +31,7 @@ namespace GameEngine
             ColumnsRows = new Point(columns, rows);
             SlotSize = new Point(30, 30);
             SlotSpace = new Point(5, 5);
-            SelectSlotDelay = 0.1f;
+            SelectSlotDelay = 0.15f;
             selectSlotCurCooldown = 0.0f;
         }
     }
