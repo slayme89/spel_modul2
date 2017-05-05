@@ -41,14 +41,14 @@ namespace GameEngine
         {
             ComponentManager cm = ComponentManager.GetInstance();
             PositionComponent posComp = cm.GetComponentForEntity<PositionComponent>(entityHit);
-            Point posCompAttacker = cm.GetComponentForEntity<PositionComponent>(attackingEntity).position;
+            Vector2 posCompAttacker = cm.GetComponentForEntity<PositionComponent>(attackingEntity).position;
             int attackDmg = cm.GetComponentForEntity<AttackComponent>(attackingEntity).Damage;
-            int knockbackWeight = cm.GetComponentForEntity<KnockbackComponent>(entityHit).Weight;
+            int knockbackWeight = cm.GetComponentForEntity<KnockbackComponent>(entityHit).Knockback;
 
             Vector2 newDir = new Vector2(posComp.position.X - posCompAttacker.X, posComp.position.Y - posCompAttacker.Y);
             int length = (int)Math.Sqrt(Math.Pow(newDir.X, 2.0) + Math.Pow(newDir.Y, 2.0));
             newDir = newDir / length;
-            posComp.position += (newDir * knockbackWeight * attackDmg).ToPoint();
+            posComp.position += (newDir * knockbackWeight * attackDmg);
         }
     }
 }

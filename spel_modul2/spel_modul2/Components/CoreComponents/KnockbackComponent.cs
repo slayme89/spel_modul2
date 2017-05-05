@@ -2,10 +2,10 @@
 {
     class KnockbackComponent : IComponent
     {
-        public int Weight { get; set; }
-        public KnockbackComponent(int weight)
+        public int Knockback { get; set; }
+        public KnockbackComponent(int knockback)
         {
-            Weight = weight;
+            Knockback = knockback;
         }
     }
 }
