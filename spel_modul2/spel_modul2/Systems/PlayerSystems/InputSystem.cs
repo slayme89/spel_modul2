@@ -60,7 +60,7 @@ namespace GameEngine
 
                         MouseState mouse = Mouse.GetState();
                         // Attack
-                        if (mouse.RightButton == ButtonState.Pressed)
+                        if (keyboard.IsKeyDown(Keys.Space) && previousKeyboardState.IsKeyUp(Keys.Space))
                             playerControl.Attack.SetButton(true);
                         else
                             playerControl.Attack.SetButton(false);

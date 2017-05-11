@@ -14,12 +14,15 @@ namespace GameEngine
                 DamageComponent damageComponent = (DamageComponent)entity.Value;
                 foreach (int attackingEntity in damageComponent.IncomingDamageEntityID)
                 {
-                    ApplyDamageToEntity(entity.Key, attackingEntity);
-                    damageComponent.LastAttacker = attackingEntity;
-                    if (cm.HasEntityComponent<KnockbackComponent>(entity.Key) && cm.HasEntityComponent<MoveComponent>(entity.Key))
+                    if(entity.Key != attackingEntity)
                     {
-                        ApplyKnockbackToEntity(entity.Key, attackingEntity);
-                }
+                        ApplyDamageToEntity(entity.Key, attackingEntity);
+                        damageComponent.LastAttacker = attackingEntity;
+                        if (cm.HasEntityComponent<KnockbackComponent>(entity.Key) && cm.HasEntityComponent<MoveComponent>(entity.Key))
+                        {
+                            ApplyKnockbackToEntity(entity.Key, attackingEntity);
+                        }
+                    }
                 }
                 if(damageComponent.IncomingDamageEntityID.Count > 0)
                     damageComponent.IncomingDamageEntityID = new List<int>();
@@ -33,7 +36,6 @@ namespace GameEngine
             AttackComponent attackingEntityDamage = cm.GetComponentForEntity<AttackComponent>(attackingEntity);
 
             // Påverkas av stats??? JAA!
-            if(entityHit != attackingEntity)
             entityHitHealth.Current -= attackingEntityDamage.Damage;
         }
             
