@@ -65,6 +65,9 @@
     <Compile Include="Components\CoreComponents\EnergyComponent.cs" />
     <Compile Include="Components\CoreComponents\KnockbackComponent.cs" />
     <Compile Include="Components\CoreComponents\SkillComponent.cs" />
+    <Compile Include="Components\ItemFactoryComponent.cs" />
+    <Compile Include="Components\PlayerFactoryComponent.cs" />
+    <Compile Include="Components\ProjectileFactoryComponent.cs" />
     <Compile Include="Components\VisualComponents\GUIComponent.cs" />
     <Compile Include="Components\CoreComponents\HealthComponent.cs" />
     <Compile Include="Components\PlayerComponents\ActionBarComponent.cs" />
@@ -81,6 +84,7 @@
     <Compile Include="Components\SoundComponents\SoundThemeComponent.cs" />
     <Compile Include="Components\CoreComponents\TextureComponent.cs" />
     <Compile Include="Components\VisualComponents\WorldComponent.cs" />
+    <Compile Include="Components\EnemyFactoryComponent.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Managers\ComponentManager.cs" />
     <Compile Include="Components\CoreComponents\AnimationComponent.cs" />
