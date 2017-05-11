@@ -21,6 +21,8 @@ namespace GameEngine
                     {
                         if (controlComponent.Interact.IsButtonDown())
                         {
+                            if (cm.GetComponentForEntity<InteractComponent>(closestInteractable).Type == InteractType.Trap)
+                                cm.GetComponentForEntity<DamageComponent>(player.Key).IncomingDamageEntityID.Add(closestInteractable);
                             // Interact with closest interactable entity
                             // Temp
                         }

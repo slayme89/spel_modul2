@@ -274,6 +274,7 @@ namespace GameEngine
         protected override void Update(GameTime gameTime)
         {
             SystemManager.GetInstance().UpdateAllSystems(gameTime);
+            ComponentManager.GetInstance().Update();
             base.Update(gameTime);
         }
     }
