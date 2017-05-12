@@ -90,6 +90,7 @@
     <Compile Include="Components\CoreComponents\AnimationComponent.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Components\IComponent.cs" />
+    <Compile Include="Managers\ResourceManager.cs" />
     <Compile Include="Managers\EntityManager.cs" />
     <Compile Include="Systems\AISystems\AIAttackSystem.cs" />
     <Compile Include="Systems\AISystems\AIMovementSystem.cs" />
