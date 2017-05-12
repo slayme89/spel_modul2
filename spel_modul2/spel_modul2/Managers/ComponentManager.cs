@@ -60,12 +60,18 @@ namespace GameEngine
         {
             foreach(int entity in removedEntities)
             {
-                var components = entityComponents[entity];
-                var type = components.GetType().GetGenericArguments()[0];
-                var group = componentGroups[type];
+                Dictionary<Type, IComponent> components;
+                if (entityComponents.TryGetValue(entity, out components))
+                {
+                    foreach (var type in components.Keys)
+                    {
+                        Dictionary<int, IComponent> group;
+                        componentGroups.TryGetValue(type, out group);
+                        group?.Remove(entity);
+                    }
 
-                group.Remove(entity);
-                entityComponents.Remove(entity);
+                    entityComponents.Remove(entity);
+                }
             }
 
             removedEntities.Clear();
