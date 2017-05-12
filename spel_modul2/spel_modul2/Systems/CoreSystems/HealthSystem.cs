@@ -36,17 +36,17 @@ namespace GameEngine
                     else
                     {
                         // Enemy dead
-                        cm.GetComponentForEntity<LevelComponent>(cm.GetComponentForEntity<DamageComponent>(entity.Key).LastAttacker).ExperienceGains.Add(entity.Key);
-                        cm.RemoveComponentFromEntity<MoveComponent>(entity.Key);
-                        cm.RemoveComponentFromEntity<AIComponent>(entity.Key);
-                        cm.RemoveComponentFromEntity<SoundComponent>(entity.Key);
-                        cm.RemoveComponentFromEntity<AttackComponent>(entity.Key);
-                        cm.AddComponentsToEntity(entity.Key,
-                            new IComponent[] {
-                            new InteractComponent(InteractType.Trap),
-                            new AttackComponent(10, 0.0f, 0.0f, WeaponType.Sword) }
-                            );
-                        //cm.RemoveEntity(entity.Key);
+                        //cm.GetComponentForEntity<LevelComponent>(cm.GetComponentForEntity<DamageComponent>(entity.Key).LastAttacker).ExperienceGains.Add(entity.Key);
+                        //cm.RemoveComponentFromEntity<MoveComponent>(entity.Key);
+                        //cm.RemoveComponentFromEntity<AIComponent>(entity.Key);
+                        //cm.RemoveComponentFromEntity<SoundComponent>(entity.Key);
+                        //cm.RemoveComponentFromEntity<AttackComponent>(entity.Key);
+                        //cm.AddComponentsToEntity(entity.Key,
+                        //    new IComponent[] {
+                        //    new InteractComponent(InteractType.Trap),
+                        //    new AttackComponent(10, 0.0f, 0.0f, WeaponType.Sword) }
+                        //    );
+                        cm.RemoveEntity(entity.Key);
                     }
 
 

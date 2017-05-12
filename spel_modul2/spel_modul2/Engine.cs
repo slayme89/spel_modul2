@@ -110,7 +110,7 @@ namespace GameEngine
                 new HealthComponent(100),
                 new PositionComponent(0, 0),
                 new MoveComponent(0.2f),
-                new PlayerControlComponent(ControllerType.Keyboard),
+                new PlayerControlComponent(ControllerType.Gamepad1),
                 new CollisionComponent(50, 50),
                 new AttackComponent(50, 0.3f, 0.1f, WeaponType.Sword),
                 new PlayerComponent(1),
