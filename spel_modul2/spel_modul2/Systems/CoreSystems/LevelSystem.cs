@@ -26,8 +26,6 @@ namespace GameEngine
                         {
                             int num = oldLevel - newLevel;
                             statComponent.RemoveStats += 3 * num;
-
-
                         }
                         if (levelComponent.CurrentLevel == 0)
                         {
@@ -50,7 +48,7 @@ namespace GameEngine
                         if (oldLevel < newLevel)
                         {
                             int num = newLevel - oldLevel;
-                            statComponent.AddStats += 3 * num;
+                            statComponent.SpendableStats += 3 * num;
                         }
                     }
                     if (levelComponent.ExperienceGains.Count > 0)

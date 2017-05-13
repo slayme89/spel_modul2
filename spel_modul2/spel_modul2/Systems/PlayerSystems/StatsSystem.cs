@@ -13,67 +13,100 @@ namespace GameEngine
                 StatsComponent stats = (StatsComponent)entity.Value;
                 //See if there is any stats to remove
                 if (stats.RemoveStats > 0)
-                    UpdateEntityStatsFromHistory(stats);
+                    UpdateEntityStatsFromHistory(entity.Key);
 
-                if(stats.AddStats > 0)
-                {
-                    //Gain stats bonuses
+                //see if there is any stats to gain
+                if (stats.AddStr > 0)
                     UpdateEntityStrength(entity.Key);
+                if (stats.AddAgi > 0)
                     UpdateEntityAgillity(entity.Key);
+                if (stats.AddSta > 0)
                     UpdateEntityStamina(entity.Key);
+                if (stats.AddInt > 0)
                     UpdateEntityIntellect(entity.Key);
+            }
+        }
+
+        //Update stats according to the history (if player died)
+        private void UpdateEntityStatsFromHistory(int entity)
+        {
+            ComponentManager cm = ComponentManager.GetInstance();
+            StatsComponent comp = cm.GetComponentForEntity<StatsComponent>(entity);
+
+            if (comp.StatHistory.Length >= 3)
+            {  
+                while(comp.RemoveStats > 0)
+                {
+                    string stat = comp.StatHistory.Substring(comp.StatHistory.Length - 3, comp.StatHistory.Length);
+                    switch (stat)
+                    {
+                        case "str":
+                            if (cm.HasEntityComponent<AttackComponent>(entity) && cm.HasEntityComponent<HealthComponent>(entity))
+                            {
+                                AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity);
+                                HealthComponent healthComp = cm.GetComponentForEntity<HealthComponent>(entity);
+                                attackComp.Damage = attackComp.Damage - 2;
+                                healthComp.Max = healthComp.Max - 1;
+                                comp.Strength -= 1;
+                            }
+                            break;
+
+                        case "agi":
+                            if (cm.HasEntityComponent<MoveComponent>(entity) && cm.HasEntityComponent<AttackComponent>(entity))
+                            {
+                                MoveComponent moveComp = cm.GetComponentForEntity<MoveComponent>(entity);
+                                AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity);
+                                attackComp.RateOfFire = attackComp.RateOfFire - 0.05f;
+                                moveComp.Speed = moveComp.Speed - 0.03f;
+                                comp.Agillity -= 1;
+                            }
+                            break;
+
+                        case "sta":
+                            if (cm.HasEntityComponent<HealthComponent>(entity))
+                            {
+                                HealthComponent healthComp = cm.GetComponentForEntity<HealthComponent>(entity);
+                                healthComp.Max = healthComp.Max - 2;
+                                comp.Stamina -= 1;
+                            }
+                            break;
+
+                        case "int":
+                            if (cm.HasEntityComponent<EnergyComponent>(entity))
+                            {
+                                EnergyComponent energyComp = cm.GetComponentForEntity<EnergyComponent>(entity);
+                                energyComp.Max = energyComp.Max - 2;
+                                comp.Intellect -= 1;
+                            }
+                            break;
+                    }
+
+                    comp.StatHistory = comp.StatHistory.Substring(0, comp.StatHistory.Length - 3);
+                    comp.RemoveStats -= 1;
                 }
             }
         }
-        
-        //Update stats according to the history (if player died)
-        private void UpdateEntityStatsFromHistory(StatsComponent comp)
-        {
-            if(comp.StatHistory.Length > 3)
-            {
-                comp.StatHistory = comp.StatHistory.Substring(0, comp.RemoveStats * 3);
-                comp.Agillity = 0;
-                comp.Intellect = 0;
-                comp.Stamina = 0;
-                comp.Strength = 0;
-                
-                for (int i = 0; i <= comp.StatHistory.Length; i++)
-                {
-                    int start = 0;
-                    int end = 2;
-                    string stat = comp.StatHistory.Substring(start, end);
 
-                    switch (stat)
-                    {
-                        case "str": comp.Strength += 1; break;
-                        case "int": comp.Intellect += 1; break;
-                        case "agi": comp.Agillity += 1; break;
-                        case "sta": comp.Stamina += 1; break;
-                    }
-                    start += 3;
-                    end += 3;
-                }
-                comp.RemoveStats = 0;
-            }    
-        }
-
-        //Strength
+        //Add Strength
         private void UpdateEntityStrength(int entity)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-            if(cm.HasEntityComponent<AttackComponent>(entity) && cm.HasEntityComponent<HealthComponent>(entity))
+            if (cm.HasEntityComponent<AttackComponent>(entity) && cm.HasEntityComponent<HealthComponent>(entity))
             {
                 StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity);
                 AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity);
                 HealthComponent healthComp = cm.GetComponentForEntity<HealthComponent>(entity);
-                int dmg = attackComp.Damage + (2 * statComp.Strength);
-                int health = healthComp.Max + (1 * statComp.Strength);
+                attackComp.Damage = attackComp.Damage + (2 * statComp.AddStr);
+                healthComp.Max = healthComp.Max + (1 * statComp.AddStr);
 
-                attackComp.Damage = dmg;
-                healthComp.Max = health;
+                for(int i = 0; i<=statComp.AddStr; i++)
+                    statComp.StatHistory += "str";
+
+                statComp.Strength += statComp.AddStr;
+                statComp.AddStr = 0;  
             }
         }
-        //Agillity
+        //Add Agillity
         private void UpdateEntityAgillity(int entity)
         {
             ComponentManager cm = ComponentManager.GetInstance();
@@ -82,14 +115,18 @@ namespace GameEngine
                 StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity);
                 MoveComponent moveComp = cm.GetComponentForEntity<MoveComponent>(entity);
                 AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity);
-                float fireRate = attackComp.RateOfFire + (0.05f * statComp.Agillity);
-                float moveSpeed = moveComp.Speed + (0.03f * statComp.Agillity);
+                attackComp.RateOfFire = attackComp.RateOfFire + (0.05f * statComp.AddAgi);
+                moveComp.Speed = moveComp.Speed + (0.03f * statComp.AddAgi);
 
-                attackComp.RateOfFire = fireRate;
-                moveComp.Speed = moveSpeed;
+                for (int i = 0; i <= statComp.AddAgi; i++)
+                    statComp.StatHistory += "agi";
+
+                statComp.Agillity += statComp.AddAgi;
+                statComp.AddAgi = 0;
             }
         }
-        //Stamina
+
+        //Add Stamina
         private void UpdateEntityStamina(int entity)
         {
             ComponentManager cm = ComponentManager.GetInstance();
@@ -97,12 +134,16 @@ namespace GameEngine
             {
                 StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity);
                 HealthComponent healthComp = cm.GetComponentForEntity<HealthComponent>(entity);
-                int health = healthComp.Max + (2 * statComp.Stamina);
+                healthComp.Max = healthComp.Max + (2 * statComp.AddSta);
 
-                healthComp.Max = health;
+                for (int i = 0; i <= statComp.AddSta; i++)
+                    statComp.StatHistory += "sta";
+
+                statComp.Stamina += statComp.AddSta;
+                statComp.AddSta = 0;
             }
         }
-        //Intellect
+        //Add Intellect
         private void UpdateEntityIntellect(int entity)
         {
             ComponentManager cm = ComponentManager.GetInstance();
@@ -110,9 +151,13 @@ namespace GameEngine
             {
                 StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity);
                 EnergyComponent energyComp = cm.GetComponentForEntity<EnergyComponent>(entity);
-                int energy = energyComp.Max + (2 * statComp.Intellect);
+                energyComp.Max = energyComp.Max + (2 * statComp.AddInt);
 
-                energyComp.Max = energy;
+                for (int i = 0; i <= statComp.AddInt; i++)
+                    statComp.StatHistory += "int";
+
+                statComp.Intellect += statComp.AddInt;
+                statComp.AddInt = 0;
             }
         }
     }
