@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine
 {
-    class Engine : Game
+    public class Engine : Game
     {
         private GraphicsDeviceManager graphics;
         ComponentManager cm = ComponentManager.GetInstance();

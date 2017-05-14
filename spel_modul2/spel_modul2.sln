@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "spel_modul2", "spel_modul2\spel_modul2.csproj", "{2444DAFF-572B-4373-852B-D9210D0CC0D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEngine", "spel_modul2\GameEngine.csproj", "{2444DAFF-572B-4373-852B-D9210D0CC0D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game.csproj", "{D94B8B32-4029-49E7-9E12-0D9B54AA000E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +21,12 @@ Global
 		{2444DAFF-572B-4373-852B-D9210D0CC0D5}.Release|Any CPU.ActiveCfg = Release|x86
 		{2444DAFF-572B-4373-852B-D9210D0CC0D5}.Release|x86.ActiveCfg = Release|x86
 		{2444DAFF-572B-4373-852B-D9210D0CC0D5}.Release|x86.Build.0 = Release|x86
+		{D94B8B32-4029-49E7-9E12-0D9B54AA000E}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{D94B8B32-4029-49E7-9E12-0D9B54AA000E}.Debug|x86.ActiveCfg = Debug|x86
+		{D94B8B32-4029-49E7-9E12-0D9B54AA000E}.Debug|x86.Build.0 = Debug|x86
+		{D94B8B32-4029-49E7-9E12-0D9B54AA000E}.Release|Any CPU.ActiveCfg = Release|x86
+		{D94B8B32-4029-49E7-9E12-0D9B54AA000E}.Release|x86.ActiveCfg = Release|x86
+		{D94B8B32-4029-49E7-9E12-0D9B54AA000E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
