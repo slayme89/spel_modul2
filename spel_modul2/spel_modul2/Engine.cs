@@ -110,11 +110,11 @@ namespace GameEngine
                 new HealthComponent(100),
                 new PositionComponent(0, 0),
                 new MoveComponent(0.2f),
-                new PlayerControlComponent(ControllerType.Gamepad1),
+                new PlayerControlComponent(ControllerType.Keyboard),
                 new CollisionComponent(50, 50),
-                new AttackComponent(50, 0.3f, 0.1f, WeaponType.Sword),
+                new AttackComponent(10, 0.3f, 0.1f, WeaponType.Sword),
                 new PlayerComponent(1),
-                new LevelComponent(2, 44),
+                new LevelComponent(1, 80),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
                 
                 new ActionBarComponent("ActionBarBox",new Point(5,5)),
@@ -183,7 +183,7 @@ namespace GameEngine
                 new CollisionComponent(50, 50),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
                 new AttackComponent(10, 0.5f, 0.3f, WeaponType.Sword),
-                new LevelComponent(3),
+                new LevelComponent(5),
                 new DamageComponent(),
                 new KnockbackComponent(2),
             });

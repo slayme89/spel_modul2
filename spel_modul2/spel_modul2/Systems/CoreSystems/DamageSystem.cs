@@ -14,17 +14,17 @@ namespace GameEngine
                 DamageComponent damageComponent = (DamageComponent)entity.Value;
                 foreach (int attackingEntity in damageComponent.IncomingDamageEntityID)
                 {
-                    if(entity.Key != attackingEntity)
+                    if (entity.Key != attackingEntity)
                     {
                         ApplyDamageToEntity(entity.Key, attackingEntity);
                         damageComponent.LastAttacker = attackingEntity;
                         if (cm.HasEntityComponent<KnockbackComponent>(entity.Key) && cm.HasEntityComponent<MoveComponent>(entity.Key))
                         {
-                            ApplyKnockbackToEntity(entity.Key, attackingEntity);
+                            ApplyKnockbackToEntity(entity.Key, attackingEntity, gameTime);
                         }
                     }
                 }
-                if(damageComponent.IncomingDamageEntityID.Count > 0)
+                if (damageComponent.IncomingDamageEntityID.Count > 0)
                     damageComponent.IncomingDamageEntityID = new List<int>();
             }
         }
@@ -35,11 +35,11 @@ namespace GameEngine
             HealthComponent entityHitHealth = cm.GetComponentForEntity<HealthComponent>(entityHit);
             AttackComponent attackingEntityDamage = cm.GetComponentForEntity<AttackComponent>(attackingEntity);
 
-            // Påverkas av stats??? JAA!
             entityHitHealth.Current -= attackingEntityDamage.Damage;
         }
-            
-        private void ApplyKnockbackToEntity(int entityHit, int attackingEntity)
+
+        // Fix the "teleport-effect", make it smooth!
+        private void ApplyKnockbackToEntity(int entityHit, int attackingEntity, GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
             PositionComponent posComp = cm.GetComponentForEntity<PositionComponent>(entityHit);
@@ -50,6 +50,7 @@ namespace GameEngine
             Vector2 newDir = new Vector2(posComp.position.X - posCompAttacker.X, posComp.position.Y - posCompAttacker.Y);
             int length = (int)Math.Sqrt(Math.Pow(newDir.X, 2.0) + Math.Pow(newDir.Y, 2.0));
             newDir = newDir / length;
+            
             posComp.position += (newDir * knockbackWeight * attackDmg);
         }
     }

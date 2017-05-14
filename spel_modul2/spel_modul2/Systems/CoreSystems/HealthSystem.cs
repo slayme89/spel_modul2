@@ -10,13 +10,20 @@ namespace GameEngine
             foreach (var entity in cm.GetComponentsOfType<HealthComponent>())
             {
                 HealthComponent healthComponent = (HealthComponent)entity.Value;
+
+                // Check if entity health is below 0 and it is alive
                 if(healthComponent.Current <= 0 && healthComponent.IsAlive)
                 {
-                    // Dead
+                    // Entity is dead
                     healthComponent.IsAlive = false;
-                    if(cm.HasEntityComponent<PlayerComponent>(entity.Key))
+
+                    // See if it is a player..
+                    // Give experience penalty
+                    // Reset health
+                    // Move to graveyard location?!
+                    // show some information to the player!?
+                    if (cm.HasEntityComponent<PlayerComponent>(entity.Key))
                     {
-                        // Player dead
                         LevelComponent levelComponent = cm.GetComponentForEntity<LevelComponent>(entity.Key);
                         switch (levelComponent.CurrentLevel)
                         {
@@ -33,7 +40,10 @@ namespace GameEngine
                         }
                         
                     }
-                    else
+                    
+                    // Else if it is an AI entity.
+                    // Will the attacker get experience?
+                    else if(cm.HasEntityComponent<AIComponent>(entity.Key))
                     {
                         // Enemy dead
                         //cm.GetComponentForEntity<LevelComponent>(cm.GetComponentForEntity<DamageComponent>(entity.Key).LastAttacker).ExperienceGains.Add(entity.Key);
@@ -61,9 +71,14 @@ namespace GameEngine
                     //cm.RemoveComponentFromEntity<SoundComponent>(entity.Key);
                     //cm.RemoveComponentFromEntity<AttackComponent>(entity.Key);
                 }
+
+                // Health is not below 0 and the entity is alive.
+                // will it regenerate health?
+                // if it is a player?
+                // if it is an AI ?
                 else
                 {
-                    // Regenerate health?
+                    // TODO
                 }
             }
         }
