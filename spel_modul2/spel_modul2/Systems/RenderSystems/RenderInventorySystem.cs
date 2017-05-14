@@ -16,8 +16,7 @@ namespace GameEngine
         public void Render(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-
-            spriteBatch.Begin();
+            
             foreach (var entity in cm.GetComponentsOfType<InventoryComponent>())
             {
                 InventoryComponent invenComp = (InventoryComponent)entity.Value;
@@ -83,7 +82,6 @@ namespace GameEngine
                     }
                 }
             }
-            spriteBatch.End();
         }
 
         public void Update(GameTime gameTime)

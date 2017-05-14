@@ -46,9 +46,7 @@ namespace GameEngine
                             12
                             );
                     }
-                    sb.Begin();
                     sb.Draw(energyTexture, energyRectangle, Color.White);
-                    sb.End();
                 }
             }
         }

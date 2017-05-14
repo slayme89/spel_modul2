@@ -5,19 +5,30 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine
 {
-    enum RenderLayer { Layer1, Layer2, Layer3, Layer4 };
+    public enum RenderLayer { Background1, Background2, Layer1, Layer2, Layer3, Layer4, Foreground1 };
 
     class RenderSystem : ISystem, IRenderSystem
     {
+        private float[] layer;
+
         void ISystem.Update(GameTime gameTime) {}
+
+        public RenderSystem()
+        {
+            int length = Enum.GetValues(typeof(RenderLayer)).Length;
+            layer = new float[length];
+            
+            for (int i = 0; i < length; i++)
+            {
+                layer[i] = (1f / length) * i;
+            }
+        }
 
         public void Render(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
         {
             ComponentManager cm = ComponentManager.GetInstance();
             Viewport viewport = GetCurrentViewport(graphicsDevice);
             Rectangle viewportBounds = viewport.Bounds;
-
-            spriteBatch.Begin();
 
             RenderTiles(graphicsDevice, spriteBatch);
 
@@ -33,7 +44,7 @@ namespace GameEngine
                     Rectangle textureBounds = new Rectangle(position.X, position.Y, textureComponent.texture.Width, textureComponent.texture.Height);
 
                     if (viewportBounds.Intersects(textureBounds))
-                        spriteBatch.Draw(textureComponent.texture, position.WorldToScreen(ref viewport).ToVector2(), Color.White);
+                        spriteBatch.Draw(textureComponent.texture, position.WorldToScreen(ref viewport).ToVector2(), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, layer[(int)textureComponent.layer]);
                 }
             }
 
@@ -49,7 +60,7 @@ namespace GameEngine
                     Rectangle animationBounds = new Rectangle(position.X, position.Y, animationComponent.frameSize.X, animationComponent.frameSize.Y);
 
                     if (viewportBounds.Intersects(animationBounds))
-                        spriteBatch.Draw(animationComponent.spriteSheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.sourceRectangle, Color.White);
+                        spriteBatch.Draw(animationComponent.spriteSheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, layer[(int)animationComponent.layer]);
                 }
             }
 
@@ -65,11 +76,9 @@ namespace GameEngine
                     Rectangle animationBounds = new Rectangle(position.X, position.Y, animationComponent.frameSize.X, animationComponent.frameSize.Y);
 
                     if (viewportBounds.Intersects(animationBounds))
-                        spriteBatch.Draw(animationComponent.spritesheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.sourceRectangle, Color.White);
+                        spriteBatch.Draw(animationComponent.spritesheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, layer[(int)animationComponent.layer]);
                 }
             }
-
-            spriteBatch.End();
         }
 
         void RenderTiles(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
@@ -85,7 +94,7 @@ namespace GameEngine
                 Rectangle tileBounds = new Rectangle(point.X, point.Y, tile.Value.Width, tile.Value.Height);
 
                 if (viewportBounds.Intersects(tileBounds))
-                    spriteBatch.Draw(tile.Value, point.WorldToScreen(ref viewport).ToVector2(), Color.White);
+                    spriteBatch.Draw(tile.Value, point.WorldToScreen(ref viewport).ToVector2(), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, (float)RenderLayer.Background1);
             }
         }
 

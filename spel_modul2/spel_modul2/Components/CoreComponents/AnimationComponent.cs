@@ -15,12 +15,22 @@ namespace GameEngine
         public Rectangle sourceRectangle { get; set; }
         public bool isPaused { get; set; }
         public Point offset;
+        public RenderLayer layer;
 
         public AnimationComponent(string spritesheetFilename, Point sheetSize, int frameDuration)
         {
             this.spritesheetFilename = spritesheetFilename;
             this.sheetSize = sheetSize;
             this.frameDuration = frameDuration;
+            layer = RenderLayer.Layer1;
+        }
+
+        public AnimationComponent(string spritesheetFilename, Point sheetSize, int frameDuration, RenderLayer layer)
+        {
+            this.spritesheetFilename = spritesheetFilename;
+            this.sheetSize = sheetSize;
+            this.frameDuration = frameDuration;
+            this.layer = layer;
         }
     }
 }

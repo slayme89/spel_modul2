@@ -18,7 +18,6 @@ namespace GameEngine
 
         public void Render(GraphicsDevice graphicsDeive, SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
             ComponentManager cm = ComponentManager.GetInstance();
             Viewport viewport = Extensions.GetCurrentViewport(graphicsDeive);
             foreach (var Entity in cm.GetComponentsOfType<AttackComponent>())
@@ -41,7 +40,6 @@ namespace GameEngine
                     }
                 }
             }
-            spriteBatch.End();
         }
 
         public void Update(GameTime gameTime)

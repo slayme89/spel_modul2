@@ -63,9 +63,7 @@ namespace GameEngine
                             currHealth / 2,
                             10).WorldToScreen(ref viewport);
                     }
-                    sb.Begin();
                     sb.Draw(healthTexture, healthRectangle, Color.White);
-                    sb.End();
                 }
             }
         }

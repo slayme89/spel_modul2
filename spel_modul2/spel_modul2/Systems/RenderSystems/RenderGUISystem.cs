@@ -25,9 +25,7 @@ namespace GameEngine
                         guiComponent.Texture.Width,
                         guiComponent.Texture.Height
                         );
-                    sb.Begin();
                     sb.Draw(texture, containerRect, Color.White);
-                    sb.End();
                 }
             }
         }

@@ -79,7 +79,7 @@ namespace GameEngine
             {
                 cm.AddEntityWithComponents(new IComponent[]
                 {
-                    new TextureComponent("road1"),
+                    new TextureComponent("road1", RenderLayer.Background2),
                     new PositionComponent(i, 150),
                 });
             }
@@ -88,12 +88,6 @@ namespace GameEngine
             {
                 new TextureComponent("stone1"),
                 new PositionComponent(250, 100),
-            });
-
-            cm.AddEntityWithComponents(new IComponent[]
-            {
-                new TextureComponent("grave1"),
-                new PositionComponent(-200, -100),
             });
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
@@ -247,16 +241,18 @@ namespace GameEngine
 
         protected override void Draw(GameTime gameTime)
         {
+            sb.Begin(SpriteSortMode.FrontToBack);
             gd.Clear(Color.Blue);
             sm.GetSystem<RenderSystem>().Render(gd, sb);
-            sm.GetSystem<RenderEnergySystem>().Render(gd, sb);
+            /*sm.GetSystem<RenderEnergySystem>().Render(gd, sb);
             sm.GetSystem<RenderHealthSystem>().Render(gd, sb);
             sm.GetSystem<RenderExperienceSystem>().Render(gd, sb);
             sm.GetSystem<RenderCollisionBoxSystem>().Render(gd, sb);
             sm.GetSystem<RenderAttackingCollisionBoxSystem>().Render(gd, sb);
             sm.GetSystem<RenderInventorySystem>().Render(gd, sb);
             sm.GetSystem<RenderGUISystem>().Render(sb);
-            sm.GetSystem<RenderAnimationGroupSystem>().Render(gd, sb);
+            sm.GetSystem<RenderAnimationGroupSystem>().Render(gd, sb);*/
+            sb.End();
 
             frameCount++;
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;

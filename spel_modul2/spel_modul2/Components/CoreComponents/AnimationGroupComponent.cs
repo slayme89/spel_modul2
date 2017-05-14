@@ -28,6 +28,7 @@ namespace GameEngine
         public Point currentFrame;
         public Rectangle sourceRectangle { get; set; }
         public Point offset;
+        public RenderLayer layer;
 
         public AnimationGroupComponent(string spritesheetFilename, Point sheetSize, int frameDuration, params Tuple<Point, Point>[] animations)
         {
@@ -35,6 +36,16 @@ namespace GameEngine
             this.sheetSize = sheetSize;
             this.animations = animations;
             this.frameDuration = frameDuration;
+            this.layer = RenderLayer.Layer1;
+        }
+
+        public AnimationGroupComponent(string spritesheetFilename, Point sheetSize, int frameDuration, RenderLayer layer, params Tuple<Point, Point>[] animations)
+        {
+            this.spritesheetFilename = spritesheetFilename;
+            this.sheetSize = sheetSize;
+            this.animations = animations;
+            this.frameDuration = frameDuration;
+            this.layer = layer;
         }
     }
 }

@@ -63,9 +63,7 @@ namespace GameEngine
                             5
                             );
                     }
-                    sb.Begin();
                     sb.Draw(ExperienceTexture, experienceRectangle, Color.White);
-                    sb.End();
                 }
             }
         }
