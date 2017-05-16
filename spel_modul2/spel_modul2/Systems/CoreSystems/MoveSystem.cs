@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using System.Diagnostics;
 
 namespace GameEngine
 {
@@ -19,51 +20,9 @@ namespace GameEngine
 
                 ApplyMovement(x, y, moveComponent.Speed, (float)gameTime.ElapsedGameTime.TotalMilliseconds, positionComponent, entity.Key);
                 // Check for direction
-                moveComponent.Direction = CalcDirection(x, y);
-
-
-                //if (cm.HasEntityComponent<KnockbackComponent>(entity.Key))
-                //{
-                //    KnockbackComponent knockbackComponent = cm.GetComponentForEntity<KnockbackComponent>(entity.Key);
-                //    if (knockbackComponent.KnockbackActive)
-                //    {
-                //        x = knockbackComponent.KnockbackDir.X;
-                //        y = knockbackComponent.KnockbackDir.Y;
-                //        knockbackComponent.Cooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                //        if (knockbackComponent.Cooldown <= 0.0f)
-                //        {
-                //            knockbackComponent.KnockbackActive = false;
-                //        }
-                //        ApplyMovement(x, y, moveComponent.Speed, (float)gameTime.ElapsedGameTime.TotalSeconds, positionComponent, entity.Key);
-                //        cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
-                //    }
-                //    else if (moveComponent.canMove)
-                //    {
-                //        x = velocity.X;
-                //        y = velocity.Y;
-                //        // Check for direction
-                //        moveComponent.Direction = CalcDirection(x, y);
-                //        ApplyMovement(x, y, moveComponent.Speed, (float)gameTime.ElapsedGameTime.TotalSeconds, positionComponent, entity.Key);
-                //        cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = true;
-                //    }
-                //    else
-                //    {
-                //        cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
-                //    }
-                //}
-                //else if(moveComponent.canMove)
-                //{
-                //    x = velocity.X;
-                //    y = velocity.Y;
-                //    // Check for direction
-                //    moveComponent.Direction = CalcDirection(x, y);
-                //    ApplyMovement(x, y, moveComponent.Speed, (float)gameTime.ElapsedGameTime.TotalSeconds, positionComponent, entity.Key);
-                //    cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = true;
-                //}
-                //else
-                //{
-                //    cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
-                //}
+                if(moveComponent.Velocity != new Vector2(0.0f, 0.0f))
+                    moveComponent.Direction = CalcDirection(x, y);
+                
             }
         }
 

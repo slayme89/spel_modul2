@@ -10,10 +10,16 @@ namespace GameEngine
             ComponentManager cm = ComponentManager.GetInstance();
             foreach(var entity in cm.GetComponentsOfType<PlayerControlComponent>())
             {
-                if (!cm.HasEntityComponent<MoveComponent>(entity.Key))
-                    throw new Exception("MoveComponent not found during player movement system. Entity ID: " + entity.Key);
+                PlayerControlComponent playerControlComponent = (PlayerControlComponent)entity.Value;
                 MoveComponent moveComponent = cm.GetComponentForEntity<MoveComponent>(entity.Key);
-                moveComponent.Velocity = ((PlayerControlComponent)entity.Value).Movement.GetDirection();
+                moveComponent.Velocity = playerControlComponent.Movement.GetDirection();
+                if(playerControlComponent.Movement.GetDirection() != new Vector2(0.0f, 0.0f))
+                {
+                    if (cm.HasEntityComponent<SoundComponent>(entity.Key))
+                    {
+                        cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = true;
+                    }
+                }
             }
         }
     }
