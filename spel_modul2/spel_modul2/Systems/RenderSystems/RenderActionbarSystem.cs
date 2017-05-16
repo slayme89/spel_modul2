@@ -18,10 +18,12 @@ namespace GameEngine
             texture.SetData(new[] { Color.White });
         }
 
-        public void Render(GraphicsDevice graphicsDeive, SpriteBatch spriteBatch)
+        public void Render(RenderHelper rh)
         {
+            GraphicsDevice graphicsDevice = rh.graphicsDevice;
+            SpriteBatch spriteBatch = rh.spriteBatch;
             ComponentManager cm = ComponentManager.GetInstance();
-            spriteBatch.Begin();
+
             foreach (var entity in cm.GetComponentsOfType<ActionBarComponent>())
             {
                 ActionBarComponent actionBarComp = (ActionBarComponent)entity.Value;
@@ -29,7 +31,7 @@ namespace GameEngine
                 {
                     int actionBarHeight = actionBarComp.ColumnsRows.Y * actionBarComp.slotSize.X + actionBarComp.ColumnsRows.Y;
                     int actionBarWidth = actionBarComp.ColumnsRows.X * actionBarComp.slotSize.Y + actionBarComp.ColumnsRows.X;
-                    Point itemPos = new Point((int)(graphicsDeive.Viewport.Width * 0.5 - actionBarWidth * 0.5), graphicsDeive.Viewport.Height - actionBarHeight);
+                    Point itemPos = new Point((int)(graphicsDevice.Viewport.Width * 0.5 - actionBarWidth * 0.5), graphicsDevice.Viewport.Height - actionBarHeight);
                     Rectangle actionBarBackground = new Rectangle(itemPos, new Point(actionBarWidth, actionBarHeight) + actionBarComp.slotSpace * actionBarComp.ColumnsRows);
 
                     spriteBatch.Draw(texture, actionBarBackground, Color.DarkRed);
@@ -48,7 +50,6 @@ namespace GameEngine
                 }
 
             }
-            spriteBatch.End();
         }
         public void Update(GameTime gameTime)
         {
