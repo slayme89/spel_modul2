@@ -21,9 +21,11 @@ namespace GameEngine
         public SkillType SkillType { get; set; }
         public int EnergyCost { get; set; }
         public Texture2D SkillIcon { get; set; }
+        public bool IsActivated { get; set; }
 
         public SkillComponent(int cooldown, SkillType skillType, int energyCost)
         {
+            IsActivated = false;
             Cooldown = cooldown;
             CooldownTimer = 0;
             SkillType = skillType;

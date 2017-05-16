@@ -112,7 +112,7 @@ namespace GameEngine
                 new LevelComponent(1, 80),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
                 
-                new ActionBarComponent(5,1),
+                new ActionBarComponent(),
                 new GUIComponent("UI/Player1-Hp-Ene-Xp", gd.Viewport.TitleSafeArea.Left, gd.Viewport.TitleSafeArea.Top),
                 new InventoryComponent(5, 4),
                 new EnergyComponent(100),
