@@ -23,6 +23,12 @@ namespace GameEngine
                 if(moveComponent.Velocity != new Vector2(0.0f, 0.0f))
                     moveComponent.Direction = CalcDirection(x, y);
                 moveComponent.Velocity = new Vector2(0.0f, 0.0f);
+                if (cm.HasEntityComponent<CollisionComponent>(entity.Key))
+                {
+                    CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(entity.Key);
+                    Vector2 correctedPos = new Vector2(positionComponent.position.X - (collisionComponent.collisionBox.Width / 2), positionComponent.position.Y - (collisionComponent.collisionBox.Height / 2));
+                    collisionComponent.collisionBox.Location = correctedPos.ToPoint();
+                }
             }
         }
 

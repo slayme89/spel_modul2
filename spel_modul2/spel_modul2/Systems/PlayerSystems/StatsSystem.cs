@@ -115,8 +115,8 @@ namespace GameEngine
                 StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity);
                 MoveComponent moveComp = cm.GetComponentForEntity<MoveComponent>(entity);
                 AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity);
-                attackComp.RateOfFire = attackComp.RateOfFire + (0.05f * statComp.AddAgi);
-                moveComp.Speed = moveComp.Speed + (0.03f * statComp.AddAgi);
+                attackComp.RateOfFire = attackComp.RateOfFire - (0.001f * statComp.AddAgi);
+                moveComp.Speed = moveComp.Speed + (0.001f * statComp.AddAgi);
 
                 for (int i = 0; i <= statComp.AddAgi; i++)
                     statComp.StatHistory += "agi";

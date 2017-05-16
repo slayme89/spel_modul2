@@ -15,12 +15,13 @@ namespace GameEngine
             {
                 CollisionComponent collisionComponent = (CollisionComponent)entity.Value;
                 Rectangle rect = collisionComponent.attackCollisionBox;
-                if(collisionComponent.checkAttackColision)
+                PositionComponent posComp = cm.GetComponentForEntity<PositionComponent>(entity.Key);
+                if (collisionComponent.checkAttackColision)
                 {
                     foreach (int entityID in DetectAreaCollision(rect))
                     {
                         DamageComponent damageComponent = cm.GetComponentForEntity<DamageComponent>(entityID);
-                        if(damageComponent != null)
+                        if (damageComponent != null)
                         {
                             damageComponent.IncomingDamageEntityID.Add(entity.Key);
                         }
@@ -35,18 +36,13 @@ namespace GameEngine
             List<int> foundEntities = new List<int>();
             foreach (var entity in cm.GetComponentsOfType<CollisionComponent>())
             {
-                if (cm.HasEntityComponent<PositionComponent>(entity.Key))
-            {
                 CollisionComponent collisionComponent = (CollisionComponent)entity.Value;
-                Vector2 entity2Pos = cm.GetComponentForEntity<PositionComponent>(entity.Key).position;
-                Vector2 correctedPos = new Vector2(entity2Pos.X - (collisionComponent.collisionBox.Width / 2), entity2Pos.Y - (collisionComponent.collisionBox.Height / 2));
-                collisionComponent.collisionBox.Location = correctedPos.ToPoint();
+
                 if (area.Intersects(collisionComponent.collisionBox))
                 {
                     //Collision detected, add them to the list
                     foundEntities.Add(entity.Key);
                 }
-            }
             }
             return foundEntities;
         }
