@@ -19,7 +19,6 @@ namespace GameEngine
         public void Render(RenderHelper rh)
         {
             GraphicsDevice gd = rh.graphicsDevice;
-            SpriteBatch sb = rh.spriteBatch;
             ComponentManager cm = ComponentManager.GetInstance();
             Viewport viewport = Extensions.GetCurrentViewport(gd);
             foreach (var Entity in cm.GetComponentsOfType<AttackComponent>())
@@ -36,9 +35,9 @@ namespace GameEngine
                         Point hitOffset = new Point((collisionComponent.collisionBox.Width / 2), (collisionComponent.collisionBox.Height / 2));
                         Rectangle hitArea = new Rectangle(positionComponent.position.ToPoint() - hitOffset + moveComponent.Direction * new Point(range, range), collisionComponent.collisionBox.Size).WorldToScreen(ref viewport);
                         if(attackComponent.IsAttacking)
-                            sb.Draw(t, hitArea, Color.Black);
+                            rh.Draw(t, hitArea, Color.Black, RenderLayer.Foreground1);
                         else
-                            sb.Draw(t, hitArea, Color.Green);
+                            rh.Draw(t, hitArea, Color.Green, RenderLayer.Foreground1);
                     }
                 }
             }

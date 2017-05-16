@@ -22,7 +22,7 @@ namespace GameEngine
             foreach (var entity in cm.GetComponentsOfType<CollisionComponent>())
             {
                 CollisionComponent collisionComponent = (CollisionComponent)entity.Value;
-                spriteBatch.DrawRectangle(collisionComponent.collisionBox.WorldToScreen(ref viewport), 2, Color.Black);
+                rh.DrawRectangle(collisionComponent.collisionBox.WorldToScreen(ref viewport), 2, Color.Black, RenderLayer.Foreground1);
             }
         }
     }

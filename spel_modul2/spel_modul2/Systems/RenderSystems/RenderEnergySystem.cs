@@ -15,7 +15,6 @@ namespace GameEngine
         public void Render(RenderHelper rh)
         {
             GraphicsDevice gd = rh.graphicsDevice;
-            SpriteBatch sb = rh.spriteBatch;
             ComponentManager cm = ComponentManager.GetInstance();
             foreach (var entity in cm.GetComponentsOfType<PlayerComponent>())
             {
@@ -48,7 +47,7 @@ namespace GameEngine
                             12
                             );
                     }
-                    sb.Draw(energyTexture, energyRectangle, Color.White);
+                    rh.Draw(energyTexture, energyRectangle, Color.White, RenderLayer.Foreground1);
                 }
             }
         }

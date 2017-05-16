@@ -21,7 +21,6 @@ namespace GameEngine
         public void Render(RenderHelper rh)
         {
             GraphicsDevice graphicsDevice = rh.graphicsDevice;
-            SpriteBatch spriteBatch = rh.spriteBatch;
             ComponentManager cm = ComponentManager.GetInstance();
 
             foreach (var entity in cm.GetComponentsOfType<ActionBarComponent>())
@@ -34,7 +33,7 @@ namespace GameEngine
                     Point itemPos = new Point((int)(graphicsDevice.Viewport.Width * 0.5 - actionBarWidth * 0.5), graphicsDevice.Viewport.Height - actionBarHeight);
                     Rectangle actionBarBackground = new Rectangle(itemPos, new Point(actionBarWidth, actionBarHeight) + actionBarComp.slotSpace * actionBarComp.ColumnsRows);
 
-                    spriteBatch.Draw(texture, actionBarBackground, Color.DarkRed);
+                    rh.Draw(texture, actionBarBackground, Color.DarkRed, RenderLayer.GUI1);
                     for (int row = 0; row < actionBarComp.ColumnsRows.Y; row++)
                     {
                         for (int column = 0; column < actionBarComp.ColumnsRows.X; column++)
@@ -42,9 +41,9 @@ namespace GameEngine
                             Rectangle actionBarSlot = new Rectangle(new Point((actionBarComp.slotSize.X + actionBarComp.slotSpace.X) * column, (actionBarComp.slotSize.Y + actionBarComp.slotSpace.Y) * row) + itemPos + actionBarComp.slotSpace, actionBarComp.slotSize);
 
                             if (row == actionBarComp.selectedSlot.X && column == actionBarComp.selectedSlot.Y)
-                                spriteBatch.Draw(texture, actionBarSlot, Color.Green);
+                                rh.Draw(texture, actionBarSlot, Color.Green, RenderLayer.GUI2);
                             else
-                                spriteBatch.Draw(texture, actionBarSlot, Color.OrangeRed);
+                                rh.Draw(texture, actionBarSlot, Color.OrangeRed, RenderLayer.GUI2);
                         }
                     }
                 }

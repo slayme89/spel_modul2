@@ -12,7 +12,6 @@ namespace GameEngine
 
         public void Render(RenderHelper rh)
         {
-            SpriteBatch sb = rh.spriteBatch;
             ComponentManager cm = ComponentManager.GetInstance();
             foreach (var entity in cm.GetComponentsOfType<GUIComponent>())
             {
@@ -26,7 +25,7 @@ namespace GameEngine
                         guiComponent.Texture.Width,
                         guiComponent.Texture.Height
                         );
-                    sb.Draw(texture, containerRect, Color.White);
+                    rh.Draw(texture, containerRect, Color.White, RenderLayer.Foreground2);
                 }
             }
         }

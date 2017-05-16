@@ -16,7 +16,6 @@ namespace GameEngine
         public void Render(RenderHelper rh)
         {
             GraphicsDevice gd = rh.graphicsDevice;
-            SpriteBatch sb = rh.spriteBatch;
             ComponentManager cm = ComponentManager.GetInstance();
             foreach (var entity in cm.GetComponentsOfType<HealthComponent>())
             {
@@ -65,7 +64,7 @@ namespace GameEngine
                             currHealth / 2,
                             10).WorldToScreen(ref viewport);
                     }
-                    sb.Draw(healthTexture, healthRectangle, Color.White);
+                    rh.Draw(healthTexture, healthRectangle, Color.White, RenderLayer.Foreground1);
                 }
             }
         }
