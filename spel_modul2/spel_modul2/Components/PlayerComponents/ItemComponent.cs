@@ -13,10 +13,12 @@ namespace GameEngine
         Body,
         Head,
         Consumable,
+        Skill
     }
     class ItemComponent : IComponent
     {
         public int InventoryPosition { get; set; }
+        public int actionBarPosition { get; set; }
         public string TextureFileName { get; set; }
         public Texture2D ItemIcon { get; set; }
         public ItemType Type { get; set; }

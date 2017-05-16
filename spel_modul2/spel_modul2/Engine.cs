@@ -59,6 +59,7 @@ namespace GameEngine
                 new LevelSystem(),
                 new InventorySystem(),
                 new RenderInventorySystem(gd),
+                new RenderActionbarSystem(gd),
                 new InteractSystem(),
                 new RenderGUISystem(),
                 new RenderEnergySystem(),
@@ -112,7 +113,7 @@ namespace GameEngine
                 new LevelComponent(1, 80),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
                 
-                new ActionBarComponent("ActionBarBox",new Point(5,5)),
+                new ActionBarComponent(5,1),
                 new GUIComponent("UI/Player1-Hp-Ene-Xp", gd.Viewport.TitleSafeArea.Left, gd.Viewport.TitleSafeArea.Top),
                 new InventoryComponent(5, 4),
                 new EnergyComponent(100),

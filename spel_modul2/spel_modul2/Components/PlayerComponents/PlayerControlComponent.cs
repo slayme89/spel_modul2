@@ -13,6 +13,7 @@ namespace GameEngine
         public Button Menu { get; set; }
         public Button Back { get; set; }
         public Button Inventory { get; set; }
+        public Button theActionBar { get; set; }
         public Button ActionBar1 { get; set; }
         public Button ActionBar2 { get; set; }
         public Button ActionBar3 { get; set; }
@@ -32,6 +33,7 @@ namespace GameEngine
             ActionBar2 = new Button();
             ActionBar3 = new Button();
             ActionBar4 = new Button();
+            theActionBar = new Button();
         }
     }
 }

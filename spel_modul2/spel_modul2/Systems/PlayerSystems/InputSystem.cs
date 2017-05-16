@@ -79,6 +79,12 @@ namespace GameEngine
                             playerControl.Inventory.SetButton(true);
                         else
                             playerControl.Inventory.SetButton(false);
+                        // theActionBar 
+                        if (keyboard.IsKeyDown(Keys.V) && previousKeyboardState.IsKeyUp(Keys.V))
+                            playerControl.theActionBar.SetButton(true);
+                        else
+                            playerControl.theActionBar.SetButton(false);
+
                         // Back
                         if (keyboard.IsKeyDown(Keys.Q) && previousKeyboardState.IsKeyUp(Keys.Q))
                             playerControl.Back.SetButton(true);
@@ -177,6 +183,11 @@ namespace GameEngine
                     playerControl.Inventory.SetButton(true);
                 else
                     playerControl.Inventory.SetButton(false);
+                // theActionBar
+                if (gamepad.IsButtonDown(Buttons.LeftTrigger) && previousGamepadState.IsButtonUp(Buttons.LeftTrigger))
+                    playerControl.theActionBar.SetButton(true);
+                else
+                    playerControl.theActionBar.SetButton(false);
                 // Back
                 if (gamepad.IsButtonDown(Buttons.B) && previousGamepadState.IsButtonUp(Buttons.B))
                     playerControl.Back.SetButton(true);
