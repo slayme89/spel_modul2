@@ -15,39 +15,69 @@ namespace GameEngine
                 PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(entity.Key);
                 if (positionComponent == null)
                     throw new Exception("You must have a position component to be able to move an entity. Entity ID:" + entity.Key);
-                if(moveComponent.canMove)
+
+                float x = 0.0f;
+                float y = 0.0f;
+
+                if (cm.HasEntityComponent<KnockbackComponent>(entity.Key))
                 {
-                    float x = velocity.X;
-                    float y = velocity.Y;
-                    if (x == 0 && y == 0)
+                    KnockbackComponent knockbackComponent = cm.GetComponentForEntity<KnockbackComponent>(entity.Key);
+                    if (knockbackComponent.KnockbackActive)
                     {
+                        x = knockbackComponent.KnockbackDir.X;
+                        y = knockbackComponent.KnockbackDir.Y;
+                        knockbackComponent.Cooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        if (knockbackComponent.Cooldown <= 0.0f)
+                        {
+                            knockbackComponent.KnockbackActive = false;
+                        }
+                        ApplyMovement(x, y, moveComponent.Speed, (float)gameTime.ElapsedGameTime.TotalMilliseconds, positionComponent, entity.Key);
                         cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
+                    }
+                    else if (moveComponent.canMove)
+                    {
+                        x = velocity.X;
+                        y = velocity.Y;
+                        // Check for direction
+                        moveComponent.Direction = CalcDirection(x, y);
+                        ApplyMovement(x, y, moveComponent.Speed, (float)gameTime.ElapsedGameTime.TotalMilliseconds, positionComponent, entity.Key);
+                        cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = true;
                     }
                     else
                     {
-                        // Check for direction
-                        moveComponent.Direction = CalcDirection(x, y);
-
-                        cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = true;
-                        x *= (float)gameTime.ElapsedGameTime.TotalMilliseconds * moveComponent.Speed;
-                        y *= (float)gameTime.ElapsedGameTime.TotalMilliseconds * moveComponent.Speed;
-
-                        for (float i = 1; i > 0.1; i *= 0.8f)
-                        {
-                            x *= i;
-                            y *= i;
-                            Vector2 futurePosition = positionComponent.position + new Vector2(x, y);
-                            if (!SystemManager.GetInstance().GetSystem<CollisionSystem>().DetectMovementCollision(entity.Key, futurePosition))
-                            {
-                                positionComponent.position = futurePosition;
-                                break;
-                            }
-                        }
+                        cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
                     }
+                }
+                else if(moveComponent.canMove)
+                {
+                    x = velocity.X;
+                    y = velocity.Y;
+                    // Check for direction
+                    moveComponent.Direction = CalcDirection(x, y);
+                    ApplyMovement(x, y, moveComponent.Speed, (float)gameTime.ElapsedGameTime.TotalMilliseconds, positionComponent, entity.Key);
+                    cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = true;
                 }
                 else
                 {
                     cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
+                }
+            }
+        }
+
+        private void ApplyMovement(float x, float y, float speed, float elapsedMilliSeconds, PositionComponent pos, int entity)
+        {
+            x *= elapsedMilliSeconds * speed;
+            y *= elapsedMilliSeconds * speed;
+            
+            for (float i = 1; i > 0.1; i *= 0.8f)
+            {
+                x *= i;
+                y *= i;
+                Vector2 futurePosition = pos.position + new Vector2(x, y);
+                if (!SystemManager.GetInstance().GetSystem<CollisionSystem>().DetectMovementCollision(entity, futurePosition))
+                {
+                    pos.position = futurePosition;
+                    break;
                 }
             }
         }

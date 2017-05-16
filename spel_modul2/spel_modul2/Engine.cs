@@ -117,7 +117,7 @@ namespace GameEngine
                 new EnergyComponent(100),
                 new DamageComponent(),
                 new StatsComponent(5, 1, 0, 0),
-                new KnockbackComponent(2),
+                new KnockbackComponent(),
             });
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
@@ -167,6 +167,8 @@ namespace GameEngine
             //    new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
             //});
 
+
+            // Enemy
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new AnimationComponent("PlayerAnimation/NakedFWalk", new Point(4, 1), 150),
@@ -179,7 +181,7 @@ namespace GameEngine
                 new AttackComponent(10, 0.5f, 0.3f, WeaponType.Sword),
                 new LevelComponent(5),
                 new DamageComponent(),
-                new KnockbackComponent(2),
+                new KnockbackComponent(),
             });
 
             /*cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]

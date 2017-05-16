@@ -42,16 +42,17 @@ namespace GameEngine
         private void ApplyKnockbackToEntity(int entityHit, int attackingEntity, GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
+            KnockbackComponent knockbackComponent = cm.GetComponentForEntity<KnockbackComponent>(entityHit);
             PositionComponent posComp = cm.GetComponentForEntity<PositionComponent>(entityHit);
             Vector2 posCompAttacker = cm.GetComponentForEntity<PositionComponent>(attackingEntity).position;
             int attackDmg = cm.GetComponentForEntity<AttackComponent>(attackingEntity).Damage;
-            int knockbackWeight = cm.GetComponentForEntity<KnockbackComponent>(entityHit).Knockback;
 
             Vector2 newDir = new Vector2(posComp.position.X - posCompAttacker.X, posComp.position.Y - posCompAttacker.Y);
-            int length = (int)Math.Sqrt(Math.Pow(newDir.X, 2.0) + Math.Pow(newDir.Y, 2.0));
-            newDir = newDir / length;
-            
-            posComp.position += (newDir * knockbackWeight * attackDmg);
+
+            //posComp.position += (newDir * knockbackWeight * attackDmg);
+            knockbackComponent.KnockbackDir = Vector2.Normalize(newDir * attackDmg);
+            knockbackComponent.Cooldown = attackDmg / 40.0f;
+            knockbackComponent.KnockbackActive = true;
         }
     }
 }
