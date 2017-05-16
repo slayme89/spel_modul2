@@ -133,6 +133,8 @@ namespace GameEngine
                 new KnockbackComponent(),
             });
 
+
+
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new TextureComponent("tree1"),
