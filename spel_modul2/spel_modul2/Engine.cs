@@ -14,6 +14,9 @@ namespace GameEngine
         public static GraphicsDevice graphicsDevice;
         private RenderHelper renderHelper;
 
+        //GameState
+        StateManager stateManager = StateManager.GetInstance();
+
         // Frame rate related stuff
         private float frameCount = 0.0f;
         private float elapsedTime = 0.0f;
@@ -34,6 +37,7 @@ namespace GameEngine
             gd = graphics.GraphicsDevice;
             sb = new SpriteBatch(gd);
             renderHelper = new RenderHelper(gd, sb);
+            stateManager.SetState("game");
 
             sm.AddSystems(new ISystem[] {
                 new AnimationSystem(),
