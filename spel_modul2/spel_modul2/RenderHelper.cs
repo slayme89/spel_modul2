@@ -56,4 +56,9 @@ public class RenderHelper
         spriteBatch.Draw(rectangleTexture, new Rectangle(rectangle.Left, rectangle.Top, strokeWidth, rectangle.Height), null, color, 0f, Vector2.Zero, SpriteEffects.None, GetLayerDepth(layer));
         spriteBatch.Draw(rectangleTexture, new Rectangle(rectangle.Right, rectangle.Top, strokeWidth, rectangle.Height), null, color, 0f, Vector2.Zero, SpriteEffects.None, GetLayerDepth(layer));
     }
+
+    public void DrawFilledRectangle(Rectangle rectangle, Color color, RenderLayer layer)
+    {
+        spriteBatch.Draw(rectangleTexture, rectangle, null, color, 0f, Vector2.Zero, SpriteEffects.None, GetLayerDepth(layer));
+    }
 }

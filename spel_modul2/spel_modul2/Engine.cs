@@ -32,7 +32,6 @@ namespace GameEngine
         protected override void Initialize()
         {
             gd = graphics.GraphicsDevice;
-            graphicsDevice = graphics.GraphicsDevice;
             sb = new SpriteBatch(gd);
             renderHelper = new RenderHelper(gd, sb);
 
@@ -49,7 +48,7 @@ namespace GameEngine
                 new InputSystem(),
                 new AttackSystem(),
                 new PlayerAttackSystem(),
-                new RenderAttackingCollisionBoxSystem(gd),
+                new RenderAttackingCollisionBoxSystem(),
                 new WorldSystem(),
                 new AIAttackSystem(),
                 new SoundSystem(),
@@ -58,8 +57,8 @@ namespace GameEngine
                 new RenderHealthSystem(),
                 new LevelSystem(),
                 new InventorySystem(),
-                new RenderInventorySystem(gd),
-                new RenderActionbarSystem(gd),
+                new RenderInventorySystem(),
+                new RenderActionbarSystem(),
                 new InteractSystem(),
                 new RenderGUISystem(),
                 new RenderEnergySystem(),
@@ -245,7 +244,6 @@ namespace GameEngine
 
         protected override void Draw(GameTime gameTime)
         {
-            RenderHelper rh = renderHelper;
             sb.Begin(SpriteSortMode.FrontToBack);
             gd.Clear(Color.Blue);
             sm.RenderAllSystems(renderHelper);
