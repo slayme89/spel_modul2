@@ -92,6 +92,7 @@
     <Compile Include="Components\IComponent.cs" />
     <Compile Include="Managers\ResourceManager.cs" />
     <Compile Include="Managers\EntityManager.cs" />
+    <Compile Include="RenderHelper.cs" />
     <Compile Include="Systems\AISystems\AIAttackSystem.cs" />
     <Compile Include="Systems\AISystems\AIMovementSystem.cs" />
     <Compile Include="Systems\CoreSystems\AnimationGroupSystem.cs" />
