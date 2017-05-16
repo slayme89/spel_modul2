@@ -46,40 +46,10 @@ namespace GameEngine
 
         public static Point CalcDirection(float x, float y)
         {
-            if (x > 0)
-            {
-                if (y > 0)
-                {
-                    if (x > y)
-                        return new Point(1, 0);
-                    else
-                        return new Point(0, 1);
-                }
-                else
-                {
-                    if (x > -y)
-                        return new Point(1, 0);
-                    else
-                        return new Point(0, -1);
-                }
-            }
+            if (Math.Abs(x) > Math.Abs(y))
+                return x > 0 ? new Point(1, 0) : new Point(-1, 0);
             else
-            {
-                if (y > 0)
-                {
-                    if (-x > y)
-                        return new Point(-1, 0);
-                    else
-                        return new Point(0, 1);
-                }
-                else
-                {
-                    if (-x > -y)
-                        return new Point(-1, 0);
-                    else
-                        return new Point(0, -1);
-                }
-            }
+                return y > 0 ? new Point(0, 1) : new Point(0, -1);
         }
     }
 }

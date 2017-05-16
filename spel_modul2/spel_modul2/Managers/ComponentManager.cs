@@ -58,7 +58,7 @@ namespace GameEngine
 
         public void Update()
         {
-            foreach(int entity in removedEntities)
+            foreach (int entity in removedEntities)
             {
                 Dictionary<Type, IComponent> components;
                 if (entityComponents.TryGetValue(entity, out components))
@@ -101,6 +101,26 @@ namespace GameEngine
                 return components.ContainsKey(typeof(T));
             }
 
+            return false;
+        }
+
+        public bool GetComponentsForEntity<T1, T2>(int entity, out T1 arg1, out T2 arg2)
+        {
+            arg1 = default(T1);
+            arg2 = default(T2);
+            Dictionary<Type, IComponent> components;
+
+            if (entityComponents.TryGetValue(entity, out components))
+            {
+                IComponent arg1out, arg2out;
+                if (components.TryGetValue(typeof(T1), out arg1out) && components.TryGetValue(typeof(T2), out arg2out))
+                {
+                    arg1 = (T1)arg1out;
+                    arg2 = (T2)arg2out;
+                    return true;
+                }
+            }
+            
             return false;
         }
 
