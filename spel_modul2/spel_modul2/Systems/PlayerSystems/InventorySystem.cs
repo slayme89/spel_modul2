@@ -12,20 +12,20 @@ namespace GameEngine
             foreach (var entity in cm.GetComponentsOfType<PlayerControlComponent>())
             {
                 PlayerControlComponent playerComp = (PlayerControlComponent)entity.Value;
-                
+
                 if (cm.HasEntityComponent<InventoryComponent>(entity.Key))
                 {
                     InventoryComponent invenComp = cm.GetComponentForEntity<InventoryComponent>(entity.Key);
                     //Test to add item press 1 on the keyboard or rt + a on gamepad
                     if (playerComp.ActionBar1.IsButtonDown())
                     {
-                        foreach(var item in cm.GetComponentsOfType<ItemComponent>())
+                        foreach (var item in cm.GetComponentsOfType<ItemComponent>())
                             AddItemToInventory(entity.Key, item.Key);
                     }
 
                     if (playerComp.Inventory.IsButtonDown())
                     {
-                        if(cm.HasEntityComponent<MoveComponent>(entity.Key) && cm.HasEntityComponent<AttackComponent>(entity.Key))
+                        if (cm.HasEntityComponent<MoveComponent>(entity.Key) && cm.HasEntityComponent<AttackComponent>(entity.Key))
                         {
                             MoveComponent moveComp = cm.GetComponentForEntity<MoveComponent>(entity.Key);
                             AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity.Key);
@@ -53,47 +53,78 @@ namespace GameEngine
                             invenComp.selectSlotCurCooldown = invenComp.SelectSlotDelay;
                             if (Math.Abs(stickDir.X) > 0.5f || Math.Abs(stickDir.Y) > 0.5f)
                             {
+                                //if the stick has been pushed in a direction
                                 Point direction = MoveSystem.CalcDirection(stickDir.X, stickDir.Y);
                                 Point nextSlot = invenComp.SelectedSlot + direction;
-                                if (nextSlot.X >= -3
-                                 && nextSlot.Y >= 0
-                                 && nextSlot.X < invenComp.ColumnsRows.Y
-                                 && nextSlot.Y < invenComp.ColumnsRows.X)
+                                if (invenComp.SelectedSlot.X == 0 && nextSlot.X < 0)
+                                    nextSlot.Y = 0;
+                                if (invenComp.SelectedSlot.X == -4 && nextSlot.Y == 0)
+                                    nextSlot.X = -3;
+                                if (UpdateInventoryFocus(invenComp, nextSlot))
                                 {
                                     invenComp.SelectedSlot = nextSlot;
                                     invenComp.selectSlotCurCooldown = invenComp.SelectSlotDelay;
                                 }
                             }
+                            //Selecting slot
                             else if (playerComp.Interact.IsButtonDown())
                             {
-                                //calculate the location of the selected slot in the inventory items array
+                                //calculate the location of the selected slot in the items array
                                 int selectedArraySlot = invenComp.SelectedSlot.Y + (invenComp.ColumnsRows.X) * invenComp.SelectedSlot.X;
+                                //if no item is held
                                 if (invenComp.HeldItem == 0)
                                 {
-                                    if (invenComp.SelectedSlot.X < 0)
+                                    if (invenComp.LocationInInventory == LocationInInventory.Equipment)
                                     {
+                                        //Unequip equipment
                                         int equipPos = Math.Abs(invenComp.SelectedSlot.X) - 1;
                                         if (AddItemToInventory(entity.Key, invenComp.WeaponBodyHead[equipPos]))
                                             invenComp.WeaponBodyHead[equipPos] = 0;
-                                    }else
+                                    }
+                                    else if (invenComp.LocationInInventory == LocationInInventory.Bagspace)
                                         //Picked an item to hold
                                         invenComp.HeldItem = invenComp.Items[selectedArraySlot];
-                                    //Debug.WriteLine(invenComp.HeldItem + "   " + (invenComp.SelectedSlot.Y + (invenComp.ColumnsRows.X) * invenComp.SelectedSlot.X));
-                                }else
-                                {
-                                    ItemComponent heldItemComp = cm.GetComponentForEntity<ItemComponent>(invenComp.HeldItem);
-                                    if (invenComp.SelectedSlot.X < 0)
+                                    else if (invenComp.LocationInInventory == LocationInInventory.Stats)
                                     {
+                                        StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity.Key);
+                                        if (statComp.SpendableStats > 0)
+                                        {
+                                            //Increase the selected stat
+                                            if (invenComp.SelectedSlot.X == -1)
+                                                //increase int
+                                                statComp.AddInt += 1;
+                                            else if (invenComp.SelectedSlot.X == -2)
+                                                //increase stamina
+                                                statComp.AddSta += 1;
+                                            else if (invenComp.SelectedSlot.X == -3)
+                                                //increase agility
+                                                statComp.AddAgi += 1;
+                                            else if (invenComp.SelectedSlot.X == -4)
+                                                //increase strength
+                                                statComp.AddStr += 1;
+                                            statComp.SpendableStats--;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    //if we do have a held item
+                                    ItemComponent heldItemComp = cm.GetComponentForEntity<ItemComponent>(invenComp.HeldItem);
+                                    if (invenComp.LocationInInventory == LocationInInventory.Equipment)
+                                    {
+                                        //if our currently selected slot is in one of the equipment slots
                                         int equipPos = Math.Abs(invenComp.SelectedSlot.X) - 1;
-                                        if((int)heldItemComp.Type == equipPos)
+                                        if ((int)heldItemComp.Type == equipPos)
                                             if (invenComp.WeaponBodyHead[equipPos] == 0)
                                             {
+                                                //if there are no items equipped in the selected slot. We equip the held item
                                                 invenComp.WeaponBodyHead[equipPos] = invenComp.HeldItem;
                                                 invenComp.Items[heldItemComp.InventoryPosition] = 0;
                                                 heldItemComp.InventoryPosition = -equipPos;
                                             }
                                             else
                                             {
+                                                //if there is an item in the selected slot. Swap locations of the items
                                                 int equipToSwap = invenComp.WeaponBodyHead[equipPos];
                                                 invenComp.WeaponBodyHead[equipPos] = invenComp.HeldItem;
                                                 invenComp.Items[heldItemComp.InventoryPosition] = equipToSwap;
@@ -101,29 +132,33 @@ namespace GameEngine
                                                 heldItemComp.InventoryPosition = -equipPos;
                                             }
                                     }
-                                    else if (invenComp.Items[selectedArraySlot] == 0)
+                                    else if (invenComp.LocationInInventory == LocationInInventory.Bagspace)
                                     {
-                                        //Moved held item
-                                        invenComp.Items[selectedArraySlot] = invenComp.HeldItem;
-                                        invenComp.Items[heldItemComp.InventoryPosition] = 0;
-                                        heldItemComp.InventoryPosition = selectedArraySlot;
+                                        if (invenComp.Items[selectedArraySlot] == 0)
+                                        {
+                                            //Moved held item
+                                            invenComp.Items[selectedArraySlot] = invenComp.HeldItem;
+                                            invenComp.Items[heldItemComp.InventoryPosition] = 0;
+                                            heldItemComp.InventoryPosition = selectedArraySlot;
+                                        }
+                                        else
+                                        {
+                                            //Swap item locations
+                                            int itemToSwap = 0;
+                                            itemToSwap = invenComp.Items[selectedArraySlot];
+                                            invenComp.Items[selectedArraySlot] = invenComp.HeldItem;
+                                            invenComp.Items[heldItemComp.InventoryPosition] = itemToSwap;
+                                            cm.GetComponentForEntity<ItemComponent>(itemToSwap).InventoryPosition = heldItemComp.InventoryPosition;
+                                            heldItemComp.InventoryPosition = selectedArraySlot;
+                                        }
                                     }
-                                    else
-                                    {
-                                        //Swap item locations
-                                        int itemToSwap = 0;
-                                        itemToSwap = invenComp.Items[selectedArraySlot];
-                                        invenComp.Items[selectedArraySlot] = invenComp.HeldItem;
-                                        invenComp.Items[heldItemComp.InventoryPosition] = itemToSwap;
-                                        cm.GetComponentForEntity<ItemComponent>(itemToSwap).InventoryPosition = heldItemComp.InventoryPosition;
-                                        heldItemComp.InventoryPosition = selectedArraySlot;
-                                    }
-                                    invenComp.HeldItem = 0;
+                                    invenComp.HeldItem = 0; // no matter what action was taken, the held item should be deselected so we can choose a new one in the future
                                 }
                             }
+                            //Quick equip
                             else if (playerComp.Attack.IsButtonDown())
                             {
-                                if(invenComp.SelectedSlot.X >= 0)
+                                if (invenComp.LocationInInventory == LocationInInventory.Bagspace)
                                 {
                                     int selectedArraySlot = invenComp.SelectedSlot.Y + (invenComp.ColumnsRows.X) * invenComp.SelectedSlot.X;
                                     ItemComponent selectedItemComp = cm.GetComponentForEntity<ItemComponent>(invenComp.Items[selectedArraySlot]);
@@ -133,8 +168,7 @@ namespace GameEngine
 
                                         if (invenComp.HeldItem != 0)
                                             invenComp.HeldItem = 0;
-                                        //Debug.WriteLine("item is equippable");
-                                        if(invenComp.WeaponBodyHead[(int)selectedItemComp.Type] == 0)
+                                        if (invenComp.WeaponBodyHead[(int)selectedItemComp.Type] == 0)
                                         {
                                             invenComp.WeaponBodyHead[(int)selectedItemComp.Type] = invenComp.Items[selectedArraySlot];
                                             selectedItemComp.InventoryPosition = -(int)selectedItemComp.Type - 1;
@@ -152,6 +186,30 @@ namespace GameEngine
                                     }
                                 }
                             }
+                            else if (cm.HasEntityComponent<ActionBarComponent>(entity.Key))
+                            {
+                                ActionBarComponent actionBComp = cm.GetComponentForEntity<ActionBarComponent>(entity.Key);
+                                if (playerComp.ActionBar1.IsButtonDown())
+                                {
+
+                                }
+                                else if (playerComp.ActionBar2.IsButtonDown())
+                                {
+
+                                }
+                                else if (playerComp.ActionBar3.IsButtonDown())
+                                {
+
+                                }
+                                else if (playerComp.ActionBar4.IsButtonDown())
+                                {
+
+                                }
+                                else
+                                {
+                                    invenComp.selectSlotCurCooldown = 0.0f;
+                                }
+                            }
                             else
                             {
                                 invenComp.selectSlotCurCooldown = 0.0f;
@@ -164,6 +222,35 @@ namespace GameEngine
             }
         }
 
+        bool UpdateInventoryFocus(InventoryComponent invenComp, Point nextSlot)
+        {
+            if (nextSlot.X >= 0
+             && nextSlot.Y >= 0
+             && nextSlot.X < invenComp.ColumnsRows.Y
+             && nextSlot.Y < invenComp.ColumnsRows.X)
+            {
+                //inside bagspace
+                invenComp.LocationInInventory = LocationInInventory.Bagspace;
+            }
+            else if (nextSlot.X <= -1
+             && nextSlot.X >= -3
+             && nextSlot.Y == 0)
+            {
+                //inside Equipment
+                invenComp.LocationInInventory = LocationInInventory.Equipment;
+            }
+            else if (nextSlot.X >= -4
+             && nextSlot.Y == 1
+             && nextSlot.X <= -1)
+            {
+                //inside stat
+                invenComp.LocationInInventory = LocationInInventory.Stats;
+            }
+            else
+                return false;
+            return true;
+        }
+
         public bool AddItemToInventory(int player, int item)
         {
             ComponentManager cm = ComponentManager.GetInstance();
@@ -174,7 +261,7 @@ namespace GameEngine
                 return false;
             }
             InventoryComponent invenComp = cm.GetComponentForEntity<InventoryComponent>(player);
-            for(int invSpot = 0; invSpot < invenComp.Items.Length; invSpot++)
+            for (int invSpot = 0; invSpot < invenComp.Items.Length; invSpot++)
             {
                 if (invenComp.Items[invSpot] == 0)
                 {

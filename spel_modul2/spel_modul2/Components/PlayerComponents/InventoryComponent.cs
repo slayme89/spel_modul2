@@ -8,6 +8,13 @@ using System.Threading.Tasks;
 
 namespace GameEngine
 {
+    enum LocationInInventory
+    {
+        Bagspace,
+        Equipment,
+        Skills,
+        Stats
+    }
     class InventoryComponent : IComponent
     {
         public int[] Items { get; set; }
@@ -22,6 +29,7 @@ namespace GameEngine
         public int HeldItem { get; set; }
         public int[] WeaponBodyHead = new int[3];
         public SpriteFont font { get; set; }
+        public LocationInInventory LocationInInventory;
         public InventoryComponent(int columns, int rows)
         {
             HeldItem = 0;

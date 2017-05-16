@@ -62,7 +62,7 @@ namespace GameEngine
                 new RenderHealthSystem(),
                 new InventorySystem(),
                 new RenderInventorySystem(),
-                new RenderActionbarSystem(gd),
+                new RenderActionbarSystem(),
                 new InteractSystem(),
                 new RenderGUISystem(),
                 new RenderEnergySystem(),
@@ -75,6 +75,7 @@ namespace GameEngine
                 new InventoryLoaderSystem(),
                 new ActionBarSystem(),
                 new LevelSystem(),
+                new StatsSystem()
             });
 
             base.Initialize();

@@ -16,10 +16,10 @@
 
         public StatsComponent(int strength, int agillity, int stamina, int intellect)
         {
-            AddStr = strength;
-            AddAgi = agillity;
-            AddSta = stamina;
-            AddInt = intellect;
+            Strength = strength;
+            Agillity = agillity;
+            Stamina= stamina;
+            Intellect = intellect;
         }
     }
 }

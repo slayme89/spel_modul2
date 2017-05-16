@@ -11,13 +11,6 @@ namespace GameEngine
 {
     class RenderActionbarSystem : ISystem, IRenderSystem
     {
-        private Texture2D texture;
-
-        public RenderActionbarSystem(GraphicsDevice graphicsDevice)
-        {
-            texture = new Texture2D(graphicsDevice, 1, 1);
-            texture.SetData(new[] { Color.White });
-        }
 
         public void Render(RenderHelper renderHelper)
         {
@@ -32,11 +25,11 @@ namespace GameEngine
                 actionBarComp.PositionOnScreen = new Point(renderHelper.graphicsDevice.Viewport.TitleSafeArea.Left, renderHelper.graphicsDevice.Viewport.TitleSafeArea.Bottom - actionBarHeight);
                 Rectangle actionBarBackground = new Rectangle(actionBarComp.PositionOnScreen, new Point(actionBarWidth, actionBarHeight));
 
-                renderHelper.Draw(texture, actionBarBackground, Color.DarkGray, RenderLayer.GUI1);
+                renderHelper.DrawFilledRectangle(actionBarBackground, Color.DarkGray, RenderLayer.GUI1);
                 for (int slot = 0; slot < 4; slot++)
                 {
                     Rectangle actionBarSlot = new Rectangle(new Point(actionBarComp.PositionOnScreen.X + (actionBarComp.SlotSize.X + 5) * slot + 5, actionBarComp.PositionOnScreen.Y + 5), actionBarComp.SlotSize);
-                    renderHelper.Draw(texture, actionBarSlot, Color.Gray, RenderLayer.GUI2);
+                    renderHelper.DrawFilledRectangle(actionBarSlot, Color.Gray, RenderLayer.GUI2);
 
                 }
             }

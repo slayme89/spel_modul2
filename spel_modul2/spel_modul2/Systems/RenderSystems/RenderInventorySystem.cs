@@ -17,6 +17,7 @@ namespace GameEngine
                 if (invenComp.IsOpen)
                 {
                     Rectangle equipmentBackground = new Rectangle(invenComp.PositionOnScreen, new Point(120, 120) + invenComp.SlotSpace * invenComp.ColumnsRows);
+                    //Inventory stuff
                     Point itemInventoryPos = new Point(invenComp.PositionOnScreen.X, invenComp.PositionOnScreen.Y + equipmentBackground.Height);
                     int inventoryHeight = invenComp.ColumnsRows.Y * invenComp.SlotSize.X + invenComp.ColumnsRows.Y;
                     int inventoryWidth = invenComp.ColumnsRows.X * invenComp.SlotSize.Y + invenComp.ColumnsRows.X;
@@ -42,6 +43,8 @@ namespace GameEngine
                             }
                         }
                     }
+
+                    //Equipment stuff
                     Rectangle equipmentSlot = new Rectangle();
                     equipmentSlot.Size = invenComp.SlotSize;
                     
@@ -52,7 +55,7 @@ namespace GameEngine
 
                         rh.DrawString(invenComp.font, ((ItemType)y).ToString(), (equipmentSlot.Location - new Point(0, 15)).ToVector2(), Color.Black, RenderLayer.GUI2);
 
-                        if (-y - 1 == invenComp.SelectedSlot.X)
+                        if (invenComp.SelectedSlot.X == - y - 1 && invenComp.SelectedSlot.Y <= 0)
                             rh.DrawFilledRectangle(equipmentSlot, Color.Green, RenderLayer.GUI2);
                         else
                             rh.DrawFilledRectangle(equipmentSlot, Color.Gray, RenderLayer.GUI2);
@@ -63,16 +66,36 @@ namespace GameEngine
                     }
                     if (cm.HasEntityComponent<StatsComponent>(entity.Key))
                     {
+                        //stats stuff
                         StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity.Key);
-                        equipmentSlot.Location = new Point(equipmentBackground.Size.X - 55, 0) + invenComp.PositionOnScreen;
+                        LevelComponent lvlComp = cm.GetComponentForEntity<LevelComponent>(entity.Key);
                         int statYOffset = 20;
                         string[] statNames = new string[4] {"Str: ", "Agi: ", "Sta: ", "Int: " };
                         int[] statNumbers = new int[4] { statComp.Strength, statComp.Agillity, statComp.Stamina, statComp.Intellect };
-                        for(int i = 0; i < 4; i++)
+                        Rectangle statButton = new Rectangle(new Point(), new Point(10, 10));
+
+                        equipmentSlot.Location = new Point(equipmentBackground.Size.X - 55, 0) + invenComp.PositionOnScreen;
+                        for (int i = 0; i < 4; i++) // draw all of our stats and statbuttons
                         {
-                            rh.DrawString(invenComp.font, statNames[i], (equipmentSlot.Location + new Point(0, i * statYOffset + 5)).ToVector2(), Color.Black, RenderLayer.Foreground2);
-                            rh.DrawString(invenComp.font, "" + statNumbers[i], (equipmentSlot.Location + new Point(25, i * statYOffset + 5)).ToVector2(), Color.Black, RenderLayer.Foreground2);
+                            statButton.Location = equipmentSlot.Location + new Point(40, i * -statYOffset - 6 + 72);
+                            rh.DrawString(invenComp.font, statNames[i], (equipmentSlot.Location + new Point(0, i * statYOffset + 5)).ToVector2(), Color.Black, RenderLayer.GUI2);
+                            rh.DrawString(invenComp.font, "" + statNumbers[i], (equipmentSlot.Location + new Point(25, i * statYOffset + 5)).ToVector2(), Color.Black, RenderLayer.GUI2);
+
+                            if (invenComp.SelectedSlot.X == -i -1 && invenComp.SelectedSlot.Y >= 1)
+                                rh.DrawFilledRectangle(statButton, Color.Green, RenderLayer.GUI2);
+                            else
+                                rh.DrawFilledRectangle(statButton, Color.Gray, RenderLayer.GUI2);
                         }
+
+                        //Specific drawing
+                        //Lvl
+                        rh.DrawRectangle(new Rectangle((equipmentSlot.Location + new Point(-35, 5)), new Point(22, 40)), 2, Color.DarkRed, RenderLayer.GUI2);
+                        rh.DrawString(invenComp.font, "Lvl", (equipmentSlot.Location + new Point(-30, 10)).ToVector2(), Color.Black, RenderLayer.GUI2);
+                        rh.DrawString(invenComp.font, lvlComp.CurrentLevel + "", (equipmentSlot.Location + new Point(-25, 30)).ToVector2(), Color.Black, RenderLayer.GUI2);
+                        //Distributable points
+                        rh.DrawString(invenComp.font, "Pts:", (equipmentSlot.Location + new Point(0, statYOffset * 5)).ToVector2(), Color.Black, RenderLayer.GUI2);
+                        rh.DrawString(invenComp.font, statComp.SpendableStats + "", (equipmentSlot.Location + new Point(25, statYOffset * 5)).ToVector2(), Color.Black, RenderLayer.GUI2);
+
                     }
                 }
             }
