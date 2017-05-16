@@ -130,6 +130,9 @@ namespace GameEngine
 
                                     if (selectedItemComp != null && (int)selectedItemComp.Type <= 2)
                                     {
+
+                                        if (invenComp.HeldItem != 0)
+                                            invenComp.HeldItem = 0;
                                         //Debug.WriteLine("item is equippable");
                                         if(invenComp.WeaponBodyHead[(int)selectedItemComp.Type] == 0)
                                         {

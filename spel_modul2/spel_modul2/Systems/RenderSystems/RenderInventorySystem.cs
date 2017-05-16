@@ -29,15 +29,16 @@ namespace GameEngine
                         {
                             Rectangle inventorySlot = new Rectangle(new Point((invenComp.SlotSize.X + invenComp.SlotSpace.X) * column, (invenComp.SlotSize.Y + invenComp.SlotSpace.Y) * row) + itemInventoryPos + invenComp.SlotSpace, invenComp.SlotSize);
 
-                            if (row == invenComp.SelectedSlot.X && column == invenComp.SelectedSlot.Y)
+                            
+                            if (invenComp.Items[column + (invenComp.ColumnsRows.X) * row] != 0 && invenComp.HeldItem == invenComp.Items[column + (invenComp.ColumnsRows.X) * row])
+                                rh.DrawFilledRectangle(inventorySlot, Color.Yellow, RenderLayer.GUI2);
+                            else if (row == invenComp.SelectedSlot.X && column == invenComp.SelectedSlot.Y)
                                 rh.DrawFilledRectangle(inventorySlot, Color.Green, RenderLayer.GUI2);
                             else
                                 rh.DrawFilledRectangle(inventorySlot, Color.Gray, RenderLayer.GUI2);
                             if (invenComp.Items[column + (invenComp.ColumnsRows.X) * row] != 0)
                             {
-                                if(invenComp.HeldItem == invenComp.Items[column + (invenComp.ColumnsRows.X) * row])
-                                    rh.DrawFilledRectangle(inventorySlot, Color.Yellow, RenderLayer.GUI2);
-                                rh.Draw(cm.GetComponentForEntity<ItemComponent>(invenComp.Items[column + (invenComp.ColumnsRows.X) * row]).ItemIcon, inventorySlot, Color.Yellow, RenderLayer.GUI2);
+                                rh.Draw(cm.GetComponentForEntity<ItemComponent>(invenComp.Items[column + (invenComp.ColumnsRows.X) * row]).ItemIcon, inventorySlot, Color.Yellow, RenderLayer.GUI3);
                             }
                         }
                     }
@@ -57,7 +58,7 @@ namespace GameEngine
                             rh.DrawFilledRectangle(equipmentSlot, Color.Gray, RenderLayer.GUI2);
                         if (invenComp.WeaponBodyHead[y] != 0)
                         {
-                            rh.Draw(cm.GetComponentForEntity<ItemComponent>(invenComp.WeaponBodyHead[y]).ItemIcon, equipmentSlot, Color.Yellow, RenderLayer.GUI2);
+                            rh.Draw(cm.GetComponentForEntity<ItemComponent>(invenComp.WeaponBodyHead[y]).ItemIcon, equipmentSlot, Color.Yellow, RenderLayer.GUI3);
                         }
                     }
                     if (cm.HasEntityComponent<StatsComponent>(entity.Key))
