@@ -11,19 +11,16 @@ namespace GameEngine
             {
                 HealthComponent healthComponent = (HealthComponent)entity.Value;
 
-                // Check if entity health is below 0 and it is alive
+                // Check if the entity health is below 0 and it is alive
                 if(healthComponent.Current <= 0 && healthComponent.IsAlive)
                 {
-                    // Entity is dead
+                    // Entity died
                     healthComponent.IsAlive = false;
 
-                    // See if it is a player..
-                    // Give experience penalty
-                    // Reset health
-                    // Move to graveyard location?!
-                    // show some information to the player!?
+                    // If the entity is a player
                     if (cm.HasEntityComponent<PlayerComponent>(entity.Key))
                     {
+                        // Give experience penalty
                         LevelComponent levelComponent = cm.GetComponentForEntity<LevelComponent>(entity.Key);
                         switch (levelComponent.CurrentLevel)
                         {
@@ -38,47 +35,28 @@ namespace GameEngine
                             case 9: levelComponent.ExperienceLoss.Add(-400); break;
                             case 10: levelComponent.ExperienceLoss.Add(-400); break;
                         }
-                        
+                        // TODO
+                        // Move player to graveyard location
+                        //cm.GetComponentForEntity<PositionComponent>(entity.Key).position = GraveYardPos;
+
+                        //TODO
+                        // show some information to the player
+                        // write something in a dialogbox that he died etc...
+
+                        // Reset health and make the player alive again
+                        healthComponent.IsAlive = true;
+                        healthComponent.Current = healthComponent.Max;
+
                     }
-                    
-                    // Else if it is an AI entity.
-                    // Will the attacker get experience?
-                    else if(cm.HasEntityComponent<AIComponent>(entity.Key))
+
+                    //If the entity is a NPC
+                    else if (cm.HasEntityComponent<AIComponent>(entity.Key))
                     {
-                        // Enemy dead
-                        //cm.GetComponentForEntity<LevelComponent>(cm.GetComponentForEntity<DamageComponent>(entity.Key).LastAttacker).ExperienceGains.Add(entity.Key);
-                        //cm.RemoveComponentFromEntity<MoveComponent>(entity.Key);
-                        //cm.RemoveComponentFromEntity<AIComponent>(entity.Key);
-                        //cm.RemoveComponentFromEntity<SoundComponent>(entity.Key);
-                        //cm.RemoveComponentFromEntity<AttackComponent>(entity.Key);
-                        //cm.AddComponentsToEntity(entity.Key,
-                        //    new IComponent[] {
-                        //    new InteractComponent(InteractType.Trap),
-                        //    new AttackComponent(10, 0.0f, 0.0f, WeaponType.Sword) }
-                        //    );
+                        // Give the last attacker experience points
+                        cm.GetComponentForEntity<LevelComponent>(cm.GetComponentForEntity<DamageComponent>(entity.Key).LastAttacker).ExperienceGains.Add(entity.Key);
+                        // Remove the entity
                         cm.RemoveEntity(entity.Key);
                     }
-
-
-
-                    // Kill the entity
-                    //AnimationComponent animationComponent = cm.GetComponentForEntity<AnimationComponent>(entity.Key);
-                    //if (animationComponent != null)
-                    //    animationComponent.isPaused = !animationComponent.isPaused;
-                    //cm.RemoveComponentFromEntity<MoveComponent>(entity.Key);
-                    //cm.RemoveComponentFromEntity<AIComponent>(entity.Key);
-                    //cm.RemoveComponentFromEntity<CollisionComponent>(entity.Key);
-                    //cm.RemoveComponentFromEntity<SoundComponent>(entity.Key);
-                    //cm.RemoveComponentFromEntity<AttackComponent>(entity.Key);
-                }
-
-                // Health is not below 0 and the entity is alive.
-                // will it regenerate health?
-                // if it is a player?
-                // if it is an AI ?
-                else
-                {
-                    // TODO
                 }
             }
         }

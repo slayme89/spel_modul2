@@ -14,6 +14,7 @@ namespace GameEngine
                 if (cm.HasEntityComponent<StatsComponent>(entity.Key))
                 {
                     StatsComponent statComponent = cm.GetComponentForEntity<StatsComponent>(entity.Key);
+                    //See if there is any experience to gain
                     if (levelComponent.ExperienceLoss.Count > 0)
                     {
                         foreach (int xpLoss in levelComponent.ExperienceLoss)
@@ -29,9 +30,10 @@ namespace GameEngine
                                 int num = oldLevel - newLevel;
                                 statComponent.RemoveStats += 3 * num;
                             }
+                            // Permadeath, Remove entity and everything assosiated with that entity
                             if (levelComponent.CurrentLevel == 0)
                             {
-                                // Permadeath
+                                cm.RemoveEntity(entity.Key);
                             }
                         }
                         levelComponent.ExperienceLoss = new List<int>();
