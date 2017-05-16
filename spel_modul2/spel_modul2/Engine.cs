@@ -97,6 +97,12 @@ namespace GameEngine
                 new PositionComponent(250, 100),
             });
 
+            cm.AddEntityWithComponents(new IComponent[]
+            {
+                new PositionComponent(-200, 0),
+                new CollisionComponent(50, 50),
+            });
+
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new AnimationGroupComponent("PlayerSpritesheet", new Point(4, 4), 150,

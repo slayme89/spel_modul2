@@ -21,8 +21,8 @@ namespace GameEngine
             Viewport viewport = Extensions.GetCurrentViewport(graphicsDevice);
             foreach (var entity in cm.GetComponentsOfType<CollisionComponent>())
             {
-                CollisionComponent collisionComponent = (CollisionComponent)entity.Value;
-                rh.DrawRectangle(collisionComponent.collisionBox.WorldToScreen(ref viewport), 2, Color.Black, RenderLayer.Foreground1);
+                CollisionComponent collisionComponent = (CollisionComponent)entity.Value;  //FIXA
+                rh.DrawRectangle(collisionComponent.collisionBox.WorldToScreen(ref viewport), 2, Color.Yellow, RenderLayer.Foreground1);
             }
         }
     }

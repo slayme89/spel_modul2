@@ -27,9 +27,9 @@ namespace GameEngine
                         Point hitOffset = new Point((collisionComponent.collisionBox.Width / 2), (collisionComponent.collisionBox.Height / 2));
                         Rectangle hitArea = new Rectangle(positionComponent.position.ToPoint() - hitOffset + moveComponent.Direction * new Point(range, range), collisionComponent.collisionBox.Size).WorldToScreen(ref viewport);
                         if(attackComponent.IsAttacking)
-                            rh.DrawFilledRectangle(hitArea, Color.Black, RenderLayer.Foreground1);
+                            rh.DrawFilledRectangle(hitArea, Color.Red, RenderLayer.Foreground1);
                         else
-                            rh.DrawFilledRectangle(hitArea, Color.Green, RenderLayer.Foreground1);
+                            rh.DrawFilledRectangle(hitArea, Color.Red, RenderLayer.Foreground1);
                     }
                 }
             }
