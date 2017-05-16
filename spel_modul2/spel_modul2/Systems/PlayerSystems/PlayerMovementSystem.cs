@@ -22,8 +22,11 @@ namespace GameEngine
                             cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = true;
                         }
                     }
+                    else
+                        cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
                 }
-                
+                else
+                    cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
             }
         }
     }

@@ -8,10 +8,8 @@ namespace GameEngine
         public void Update(GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-
             foreach(var entity in cm.GetComponentsOfType<AttackComponent>())
             {
-                
                 if(cm.HasEntityComponent<AIComponent>(entity.Key) && cm.HasEntityComponent<PositionComponent>(entity.Key))
                 {
                     AIComponent ai = cm.GetComponentForEntity<AIComponent>(entity.Key);
@@ -65,6 +63,7 @@ namespace GameEngine
                             moveComp.canMove = false;
                             attackComponent.AttackCooldown = attackComponent.RateOfFire;
                             attackComponent.IsAttacking = true;
+                            cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayAttackSound = true;
                         }
                     }
                     if (attackComponent.AttackCooldown > 0.0f)

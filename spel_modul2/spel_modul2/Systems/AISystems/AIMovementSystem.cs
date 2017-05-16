@@ -16,7 +16,7 @@ namespace GameEngine
                     MoveComponent moveComp = ComponentManager.GetInstance().GetComponentForEntity<MoveComponent>(entity.Key);
                     if (((AIComponent)entity.Value).TargetEntity != 0)
                     {
-                        if (cm.HasEntityComponent<PositionComponent>(entity.Key))
+                        if (cm.HasEntityComponent<PositionComponent>(entity.Key) && moveComp.canMove)
                         {
                             PositionComponent posComp = ComponentManager.GetInstance().GetComponentForEntity<PositionComponent>(entity.Key);
                             ((AIComponent)entity.Value).Destination = cm.GetComponentForEntity<PositionComponent>(((AIComponent)entity.Value).TargetEntity).position.ToPoint();
@@ -25,13 +25,24 @@ namespace GameEngine
                             float distance = (float)Math.Sqrt(nextMovement.X * nextMovement.X + nextMovement.Y * nextMovement.Y);
 
                             if (distance > 2f)
+                            {
                                 moveComp.Velocity = new Vector2(nextMovement.X / distance, nextMovement.Y / distance);
+                                cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = true;
+                            }
+
                             else
+                            {
                                 moveComp.Velocity = new Vector2(0, 0);
+                                cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
+                            }
+
                         }
                     }
                     else
+                    {
                         moveComp.Velocity = new Vector2(0, 0);
+                        cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
+                    }
                 }
             }
         }
