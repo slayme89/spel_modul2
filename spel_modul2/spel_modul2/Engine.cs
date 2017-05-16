@@ -55,10 +55,9 @@ namespace GameEngine
                 new SoundLoaderSystem(),
                 new DamageSystem(),
                 new RenderHealthSystem(),
-                new LevelSystem(),
                 new InventorySystem(),
                 new RenderInventorySystem(),
-                new RenderActionbarSystem(),
+                new RenderActionbarSystem(gd),
                 new InteractSystem(),
                 new RenderGUISystem(),
                 new RenderEnergySystem(),
@@ -69,7 +68,8 @@ namespace GameEngine
                 new AnimationGroupLoaderSystem(),
                 new RenderAnimationGroupSystem(),
                 new InventoryLoaderSystem(),
-                new ActionBarSystem()
+                new ActionBarSystem(),
+                new LevelSystem(),
             });
 
             base.Initialize();

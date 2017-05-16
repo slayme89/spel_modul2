@@ -17,6 +17,7 @@ namespace GameEngine
                     if (entity.Key != attackingEntity)
                     {
                         ApplyDamageToEntity(entity.Key, attackingEntity);
+                        cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayDamageSound = true;
                         damageComponent.LastAttacker = attackingEntity;
                         if (cm.HasEntityComponent<KnockbackComponent>(entity.Key) && cm.HasEntityComponent<MoveComponent>(entity.Key))
                         {
@@ -37,8 +38,7 @@ namespace GameEngine
 
             entityHitHealth.Current -= attackingEntityDamage.Damage;
         }
-
-        // Fix the "teleport-effect", make it smooth!
+        
         private void ApplyKnockbackToEntity(int entityHit, int attackingEntity, GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
@@ -48,8 +48,7 @@ namespace GameEngine
             int attackDmg = cm.GetComponentForEntity<AttackComponent>(attackingEntity).Damage;
 
             Vector2 newDir = new Vector2(posComp.position.X - posCompAttacker.X, posComp.position.Y - posCompAttacker.Y);
-
-            //posComp.position += (newDir * knockbackWeight * attackDmg);
+            
             knockbackComponent.KnockbackDir = Vector2.Normalize(newDir * attackDmg);
             knockbackComponent.Cooldown = attackDmg / 40.0f;
             knockbackComponent.KnockbackActive = true;
