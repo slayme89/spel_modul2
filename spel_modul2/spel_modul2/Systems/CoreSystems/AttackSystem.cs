@@ -18,6 +18,8 @@ namespace GameEngine
                         CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(entity.Key);
                         if (attackComponent.CanAttack && attackComponent.IsAttacking)
                         {
+                            cm.GetComponentForEntity<MoveComponent>(entity.Key).Velocity = new Vector2(0.0f, 0.0f);
+                            cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
                             if (attackComponent.AttackChargeUp <= 0.0f)
                             {
                                 attackComponent.IsAttacking = false;
