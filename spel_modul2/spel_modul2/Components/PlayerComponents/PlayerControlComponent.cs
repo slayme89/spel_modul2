@@ -34,49 +34,4 @@ namespace GameEngine
             ActionBar4 = new Button();
         }
     }
-
-    class Button
-    {
-        private bool isDown;
-        public Button ()
-        {
-            isDown = false;
-        }
-
-        public bool IsButtonDown()
-        {
-            return isDown;
-        }
-
-        public bool IsButtonUp()
-        {
-            return !isDown;
-        }
-
-        public void SetButton(bool isDown)
-        {
-            this.isDown = isDown;
-        }
-
-    }
-
-    class Stick
-    {
-        private Vector2 stickDirection;
-
-        public Stick()
-        {
-            stickDirection = new Vector2();
-        }
-
-        public void SetDirection(Vector2 newDirection)
-        {
-            stickDirection = newDirection;
-        }
-
-        public Vector2 GetDirection()
-        {
-            return stickDirection;
-        }
-    }
 }
