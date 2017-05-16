@@ -68,6 +68,7 @@
     <Compile Include="Components\CoreComponents\KnockbackComponent.cs" />
     <Compile Include="Components\CoreComponents\SkillComponent.cs" />
     <Compile Include="Components\EntityFactory.cs" />
+    <Compile Include="Components\MenuComponents\MenuButtonComponent.cs" />
     <Compile Include="Components\Stick.cs" />
     <Compile Include="Components\VisualComponents\GUIComponent.cs" />
     <Compile Include="Components\CoreComponents\HealthComponent.cs" />
@@ -83,7 +84,7 @@
     <Compile Include="Components\PlayerComponents\StatsComponent.cs" />
     <Compile Include="Components\SoundComponents\SoundComponent.cs" />
     <Compile Include="Components\SoundComponents\SoundThemeComponent.cs" />
-    <Compile Include="Components\CoreComponents\TextureComponent.cs" />
+    <Compile Include="Components\VisualComponents\TextureComponent.cs" />
     <Compile Include="Components\VisualComponents\WorldComponent.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Managers\ComponentManager.cs" />
@@ -179,7 +180,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="MenuComponents\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

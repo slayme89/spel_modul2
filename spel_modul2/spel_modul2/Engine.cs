@@ -14,7 +14,7 @@ namespace GameEngine
         public static GraphicsDevice graphicsDevice;
         private RenderHelper renderHelper;
 
-        //GameState
+        //GameState Manager
         StateManager stateManager = StateManager.GetInstance();
 
         // Frame rate related stuff
@@ -255,10 +255,26 @@ namespace GameEngine
 
         protected override void Draw(GameTime gameTime)
         {
+
             sb.Begin(SpriteSortMode.FrontToBack);
             gd.Clear(Color.Blue);
-            sm.RenderAllSystems(renderHelper);
+
+            //Normal gameplay state
+            if (stateManager.GetState() == "game")
+            {
+                
+                sm.RenderAllSystems(renderHelper);
+                
+            }
+
+            //Menu state
+            if(stateManager.GetState() == "menu")
+            {
+                //Only render the menu (RenderMenuSystem)
+            }
+
             sb.End();
+
 
             frameCount++;
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -275,8 +291,21 @@ namespace GameEngine
 
         protected override void Update(GameTime gameTime)
         {
-            ComponentManager.GetInstance().Update();
-            SystemManager.GetInstance().UpdateAllSystems(gameTime);
+            //Normal gameplay state
+            if (stateManager.GetState() == "game")
+            {
+                ComponentManager.GetInstance().Update();
+                SystemManager.GetInstance().UpdateAllSystems(gameTime);
+            }
+
+            //Menu state
+            if (stateManager.GetState() == "menu")
+            {
+                SystemManager.GetInstance().Update<InputSystem>(gameTime);
+                SystemManager.GetInstance().Update<MenuSystem>(gameTime);
+            }
+
+            
 
             base.Update(gameTime);
         }
