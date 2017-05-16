@@ -42,7 +42,7 @@ namespace GameEngine
     {
         void ISystem.Update(GameTime gameTime) { }
 
-        public void Render(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
+        public void Render(RenderHelper renderHelper)
         {
 
         }

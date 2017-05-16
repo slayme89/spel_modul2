@@ -3,7 +3,7 @@ namespace GameEngine
 {
     public interface IRenderSystem
     {
-        void Render(GraphicsDevice graphicsDeive, SpriteBatch spriteBatch);
+        void Render(RenderHelper renderHelper);
     }
 
 }

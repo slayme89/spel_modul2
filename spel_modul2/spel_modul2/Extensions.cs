@@ -55,5 +55,10 @@ namespace GameEngine
             spriteBatch.Draw(rectangleTexture, new Rectangle(rectangle.Left, rectangle.Top, strokeWidth, rectangle.Height), color);
             spriteBatch.Draw(rectangleTexture, new Rectangle(rectangle.Right, rectangle.Top, strokeWidth, rectangle.Height), color);
         }
+
+        public static void Draw(this SpriteBatch spriteBatch, Texture2D texture, Vector2 position, RenderLayer layer)
+        {
+            //spriteBatch.Draw(texture, position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, float layerDepth);
+        }
     }
 }

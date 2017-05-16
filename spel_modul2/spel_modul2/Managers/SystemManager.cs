@@ -60,5 +60,14 @@ namespace GameEngine
             foreach (ISystem system in systems.Values)
                 system.Update(gameTime);
         }
+
+        public void RenderAllSystems(RenderHelper renderHelper)
+        {
+            foreach (ISystem system in systems.Values)
+            {
+                if(system is IRenderSystem)
+                    ((IRenderSystem)system).Render(renderHelper);
+            }
+        }
     }
 }

@@ -9,14 +9,16 @@ using System.Diagnostics;
 
 namespace GameEngine
 {
-    class RenderCollisionBoxSystem : ISystem
+    class RenderCollisionBoxSystem : ISystem, IRenderSystem
     {
         void ISystem.Update(GameTime gameTime) {}
 
-        public void Render(GraphicsDevice graphicsDeive, SpriteBatch spriteBatch)
+        public void Render(RenderHelper rh)
         {
+            GraphicsDevice graphicsDevice = rh.graphicsDevice;
+            SpriteBatch spriteBatch = rh.spriteBatch;
             ComponentManager cm = ComponentManager.GetInstance();
-            Viewport viewport = Extensions.GetCurrentViewport(graphicsDeive);
+            Viewport viewport = Extensions.GetCurrentViewport(graphicsDevice);
             foreach (var entity in cm.GetComponentsOfType<CollisionComponent>())
             {
                 CollisionComponent collisionComponent = (CollisionComponent)entity.Value;

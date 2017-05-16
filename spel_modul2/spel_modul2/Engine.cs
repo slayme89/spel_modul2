@@ -12,6 +12,7 @@ namespace GameEngine
         GraphicsDevice gd;
         SpriteBatch sb;
         public static GraphicsDevice graphicsDevice;
+        private RenderHelper renderHelper;
 
         // Frame rate related stuff
         private float frameCount = 0.0f;
@@ -33,6 +34,7 @@ namespace GameEngine
             gd = graphics.GraphicsDevice;
             graphicsDevice = graphics.GraphicsDevice;
             sb = new SpriteBatch(gd);
+            renderHelper = new RenderHelper(gd, sb);
 
             sm.AddSystems(new ISystem[] {
                 new AnimationSystem(),
@@ -92,7 +94,6 @@ namespace GameEngine
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                //new TextureComponent("hej"),
                 new AnimationGroupComponent("PlayerSpritesheet", new Point(4, 4), 150,
                 new[] {
                     new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
@@ -243,17 +244,10 @@ namespace GameEngine
 
         protected override void Draw(GameTime gameTime)
         {
+            RenderHelper rh = renderHelper;
             sb.Begin(SpriteSortMode.FrontToBack);
             gd.Clear(Color.Blue);
-            sm.GetSystem<RenderSystem>().Render(gd, sb);
-            /*sm.GetSystem<RenderEnergySystem>().Render(gd, sb);
-            sm.GetSystem<RenderHealthSystem>().Render(gd, sb);
-            sm.GetSystem<RenderExperienceSystem>().Render(gd, sb);
-            sm.GetSystem<RenderCollisionBoxSystem>().Render(gd, sb);
-            sm.GetSystem<RenderAttackingCollisionBoxSystem>().Render(gd, sb);
-            sm.GetSystem<RenderInventorySystem>().Render(gd, sb);
-            sm.GetSystem<RenderGUISystem>().Render(sb);
-            sm.GetSystem<RenderAnimationGroupSystem>().Render(gd, sb);*/
+            sm.RenderAllSystems(renderHelper);
             sb.End();
 
             frameCount++;

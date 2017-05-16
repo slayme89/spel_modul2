@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace GameEngine
 {
-    class RenderEnergySystem : ISystem
+    class RenderEnergySystem : ISystem, IRenderSystem
     {
         private Texture2D energyTexture;
 
@@ -12,8 +12,10 @@ namespace GameEngine
         {
         }
 
-        public void Render(GraphicsDevice gd, SpriteBatch sb)
+        public void Render(RenderHelper rh)
         {
+            GraphicsDevice gd = rh.graphicsDevice;
+            SpriteBatch sb = rh.spriteBatch;
             ComponentManager cm = ComponentManager.GetInstance();
             foreach (var entity in cm.GetComponentsOfType<PlayerComponent>())
             {

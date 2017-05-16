@@ -4,14 +4,15 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine
 {
-    class RenderGUISystem : ISystem
+    class RenderGUISystem : ISystem, IRenderSystem
     {
         public void Update(GameTime gameTime)
         {
         }
 
-        public void Render(SpriteBatch sb)
+        public void Render(RenderHelper rh)
         {
+            SpriteBatch sb = rh.spriteBatch;
             ComponentManager cm = ComponentManager.GetInstance();
             foreach (var entity in cm.GetComponentsOfType<GUIComponent>())
             {

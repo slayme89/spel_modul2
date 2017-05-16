@@ -4,15 +4,17 @@ using Microsoft.Xna.Framework.Content;
 
 namespace GameEngine
 {
-    class RenderExperienceSystem : ISystem
+    class RenderExperienceSystem : ISystem, IRenderSystem
     {
         private Texture2D ExperienceTexture;
         public void Update(GameTime gameTime)
         {
         }
 
-        public void Render(GraphicsDevice gd, SpriteBatch sb)
+        public void Render(RenderHelper rh)
         {
+            GraphicsDevice gd = rh.graphicsDevice;
+            SpriteBatch sb = rh.spriteBatch;
             ComponentManager cm = ComponentManager.GetInstance();
 
             foreach (var entity in cm.GetComponentsOfType<PlayerComponent>())

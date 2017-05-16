@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace GameEngine
 {
-    class RenderHealthSystem : ISystem
+    class RenderHealthSystem : ISystem, IRenderSystem
     {
         private Texture2D healthTexture;
 
@@ -13,8 +13,10 @@ namespace GameEngine
         {
         }
 
-        public void Render(GraphicsDevice gd, SpriteBatch sb)
+        public void Render(RenderHelper rh)
         {
+            GraphicsDevice gd = rh.graphicsDevice;
+            SpriteBatch sb = rh.spriteBatch;
             ComponentManager cm = ComponentManager.GetInstance();
             foreach (var entity in cm.GetComponentsOfType<HealthComponent>())
             {

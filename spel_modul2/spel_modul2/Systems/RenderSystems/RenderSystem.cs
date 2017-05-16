@@ -7,30 +7,57 @@ namespace GameEngine
 {
     public enum RenderLayer { Background1, Background2, Layer1, Layer2, Layer3, Layer4, Foreground1 };
 
+    public class RenderHelper
+    {
+        public GraphicsDevice graphicsDevice { get; }
+        public SpriteBatch spriteBatch { get; }
+        private float[] layerDepths;
+
+        public RenderHelper(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
+        {
+            int length = Enum.GetValues(typeof(RenderLayer)).Length;
+            layerDepths = new float[length];
+
+            for (int i = 0; i < length; i++)
+            {
+                layerDepths[i] = (1f / length) * i;
+            }
+
+            this.graphicsDevice = graphicsDevice;
+            this.spriteBatch = spriteBatch;
+        }
+
+        public float GetLayerDepth(RenderLayer layer)
+        {
+            return layerDepths[(int)layer];
+        }
+    }
+
     class RenderSystem : ISystem, IRenderSystem
     {
-        private float[] layer;
+        private float[] layerDepthConstants;
 
         void ISystem.Update(GameTime gameTime) {}
 
         public RenderSystem()
         {
             int length = Enum.GetValues(typeof(RenderLayer)).Length;
-            layer = new float[length];
+            layerDepthConstants = new float[length];
             
             for (int i = 0; i < length; i++)
             {
-                layer[i] = (1f / length) * i;
+                layerDepthConstants[i] = (1f / length) * i;
             }
         }
 
-        public void Render(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
+        public void Render(RenderHelper renderHelper)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-            Viewport viewport = GetCurrentViewport(graphicsDevice);
+            Viewport viewport = GetCurrentViewport(renderHelper.graphicsDevice);
             Rectangle viewportBounds = viewport.Bounds;
+            SpriteBatch spriteBatch = renderHelper.spriteBatch;
 
-            RenderTiles(graphicsDevice, spriteBatch);
+            RenderTiles(renderHelper);
 
             //Render all textures
             foreach (var entity in cm.GetComponentsOfType<TextureComponent>())
@@ -44,7 +71,7 @@ namespace GameEngine
                     Rectangle textureBounds = new Rectangle(position.X, position.Y, textureComponent.texture.Width, textureComponent.texture.Height);
 
                     if (viewportBounds.Intersects(textureBounds))
-                        spriteBatch.Draw(textureComponent.texture, position.WorldToScreen(ref viewport).ToVector2(), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, layer[(int)textureComponent.layer]);
+                        spriteBatch.Draw(textureComponent.texture, position.WorldToScreen(ref viewport).ToVector2(), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(textureComponent.layer));
                 }
             }
 
@@ -60,7 +87,7 @@ namespace GameEngine
                     Rectangle animationBounds = new Rectangle(position.X, position.Y, animationComponent.frameSize.X, animationComponent.frameSize.Y);
 
                     if (viewportBounds.Intersects(animationBounds))
-                        spriteBatch.Draw(animationComponent.spriteSheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, layer[(int)animationComponent.layer]);
+                        spriteBatch.Draw(animationComponent.spriteSheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(animationComponent.layer));
                 }
             }
 
@@ -76,16 +103,16 @@ namespace GameEngine
                     Rectangle animationBounds = new Rectangle(position.X, position.Y, animationComponent.frameSize.X, animationComponent.frameSize.Y);
 
                     if (viewportBounds.Intersects(animationBounds))
-                        spriteBatch.Draw(animationComponent.spritesheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, layer[(int)animationComponent.layer]);
+                        spriteBatch.Draw(animationComponent.spritesheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(animationComponent.layer));
                 }
             }
         }
 
-        void RenderTiles(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
+        void RenderTiles(RenderHelper renderHelper)
         {
             ComponentManager cm = ComponentManager.GetInstance();
             WorldComponent world = (from w in cm.GetComponentsOfType<WorldComponent>().Values select w).First() as WorldComponent;
-            Viewport viewport = Extensions.GetCurrentViewport(graphicsDevice);
+            Viewport viewport = Extensions.GetCurrentViewport(renderHelper.graphicsDevice);
             Rectangle viewportBounds = viewport.Bounds;
 
             foreach (var tile in world.tiles)
@@ -94,7 +121,7 @@ namespace GameEngine
                 Rectangle tileBounds = new Rectangle(point.X, point.Y, tile.Value.Width, tile.Value.Height);
 
                 if (viewportBounds.Intersects(tileBounds))
-                    spriteBatch.Draw(tile.Value, point.WorldToScreen(ref viewport).ToVector2(), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, (float)RenderLayer.Background1);
+                    renderHelper.spriteBatch.Draw(tile.Value, point.WorldToScreen(ref viewport).ToVector2(), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, (float)RenderLayer.Background1);
             }
         }
 

@@ -4,17 +4,18 @@ using System.Drawing;
 
 namespace GameEngine
 {
-    class RenderInventorySystem : IRenderSystem, ISystem
+    class RenderInventorySystem : ISystem, IRenderSystem
     {
         Texture2D t;
-        SpriteFont sf;
+        //SpriteFont sf;
         public RenderInventorySystem(GraphicsDevice graphicsDevice)
         {
             t = new Texture2D(graphicsDevice, 1, 1);
             t.SetData(new[] { Color.White });
         }
-        public void Render(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
+        public void Render(RenderHelper renderHelper)
         {
+            SpriteBatch spriteBatch = renderHelper.spriteBatch;
             ComponentManager cm = ComponentManager.GetInstance();
             
             foreach (var entity in cm.GetComponentsOfType<InventoryComponent>())

@@ -6,7 +6,7 @@ namespace GameEngine
 {
 
     // This is for debugging attacks
-    class RenderAttackingCollisionBoxSystem : ISystem
+    class RenderAttackingCollisionBoxSystem : ISystem, IRenderSystem
     {
         private Texture2D t;
 
@@ -16,10 +16,12 @@ namespace GameEngine
             t.SetData(new[] { Color.White });
         }
 
-        public void Render(GraphicsDevice graphicsDeive, SpriteBatch spriteBatch)
+        public void Render(RenderHelper rh)
         {
+            GraphicsDevice gd = rh.graphicsDevice;
+            SpriteBatch sb = rh.spriteBatch;
             ComponentManager cm = ComponentManager.GetInstance();
-            Viewport viewport = Extensions.GetCurrentViewport(graphicsDeive);
+            Viewport viewport = Extensions.GetCurrentViewport(gd);
             foreach (var Entity in cm.GetComponentsOfType<AttackComponent>())
             {
                 AttackComponent attackComponent = (AttackComponent)Entity.Value;
@@ -34,9 +36,9 @@ namespace GameEngine
                         Point hitOffset = new Point((collisionComponent.collisionBox.Width / 2), (collisionComponent.collisionBox.Height / 2));
                         Rectangle hitArea = new Rectangle(positionComponent.position.ToPoint() - hitOffset + moveComponent.Direction * new Point(range, range), collisionComponent.collisionBox.Size).WorldToScreen(ref viewport);
                         if(attackComponent.IsAttacking)
-                            spriteBatch.Draw(t, hitArea, Color.Black);
+                            sb.Draw(t, hitArea, Color.Black);
                         else
-                            spriteBatch.Draw(t, hitArea, Color.Green);
+                            sb.Draw(t, hitArea, Color.Green);
                     }
                 }
             }
