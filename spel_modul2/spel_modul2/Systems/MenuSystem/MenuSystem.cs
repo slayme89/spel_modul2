@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
 
 namespace GameEngine
 {
@@ -6,10 +8,12 @@ namespace GameEngine
     {
         private bool IsActive = false;
         private bool IsInit = false;
+        //private Dict<MenuButtonComponent> buttonList = new Dictionary<MenuButtonComponent>();
 
         public void Update(GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
+            Vector2 stickDir;
 
             // see if the menu button is pressed inside the game or menu
             foreach (var contEntity in cm.GetComponentsOfType<PlayerControlComponent>())
@@ -42,20 +46,36 @@ namespace GameEngine
                     IsActive = false;
                     IsInit = false;
                 }
+
+
+                stickDir = contComp.Movement.GetDirection();
+                //Check navigation in the menu
+                if (Math.Abs(stickDir.X) > 0.5f || Math.Abs(stickDir.Y) > 0.5f)
+                {
+                    //if the stick has been pushed in a direction
+                    Point direction = MoveSystem.CalcDirection(stickDir.X, stickDir.Y);
+
+                    
+                }
+
+
             }
         }
 
         private void InitMenu()
         {
             ComponentManager cm = ComponentManager.GetInstance();
-
-            //Set all Main menu button to "active"
+           
+            //Set all Main menu buttons to "active" and add all buttons to the buttonList
             foreach (var button in cm.GetComponentsOfType<MenuButtonComponent>())
             {
                 MenuButtonComponent buttonComp = (MenuButtonComponent)button.Value;
+                //buttonList.Add(buttonComp);
 
                 if (buttonComp.Name.Substring(0, 4) == "Main")
                     buttonComp.IsActive = true;
+                if (buttonComp.Name.Substring(4, 8) == "Play")
+                    buttonComp.Ishighlighted = true;
             }
 
             //Set Mainmenu background to "active"

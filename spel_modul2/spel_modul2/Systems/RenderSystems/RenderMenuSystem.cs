@@ -33,7 +33,6 @@ namespace GameEngine
                     );
                     renderHelper.Draw(backgroundComp.Texture, containerRect, Color.White, RenderLayer.Menubackground);
                 }
-                
             }
         }
 
