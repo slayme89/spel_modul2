@@ -16,17 +16,8 @@ namespace GameEngine
                     EnergyComponent energyComponent = cm.GetComponentForEntity<EnergyComponent>(entity.Key);
                     if (skillComponenet.CooldownTimer <= 0 && skillComponenet.EnergyCost < energyComponent.Current)
                     {
-                        if (skillComponenet.SkillType == SkillType.HeavyAttack)
-                        {
-                            attackComponent.Damage = attackComponent.Damage * 2;
-                        }else if (skillComponenet.SkillType == SkillType.FireBall)
-                        {
-
-                        }else if (skillComponenet.SkillType == SkillType.QuickAttack)
-                        {
-
-                        }
-                        energyComponent.Current = skillComponenet.EnergyCost;
+                        skillComponenet.Use();
+                        energyComponent.Current -= skillComponenet.EnergyCost;
                         skillComponenet.CooldownTimer = skillComponenet.Cooldown;
                     }
                     else

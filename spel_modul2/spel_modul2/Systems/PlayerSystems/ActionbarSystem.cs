@@ -21,20 +21,20 @@ namespace GameEngine
                 PlayerControlComponent playerControl = (PlayerControlComponent)entity.Value;
                 if (cm.HasEntityComponent<ActionBarComponent>(entity.Key)){
                     ActionBarComponent actionbarComp = cm.GetComponentForEntity<ActionBarComponent>(entity.Key);
-                    if (playerControl.ActionBar1.IsButtonDown() && actionbarComp.Skills[0] != null)
+                    if (playerControl.ActionBar1.IsButtonDown() && actionbarComp.Slots[0] != 0)
                     {
-                        actionbarComp.Skills[0].IsActivated = true;
-                    }else if (playerControl.ActionBar2.IsButtonDown() && actionbarComp.Skills[1] != null)
+                        cm.GetComponentForEntity<SkillComponent>(actionbarComp.Slots[2]).IsActivated = true;
+                    }else if (playerControl.ActionBar2.IsButtonDown() && actionbarComp.Slots[1] != 0)
                     {
-                        actionbarComp.Skills[1].IsActivated = true;
+                        cm.GetComponentForEntity<SkillComponent>(actionbarComp.Slots[2]).IsActivated = true;
                     }
-                    else if (playerControl.ActionBar3.IsButtonDown() && actionbarComp.Skills[2] != null)
+                    else if (playerControl.ActionBar3.IsButtonDown() && actionbarComp.Slots[2] != 0)
                     {
-                        actionbarComp.Skills[2].IsActivated = true;
+                        cm.GetComponentForEntity<SkillComponent>(actionbarComp.Slots[2]).IsActivated = true;
                     }
-                    else if (playerControl.ActionBar4.IsButtonDown() && actionbarComp.Skills[3] != null)
+                    else if (playerControl.ActionBar4.IsButtonDown() && actionbarComp.Slots[3] != 0)
                     {
-                        actionbarComp.Skills[3].IsActivated = true;
+                        cm.GetComponentForEntity<SkillComponent>(actionbarComp.Slots[2]).IsActivated = true;
                     }
                 }
             }

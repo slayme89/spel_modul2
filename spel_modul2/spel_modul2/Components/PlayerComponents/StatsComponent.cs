@@ -10,7 +10,7 @@
         public int AddSta { get; set; }
         public int AddAgi { get; set; }
         public int AddInt { get; set; }
-        public int SpendableStats { get; set; } = 0;
+        public int SpendableStats { get; set; } = 100;
         public int RemoveStats { get; set; } = 0;
         public string StatHistory = "";
 

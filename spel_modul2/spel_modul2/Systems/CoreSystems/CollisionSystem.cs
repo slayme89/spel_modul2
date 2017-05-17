@@ -8,26 +8,26 @@ namespace GameEngine
     {
         public void Update(GameTime gameTime)
         {
-            ComponentManager cm = ComponentManager.GetInstance();
+            //ComponentManager cm = ComponentManager.GetInstance();
 
-            // Detect hit collision
-            foreach (var entity in cm.GetComponentsOfType<CollisionComponent>())
-            {
-                CollisionComponent collisionComponent = (CollisionComponent)entity.Value;
-                Rectangle rect = collisionComponent.attackCollisionBox;
-                PositionComponent posComp = cm.GetComponentForEntity<PositionComponent>(entity.Key);
-                if (collisionComponent.checkAttackColision)
-                {
-                    foreach (int entityID in DetectAreaCollision(rect))
-                    {
-                        DamageComponent damageComponent = cm.GetComponentForEntity<DamageComponent>(entityID);
-                        if (damageComponent != null)
-                        {
-                            damageComponent.IncomingDamageEntityID.Add(entity.Key);
-                        }
-                    }
-                }
-            }
+            //// Detect hit collision
+            //foreach (var entity in cm.GetComponentsOfType<CollisionComponent>())
+            //{
+            //    CollisionComponent collisionComponent = (CollisionComponent)entity.Value;
+            //    Rectangle rect = collisionComponent.attackCollisionBox;
+            //    PositionComponent posComp = cm.GetComponentForEntity<PositionComponent>(entity.Key);
+            //    if (collisionComponent.checkAttackColision)
+            //    {
+            //        foreach (int entityID in DetectAreaCollision(rect))
+            //        {
+            //            DamageComponent damageComponent = cm.GetComponentForEntity<DamageComponent>(entityID);
+            //            if (damageComponent != null)
+            //            {
+            //                damageComponent.IncomingDamage.Add(entity.Key);
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         public static List<int> DetectAreaCollision(Rectangle area)

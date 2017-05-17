@@ -198,7 +198,6 @@ namespace GameEngine
                 new DamageComponent(),
                 new KnockbackComponent(),
             });
-
             /*cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new AnimationComponent("threerings", new Point(6, 8), 40),
@@ -213,30 +212,30 @@ namespace GameEngine
                 new WorldComponent(),
                 new SoundThemeComponent("Sound/theme"),
             });
-
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new ItemComponent("Staff", ItemType.Weapon),
+                
+                new ItemComponent(ItemManager.exampleUseItem, "Staff", ItemType.Weapon),
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new ItemComponent("Sword", ItemType.Weapon),
+                new ItemComponent(ItemManager.exampleUseItem, "Sword", ItemType.Weapon),
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new ItemComponent("GoldArmorHead", ItemType.Head),
+                new ItemComponent(ItemManager.exampleUseItem, "GoldArmorHead", ItemType.Head),
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new ItemComponent("GoldArmorBody", ItemType.Body),
+                new ItemComponent(ItemManager.exampleUseItem, "GoldArmorBody", ItemType.Body),
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new ItemComponent("ChainArmorHead", ItemType.Head),
+                new ItemComponent(ItemManager.exampleUseItem, "ChainArmorHead", ItemType.Head),
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new ItemComponent("ChainArmorBody", ItemType.Body),
+                new ItemComponent(ItemManager.exampleUseItem, "ChainArmorBody", ItemType.Body),
             });
 
             sm.GetSystem<AnimationLoaderSystem>().Load(Content);
