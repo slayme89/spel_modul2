@@ -23,9 +23,9 @@ namespace GameEngine
             }
 
             for (int i = 0; i < c.Count; i++)
-        {
-                for (int j = i + 1; j < c.Count; j++)
             {
+                for (int j = i + 1; j < c.Count; j++)
+                {
                     Rectangle r1, r2;
                     r1 = c[i].Item2.collisionBox;
                     r1.Offset(-r1.Width / 2, -r1.Height / 2);
