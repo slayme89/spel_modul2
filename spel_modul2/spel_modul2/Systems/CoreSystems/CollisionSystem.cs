@@ -20,7 +20,7 @@ namespace GameEngine
 
                 cm.GetComponentsForEntity(entity, out collisionComponent, out positionComponent);
                 c.Add(new Tuple<int, CollisionComponent, PositionComponent>(entity, collisionComponent, positionComponent));
-            }
+        }
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -55,11 +55,11 @@ namespace GameEngine
                     bb.Offset(positionComponent.position.X - bb.Width / 2, positionComponent.position.Y - bb.Height / 2);
 
                     if (area.Intersects(bb))
-                    {
-                        //Collision detected, add them to the list
-                        foundEntities.Add(entity.Key);
-                    }
+                {
+                    //Collision detected, add them to the list
+                    foundEntities.Add(entity.Key);
                 }
+            }
             }
             return foundEntities;
         }
@@ -74,19 +74,19 @@ namespace GameEngine
 
             Point axis = GetCollisionAxis(r1, r2);
             if (m1 != null && m2 != null)
-            {
+                        {
                 e1.Item3.position += -m1.Velocity * axis.ToVector2();
-            }
+                        }
             else if (m1 != null)
             {
                 e1.Item3.position += -m1.Velocity * axis.ToVector2();
-            }
+                    }
             else if (m2 != null)
             {
 
                 e2.Item3.position += -m2.Velocity * axis.ToVector2();
+                }
             }
-        }
 
         private Point GetCollisionAxis(Rectangle r1, Rectangle r2)
         {

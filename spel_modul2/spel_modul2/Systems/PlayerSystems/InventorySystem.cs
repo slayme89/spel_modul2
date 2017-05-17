@@ -56,10 +56,9 @@ namespace GameEngine
                                 //if the stick has been pushed in a direction
                                 Point direction = MoveSystem.CalcDirection(stickDir.X, stickDir.Y);
                                 Point nextSlot = invenComp.SelectedSlot + direction;
-                                if (invenComp.SelectedSlot.X == 0 && nextSlot.X < 0)
-                                    nextSlot.Y = 0;
-                                if (invenComp.SelectedSlot.X == -4 && nextSlot.Y == 0)
-                                    nextSlot.X = -3;
+
+                                UpdateNextSelectedPos(ref nextSlot, invenComp.SelectedSlot);
+
                                 if (UpdateInventoryFocus(invenComp, nextSlot))
                                 {
                                     invenComp.SelectedSlot = nextSlot;
@@ -245,10 +244,41 @@ namespace GameEngine
             {
                 //inside stat
                 invenComp.LocationInInventory = LocationInInventory.Stats;
+            }else if ((nextSlot.Y == 3 && nextSlot.X >= -6)
+                || nextSlot.X <=-1
+                && nextSlot.X >= -3
+                && nextSlot.Y <= 4
+                && nextSlot.Y >= 2)
+            {
+                invenComp.LocationInInventory = LocationInInventory.Skills;
             }
             else
                 return false;
             return true;
+        }
+
+        void UpdateNextSelectedPos(ref Point nextSlot, Point selectedSlot)
+        {
+            // Manages special movment between slots. 
+            if (selectedSlot.X == 0 && nextSlot.X < 0)
+                nextSlot.Y = 0;
+            if (selectedSlot.X == -4 && nextSlot.Y == 0)
+                nextSlot.X = -3;
+            if (selectedSlot.Y == 3) {
+                if(nextSlot.Y == 2 || nextSlot.Y == 4)
+                    if (selectedSlot.X <= -5)
+                        nextSlot.X = -3;
+                    else if (selectedSlot.X <= -3)
+                        nextSlot.X = -2;
+                    else if (selectedSlot.X <= -1)
+                        nextSlot.X = -1;
+            }else if (selectedSlot.Y == 2 || selectedSlot.Y == 4)
+                if (selectedSlot.X == -3 && nextSlot.Y == 3)
+                    nextSlot.X = -5;
+                else if (selectedSlot.X == -2 && nextSlot.Y == 3)
+                    nextSlot.X = -3;
+                else if (selectedSlot.X == -1 && nextSlot.Y == 3)
+                    nextSlot.X = -1;
         }
 
         public bool AddItemToInventory(int player, int item)

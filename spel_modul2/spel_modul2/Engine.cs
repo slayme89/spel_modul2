@@ -81,7 +81,8 @@ namespace GameEngine
                 new LevelSystem(),
                 new StatsSystem(),
                 new MenuSystem(),
-                new RenderMenuSystem()
+                new RenderMenuSystem(),
+                new SkillLoaderSystem(),
             });
 
             base.Initialize();
@@ -139,10 +140,12 @@ namespace GameEngine
                 new DamageComponent(),
                 new StatsComponent(5, 1, 0, 0),
                 new KnockbackComponent(),
-                new SkillComponent(SkillManager.HeavyAttack, 10, 10)
             });
 
-
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                new SkillComponent(SkillManager.HeavyAttack, 10, 10, "HeavyAttack")
+            });
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
@@ -226,7 +229,7 @@ namespace GameEngine
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-
+                
                 new ItemComponent(ItemManager.exampleUseItem, "Staff", ItemType.Weapon),
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
@@ -283,10 +286,11 @@ namespace GameEngine
             sm.GetSystem<ItemIconLoaderSystem>().Load(Content);
             sm.GetSystem<InventoryLoaderSystem>().Load(Content);
             sm.GetSystem<RenderMenuSystem>().Load(Content);
+            sm.GetSystem<SkillLoaderSystem>().Load(Content);
 
 
             sm.GetSystem<AnimationGroupLoaderSystem>().Load(Content);
-
+            
             base.LoadContent();
         }
 
@@ -320,7 +324,7 @@ namespace GameEngine
                 Window.Title = frameCount.ToString();
                 frameCount = 0.0f;
             }
-
+            
 
             //base.Draw(gameTime);
         }
@@ -341,7 +345,7 @@ namespace GameEngine
                 SystemManager.GetInstance().Update<MenuSystem>(gameTime);
             }
 
-
+            
 
             base.Update(gameTime);
         }

@@ -28,6 +28,8 @@ namespace GameEngine
         public bool IsOpen { get; set; }
         public int HeldItem { get; set; }
         public int[] WeaponBodyHead = new int[3];
+        public int[] Skills = new int[12];
+        public int[] NotPickedSkills = new int[12];
         public SpriteFont font { get; set; }
         public LocationInInventory LocationInInventory;
         public InventoryComponent(int columns, int rows)
