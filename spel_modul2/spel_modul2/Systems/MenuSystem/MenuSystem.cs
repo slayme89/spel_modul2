@@ -9,6 +9,8 @@ namespace GameEngine
         private bool IsInit = false;
         private int[] ActiveButtonsList = new int[10];
         private int SelectedButton;
+        private float SelectCooldown = 0.0f;
+        private float MaxSelectCooldown = 0.1f;
 
         public void Update(GameTime gameTime)
         {
@@ -37,29 +39,35 @@ namespace GameEngine
 
                 if(StateManager.GetInstance().GetState() == "Menu")
                 {
-                    Vector2 stickDir = new Vector2(contComp.Movement.GetDirection().Y, contComp.Movement.GetDirection().X);
-                    //Check navigation in the menu
-                    if (Math.Abs(stickDir.Y) > 0.5f)
+                    if (SelectCooldown <= 0.0f)
                     {
-                        //if the stick has been pushed in a direction
-                        Point direction = MoveSystem.CalcDirection(stickDir.X, stickDir.Y);
+                        SelectCooldown = MaxSelectCooldown;
+                        Vector2 stickDir = new Vector2(contComp.Movement.GetDirection().Y, contComp.Movement.GetDirection().X);
+                        //Check navigation in the menu
+                        if (Math.Abs(stickDir.X) > 0.1f)
+                        {
+                            //if the stick has been pushed in a direction
+                            Point direction = MoveSystem.CalcDirection(stickDir.X, stickDir.Y);
 
-                        cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Ishighlighted = false;
-                        SelectedButton = (SelectedButton + direction.Y) % i - 1;
-                        if (SelectedButton < 0)
-                            SelectedButton = i - 1;
-                        cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Ishighlighted = true;
-
+                            cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Ishighlighted = false;
+                            SelectedButton = (SelectedButton + direction.X) % i;
+                            if (SelectedButton < 0)
+                                SelectedButton = i - 1;
+                            cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Ishighlighted = true;
+                        }
                     }
+                    else
+                        SelectCooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+
                     //Check if player use "Use button" on highlighted menu button
                     if (contComp.Interact.IsButtonDown())
                         cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Use();
                 }
 
-
                 //Enter the menu
                 if (contComp.Menu.IsButtonDown() == true && IsActive == false)
                 {
+                    SelectedButton = 0;
                     StateManager.GetInstance().SetState("Menu");
                     IsActive = true;
 
@@ -83,12 +91,6 @@ namespace GameEngine
                     IsActive = false;
                     IsInit = false;
                 }
-
-
-
-
-
-
             }
         }
 
@@ -109,7 +111,7 @@ namespace GameEngine
                 }
             }
 
-            SelectedButton = 0;
+            
             MenuButtonComponent highligtComp = cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[0]);
             highligtComp.Ishighlighted = true;
 
@@ -133,6 +135,7 @@ namespace GameEngine
             {
                 MenuButtonComponent button = (MenuButtonComponent)buttonEntity.Value;
                 button.IsActive = false;
+                button.Ishighlighted = false;
             }
 
             //Set all menu backgrounds to "NonActive"
