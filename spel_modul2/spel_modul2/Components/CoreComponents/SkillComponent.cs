@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine
 {
-    class SkillComponent : IComponent
+    class SkillComponent : IComponent, ActionBarSlotComponent
     {
         public float CooldownTimer { get; set; }
         public int Cooldown { get; set; }
@@ -15,6 +15,7 @@ namespace GameEngine
         public Texture2D SkillIcon { get; set; }
         public bool IsActivated { get; set; }
         public Action Use { get; set; }
+        public bool IsItem { get; set; } = true;
         public SkillComponent(Action action, int cooldown, int energyCost)
         {
             IsActivated = false;

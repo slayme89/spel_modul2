@@ -131,6 +131,7 @@ namespace GameEngine
                 new DamageComponent(),
                 new StatsComponent(5, 1, 0, 0),
                 new KnockbackComponent(),
+                new SkillComponent(SkillManager.HeavyAttack, 10, 10)
             });
 
 

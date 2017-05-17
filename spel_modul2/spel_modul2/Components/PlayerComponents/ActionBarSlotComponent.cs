@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace GameEngine
 {
-    class ItemManager
+    public interface ActionBarSlotComponent 
     {
-        public static void exampleUseItem(int entity)
-        {
-            return;
-        }
+        Action Use { get; set; }
+        bool IsItem { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace GameEngine
                     EnergyComponent energyComponent = cm.GetComponentForEntity<EnergyComponent>(entity.Key);
                     if (skillComponenet.CooldownTimer <= 0 && skillComponenet.EnergyCost < energyComponent.Current)
                     {
-                        skillComponenet.Use();
+                        skillComponenet.Use(entity.Key);
                         energyComponent.Current -= skillComponenet.EnergyCost;
                         skillComponenet.CooldownTimer = skillComponenet.Cooldown;
                     }

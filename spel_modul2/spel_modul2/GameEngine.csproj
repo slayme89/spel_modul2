@@ -69,6 +69,7 @@
     <Compile Include="Components\CoreComponents\SkillComponent.cs" />
     <Compile Include="Components\EntityFactory.cs" />
     <Compile Include="Components\MenuComponents\MenuButtonComponent.cs" />
+    <Compile Include="Components\PlayerComponents\ActionBarSlotComponent.cs" />
     <Compile Include="Components\Stick.cs" />
     <Compile Include="Components\VisualComponents\GUIComponent.cs" />
     <Compile Include="Components\CoreComponents\HealthComponent.cs" />

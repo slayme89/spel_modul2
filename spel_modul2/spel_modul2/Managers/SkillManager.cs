@@ -27,6 +27,7 @@ namespace GameEngine
                 {
                     DamageComponent damageComp = cm.GetComponentForEntity<DamageComponent>(entityHit);
                     damageComp.IncomingDamage.Add(100);
+                    damageComp.LastAttacker = entity;
                 }
             }
         }
