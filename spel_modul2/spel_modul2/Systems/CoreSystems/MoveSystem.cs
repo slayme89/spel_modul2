@@ -22,7 +22,6 @@ namespace GameEngine
                 // Check for direction
                 if(moveComponent.Velocity != new Vector2(0.0f, 0.0f))
                     moveComponent.Direction = CalcDirection(x, y);
-                moveComponent.Velocity = new Vector2(0.0f, 0.0f);
                 if (cm.HasEntityComponent<CollisionComponent>(entity.Key))
                 {
                     CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(entity.Key);

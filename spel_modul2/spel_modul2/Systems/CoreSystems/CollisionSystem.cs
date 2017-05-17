@@ -71,17 +71,17 @@ namespace GameEngine
             MoveComponent m1 = cm.GetComponentForEntity<MoveComponent>(e1.Item1);
             MoveComponent m2 = cm.GetComponentForEntity<MoveComponent>(e2.Item1);
 
-            if(m1 != null && m2 != null)
-                        {
-                e1.Item3.position += -m1.Direction.ToVector2() * m1.Speed;
-                    }
-            else if(m1 != null)
+            if (m1 != null && m2 != null)
             {
-                e1.Item3.position += -m1.Direction.ToVector2() * m1.Speed;
-                }
-            else if(m2 != null)
+                e1.Item3.position += -m1.Velocity;
+            }
+            else if (m1 != null)
             {
-                e2.Item3.position += -m2.Direction.ToVector2() * m2.Speed;
+                e1.Item3.position += -m1.Velocity;
+            }
+            else if (m2 != null)
+            {
+                e2.Item3.position += -m2.Velocity;
             }
         }
     }
