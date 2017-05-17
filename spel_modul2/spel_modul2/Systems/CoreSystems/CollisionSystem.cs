@@ -72,21 +72,20 @@ namespace GameEngine
             MoveComponent m2 = cm.GetComponentForEntity<MoveComponent>(e2.Item1);
             Rectangle r3 = Rectangle.Intersect(r1, r2);
 
+            Point axis = GetCollisionAxis(r1, r2);
             if (m1 != null && m2 != null)
-                        {
-                e1.Item3.position += -m1.Velocity;
-                    }
+            {
+                e1.Item3.position += -m1.Velocity * axis.ToVector2();
+            }
             else if (m1 != null)
             {
-                e1.Item3.position += -m1.Velocity;
-                }
+                e1.Item3.position += -m1.Velocity * axis.ToVector2();
+            }
             else if (m2 != null)
             {
-                Point d = GetCollisionAxis(r1, r2);
-                e2.Item3.position += -m2.Velocity * d.ToVector2();
+                
+                e2.Item3.position += -m2.Velocity * axis.ToVector2();
             }
-
-
         }
 
         private Point GetCollisionAxis(Rectangle r1, Rectangle r2)
