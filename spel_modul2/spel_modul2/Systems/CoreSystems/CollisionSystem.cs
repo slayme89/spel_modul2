@@ -23,9 +23,9 @@ namespace GameEngine
             }
 
             for (int i = 0; i < c.Count; i++)
-        {
-                for (int j = i + 1; j < c.Count; j++)
             {
+                for (int j = i + 1; j < c.Count; j++)
+                {
                     Rectangle r1, r2;
                     r1 = c[i].Item2.collisionBox;
                     r1.Offset(-r1.Width / 2, -r1.Height / 2);
@@ -55,11 +55,11 @@ namespace GameEngine
                     bb.Offset(positionComponent.position.X - bb.Width / 2, positionComponent.position.Y - bb.Height / 2);
 
                     if (area.Intersects(bb))
-                {
-                    //Collision detected, add them to the list
-                    foundEntities.Add(entity.Key);
+                    {
+                        //Collision detected, add them to the list
+                        foundEntities.Add(entity.Key);
+                    }
                 }
-            }
             }
             return foundEntities;
         }
@@ -83,7 +83,7 @@ namespace GameEngine
             }
             else if (m2 != null)
             {
-                
+
                 e2.Item3.position += -m2.Velocity * axis.ToVector2();
             }
         }
@@ -92,7 +92,7 @@ namespace GameEngine
         {
             if (r1.Intersects(new Rectangle(r2.Left, r2.Top + 5, 1, r2.Height - 10)))
                 return new Point(1, 0);
-            else if(r1.Intersects(new Rectangle(r2.Right - 1, r2.Top + 5, 1, r2.Height - 10)))
+            else if (r1.Intersects(new Rectangle(r2.Right - 1, r2.Top + 5, 1, r2.Height - 10)))
                 return new Point(1, 0);
             else if (r1.Intersects(new Rectangle(r2.Left + 5, r2.Top, r2.Width - 10, 1)))
                 return new Point(0, 1);
