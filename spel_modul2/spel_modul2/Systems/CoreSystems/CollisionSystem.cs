@@ -47,12 +47,18 @@ namespace GameEngine
             List<int> foundEntities = new List<int>();
             foreach (var entity in cm.GetComponentsOfType<CollisionComponent>())
             {
-                CollisionComponent collisionComponent = (CollisionComponent)entity.Value;
-
-                if (area.Intersects(collisionComponent.collisionBox))
+                PositionComponent positionComponent;
+                CollisionComponent collisionComponent;
+                if (cm.GetComponentsForEntity(entity.Key, out positionComponent, out collisionComponent))
                 {
-                    //Collision detected, add them to the list
-                    foundEntities.Add(entity.Key);
+                    Rectangle bb = collisionComponent.collisionBox;
+                    bb.Offset(positionComponent.position.X - bb.Width / 2, positionComponent.position.Y - bb.Height / 2);
+
+                    if (area.Intersects(bb))
+                    {
+                        //Collision detected, add them to the list
+                        foundEntities.Add(entity.Key);
+                    }
                 }
             }
             return foundEntities;
