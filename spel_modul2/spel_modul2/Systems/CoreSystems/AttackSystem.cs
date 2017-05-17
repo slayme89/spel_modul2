@@ -28,6 +28,8 @@ namespace GameEngine
                                 collisionComponent.checkAttackColision = true;
                                 foreach (int entityID in CollisionSystem.DetectAreaCollision(attackComponent.attackCollisionBox))
                                 {
+                                    if (entityID == entity.Key)
+                                        continue;
                                     DamageComponent damageComponent = cm.GetComponentForEntity<DamageComponent>(entityID);
                                     if (damageComponent != null)
                                     {
