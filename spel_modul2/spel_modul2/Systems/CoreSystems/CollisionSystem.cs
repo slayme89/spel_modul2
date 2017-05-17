@@ -77,9 +77,6 @@ namespace GameEngine
             {
                 e2.Item3.position += -m2.Direction.ToVector2() * m2.Speed;
             }
-
-            e1.Item2.onHit?.Invoke(e2.Item1);
-            e2.Item2.onHit?.Invoke(e1.Item1);
         }
     }
 }
