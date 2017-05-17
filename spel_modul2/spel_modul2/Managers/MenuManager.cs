@@ -13,18 +13,7 @@
 
         public static void Options()
         {
-            ComponentManager cm = ComponentManager.GetInstance();
-            ClearAllButtons();
-
-            foreach (var button in cm.GetComponentsOfType<MenuButtonComponent>())
-            {
-                MenuButtonComponent buttonComp = (MenuButtonComponent)button.Value;
-
-                if (buttonComp.Name.Substring(0, 7) == "Options")
-                {
-                    buttonComp.IsActive = true;
-                }
-            }
+            
         }
 
         public static void ClearAllButtons()
@@ -36,6 +25,7 @@
                 MenuButtonComponent buttonComp = (MenuButtonComponent)button.Value;
 
                 buttonComp.IsActive = false;
+                buttonComp.Ishighlighted = false;
             }
         }
 

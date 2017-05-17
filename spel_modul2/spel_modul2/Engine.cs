@@ -86,7 +86,7 @@ namespace GameEngine
 
         protected override void LoadContent()
         {
-            
+
 
 
             for (int i = -640; i <= 640; i += 128)
@@ -154,7 +154,7 @@ namespace GameEngine
             });
 
 
-            
+
 
             /*cm.AddEntityWithComponents(new IComponent[]
             {
@@ -223,7 +223,7 @@ namespace GameEngine
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                
+
                 new ItemComponent(ItemManager.exampleUseItem, "Staff", ItemType.Weapon),
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
@@ -247,22 +247,29 @@ namespace GameEngine
                 new ItemComponent(ItemManager.exampleUseItem, "ChainArmorBody", ItemType.Body),
             });
 
-            //Menu
+            //Menu Entities
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new MenuBackgroundComponent("MainMenuBackground", "Menu/MenuBackgroundBlack", new Point(0, 0), RenderLayer.Menubackground),
-                new MenuButtonComponent("MainPlay", MenuManager.Play, "Menu/PlayNormal", "Menu/PlayHighlight", new Vector2(100, 100), RenderLayer.MenuButton),
+                new MenuBackgroundComponent("MainMenuBackground", "Menu/MenuBackgroundBlack", new Point(0, 0), RenderLayer.Menubackground)
+
             });
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new MenuButtonComponent("MainOptions", null, "Menu/OptionsNormal", "Menu/OptionsHighlight", new Vector2(100, 140), RenderLayer.MenuButton),
+                new MenuButtonComponent("MainPlay", MenuManager.Play, "Menu/PlayNormal", "Menu/PlayHighlight", new Vector2(100, 100), RenderLayer.MenuButton)
             });
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-           {   
+            {
+                new MenuButtonComponent("MainOptions", null, "Menu/OptionsNormal", "Menu/OptionsHighlight", new Vector2(100, 140), RenderLayer.MenuButton)
+            });
+
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
                new MenuButtonComponent("MainQuit", null, "Menu/QuitNormal", "Menu/QuitHighlight", new Vector2(100, 180), RenderLayer.MenuButton),
-           });
+            });
+            //End of menu entities
+
 
             sm.GetSystem<AnimationLoaderSystem>().Load(Content);
             sm.GetSystem<TextureLoaderSystem>().Load(Content);
@@ -278,7 +285,7 @@ namespace GameEngine
 
 
             sm.GetSystem<AnimationGroupLoaderSystem>().Load(Content);
-            
+
             base.LoadContent();
         }
 
@@ -291,11 +298,11 @@ namespace GameEngine
             //Normal gameplay state
             if (stateManager.GetState() == "Game")
             {
-                sm.RenderAllSystems(renderHelper); 
+                sm.RenderAllSystems(renderHelper);
             }
 
             //Menu state
-            if(stateManager.GetState() == "Menu")
+            if (stateManager.GetState() == "Menu")
             {
                 //Only render the menu (RenderMenuSystem)
                 sm.Render<RenderMenuSystem>(renderHelper);
@@ -312,7 +319,7 @@ namespace GameEngine
                 Window.Title = frameCount.ToString();
                 frameCount = 0.0f;
             }
-            
+
 
             //base.Draw(gameTime);
         }
@@ -333,7 +340,7 @@ namespace GameEngine
                 SystemManager.GetInstance().Update<MenuSystem>(gameTime);
             }
 
-            
+
 
             base.Update(gameTime);
         }

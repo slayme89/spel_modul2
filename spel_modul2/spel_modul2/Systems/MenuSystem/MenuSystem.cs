@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 
 namespace GameEngine
 {
@@ -8,24 +7,62 @@ namespace GameEngine
     {
         private bool IsActive = false;
         private bool IsInit = false;
-        //private Dict<MenuButtonComponent> buttonList = new Dictionary<MenuButtonComponent>();
+        private int[] ActiveButtonsList = new int[10];
+        private int SelectedButton;
 
         public void Update(GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-            Vector2 stickDir;
 
             // see if the menu button is pressed inside the game or menu
             foreach (var contEntity in cm.GetComponentsOfType<PlayerControlComponent>())
             {
                 PlayerControlComponent contComp = (PlayerControlComponent)contEntity.Value;
 
+                //Clear the list
+                ActiveButtonsList = null;
+                ActiveButtonsList = new int[10];
+                //Add all active buttons in the list
+                int i = 0;
+                foreach (var button in cm.GetComponentsOfType<MenuButtonComponent>())
+                {
+                    MenuButtonComponent buttonComp = (MenuButtonComponent)button.Value;
+
+                    if (buttonComp.IsActive)
+                    {
+                        ActiveButtonsList[i] = button.Key;
+                        i++;
+                    }
+                }
+
+                if(StateManager.GetInstance().GetState() == "Menu")
+                {
+                    Vector2 stickDir = new Vector2(contComp.Movement.GetDirection().Y, contComp.Movement.GetDirection().X);
+                    //Check navigation in the menu
+                    if (Math.Abs(stickDir.Y) > 0.5f)
+                    {
+                        //if the stick has been pushed in a direction
+                        Point direction = MoveSystem.CalcDirection(stickDir.X, stickDir.Y);
+
+                        cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Ishighlighted = false;
+                        SelectedButton = (SelectedButton + direction.Y) % i - 1;
+                        if (SelectedButton < 0)
+                            SelectedButton = i - 1;
+                        cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Ishighlighted = true;
+
+                    }
+                    //Check if player use "Use button" on highlighted menu button
+                    if (contComp.Interact.IsButtonDown())
+                        cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Use();
+                }
+
+
                 //Enter the menu
                 if (contComp.Menu.IsButtonDown() == true && IsActive == false)
                 {
                     StateManager.GetInstance().SetState("Menu");
                     IsActive = true;
-                    
+
                     if (IsInit == false)
                         InitMenu();
                 }
@@ -38,7 +75,7 @@ namespace GameEngine
                     IsInit = false;
                     StateManager.GetInstance().SetState("Game");
                 }
-                
+
                 //If State is changed to "Game"
                 if (StateManager.GetInstance().GetState() == "Game")
                 {
@@ -48,15 +85,8 @@ namespace GameEngine
                 }
 
 
-                stickDir = contComp.Movement.GetDirection();
-                //Check navigation in the menu
-                if (Math.Abs(stickDir.X) > 0.5f || Math.Abs(stickDir.Y) > 0.5f)
-                {
-                    //if the stick has been pushed in a direction
-                    Point direction = MoveSystem.CalcDirection(stickDir.X, stickDir.Y);
 
-                    
-                }
+
 
 
             }
@@ -65,18 +95,23 @@ namespace GameEngine
         private void InitMenu()
         {
             ComponentManager cm = ComponentManager.GetInstance();
-           
+            int i = 0;
             //Set all Main menu buttons to "active" and add all buttons to the buttonList
             foreach (var button in cm.GetComponentsOfType<MenuButtonComponent>())
             {
                 MenuButtonComponent buttonComp = (MenuButtonComponent)button.Value;
-                //buttonList.Add(buttonComp);
 
                 if (buttonComp.Name.Substring(0, 4) == "Main")
+                {
                     buttonComp.IsActive = true;
-                if (buttonComp.Name.Substring(4, 8) == "Play")
-                    buttonComp.Ishighlighted = true;
+                    ActiveButtonsList[i] = button.Key;
+                    i++;
+                }
             }
+
+            SelectedButton = 0;
+            MenuButtonComponent highligtComp = cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[0]);
+            highligtComp.Ishighlighted = true;
 
             //Set Mainmenu background to "active"
             foreach (var background in cm.GetComponentsOfType<MenuBackgroundComponent>())
