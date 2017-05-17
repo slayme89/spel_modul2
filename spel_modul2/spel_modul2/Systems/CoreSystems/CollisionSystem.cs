@@ -36,7 +36,7 @@ namespace GameEngine
                     r2.Offset(c[j].Item3.position);
 
                     if (r1.Intersects(r2))
-                        ResolveCollision(c[i], c[j]);
+                        ResolveCollision(c[i], c[j], r1, r2);
                 }
             }
         }
@@ -64,12 +64,13 @@ namespace GameEngine
             return foundEntities;
         }
 
-        private void ResolveCollision(Tuple<int, CollisionComponent, PositionComponent> e1, Tuple<int, CollisionComponent, PositionComponent> e2)
+        private void ResolveCollision(Tuple<int, CollisionComponent, PositionComponent> e1, Tuple<int, CollisionComponent, PositionComponent> e2, Rectangle r1, Rectangle r2)
         {
             ComponentManager cm = ComponentManager.GetInstance();
 
             MoveComponent m1 = cm.GetComponentForEntity<MoveComponent>(e1.Item1);
             MoveComponent m2 = cm.GetComponentForEntity<MoveComponent>(e2.Item1);
+            Rectangle r3 = Rectangle.Intersect(r1, r2);
 
             if (m1 != null && m2 != null)
                         {
@@ -81,10 +82,24 @@ namespace GameEngine
                 }
             else if (m2 != null)
             {
-                e2.Item3.position += -m2.Velocity;
+                Point d = GetCollisionAxis(r1, r2);
+                e2.Item3.position += -m2.Velocity * d.ToVector2();
             }
 
 
+        }
+
+        private Point GetCollisionAxis(Rectangle r1, Rectangle r2)
+        {
+            if (r1.Intersects(new Rectangle(r2.Left, r2.Top + 5, 1, r2.Height - 10)))
+                return new Point(1, 0);
+            else if(r1.Intersects(new Rectangle(r2.Right - 1, r2.Top + 5, 1, r2.Height - 10)))
+                return new Point(1, 0);
+            else if (r1.Intersects(new Rectangle(r2.Left + 5, r2.Top, r2.Width - 10, 1)))
+                return new Point(0, 1);
+            else if (r1.Intersects(new Rectangle(r2.Left + 5, r2.Bottom - 1, r2.Width - 10, 1)))
+                return new Point(0, 1);
+            return new Point();
         }
     }
 }
