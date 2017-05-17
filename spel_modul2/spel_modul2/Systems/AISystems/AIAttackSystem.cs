@@ -21,7 +21,7 @@ namespace GameEngine
                     float closestDist = 0;
 
                     // Can this be changed? (not calling methoth from other system) 
-                    foreach (int entityFound in CollisionSystem.DetectAreaCollision(detectArea))
+                    /*foreach (int entityFound in CollisionSystem.DetectAreaCollision(detectArea))
                     {
                         if (entityFound == entity.Key || !cm.HasEntityComponent<HealthComponent>(entityFound) && !cm.HasEntityComponent<PlayerControlComponent>(entityFound))
                             continue;
@@ -39,7 +39,7 @@ namespace GameEngine
                             closestEntity = entityFound;
                             closestDist = distToCheck;
                         }
-                    }
+                    }*/
 
                     if (closestEntity != 0)
                         ai.TargetEntity = closestEntity;

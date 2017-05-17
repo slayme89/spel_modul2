@@ -27,7 +27,7 @@ namespace GameEngine
                 {
                     CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(entity.Key);
                     Vector2 correctedPos = new Vector2(positionComponent.position.X - (collisionComponent.collisionBox.Width / 2), positionComponent.position.Y - (collisionComponent.collisionBox.Height / 2));
-                    collisionComponent.collisionBox.Location = correctedPos.ToPoint();
+                    //collisionComponent.collisionBox.Location = correctedPos.ToPoint();
                 }
             }
         }
@@ -36,8 +36,10 @@ namespace GameEngine
         {
             x *= elapsedSeconds * speed;
             y *= elapsedSeconds * speed;
+
+            pos.position += new Vector2(x, y);
             
-            for (float i = 1; i > 0.1; i *= 0.8f)
+            /*for (float i = 1; i > 0.1; i *= 0.8f)
             {
                 x *= i;
                 y *= i;
@@ -47,7 +49,7 @@ namespace GameEngine
                     pos.position = futurePosition;
                     break;
                 }
-            }
+            }*/
         }
 
         public static Point CalcDirection(float x, float y)
