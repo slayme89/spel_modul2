@@ -25,7 +25,7 @@ namespace GameEngine
                                 attackComponent.IsAttacking = false;
                                 attackComponent.AttackChargeUp = attackComponent.AttackDelay;
                                 attackComponent.attackCollisionBox = GetAttackRect(entity.Key);
-                                collisionComponent.checkAttackColision = true;
+                                collisionComponent.checkAttackCollision = true;
                                 foreach (int entityID in CollisionSystem.DetectAreaCollision(attackComponent.attackCollisionBox))
                                 {
                                     if (entityID == entity.Key)
@@ -41,12 +41,12 @@ namespace GameEngine
                             else
                             {
                                 attackComponent.AttackChargeUp -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                                collisionComponent.checkAttackColision = false;
+                                collisionComponent.checkAttackCollision = false;
                             }
                         }
                         else
                         {
-                            collisionComponent.checkAttackColision = false;
+                            collisionComponent.checkAttackCollision = false;
                         }
                     }   
                 }
