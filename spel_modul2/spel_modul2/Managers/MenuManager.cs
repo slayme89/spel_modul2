@@ -1,9 +1,11 @@
-﻿namespace GameEngine
+﻿
+using System;
+
+namespace GameEngine
 {
     class MenuManager
     {
-
-        // Play
+        // Go to Play mode
         public static void Play()
         {
             ClearAllButtons();
@@ -11,9 +13,10 @@
             StateManager.GetInstance().SetState("Game");
         }
 
-        public static void Options()
+        //Quit game
+        public static void Quit()
         {
-            
+            Environment.Exit(1);
         }
 
         public static void ClearAllButtons()

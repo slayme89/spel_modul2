@@ -39,6 +39,9 @@ namespace GameEngine
             sb = new SpriteBatch(gd);
             renderHelper = new RenderHelper(gd, sb);
             stateManager.SetState("Game");
+            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.ApplyChanges();
 
             sm.AddSystems(new object[] {
                 new AnimationSystem(),
@@ -247,26 +250,24 @@ namespace GameEngine
                 new ItemComponent(ItemManager.exampleUseItem, "ChainArmorBody", ItemType.Body),
             });
 
-            //Menu Entities
+            ////////////////////////////////////////////////////////////////////
+            //////////////// Menu Entities ///////////////////////////////////
+            ////////////////////////////////////////////////////////////////////
+            //Background
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new MenuBackgroundComponent("MainMenuBackground", "Menu/MenuBackgroundBlack", new Point(0, 0), RenderLayer.Menubackground)
 
             });
-
+            //Play in main menu
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new MenuButtonComponent("MainPlay", MenuManager.Play, "Menu/PlayNormal", "Menu/PlayHighlight", new Vector2(100, 100), RenderLayer.MenuButton)
             });
-
+            //Quit in main menu
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new MenuButtonComponent("MainOptions", null, "Menu/OptionsNormal", "Menu/OptionsHighlight", new Vector2(100, 140), RenderLayer.MenuButton)
-            });
-
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-               new MenuButtonComponent("MainQuit", null, "Menu/QuitNormal", "Menu/QuitHighlight", new Vector2(100, 180), RenderLayer.MenuButton),
+               new MenuButtonComponent("MainQuit", MenuManager.Quit, "Menu/QuitNormal", "Menu/QuitHighlight", new Vector2(100, 140), RenderLayer.MenuButton),
             });
             //End of menu entities
 

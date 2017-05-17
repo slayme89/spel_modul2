@@ -367,18 +367,6 @@
 /processorParam:TextureFormat=Color
 /build:UI/ActionBarBox.PNG
 
-#begin Menu/MenuBackground1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Menu/MenuBackground1.png
-
 #begin Menu/OptionsHighlight.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -451,18 +439,6 @@
 /processorParam:TextureFormat=Color
 /build:Menu/QuitNormal.png
 
-#begin Menu/MenuBackground.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Menu/MenuBackground.png
-
 #begin Menu/MenuBackgroundBlack.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -474,4 +450,28 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Menu/MenuBackgroundBlack.png
+
+#begin Menu/BackToMainMenuHighlight.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Menu/BackToMainMenuHighlight.png
+
+#begin Menu/BackToMainMenuNormal.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Menu/BackToMainMenuNormal.png
 
