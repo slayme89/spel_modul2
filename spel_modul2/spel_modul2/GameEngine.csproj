@@ -68,7 +68,9 @@
     <Compile Include="Components\CoreComponents\KnockbackComponent.cs" />
     <Compile Include="Components\CoreComponents\SkillComponent.cs" />
     <Compile Include="Components\EntityFactory.cs" />
+    <Compile Include="Components\MenuComponents\MenuBackgroundComponent.cs" />
     <Compile Include="Components\MenuComponents\MenuButtonComponent.cs" />
+    <Compile Include="Components\PlayerComponents\ActionBarSlotComponent.cs" />
     <Compile Include="Components\Stick.cs" />
     <Compile Include="Components\VisualComponents\GUIComponent.cs" />
     <Compile Include="Components\CoreComponents\HealthComponent.cs" />
@@ -91,8 +93,11 @@
     <Compile Include="Components\CoreComponents\AnimationComponent.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Components\IComponent.cs" />
+    <Compile Include="Managers\MenuManager.cs" />
+    <Compile Include="Managers\ItemManager.cs" />
     <Compile Include="Managers\ResourceManager.cs" />
     <Compile Include="Managers\EntityManager.cs" />
+    <Compile Include="Managers\SkillManager.cs" />
     <Compile Include="Managers\StateManager.cs" />
     <Compile Include="RenderHelper.cs" />
     <Compile Include="Systems\AISystems\AIAttackSystem.cs" />
@@ -129,13 +134,13 @@
     <Compile Include="Systems\RenderSystems\RenderGUISystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderHealthSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderInventorySystem.cs" />
+    <Compile Include="Systems\RenderSystems\RenderMenuSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderSystem.cs" />
     <Compile Include="Systems\LoaderSystems\SoundLoaderSystem.cs" />
     <Compile Include="Systems\CoreSystems\SoundSystem.cs" />
     <Compile Include="Systems\LoaderSystems\TextureLoaderSystem.cs" />
     <Compile Include="Systems\CoreSystems\MoveSystem.cs" />
     <Compile Include="Systems\CoreSystems\WorldSystem.cs" />
-    <Compile Include="Systems\RenderSystems\RenderTexture.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

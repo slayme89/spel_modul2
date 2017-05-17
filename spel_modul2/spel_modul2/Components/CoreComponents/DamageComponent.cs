@@ -4,12 +4,12 @@ namespace GameEngine
 {
     class DamageComponent : IComponent
     {
-        public List<int> IncomingDamageEntityID { get; set; }
+        public List<int> IncomingDamage { get; set; }
         public int LastAttacker { get; set; }
 
         public DamageComponent()
         {
-            IncomingDamageEntityID = new List<int>();
+            IncomingDamage = new List<int>();
         }
     }
 }

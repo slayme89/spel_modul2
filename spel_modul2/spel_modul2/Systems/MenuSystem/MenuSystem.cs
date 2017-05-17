@@ -1,62 +1,90 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace GameEngine
 {
-    class MenuSystem : ISystem, IRenderSystem
+    class MenuSystem : ISystem
     {
         private bool IsActive = false;
-
-        public void Render(RenderHelper renderHelper)
-        {
-            throw new NotImplementedException();
-        }
+        private bool IsInit = false;
 
         public void Update(GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-            
+
             // see if the menu button is pressed inside the game or menu
-            foreach(var entity in cm.GetComponentsOfType<PlayerControlComponent>())
+            foreach (var contEntity in cm.GetComponentsOfType<PlayerControlComponent>())
             {
-                PlayerControlComponent cont = (PlayerControlComponent)entity.Value;
+                PlayerControlComponent contComp = (PlayerControlComponent)contEntity.Value;
 
                 //Enter the menu
-                if (cont.Menu.IsButtonDown() && IsActive == false)
+                if (contComp.Menu.IsButtonDown() == true && IsActive == false)
                 {
+                    StateManager.GetInstance().SetState("Menu");
                     IsActive = true;
-                    StateManager.GetInstance().SetState("menu");
-                }
                     
-                //Exit the menu
-                else if(cont.Menu.IsButtonDown() && IsActive == true)
+                    if (IsInit == false)
+                        InitMenu();
+                }
+
+                //Exit the menu if menu button is pressed
+                else if (contComp.Menu.IsButtonDown() && IsActive == true)
                 {
+                    ClearMenu();
                     IsActive = false;
-                    StateManager.GetInstance().SetState("game");
+                    IsInit = false;
+                    StateManager.GetInstance().SetState("Game");
                 }
-
-                foreach(var buttonEntity in cm.GetComponentsOfType<MenuButtonComponent>())
+                
+                //If State is changed to "Game"
+                if (StateManager.GetInstance().GetState() == "Game")
                 {
-                    MenuButtonComponent menubutton = (MenuButtonComponent)buttonEntity.Value;
-
-                    //Check if button is active
-                    if (menubutton.IsActive)
-                    {
-                        //Check if button has TextureComponent, if so render it
-                        if (cm.HasEntityComponent<TextureComponent>(buttonEntity.Key))
-                        {
-
-                        }
-                    }
-
-
+                    ClearMenu();
+                    IsActive = false;
+                    IsInit = false;
                 }
+            }
+        }
 
-        
+        private void InitMenu()
+        {
+            ComponentManager cm = ComponentManager.GetInstance();
 
+            //Set all Main menu button to "active"
+            foreach (var button in cm.GetComponentsOfType<MenuButtonComponent>())
+            {
+                MenuButtonComponent buttonComp = (MenuButtonComponent)button.Value;
 
+                if (buttonComp.Name.Substring(0, 4) == "Main")
+                    buttonComp.IsActive = true;
+            }
 
-                    
+            //Set Mainmenu background to "active"
+            foreach (var background in cm.GetComponentsOfType<MenuBackgroundComponent>())
+            {
+                MenuBackgroundComponent backgroundComp = (MenuBackgroundComponent)background.Value;
+
+                if (backgroundComp.Name.Substring(0, 4) == "Main")
+                    backgroundComp.IsActive = true;
+            }
+            IsInit = true;
+        }
+
+        private void ClearMenu()
+        {
+            ComponentManager cm = ComponentManager.GetInstance();
+
+            //Set all menu buttons to "NonActive"
+            foreach (var buttonEntity in cm.GetComponentsOfType<MenuButtonComponent>())
+            {
+                MenuButtonComponent button = (MenuButtonComponent)buttonEntity.Value;
+                button.IsActive = false;
+            }
+
+            //Set all menu backgrounds to "NonActive"
+            foreach (var background in cm.GetComponentsOfType<MenuBackgroundComponent>())
+            {
+                MenuBackgroundComponent backgroundComp = (MenuBackgroundComponent)background.Value;
+                backgroundComp.IsActive = false;
             }
         }
     }

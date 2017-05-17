@@ -14,27 +14,39 @@ namespace GameEngine
     {
         public void Update(GameTime gameTime)
         {
-
             ComponentManager cm = ComponentManager.GetInstance();
             foreach (var entity in cm.GetComponentsOfType<PlayerControlComponent>())
             {
                 PlayerControlComponent playerControl = (PlayerControlComponent)entity.Value;
                 if (cm.HasEntityComponent<ActionBarComponent>(entity.Key)){
                     ActionBarComponent actionbarComp = cm.GetComponentForEntity<ActionBarComponent>(entity.Key);
-                    if (playerControl.ActionBar1.IsButtonDown() && actionbarComp.Skills[0] != null)
+                    if (playerControl.ActionBar1.IsButtonDown() && actionbarComp.Slots[0] != null)
                     {
-                        actionbarComp.Skills[0].IsActivated = true;
-                    }else if (playerControl.ActionBar2.IsButtonDown() && actionbarComp.Skills[1] != null)
-                    {
-                        actionbarComp.Skills[1].IsActivated = true;
+                        if (actionbarComp.Slots[0].IsItem)
+                            actionbarComp.Slots[0].Use(entity.Key);
+                        else
+                            ((SkillComponent)actionbarComp.Slots[0]).IsActivated = true;
                     }
-                    else if (playerControl.ActionBar3.IsButtonDown() && actionbarComp.Skills[2] != null)
+                    else if (playerControl.ActionBar2.IsButtonDown() && actionbarComp.Slots[1] != null)
                     {
-                        actionbarComp.Skills[2].IsActivated = true;
+                        if (actionbarComp.Slots[1].IsItem)
+                            actionbarComp.Slots[1].Use(entity.Key);
+                        else
+                            ((SkillComponent)actionbarComp.Slots[0]).IsActivated = true;
                     }
-                    else if (playerControl.ActionBar4.IsButtonDown() && actionbarComp.Skills[3] != null)
+                    else if (playerControl.ActionBar3.IsButtonDown() && actionbarComp.Slots[2] != null)
                     {
-                        actionbarComp.Skills[3].IsActivated = true;
+                        if (actionbarComp.Slots[2].IsItem)
+                            actionbarComp.Slots[2].Use(entity.Key);
+                        else
+                            ((SkillComponent)actionbarComp.Slots[0]).IsActivated = true;
+                    }
+                    else if (playerControl.ActionBar4.IsButtonDown() && actionbarComp.Slots[3] != null)
+                    {
+                        if (actionbarComp.Slots[3].IsItem)
+                            actionbarComp.Slots[3].Use(entity.Key);
+                        else
+                            ((SkillComponent)actionbarComp.Slots[0]).IsActivated = true;
                     }
                 }
             }

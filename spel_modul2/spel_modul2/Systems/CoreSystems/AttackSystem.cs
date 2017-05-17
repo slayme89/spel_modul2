@@ -24,8 +24,17 @@ namespace GameEngine
                             {
                                 attackComponent.IsAttacking = false;
                                 attackComponent.AttackChargeUp = attackComponent.AttackDelay;
-                                collisionComponent.attackCollisionBox = GetAttackRect(entity.Key);
+                                attackComponent.attackCollisionBox = GetAttackRect(entity.Key);
                                 collisionComponent.checkAttackColision = true;
+                                foreach (int entityID in CollisionSystem.DetectAreaCollision(attackComponent.attackCollisionBox))
+                                {
+                                    DamageComponent damageComponent = cm.GetComponentForEntity<DamageComponent>(entityID);
+                                    if (damageComponent != null)
+                                    {
+                                        damageComponent.IncomingDamage.Add(attackComponent.Damage);
+                                        damageComponent.LastAttacker = entity.Key;
+                                    }
+                                }
                             }
                             else
                             {

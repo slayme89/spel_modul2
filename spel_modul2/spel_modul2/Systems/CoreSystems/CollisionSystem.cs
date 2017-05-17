@@ -70,11 +70,11 @@ namespace GameEngine
                 e1.Item3.position += -m1.Direction.ToVector2() * m1.Speed;
             }
             else if(m1 != null)
-            {
+                {
                 e1.Item3.position += -m1.Direction.ToVector2() * m1.Speed;
             }
             else if(m2 != null)
-            {
+                        {
                 e2.Item3.position += -m2.Direction.ToVector2() * m2.Speed;
             }
 

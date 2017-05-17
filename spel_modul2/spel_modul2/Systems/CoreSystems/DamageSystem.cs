@@ -12,40 +12,39 @@ namespace GameEngine
             foreach (var entity in cm.GetComponentsOfType<DamageComponent>())
             {
                 DamageComponent damageComponent = (DamageComponent)entity.Value;
-                foreach (int attackingEntity in damageComponent.IncomingDamageEntityID)
+                foreach (int damage in damageComponent.IncomingDamage)
                 {
-                    if (entity.Key != attackingEntity)
+                    if (entity.Key != damage)
                     {
-                        ApplyDamageToEntity(entity.Key, attackingEntity);
+                        ApplyDamageToEntity(entity.Key, damage);
                         cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayDamageSound = true;
-                        damageComponent.LastAttacker = attackingEntity;
                         if (cm.HasEntityComponent<KnockbackComponent>(entity.Key) && cm.HasEntityComponent<MoveComponent>(entity.Key))
                         {
-                            ApplyKnockbackToEntity(entity.Key, attackingEntity, gameTime);
+                            ApplyKnockbackToEntity(entity.Key, damageComponent.LastAttacker, damage, gameTime);
                         }
                     }
                 }
-                if (damageComponent.IncomingDamageEntityID.Count > 0)
-                    damageComponent.IncomingDamageEntityID = new List<int>();
+                if (damageComponent.IncomingDamage.Count > 0)
+                    damageComponent.IncomingDamage = new List<int>();
             }
         }
 
-        private void ApplyDamageToEntity(int entityHit, int attackingEntity)
+        private void ApplyDamageToEntity(int entityHit, int damage)
         {
             ComponentManager cm = ComponentManager.GetInstance();
             HealthComponent entityHitHealth = cm.GetComponentForEntity<HealthComponent>(entityHit);
-            AttackComponent attackingEntityDamage = cm.GetComponentForEntity<AttackComponent>(attackingEntity);
+            //AttackComponent attackingEntityDamage = cm.GetComponentForEntity<AttackComponent>(attackingEntity);
 
-            entityHitHealth.Current -= attackingEntityDamage.Damage;
+            entityHitHealth.Current -= damage;
         }
         
-        private void ApplyKnockbackToEntity(int entityHit, int attackingEntity, GameTime gameTime)
+        private void ApplyKnockbackToEntity(int entityHit, int attacker, int damage, GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
             KnockbackComponent knockbackComponent = cm.GetComponentForEntity<KnockbackComponent>(entityHit);
             PositionComponent posComp = cm.GetComponentForEntity<PositionComponent>(entityHit);
-            Vector2 posCompAttacker = cm.GetComponentForEntity<PositionComponent>(attackingEntity).position;
-            int attackDmg = cm.GetComponentForEntity<AttackComponent>(attackingEntity).Damage;
+            Vector2 posCompAttacker = cm.GetComponentForEntity<PositionComponent>(attacker).position;
+            int attackDmg = damage;
 
             Vector2 newDir = new Vector2(posComp.position.X - posCompAttacker.X, posComp.position.Y - posCompAttacker.Y);
             

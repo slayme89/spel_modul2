@@ -6,7 +6,7 @@ namespace GameEngine
 {
     class SystemManager
     {
-        private Dictionary<Type, ISystem> systems;
+        private Dictionary<Type, object> systems;
         private static SystemManager systemManagerInstance;
 
         static SystemManager()
@@ -16,7 +16,7 @@ namespace GameEngine
 
         private SystemManager()
         {
-            systems = new Dictionary<Type, ISystem>();
+            systems = new Dictionary<Type, object>();
         }
 
         public static SystemManager GetInstance()
@@ -24,18 +24,18 @@ namespace GameEngine
             return systemManagerInstance;
         }
 
-        public void AddSystem(ISystem system)
+        public void AddSystem(object system)
         {
             systems.Add(system.GetType(), system);
         }
 
-        public void AddSystems(params ISystem[] systems)
+        public void AddSystems(params object[] systems)
         {
-            foreach (ISystem system in systems)
+            foreach (var system in systems)
                 AddSystem(system);
         }
 
-        public void RemoveSystem(ISystem system)
+        public void RemoveSystem(object system)
         {
             if (systems.ContainsKey(system.GetType()))
                 systems.Remove(system.GetType());
@@ -43,27 +43,35 @@ namespace GameEngine
 
         public T GetSystem<T>()
         {
-            ISystem system;
+            object system;
             systems.TryGetValue(typeof(T), out system);
             return (T)system;
         }
 
         public void Update<T>(GameTime gameTime)
         {
-            ISystem system;
+            object system;
             systems.TryGetValue(typeof(T), out system);
-            system?.Update(gameTime);
+            ((ISystem)system)?.Update(gameTime);
         }
 
         public void UpdateAllSystems(GameTime gameTime)
         {
-            foreach (ISystem system in systems.Values)
-                system.Update(gameTime);
+            foreach (var system in systems.Values)
+                if (system is ISystem)
+                    ((ISystem)system).Update(gameTime);
+        }
+
+        public void Render<T>(RenderHelper renderHelper)
+        {
+            object system;
+            systems.TryGetValue(typeof(T), out system);
+            ((IRenderSystem)system)?.Render(renderHelper);
         }
 
         public void RenderAllSystems(RenderHelper renderHelper)
         {
-            foreach (ISystem system in systems.Values)
+            foreach (var system in systems.Values)
             {
                 if(system is IRenderSystem)
                     ((IRenderSystem)system).Render(renderHelper);

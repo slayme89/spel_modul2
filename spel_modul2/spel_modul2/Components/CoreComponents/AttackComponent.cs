@@ -1,4 +1,6 @@
-﻿namespace GameEngine
+﻿using Microsoft.Xna.Framework;
+
+namespace GameEngine
 {
     public enum WeaponType
     {
@@ -16,6 +18,7 @@
         public bool IsAttacking { get; set; } = false;
         public float AttackDelay { get; set; }
         public bool CanAttack { get; set; }
+        public Rectangle attackCollisionBox { get; set; }
 
         public AttackComponent(int damage, float rateOfFire, float attackDelay,  WeaponType weaponType)
         {
