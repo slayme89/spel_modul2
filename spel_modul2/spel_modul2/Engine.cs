@@ -44,6 +44,7 @@ namespace GameEngine
                 new AnimationSystem(),
                 new AnimationLoaderSystem(),
                 new TextureLoaderSystem(),
+                new MoveSystem(),
                 new CollisionSystem(),
                 new RenderSystem(),
                 new RenderCollisionBoxSystem(),
@@ -59,7 +60,6 @@ namespace GameEngine
                 new SoundLoaderSystem(),
                 new DamageSystem(),
                 new KnockbackSystem(),
-                new MoveSystem(),
                 new RenderHealthSystem(),
                 new InventorySystem(),
                 new RenderInventorySystem(),
@@ -129,7 +129,6 @@ namespace GameEngine
                 new PlayerComponent(1),
                 new LevelComponent(1, 80),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
-                
                 new ActionBarComponent(),
                 new GUIComponent("UI/Player1-Hp-Ene-Xp", gd.Viewport.TitleSafeArea.Left, gd.Viewport.TitleSafeArea.Top),
                 new InventoryComponent(5, 4),

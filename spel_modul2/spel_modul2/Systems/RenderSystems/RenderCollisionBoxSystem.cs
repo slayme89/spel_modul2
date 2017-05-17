@@ -15,14 +15,22 @@ namespace GameEngine
 
         public void Render(RenderHelper rh)
         {
-            GraphicsDevice graphicsDevice = rh.graphicsDevice;
-            SpriteBatch spriteBatch = rh.spriteBatch;
             ComponentManager cm = ComponentManager.GetInstance();
-            Viewport viewport = Extensions.GetCurrentViewport(graphicsDevice);
-            foreach (var entity in cm.GetComponentsOfType<CollisionComponent>())
+            Viewport viewport = Extensions.GetCurrentViewport(rh.graphicsDevice);
+
+            Dictionary<int, IComponent> entities = cm.GetComponentsOfType<CollisionComponent>();
+            foreach (var entity in entities.Keys)
             {
-                CollisionComponent collisionComponent = (CollisionComponent)entity.Value;  //FIXA
-                rh.DrawRectangle(collisionComponent.collisionBox.WorldToScreen(ref viewport), 2, Color.Yellow, RenderLayer.Foreground1);
+                CollisionComponent collisionComponent;
+                PositionComponent positionComponent;
+
+                if (cm.GetComponentsForEntity(entity, out collisionComponent, out positionComponent))
+                {
+                    Rectangle bb = collisionComponent.collisionBox;
+                    bb.Offset(-bb.Width / 2, -bb.Height / 2);
+                    bb.Offset(positionComponent.position);
+                    rh.DrawRectangle(bb.WorldToScreen(ref viewport), 2, Color.Yellow, RenderLayer.Foreground1);
+                }
             }
         }
     }

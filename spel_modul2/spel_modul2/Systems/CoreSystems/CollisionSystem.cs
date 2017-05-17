@@ -1,78 +1,72 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System;
 
 namespace GameEngine
 {
     class CollisionSystem : ISystem
     {
+        List<int> collidingEntities;
+
+        public CollisionSystem()
+        {
+            //collidingEntities = new List<Tuple<int, int>>();
+        }
+
         public void Update(GameTime gameTime)
         {
-            //ComponentManager cm = ComponentManager.GetInstance();
+            ComponentManager cm = ComponentManager.GetInstance();
+            List<Tuple<int, CollisionComponent, PositionComponent>> c = new List<Tuple<int, CollisionComponent, PositionComponent>>();
 
-            //// Detect hit collision
-            //foreach (var entity in cm.GetComponentsOfType<CollisionComponent>())
-            //{
-            //    CollisionComponent collisionComponent = (CollisionComponent)entity.Value;
-            //    Rectangle rect = collisionComponent.attackCollisionBox;
-            //    PositionComponent posComp = cm.GetComponentForEntity<PositionComponent>(entity.Key);
-            //    if (collisionComponent.checkAttackColision)
-            //    {
-            //        foreach (int entityID in DetectAreaCollision(rect))
-            //        {
-            //            DamageComponent damageComponent = cm.GetComponentForEntity<DamageComponent>(entityID);
-            //            if (damageComponent != null)
-            //            {
-            //                damageComponent.IncomingDamage.Add(entity.Key);
-            //            }
-            //        }
-            //    }
-            //}
-        }
-
-        public static List<int> DetectAreaCollision(Rectangle area)
-        {
-            var cm = ComponentManager.GetInstance();
-            List<int> foundEntities = new List<int>();
-            foreach (var entity in cm.GetComponentsOfType<CollisionComponent>())
+            Dictionary<int, IComponent> entities = cm.GetComponentsOfType<CollisionComponent>();
+            foreach (var entity in entities.Keys)
             {
-                CollisionComponent collisionComponent = (CollisionComponent)entity.Value;
+                CollisionComponent collisionComponent;
+                PositionComponent positionComponent;
 
-                if (area.Intersects(collisionComponent.collisionBox))
-                {
-                    //Collision detected, add them to the list
-                    foundEntities.Add(entity.Key);
+                cm.GetComponentsForEntity(entity, out collisionComponent, out positionComponent);
+                c.Add(new Tuple<int, CollisionComponent, PositionComponent>(entity, collisionComponent, positionComponent));
+            }
+
+            for (int i = 0; i < c.Count; i++)
+        {
+                for (int j = i + 1; j < c.Count; j++)
+            {
+                    Rectangle r1, r2;
+                    r1 = c[i].Item2.collisionBox;
+                    r1.Offset(-r1.Width / 2, -r1.Height / 2);
+                    r1.Offset(c[i].Item3.position);
+
+                    r2 = c[j].Item2.collisionBox;
+                    r2.Offset(-r2.Width / 2, -r2.Height / 2);
+                    r2.Offset(c[j].Item3.position);
+
+                    if (r1.Intersects(r2))
+                        ResolveCollision(c[i], c[j]);
                 }
             }
-            return foundEntities;
         }
 
-        //Detect if characters collide
-        public bool DetectMovementCollision(int entity, Vector2 position)
+        private void ResolveCollision(Tuple<int, CollisionComponent, PositionComponent> e1, Tuple<int, CollisionComponent, PositionComponent> e2)
         {
-            var cm = ComponentManager.GetInstance();
-            CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(entity);
-            Rectangle rectToCheck = new Rectangle(new Vector2(position.X - (collisionComponent.collisionBox.Width / 2), position.Y - (collisionComponent.collisionBox.Height / 2)).ToPoint(), collisionComponent.collisionBox.Size);
+            ComponentManager cm = ComponentManager.GetInstance();
 
-            foreach (var entity2 in cm.GetComponentsOfType<CollisionComponent>())
-            {
-                if (entity2.Key != entity)
-                {
-                    CollisionComponent collisionComponent2 = (CollisionComponent)entity2.Value;
-                    if (cm.HasEntityComponent<PositionComponent>(entity2.Key))
-                    {
-                        Point entity2Pos = cm.GetComponentForEntity<PositionComponent>(entity2.Key).position.ToPoint();
-                        Point correctedPos = new Point(entity2Pos.X - (collisionComponent2.collisionBox.Width / 2), entity2Pos.Y - (collisionComponent2.collisionBox.Height / 2));
-                        collisionComponent2.collisionBox.Location = correctedPos;
-                        if (rectToCheck.Intersects(collisionComponent2.collisionBox))
+            MoveComponent m1 = cm.GetComponentForEntity<MoveComponent>(e1.Item1);
+            MoveComponent m2 = cm.GetComponentForEntity<MoveComponent>(e2.Item1);
+
+            if(m1 != null && m2 != null)
                         {
-                            //Collision detected
-                            return true;
-                        }
+                e1.Item3.position += -m1.Direction.ToVector2() * m1.Speed;
                     }
+            else if(m1 != null)
+            {
+                e1.Item3.position += -m1.Direction.ToVector2() * m1.Speed;
                 }
+            else if(m2 != null)
+            {
+                e2.Item3.position += -m2.Direction.ToVector2() * m2.Speed;
             }
-            return false;
         }
     }
 }
