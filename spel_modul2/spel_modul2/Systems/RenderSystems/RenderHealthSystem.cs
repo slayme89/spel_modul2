@@ -58,11 +58,19 @@ namespace GameEngine
                     else if (cm.HasEntityComponent<AIComponent>(entity.Key))
                     {
                         CollisionComponent aiCollisionBox = cm.GetComponentForEntity<CollisionComponent>(entity.Key);
-                        healthRectangle = new Rectangle(
-                            aiCollisionBox.collisionBox.Location.X,
-                            aiCollisionBox.collisionBox.Location.Y - (aiCollisionBox.collisionBox.Height / 2),
-                            currHealth / 2,
-                            10).WorldToScreen(ref viewport);
+                        PositionComponent p;
+                        CollisionComponent c;
+                        if (cm.GetComponentsForEntity(entity.Key, out p, out c))
+                        {
+                            /*healthRectangle = new Rectangle(
+                                aiCollisionBox.collisionBox.Location.X,
+                                aiCollisionBox.collisionBox.Location.Y - (aiCollisionBox.collisionBox.Height / 2),
+                                currHealth / 2,
+                                10).WorldToScreen(ref viewport);*/
+
+                            healthRectangle = new Rectangle((int)p.position.X, (int)p.position.Y, currHealth / 2, 10).WorldToScreen(ref viewport);
+                            healthRectangle.Offset(-c.collisionBox.Width / 2, -c.collisionBox.Height / 2 - 10);
+                        }
                     }
                     rh.Draw(healthTexture, healthRectangle, Color.White, RenderLayer.Foreground1);
                 }
