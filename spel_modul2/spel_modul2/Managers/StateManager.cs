@@ -3,7 +3,8 @@
     class StateManager
     {
         static StateManager instance;
-        string State;
+        private string State { get; set; }
+     
 
         static StateManager()
         {
@@ -13,11 +14,6 @@
         public static StateManager GetInstance()
         {
             return instance;
-        }
-
-        private StateManager()
-        {
-            State = "";
         }
 
         public void SetState(string state)

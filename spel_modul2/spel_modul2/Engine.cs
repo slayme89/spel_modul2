@@ -17,6 +17,7 @@ namespace GameEngine
         //GameState Manager
         StateManager stateManager = StateManager.GetInstance();
 
+
         // Frame rate related stuff
         private float frameCount = 0.0f;
         private float elapsedTime = 0.0f;
@@ -37,9 +38,9 @@ namespace GameEngine
             gd = graphics.GraphicsDevice;
             sb = new SpriteBatch(gd);
             renderHelper = new RenderHelper(gd, sb);
-            stateManager.SetState("game");
+            stateManager.SetState("Game");
 
-            sm.AddSystems(new ISystem[] {
+            sm.AddSystems(new object[] {
                 new AnimationSystem(),
                 new AnimationLoaderSystem(),
                 new TextureLoaderSystem(),
@@ -75,7 +76,9 @@ namespace GameEngine
                 new InventoryLoaderSystem(),
                 new ActionBarSystem(),
                 new LevelSystem(),
-                new StatsSystem()
+                new StatsSystem(),
+                new MenuSystem(),
+                new RenderMenuSystem()
             });
 
             base.Initialize();
@@ -83,6 +86,9 @@ namespace GameEngine
 
         protected override void LoadContent()
         {
+            
+
+
             for (int i = -640; i <= 640; i += 128)
             {
                 cm.AddEntityWithComponents(new IComponent[]
@@ -147,6 +153,9 @@ namespace GameEngine
                 new TextureComponent("trees1"),
                 new PositionComponent(200, -25),
             });
+
+
+            
 
             /*cm.AddEntityWithComponents(new IComponent[]
             {
@@ -239,6 +248,15 @@ namespace GameEngine
                 new ItemComponent(ItemManager.exampleUseItem, "ChainArmorBody", ItemType.Body),
             });
 
+            //Menu
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                new MenuBackgroundComponent("MainMenuBackground", "Menu/MenuBackground", new Vector2(0, 0), RenderLayer.Menubackground),
+                new MenuButtonComponent("MainPlay", MenuManager.Play, "Menu/PlayNormal", "Menu/PlayHighlight", new Vector2(100, 100), RenderLayer.MenuButton),
+                //new MenuButtonComponent("MainOptions", null, "Menu/OptionsNormal", "Menu/OptionsHighlight", new Vector2(100, 140), RenderLayer.MenuButton),
+                //new MenuButtonComponent("MainQuit", null, "Menu/PlayNormal", "Menu/QuitHighlight", new Vector2(100, 180), RenderLayer.MenuButton),
+            });
+
             sm.GetSystem<AnimationLoaderSystem>().Load(Content);
             sm.GetSystem<TextureLoaderSystem>().Load(Content);
             sm.GetSystem<WorldSystem>().Load(Content);
@@ -249,6 +267,7 @@ namespace GameEngine
             sm.GetSystem<RenderGUISystem>().Load(Content);
             sm.GetSystem<ItemIconLoaderSystem>().Load(Content);
             sm.GetSystem<InventoryLoaderSystem>().Load(Content);
+            sm.GetSystem<RenderMenuSystem>().Load(Content);
 
 
             sm.GetSystem<AnimationGroupLoaderSystem>().Load(Content);
@@ -263,17 +282,16 @@ namespace GameEngine
             gd.Clear(Color.Blue);
 
             //Normal gameplay state
-            if (stateManager.GetState() == "game")
+            if (stateManager.GetState() == "Game")
             {
-                
-                sm.RenderAllSystems(renderHelper);
-                
+                sm.RenderAllSystems(renderHelper); 
             }
 
             //Menu state
-            if(stateManager.GetState() == "menu")
+            if(stateManager.GetState() == "Menu")
             {
                 //Only render the menu (RenderMenuSystem)
+                sm.Render<RenderMenuSystem>(renderHelper);
             }
 
             sb.End();
@@ -295,14 +313,14 @@ namespace GameEngine
         protected override void Update(GameTime gameTime)
         {
             //Normal gameplay state
-            if (stateManager.GetState() == "game")
+            if (stateManager.GetState() == "Game")
             {
                 ComponentManager.GetInstance().Update();
                 SystemManager.GetInstance().UpdateAllSystems(gameTime);
             }
 
             //Menu state
-            if (stateManager.GetState() == "menu")
+            if (stateManager.GetState() == "Menu")
             {
                 SystemManager.GetInstance().Update<InputSystem>(gameTime);
                 SystemManager.GetInstance().Update<MenuSystem>(gameTime);

@@ -4,11 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine
 {
-    class RenderGUISystem : ISystem, IRenderSystem
+    class RenderGUISystem : IRenderSystem
     {
-        public void Update(GameTime gameTime)
-        {
-        }
 
         public void Render(RenderHelper rh)
         {
