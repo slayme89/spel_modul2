@@ -6,14 +6,14 @@ namespace GameEngine
     {
         public Point Destination { get; set; }
         public bool IsFriendly { get; set; }
-        public Point DetectRange { get; set; }
+        public float DetectRange { get; set; }
         public int TargetEntity { get; set; }
 
         public AIComponent(int x, int y, bool isFriendly)
         {
             Destination = new Point(x, y);
             IsFriendly = isFriendly;
-            DetectRange = new Point(400, 400);
+            DetectRange = 200;
             TargetEntity = 0;
         }
     }

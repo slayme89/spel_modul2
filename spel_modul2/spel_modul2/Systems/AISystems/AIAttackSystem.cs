@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GameEngine
 {
@@ -8,38 +10,31 @@ namespace GameEngine
         public void Update(GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-            foreach(var entity in cm.GetComponentsOfType<AttackComponent>())
+            List<Tuple<int, PositionComponent>> players = new List<Tuple<int, PositionComponent>>();
+            foreach(var player in cm.GetComponentsOfType<PlayerComponent>())
+            {
+                players.Add(new Tuple<int, PositionComponent>(player.Key, cm.GetComponentForEntity<PositionComponent>(player.Key)));
+            }
+
+            foreach (var entity in cm.GetComponentsOfType<AttackComponent>())
             {
                 if(cm.HasEntityComponent<AIComponent>(entity.Key) && cm.HasEntityComponent<PositionComponent>(entity.Key))
                 {
                     AIComponent ai = cm.GetComponentForEntity<AIComponent>(entity.Key);
                     PositionComponent posComp = cm.GetComponentForEntity<PositionComponent>(entity.Key);
-                    Rectangle detectArea = new Rectangle(new Vector2(posComp.position.X - (ai.DetectRange.X / 2), posComp.position.Y - (ai.DetectRange.Y / 2)).ToPoint(), ai.DetectRange);
 
                     //find closest target
                     int closestEntity = 0;
-                    float closestDist = 0;
+                    float closestDist = float.MaxValue;
 
-                    // Can this be changed? (not calling methoth from other system) 
-                    /*foreach (int entityFound in CollisionSystem.DetectAreaCollision(detectArea))
+                    for(int i = 0; i < players.Count; i++)
                     {
-                        if (entityFound == entity.Key || !cm.HasEntityComponent<HealthComponent>(entityFound) && !cm.HasEntityComponent<PlayerControlComponent>(entityFound))
-                            continue;
-                        if (closestEntity == 0)
+                        float dist = Vector2.Distance(players[i].Item2.position, posComp.position);
+                        if (dist < ai.DetectRange && dist < closestDist)
                         {
-                            closestEntity = entityFound;
-                            closestDist = Vector2.Distance(posComp.position, cm.GetComponentForEntity<PositionComponent>(closestEntity).position);
-                            continue;
+                            closestEntity = players[i].Item1;
                         }
-                        PositionComponent closestEntPos = cm.GetComponentForEntity<PositionComponent>(closestEntity);
-                        PositionComponent entToCheckPos = cm.GetComponentForEntity<PositionComponent>(entityFound);
-                        float distToCheck = Vector2.Distance(posComp.position, entToCheckPos.position);
-                        if (distToCheck < closestDist)
-                        {
-                            closestEntity = entityFound;
-                            closestDist = distToCheck;
-                        }
-                    }*/
+                    }
 
                     if (closestEntity != 0)
                         ai.TargetEntity = closestEntity;
