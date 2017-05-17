@@ -7,13 +7,6 @@ namespace GameEngine
 {
     class CollisionSystem : ISystem
     {
-        List<int> collidingEntities;
-
-        public CollisionSystem()
-        {
-            //collidingEntities = new List<Tuple<int, int>>();
-        }
-
         public void Update(GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
