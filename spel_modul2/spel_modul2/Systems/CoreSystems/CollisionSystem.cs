@@ -41,6 +41,23 @@ namespace GameEngine
             }
         }
 
+        public static List<int> DetectAreaCollision(Rectangle area)
+        {
+            var cm = ComponentManager.GetInstance();
+            List<int> foundEntities = new List<int>();
+            foreach (var entity in cm.GetComponentsOfType<CollisionComponent>())
+            {
+                CollisionComponent collisionComponent = (CollisionComponent)entity.Value;
+
+                if (area.Intersects(collisionComponent.collisionBox))
+                {
+                    //Collision detected, add them to the list
+                    foundEntities.Add(entity.Key);
+                }
+            }
+            return foundEntities;
+        }
+
         private void ResolveCollision(Tuple<int, CollisionComponent, PositionComponent> e1, Tuple<int, CollisionComponent, PositionComponent> e2)
         {
             ComponentManager cm = ComponentManager.GetInstance();
@@ -60,6 +77,9 @@ namespace GameEngine
             {
                 e2.Item3.position += -m2.Direction.ToVector2() * m2.Speed;
             }
+
+            e1.Item2.onHit?.Invoke(e2.Item1);
+            e2.Item2.onHit?.Invoke(e1.Item1);
         }
     }
 }
