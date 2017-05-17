@@ -6,7 +6,6 @@ namespace GameEngine
 {
     class RenderGUISystem : IRenderSystem
     {
-
         public void Render(RenderHelper rh)
         {
             ComponentManager cm = ComponentManager.GetInstance();

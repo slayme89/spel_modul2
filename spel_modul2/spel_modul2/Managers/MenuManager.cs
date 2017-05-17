@@ -30,7 +30,6 @@
 
 
 
-
         public static void ClearAllButtons()
         {
             ComponentManager cm = ComponentManager.GetInstance();

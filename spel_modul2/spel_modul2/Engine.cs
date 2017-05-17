@@ -251,11 +251,19 @@ namespace GameEngine
             //Menu
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new MenuBackgroundComponent("MainMenuBackground", "Menu/MenuBackground", new Vector2(0, 0), RenderLayer.Menubackground),
+                new MenuBackgroundComponent("MainMenuBackground", "Menu/MenuBackgroundBlack", new Point(0, 0), RenderLayer.Menubackground),
                 new MenuButtonComponent("MainPlay", MenuManager.Play, "Menu/PlayNormal", "Menu/PlayHighlight", new Vector2(100, 100), RenderLayer.MenuButton),
-                //new MenuButtonComponent("MainOptions", null, "Menu/OptionsNormal", "Menu/OptionsHighlight", new Vector2(100, 140), RenderLayer.MenuButton),
-                //new MenuButtonComponent("MainQuit", null, "Menu/PlayNormal", "Menu/QuitHighlight", new Vector2(100, 180), RenderLayer.MenuButton),
             });
+
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                new MenuButtonComponent("MainOptions", null, "Menu/OptionsNormal", "Menu/OptionsHighlight", new Vector2(100, 140), RenderLayer.MenuButton),
+            });
+
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+           {   
+               new MenuButtonComponent("MainQuit", null, "Menu/QuitNormal", "Menu/QuitHighlight", new Vector2(100, 180), RenderLayer.MenuButton),
+           });
 
             sm.GetSystem<AnimationLoaderSystem>().Load(Content);
             sm.GetSystem<TextureLoaderSystem>().Load(Content);

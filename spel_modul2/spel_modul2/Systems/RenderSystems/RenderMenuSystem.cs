@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine
@@ -22,9 +23,17 @@ namespace GameEngine
             foreach (var background in cm.GetComponentsOfType<MenuBackgroundComponent>())
             {
                 MenuBackgroundComponent backgroundComp = (MenuBackgroundComponent)background.Value;
-
                 if (backgroundComp.IsActive)
-                    renderHelper.Draw(backgroundComp.Texture, backgroundComp.Position, backgroundComp.Layer);
+                {
+                    Rectangle containerRect = new Rectangle(
+                    backgroundComp.Position.X,
+                    backgroundComp.Position.Y,
+                    backgroundComp.Texture.Width,
+                    backgroundComp.Texture.Height
+                    );
+                    renderHelper.Draw(backgroundComp.Texture, containerRect, Color.White, RenderLayer.Menubackground);
+                }
+                
             }
         }
 

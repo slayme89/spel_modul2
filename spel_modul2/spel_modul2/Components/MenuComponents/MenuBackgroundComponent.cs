@@ -10,10 +10,10 @@ namespace GameEngine
         public string Name { get; set; }
         public string TexturePath { get; set; }
         public Texture2D Texture { get; set; }
-        public Vector2 Position { get; set; }
+        public Point Position { get; set; }
         public RenderLayer Layer { get; set; }
 
-        public MenuBackgroundComponent(string name, string texturePath, Vector2 position, RenderLayer layer)
+        public MenuBackgroundComponent(string name, string texturePath, Point position, RenderLayer layer)
         {
             IsActive = false;
             Name = name;
