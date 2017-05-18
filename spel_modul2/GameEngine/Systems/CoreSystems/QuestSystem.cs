@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using GameEngine.Components;
+using GameEngine.Managers;
 
 namespace GameEngine.Systems
 {
