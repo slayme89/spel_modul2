@@ -39,18 +39,23 @@ namespace GameEngine
 
                 if(StateManager.GetInstance().GetState() == "Menu")
                 {
+                    if (!IsInit)
+                        InitMenu();
+                    if (!IsActive)
+                        IsActive = true;
+
                     if (SelectCooldown <= 0.0f)
                     {
                         SelectCooldown = MaxSelectCooldown;
                         Vector2 stickDir = new Vector2(contComp.Movement.GetDirection().Y, contComp.Movement.GetDirection().X);
                         //Check navigation in the menu
-                        if (Math.Abs(stickDir.X) > 0.1f)
+                        if (Math.Abs(stickDir.Y) > 0.1f)
                         {
                             //if the stick has been pushed in a direction
                             Point direction = MoveSystem.CalcDirection(stickDir.X, stickDir.Y);
 
                             cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Ishighlighted = false;
-                            SelectedButton = (SelectedButton + direction.X) % i;
+                            SelectedButton = (SelectedButton + direction.Y) % i;
                             if (SelectedButton < 0)
                                 SelectedButton = i - 1;
                             cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Ishighlighted = true;
