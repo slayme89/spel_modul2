@@ -48,13 +48,13 @@ namespace GameEngine
                     {
                         if (invenComp.selectSlotCurCooldown <= 0.0f)
                         {
-                            Vector2 stickDir = new Vector2(playerComp.Movement.GetDirection().Y, playerComp.Movement.GetDirection().X);
+                            Vector2 stickDir = playerComp.Movement.GetDirection();
 
                             invenComp.selectSlotCurCooldown = invenComp.SelectSlotDelay;
                             if (Math.Abs(stickDir.X) > 0.5f || Math.Abs(stickDir.Y) > 0.5f)
                             {
                                 //if the stick has been pushed in a direction
-                                Point direction = MoveSystem.CalcDirection(stickDir.X, stickDir.Y);
+                                Point direction = MoveSystem.CalcDirection(stickDir.Y, stickDir.X);
                                 Point nextSlot = invenComp.SelectedSlot + direction;
 
                                 UpdateNextSelectedPos(ref nextSlot, invenComp.SelectedSlot);
@@ -69,7 +69,7 @@ namespace GameEngine
                             else if (playerComp.Interact.IsButtonDown())
                             {
                                 //calculate the location of the selected slot in the items array
-                                int selectedArraySlot = invenComp.SelectedSlot.Y + (invenComp.ColumnsRows.X) * invenComp.SelectedSlot.X;
+                                int selectedArraySlot = invenComp.SelectedSlot.X + (invenComp.ColumnsRows.Y) * invenComp.SelectedSlot.Y;
                                 //if no item is held
                                 if (invenComp.HeldItem == 0)
                                 {
@@ -89,16 +89,16 @@ namespace GameEngine
                                         if (statComp.SpendableStats > 0)
                                         {
                                             //Increase the selected stat
-                                            if (invenComp.SelectedSlot.X == -1)
+                                            if (invenComp.SelectedSlot.Y == -1)
                                                 //increase int
                                                 statComp.AddInt += 1;
-                                            else if (invenComp.SelectedSlot.X == -2)
+                                            else if (invenComp.SelectedSlot.Y == -2)
                                                 //increase stamina
                                                 statComp.AddSta += 1;
-                                            else if (invenComp.SelectedSlot.X == -3)
+                                            else if (invenComp.SelectedSlot.Y == -3)
                                                 //increase agility
                                                 statComp.AddAgi += 1;
-                                            else if (invenComp.SelectedSlot.X == -4)
+                                            else if (invenComp.SelectedSlot.Y == -4)
                                                 //increase strength
                                                 statComp.AddStr += 1;
                                             statComp.SpendableStats--;
@@ -112,7 +112,7 @@ namespace GameEngine
                                     if (invenComp.LocationInInventory == LocationInInventory.Equipment)
                                     {
                                         //if our currently selected slot is in one of the equipment slots
-                                        int equipPos = Math.Abs(invenComp.SelectedSlot.X) - 1;
+                                        int equipPos = Math.Abs(invenComp.SelectedSlot.Y) - 1;
                                         if ((int)heldItemComp.Type == equipPos)
                                             if (invenComp.WeaponBodyHead[equipPos] == 0)
                                             {
@@ -159,7 +159,7 @@ namespace GameEngine
                             {
                                 if (invenComp.LocationInInventory == LocationInInventory.Bagspace)
                                 {
-                                    int selectedArraySlot = invenComp.SelectedSlot.Y + (invenComp.ColumnsRows.X) * invenComp.SelectedSlot.X;
+                                    int selectedArraySlot = invenComp.SelectedSlot.X + (invenComp.ColumnsRows.Y) * invenComp.SelectedSlot.Y;
                                     ItemComponent selectedItemComp = cm.GetComponentForEntity<ItemComponent>(invenComp.Items[selectedArraySlot]);
 
                                     if (selectedItemComp != null && (int)selectedItemComp.Type <= 2)
