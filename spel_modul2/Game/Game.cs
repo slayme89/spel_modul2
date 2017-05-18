@@ -1,6 +1,4 @@
-﻿using System;
-using GameEngine;
-using GameEngine.Components;
+﻿using GameEngine.Components;
 using Microsoft.Xna.Framework;
 using GameEngine.Managers;
 
@@ -45,15 +43,19 @@ namespace Game
             //GUI Stuff
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new GUIComponent("UI/DialogWindow", Viewport.TitleSafeArea.Width / 2 - 255, Viewport.TitleSafeArea.Bottom -104)
+                new GUIComponent("UI/DialogWindow", new Point(Viewport.TitleSafeArea.Width / 2 - 255, Viewport.TitleSafeArea.Bottom -104), RenderLayer.GUI2)
             });
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-               new GUIComponent("UI/Player1-Hp-Ene-Xp", Viewport.TitleSafeArea.Left, Viewport.TitleSafeArea.Top),
+               new GUIComponent("UI/Player1-Hp-Ene-Xp", new Point(Viewport.TitleSafeArea.Left, Viewport.TitleSafeArea.Top), RenderLayer.GUI2),
             });
 
-
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+           {
+               new GUIComponent("UI/Player2-Hp-Ene-Xp", new Point(Viewport.TitleSafeArea.Right, Viewport.TitleSafeArea.Top), RenderLayer.GUI2),
+           });
+           
             /*cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new TextureComponent("hej"),

@@ -58,7 +58,6 @@ namespace Game
                 new LevelComponent(1, 80),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
                 new ActionBarComponent(),
-                new GUIComponent("UI/Player1-Hp-Ene-Xp", GUIPosition.Left),
                 new InventoryComponent(5, 4),
                 new EnergyComponent(100),
                 new DamageComponent(),

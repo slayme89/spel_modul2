@@ -16,13 +16,11 @@ namespace GameEngine.Systems
                 if (entity.Value != null)
                 {
                     GUIComponent guiComponent = (GUIComponent)entity.Value;
-                    int x = guiComponent.ScreenPosition == GUIPosition.Left ? 0 : rh.graphicsDevice.Viewport.TitleSafeArea.Right - 108;
-                    int y = rh.graphicsDevice.Viewport.TitleSafeArea.Top;
-
+                    
                     Texture2D texture = guiComponent.Texture;
                     Rectangle containerRect = new Rectangle(
-                        x,
-                        y,
+                        guiComponent.ScreenPosition.X,
+                        guiComponent.ScreenPosition.Y,
                         guiComponent.Texture.Width,
                         guiComponent.Texture.Height
                         );
@@ -37,7 +35,7 @@ namespace GameEngine.Systems
             foreach (var entity in cm.GetComponentsOfType<GUIComponent>())
             {
                 GUIComponent guiComp = (GUIComponent)entity.Value;
-                guiComp.Texture = content.Load<Texture2D>(guiComp.TextureName);
+                guiComp.Texture = content.Load<Texture2D>(guiComp.TexturePath);
             }
         }
     }
