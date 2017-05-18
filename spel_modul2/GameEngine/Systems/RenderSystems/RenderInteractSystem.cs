@@ -12,13 +12,13 @@ namespace GameEngine.Systems
         {
             ComponentManager cm = ComponentManager.GetInstance();
 
-            foreach(var interactEntity in cm.GetComponentsOfType<InteractSystem>())
+            foreach(var interactEntity in cm.GetComponentsOfType<InteractComponent>())
             {
                 InteractComponent interact = (InteractComponent)interactEntity.Value;
 
-                if (interact.IsActive == true)
+                if (interact.IsActive)
                 {
-                    renderHelper.DrawString(interact.SpriteFont, interact.Text, interact.Position, Color.Black, RenderLayer.GUI2);
+                    renderHelper.DrawString(interact.SpriteFont, interact.Text, interact.Position, Color.Black, RenderLayer.GUI3);
                 }
             }
 
