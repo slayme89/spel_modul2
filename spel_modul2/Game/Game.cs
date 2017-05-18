@@ -37,6 +37,7 @@ namespace Game
             {
                 new PositionComponent(-200, 0),
                 new CollisionComponent(50, 50),
+                new InteractComponent(InteractType.Talk, "Hello darkness my old friend...", "NewSpriteFont", new Vector2(100, 100)),
             });
 
             cm.AddEntityWithComponents(factory.CreatePlayer(0, 0));

@@ -87,6 +87,7 @@ namespace GameEngine
                 new SkillLoaderSystem(),
                 new SkillSystem(),
                 new SkillManager(),
+                new RenderInteractSystem(),
             });
 
             base.Initialize();
@@ -106,6 +107,7 @@ namespace GameEngine
             sm.GetSystem<InventoryLoaderSystem>().Load(Content);
             sm.GetSystem<RenderMenuSystem>().Load(Content);
             sm.GetSystem<SkillLoaderSystem>().Load(Content);
+            sm.GetSystem<RenderInteractSystem>().Load(Content);
 
 
             sm.GetSystem<AnimationGroupLoaderSystem>().Load(Content);

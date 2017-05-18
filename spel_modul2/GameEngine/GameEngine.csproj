@@ -66,7 +66,6 @@
     <Compile Include="Components\CoreComponents\DamageComponent.cs" />
     <Compile Include="Components\CoreComponents\EnergyComponent.cs" />
     <Compile Include="Components\CoreComponents\KnockbackComponent.cs" />
-    <Compile Include="Components\CoreComponents\QuestComponent.cs" />
     <Compile Include="Components\CoreComponents\SkillComponent.cs" />
     <Compile Include="Components\MenuComponents\MenuBackgroundComponent.cs" />
     <Compile Include="Components\MenuComponents\MenuButtonComponent.cs" />
@@ -108,7 +107,6 @@
     <Compile Include="Systems\CoreSystems\DamageSystem.cs" />
     <Compile Include="Systems\CoreSystems\HealthSystem.cs" />
     <Compile Include="Systems\CoreSystems\KnockbackSystem.cs" />
-    <Compile Include="Systems\CoreSystems\QuestSystem.cs" />
     <Compile Include="Systems\LoaderSystems\AnimationLoaderSystem.cs" />
     <Compile Include="Systems\LoaderSystems\SkillLoaderSystem.cs" />
     <Compile Include="Systems\MenuSystem\MenuSystem.cs" />
@@ -121,7 +119,7 @@
     <Compile Include="Systems\RenderSystems\RenderActionbarSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderEnergySystem.cs" />
     <Compile Include="Systems\PlayerSystems\InputSystem.cs" />
-    <Compile Include="Systems\PlayerSystems\InteractSystem.cs" />
+    <Compile Include="Systems\CoreSystems\InteractSystem.cs" />
     <Compile Include="Systems\PlayerSystems\InventorySystem.cs" />
     <Compile Include="Systems\ISystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -135,6 +133,7 @@
     <Compile Include="Systems\RenderSystems\RenderExperienceSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderGUISystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderHealthSystem.cs" />
+    <Compile Include="Systems\RenderSystems\RenderInteractSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderInventorySystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderMenuSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderSystem.cs" />

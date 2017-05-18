@@ -23,10 +23,23 @@ namespace GameEngine.Systems
                     {
                         if (controlComponent.Interact.IsButtonDown())
                         {
+                            // Its a trap
                             if (cm.GetComponentForEntity<InteractComponent>(closestInteractable).Type == InteractType.Trap)
                                 cm.GetComponentForEntity<DamageComponent>(player.Key).IncomingDamage.Add(closestInteractable);
-                            // Interact with closest interactable entity
-                            // Temp
+                            // Talk (show text)
+                            else if(cm.GetComponentForEntity<InteractComponent>(closestInteractable).Type == InteractType.Talk)
+                            {
+                                foreach(var inter in cm.GetComponentsOfType<InteractComponent>())
+                                {
+                                    InteractComponent intComp = (InteractComponent)inter.Value;
+                                    intComp.IsActive = false;
+                                }
+
+                                InteractComponent interactComp = cm.GetComponentForEntity<InteractComponent>(closestInteractable);
+                                interactComp.IsActive = true;
+                            }
+
+                           
                         }
                     }
                 }

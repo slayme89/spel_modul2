@@ -19,18 +19,18 @@ namespace GameEngine.Components
 
         public AnimationComponent(string spritesheetFilename, Point sheetSize, int frameDuration)
         {
-            this.SpritesheetFilename = spritesheetFilename;
-            this.SheetSize = sheetSize;
-            this.FrameDuration = frameDuration;
+            SpritesheetFilename = spritesheetFilename;
+            SheetSize = sheetSize;
+            FrameDuration = frameDuration;
             Layer = RenderLayer.Layer1;
         }
 
         public AnimationComponent(string spritesheetFilename, Point sheetSize, int frameDuration, RenderLayer layer)
         {
-            this.SpritesheetFilename = spritesheetFilename;
-            this.SheetSize = sheetSize;
-            this.FrameDuration = frameDuration;
-            this.Layer = layer;
+            SpritesheetFilename = spritesheetFilename;
+            SheetSize = sheetSize;
+            FrameDuration = frameDuration;
+            Layer = layer;
         }
     }
 }
