@@ -45,11 +45,6 @@ namespace Game
             {
                 new GUIComponent("UI/DialogWindow", new Point(Viewport.TitleSafeArea.Width / 2 - 255, Viewport.TitleSafeArea.Bottom -104), RenderLayer.GUI2)
             });
-
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-                new SkillComponent(SkillManager.HeavyAttack, 10, 0, "HeavyAttack")
-            });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                new GUIComponent("UI/Player1-Hp-Ene-Xp", new Point(Viewport.TitleSafeArea.Left, Viewport.TitleSafeArea.Top), RenderLayer.GUI2),

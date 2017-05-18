@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine.Components;
+using GameEngine.Systems;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -21,8 +23,8 @@ namespace GameEngine.Managers
             StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity);
             int width = 70;
             int height = 70;
-            Point attackPoint = new Point(moveComp.Direction.X * ((width/2) + (collComp.collisionBox.Size.X/2)) - (width/2), moveComp.Direction.Y * ((height/2) + (collComp.collisionBox.Size.Y/2)) - (height/2));
-            Rectangle areOfEffect = new Rectangle(posComp.position.ToPoint() + attackPoint , new Point(width, height));
+            Point attackPoint = new Point(moveComp.Direction.X * ((width/2) + (collComp.CollisionBox.Size.X/2)) - (width/2), moveComp.Direction.Y * ((height/2) + (collComp.CollisionBox.Size.Y/2)) - (height/2));
+            Rectangle areOfEffect = new Rectangle(posComp.Position.ToPoint() + attackPoint , new Point(width, height));
             heavyAttack = areOfEffect;
             List<int> entitiesHit = CollisionSystem.DetectAreaCollision(areOfEffect);
             foreach(int entityHit in entitiesHit)

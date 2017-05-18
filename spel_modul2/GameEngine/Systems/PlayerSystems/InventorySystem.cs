@@ -33,14 +33,14 @@ namespace GameEngine.Systems
                             if (invenComp.IsOpen)
                             {
                                 attackComp.CanAttack = true;
-                                moveComp.canMove = true;
-                                moveComp.Velocity = new Vector2(0.0f, 0.0f);
+                                moveComp.CanMove = true;
                                 invenComp.HeldItem = 0;
                                 invenComp.IsOpen = false;
                             }
                             else
                             {
                                 attackComp.CanAttack = false;
+                                moveComp.Velocity = new Vector2(0.0f, 0.0f);
                                 moveComp.CanMove = false;
                                 invenComp.IsOpen = true;
                             }
