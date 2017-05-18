@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using GameEngine.Managers;
 
 namespace Game
 {
@@ -25,6 +26,16 @@ namespace Game
             };
         }
 
+        public void AddTree(int x, int y)
+        {
+            ComponentManager cm = ComponentManager.GetInstance();
+
+            cm.AddEntityWithComponents(new TextureComponent("tree1_layer1", RenderLayer.Background2), new PositionComponent(x, y));
+            cm.AddEntityWithComponents(new TextureComponent("tree1_layer2", RenderLayer.Background3), new PositionComponent(x, y));
+            cm.AddEntityWithComponents(new TextureComponent("tree1_layer3", RenderLayer.Layer2), new PositionComponent(x, y));
+            cm.AddEntityWithComponents(new CollisionComponent(23, 19), new PositionComponent(x + 1, y + 22));
+        }
+
         public IComponent[] CreatePlayer(int x, int y)
         {
             return new IComponent[]
@@ -41,7 +52,7 @@ namespace Game
                 new PositionComponent(x, y),
                 new MoveComponent(0.2f),
                 new PlayerControlComponent(ControllerType.Keyboard),
-                new CollisionComponent(50, 50),
+                new CollisionComponent(10, 15),
                 new AttackComponent(10, 0.3f, 0.1f, WeaponType.Sword),
                 new PlayerComponent(1),
                 new LevelComponent(1, 80),

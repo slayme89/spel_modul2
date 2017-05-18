@@ -18,11 +18,13 @@ namespace Game
             ComponentManager cm = ComponentManager.GetInstance();
             EntityFactory factory = new EntityFactory();
 
+            factory.AddTree(-100, -100);
+
             for (int i = -640; i <= 640; i += 128)
             {
                 cm.AddEntityWithComponents(new IComponent[]
                 {
-                    new TextureComponent("road1", RenderLayer.Background2),
+                    new TextureComponent("road1", RenderLayer.Background1),
                     new PositionComponent(i, 150),
                 });
             }
