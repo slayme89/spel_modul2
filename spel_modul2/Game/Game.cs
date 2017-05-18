@@ -1,6 +1,7 @@
 ﻿using GameEngine.Components;
 using Microsoft.Xna.Framework;
 using GameEngine.Managers;
+using System;
 
 namespace Game
 {
@@ -38,6 +39,22 @@ namespace Game
                 new PositionComponent(-200, 0),
                 new CollisionComponent(50, 50),
                 new InteractComponent(InteractType.Talk, "Hello darkness my old friend...", "NewSpriteFont", new Vector2(100, 100)),
+            });
+
+            cm.AddEntityWithComponents(new IComponent[]
+            {
+                new PositionComponent(0, 0),
+                new AnimationGroupComponent("PlayerAnimation/PlayerArmsSpritesheetBIG", new Point(4, 8), 150,
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 4), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 5), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 6), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 7), new Point(4, 1)),
+                }),
             });
 
             cm.AddEntityWithComponents(factory.CreatePlayer(0, 0));

@@ -15,14 +15,11 @@ namespace GameEngine.Systems
                 SkillComponent skillComponent = (SkillComponent)entity.Value;
                 foreach (int entityUser in skillComponent.UsingEntities)
                 {
-                    Debug.WriteLine("inne med usingentities");
                     if (cm.HasEntityComponent<EnergyComponent>(entityUser))
                     {
-                        Debug.WriteLine("inne och har energycomp");
                         EnergyComponent energyComponent = cm.GetComponentForEntity<EnergyComponent>(entityUser);
                         if(skillComponent.EnergyCost < energyComponent.Current)
                         {
-                            Debug.WriteLine("Inne och använder skill");
                             skillComponent.Use(entityUser);
                             energyComponent.Current -= skillComponent.EnergyCost;
                             skillComponent.CooldownTimer = skillComponent.Cooldown;

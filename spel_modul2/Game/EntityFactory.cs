@@ -52,7 +52,7 @@ namespace Game
                 new PositionComponent(x, y),
                 new MoveComponent(0.2f),
                 new PlayerControlComponent(ControllerType.Keyboard),
-                new CollisionComponent(10, 15),
+                new CollisionComponent(50, 70),
                 new AttackComponent(10, 0.3f, 0.1f, WeaponType.Sword),
                 new PlayerComponent(1),
                 new LevelComponent(1, 80),

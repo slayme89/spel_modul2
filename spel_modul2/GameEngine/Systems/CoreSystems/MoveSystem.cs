@@ -23,6 +23,12 @@ namespace GameEngine.Systems
                 // Check for direction
                 if(moveComponent.Velocity != new Vector2(0.0f, 0.0f))
                     moveComponent.Direction = CalcDirection(x, y);
+
+                if(cm.HasEntityComponent<AnimationGroupComponent>(entity.Key)){
+                    AnimationGroupComponent animGroupComp = cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key);
+                    animGroupComp.IsPaused = false;
+                    animGroupComp.ActiveAnimation = 2;
+                }
             }
         }
 
