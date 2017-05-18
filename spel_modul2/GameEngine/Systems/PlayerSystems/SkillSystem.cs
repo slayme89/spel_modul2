@@ -1,6 +1,7 @@
 ﻿using GameEngine.Components;
 using GameEngine.Managers;
 using Microsoft.Xna.Framework;
+using System.Diagnostics;
 
 namespace GameEngine.Systems
 {
@@ -11,22 +12,34 @@ namespace GameEngine.Systems
             ComponentManager cm = ComponentManager.GetInstance();
             foreach (var entity in cm.GetComponentsOfType<SkillComponent>())
             {
-                SkillComponent skillComponenet = cm.GetComponentForEntity<SkillComponent>(entity.Key);
-                if (skillComponenet.IsActivated && cm.HasEntityComponent<EnergyComponent>(entity.Key) && cm.HasEntityComponent<AttackComponent>(entity.Key))
+                SkillComponent skillComponent = (SkillComponent)entity.Value;
+                foreach (int entityUser in skillComponent.UsingEntities)
                 {
-                    AttackComponent attackComponent = cm.GetComponentForEntity<AttackComponent>(entity.Key);
-                    EnergyComponent energyComponent = cm.GetComponentForEntity<EnergyComponent>(entity.Key);
-                    if (skillComponenet.CooldownTimer <= 0 && skillComponenet.EnergyCost < energyComponent.Current)
+                    Debug.WriteLine("inne med usingentities");
+                    if (cm.HasEntityComponent<EnergyComponent>(entityUser))
                     {
-                        skillComponenet.Use(entity.Key);
-                        energyComponent.Current -= skillComponenet.EnergyCost;
-                        skillComponenet.CooldownTimer = skillComponenet.Cooldown;
+                        Debug.WriteLine("inne och har energycomp");
+                        EnergyComponent energyComponent = cm.GetComponentForEntity<EnergyComponent>(entityUser);
+                        if(skillComponent.EnergyCost < energyComponent.Current)
+                        {
+                            Debug.WriteLine("Inne och använder skill");
+                            skillComponent.Use(entityUser);
+                            energyComponent.Current -= skillComponent.EnergyCost;
+                            skillComponent.CooldownTimer = skillComponent.Cooldown;
                     }
-                    else
-                    {
-                        skillComponenet.CooldownTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        //if (skillComponenet.CooldownTimer <= 0 && skillComponenet.EnergyCost < energyComponent.Current)
+                        //{
+                        //    skillComponenet.Use(entityUser);
+                        //    energyComponent.Current -= skillComponenet.EnergyCost;
+                        //    skillComponenet.CooldownTimer = skillComponenet.Cooldown;
+                        //}
+                        //else
+                        //{
+                        //    skillComponenet.CooldownTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        //}
                     }
                 }
+                skillComponent.UsingEntities.Clear();
             }
         }
     }

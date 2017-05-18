@@ -18,11 +18,11 @@ namespace GameEngine.Systems
                 {
                     InventoryComponent invenComp = cm.GetComponentForEntity<InventoryComponent>(entity.Key);
                     //Test to add item press 1 on the keyboard or rt + a on gamepad
-                    if (playerComp.ActionBar1.IsButtonDown())
-                    {
-                        foreach (var item in cm.GetComponentsOfType<ItemComponent>())
-                            AddItemToInventory(entity.Key, item.Key);
-                    }
+                    //if (playerComp.ActionBar1.IsButtonDown())
+                    //{
+                    //    foreach (var item in cm.GetComponentsOfType<ItemComponent>())
+                    //        AddItemToInventory(entity.Key, item.Key);
+                    //}
 
                     if (playerComp.Inventory.IsButtonDown())
                     {
@@ -33,7 +33,8 @@ namespace GameEngine.Systems
                             if (invenComp.IsOpen)
                             {
                                 attackComp.CanAttack = true;
-                                moveComp.CanMove = true;
+                                moveComp.canMove = true;
+                                moveComp.Velocity = new Vector2(0.0f, 0.0f);
                                 invenComp.HeldItem = 0;
                                 invenComp.IsOpen = false;
                             }
@@ -105,6 +106,13 @@ namespace GameEngine.Systems
                                             statComp.SpendableStats--;
                                         }
                                     }
+                                    else if (invenComp.LocationInInventory == LocationInInventory.Skills)
+                                    {
+                                        StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity.Key);
+                                        //Choose the skill selected if it has not already been picked and prerequisite requirements have been met
+                                        if (ChooseAvailableSkill(ref invenComp, GetSelectedSkillSlot(invenComp.SelectedSlot.X, invenComp.SelectedSlot.Y)))
+                                            statComp.SpendableStats -= 5;
+                                }
                                 }
                                 else
                                 {
@@ -188,10 +196,23 @@ namespace GameEngine.Systems
                             }
                             else if (cm.HasEntityComponent<ActionBarComponent>(entity.Key))
                             {
+                                
                                 ActionBarComponent actionBComp = cm.GetComponentForEntity<ActionBarComponent>(entity.Key);
                                 if (playerComp.ActionBar1.IsButtonDown())
                                 {
-
+                                    int selectedArraySlot = 0;
+                                    if (invenComp.LocationInInventory == LocationInInventory.Bagspace)
+                                    {
+                                        selectedArraySlot = invenComp.SelectedSlot.Y + (invenComp.ColumnsRows.X) * invenComp.SelectedSlot.X;
+                                        if(invenComp.Items[selectedArraySlot] != 0)
+                                            actionBComp.Slots[0] = cm.GetComponentForEntity<ItemComponent>(invenComp.Items[selectedArraySlot]);
+                                    }
+                                    else if (invenComp.LocationInInventory == LocationInInventory.Skills)
+                                    {
+                                        selectedArraySlot = GetSelectedSkillSlot(invenComp.SelectedSlot.X, invenComp.SelectedSlot.Y);
+                                        if (invenComp.Skills[selectedArraySlot] != 0)
+                                            actionBComp.Slots[0] = cm.GetComponentForEntity<SkillComponent>(invenComp.Skills[selectedArraySlot]);
+                                    }
                                 }
                                 else if (playerComp.ActionBar2.IsButtonDown())
                                 {
@@ -245,8 +266,9 @@ namespace GameEngine.Systems
             {
                 //inside stat
                 invenComp.LocationInInventory = LocationInInventory.Stats;
-            }else if ((nextSlot.Y == 3 && nextSlot.X >= -6)
-                || nextSlot.X <=-1
+            }
+            else if ((nextSlot.Y == 3 && nextSlot.X >= -6)
+               || nextSlot.X <= -1
                 && nextSlot.X >= -3
                 && nextSlot.Y <= 4
                 && nextSlot.Y >= 2)
@@ -258,6 +280,73 @@ namespace GameEngine.Systems
             return true;
         }
 
+        int GetSelectedSkillSlot(int x, int y)
+        {
+            int selectedSkillSlot = x + y;
+
+
+            switch (y)
+            {
+                case 2:
+                    return selectedSkillSlot + 1;
+                case 3:
+                    return selectedSkillSlot + 6;
+                case 4:
+                    return selectedSkillSlot + 8;
+                default:
+                    return selectedSkillSlot;
+            }
+        }
+
+        //returns, true if we managed to pick a new skill, otherwise false
+        bool ChooseAvailableSkill(ref InventoryComponent invenComp, int selectedSkillSlot)
+        {
+            if (invenComp.Skills[selectedSkillSlot] == 0 && invenComp.NotPickedSkills[selectedSkillSlot] != 0)
+                switch (selectedSkillSlot)
+                {
+                    case 3:
+                        if (invenComp.Skills[0] != 0)
+                            invenComp.Skills[selectedSkillSlot] = invenComp.NotPickedSkills[selectedSkillSlot];
+                        return true;
+                    case 4:
+                        if (invenComp.Skills[0] != 0)
+                            invenComp.Skills[selectedSkillSlot] = invenComp.NotPickedSkills[selectedSkillSlot];
+                        return true;
+                    case 5:
+                        if (invenComp.Skills[1] != 0)
+                            invenComp.Skills[selectedSkillSlot] = invenComp.NotPickedSkills[selectedSkillSlot];
+                        return true;
+                    case 6:
+                        if (invenComp.Skills[1] != 0)
+                            invenComp.Skills[selectedSkillSlot] = invenComp.NotPickedSkills[selectedSkillSlot];
+                        return true;
+                    case 7:
+                        if (invenComp.Skills[2] != 0)
+                            invenComp.Skills[selectedSkillSlot] = invenComp.NotPickedSkills[selectedSkillSlot];
+                        return true;
+                    case 8:
+                        if (invenComp.Skills[2] != 0)
+                            invenComp.Skills[selectedSkillSlot] = invenComp.NotPickedSkills[selectedSkillSlot];
+                        return true;
+                    case 9:
+                        if (invenComp.Skills[3] != 0 || invenComp.Skills[4] != 0)
+                            invenComp.Skills[selectedSkillSlot] = invenComp.NotPickedSkills[selectedSkillSlot];
+                        return true;
+                    case 10:
+                        if (invenComp.Skills[5] != 0 || invenComp.Skills[6] != 0)
+                            invenComp.Skills[selectedSkillSlot] = invenComp.NotPickedSkills[selectedSkillSlot];
+                        return true;
+                    case 11:
+                        if (invenComp.Skills[7] != 0 || invenComp.Skills[8] != 0)
+                            invenComp.Skills[selectedSkillSlot] = invenComp.NotPickedSkills[selectedSkillSlot];
+                        return true;
+                    default:
+                        invenComp.Skills[selectedSkillSlot] = invenComp.NotPickedSkills[selectedSkillSlot];
+                        return true;
+                }
+            return false;
+        }
+
         void UpdateNextSelectedPos(ref Point nextSlot, Point selectedSlot)
         {
             // Manages special movment between slots. 
@@ -265,15 +354,17 @@ namespace GameEngine.Systems
                 nextSlot.Y = 0;
             if (selectedSlot.X == -4 && nextSlot.Y == 0)
                 nextSlot.X = -3;
-            if (selectedSlot.Y == 3) {
-                if(nextSlot.Y == 2 || nextSlot.Y == 4)
+            if (selectedSlot.Y == 3)
+            {
+                if (nextSlot.Y == 2 || nextSlot.Y == 4)
                     if (selectedSlot.X <= -5)
                         nextSlot.X = -3;
                     else if (selectedSlot.X <= -3)
                         nextSlot.X = -2;
                     else if (selectedSlot.X <= -1)
                         nextSlot.X = -1;
-            }else if (selectedSlot.Y == 2 || selectedSlot.Y == 4)
+            }
+            else if (selectedSlot.Y == 2 || selectedSlot.Y == 4)
                 if (selectedSlot.X == -3 && nextSlot.Y == 3)
                     nextSlot.X = -5;
                 else if (selectedSlot.X == -2 && nextSlot.Y == 3)

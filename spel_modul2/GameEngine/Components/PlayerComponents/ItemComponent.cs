@@ -14,7 +14,6 @@ namespace GameEngine.Components
     public class ItemComponent : IComponent, ActionBarSlotComponent
     {
         public int InventoryPosition { get; set; }
-        public int ActionBarPosition { get; set; }
         public string TextureFileName { get; set; }
         public Texture2D ItemIcon { get; set; }
         public ItemType Type { get; set; }

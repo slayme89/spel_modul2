@@ -25,6 +25,14 @@ namespace GameEngine.Systems
                 {
                     Rectangle actionBarSlot = new Rectangle(new Point(actionBarComp.PositionOnScreen.X + (actionBarComp.SlotSize.X + 5) * slot + 5, actionBarComp.PositionOnScreen.Y + 5), actionBarComp.SlotSize);
                     renderHelper.DrawFilledRectangle(actionBarSlot, Color.Gray, RenderLayer.GUI2);
+                    if(actionBarComp.Slots[slot] != null)
+                    {
+                        
+                        if (actionBarComp.Slots[slot].IsItem)
+                            renderHelper.Draw(((ItemComponent)actionBarComp.Slots[slot]).ItemIcon, actionBarSlot, Color.AliceBlue, RenderLayer.GUI3);
+                        else
+                            renderHelper.Draw(((SkillComponent)actionBarComp.Slots[slot]).SkillIcon, actionBarSlot, Color.AliceBlue, RenderLayer.GUI3);
+                    }
 
                 }
             }

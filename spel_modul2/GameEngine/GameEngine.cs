@@ -85,6 +85,8 @@ namespace GameEngine
                 new MenuSystem(),
                 new RenderMenuSystem(),
                 new SkillLoaderSystem(),
+                new SkillSystem(),
+                new SkillManager(),
             });
 
             base.Initialize();
