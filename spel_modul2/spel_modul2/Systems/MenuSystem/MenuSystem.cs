@@ -47,9 +47,9 @@ namespace GameEngine
                     if (SelectCooldown <= 0.0f)
                     {
                         SelectCooldown = MaxSelectCooldown;
-                        Vector2 stickDir = new Vector2(contComp.Movement.GetDirection().Y, contComp.Movement.GetDirection().X);
+                        Vector2 stickDir = contComp.Movement.GetDirection();
                         //Check navigation in the menu
-                        if (Math.Abs(stickDir.Y) > 0.1f)
+                        if (Math.Abs(stickDir.Y) > 0.5f)
                         {
                             //if the stick has been pushed in a direction
                             Point direction = MoveSystem.CalcDirection(stickDir.X, stickDir.Y);
