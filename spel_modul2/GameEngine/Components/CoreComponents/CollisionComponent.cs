@@ -4,11 +4,21 @@ namespace GameEngine.Components
 {
     public class CollisionComponent : IComponent
     {
-        public Rectangle collisionBox;
+        public Rectangle CollisionBox;
+        public Point Offset;
+
         public CollisionComponent(int width, int height)
         {
-            collisionBox.Height = height;
-            collisionBox.Width = width;
+            CollisionBox.Width = width;
+            CollisionBox.Height = height;
+            Offset = new Point(0, 0);
+        }
+
+        public CollisionComponent(Point size, Point offset)
+        {
+            CollisionBox.Width = size.X;
+            CollisionBox.Height = size.Y;
+            Offset = offset;
         }
     }
 }

@@ -5,21 +5,21 @@ namespace GameEngine.Components
 {
     public class TextureComponent : IComponent
     {
-        public string textureFilename;
-        public Texture2D texture;
-        public Point offset;
-        public RenderLayer layer;
+        public string TextureFilename;
+        public Texture2D Texture;
+        public Point Offset;
+        public RenderLayer Layer;
 
         public TextureComponent(string textureFilename)
         {
-            this.textureFilename = textureFilename;
-            layer = RenderLayer.Layer1;
+            TextureFilename = textureFilename;
+            Layer = RenderLayer.Layer1;
         }
 
         public TextureComponent(string textureFilename, RenderLayer layer)
         {
-            this.textureFilename = textureFilename;
-            this.layer = layer;
+            TextureFilename = textureFilename;
+            Layer = layer;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace GameEngine.Managers
             int width = 40;
             int height = 40;
             Point attackPoint = new Point(moveComp.Direction.X * (width/2), moveComp.Direction.Y * (height/2));
-            Rectangle areOfEffect = new Rectangle(posComp.position.ToPoint() + attackPoint, new Point(width, height));
+            Rectangle areOfEffect = new Rectangle(posComp.Position.ToPoint() + attackPoint, new Point(width, height));
             List<int> entitiesHit = CollisionSystem.DetectAreaCollision(areOfEffect);
             foreach(int entityHit in entitiesHit)
             {

@@ -17,7 +17,7 @@ namespace GameEngine.Systems
                 {
                     PlayerControlComponent controlComponent = cm.GetComponentForEntity<PlayerControlComponent>(player.Key);
                     PositionComponent playerPositionComponent = cm.GetComponentForEntity<PositionComponent>(player.Key);
-                    int closestInteractable = FindClosestInteractable(playerPositionComponent.position);
+                    int closestInteractable = FindClosestInteractable(playerPositionComponent.Position);
 
                     if (closestInteractable != -1)
                     {
@@ -41,7 +41,7 @@ namespace GameEngine.Systems
             foreach (var entity in cm.GetComponentsOfType<InteractComponent>())
             {
                 PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(entity.Key);
-                float distance = Vector2.Distance(position, positionComponent.position);
+                float distance = Vector2.Distance(position, positionComponent.Position);
                 if(distance < closestDist)
                 {
                     closestNr = entity.Key;

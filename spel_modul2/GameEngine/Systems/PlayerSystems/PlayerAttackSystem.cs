@@ -24,7 +24,7 @@ namespace GameEngine.Systems
                             {
                                 if (attackComponent.AttackCooldown <= 0.0f)
                                 {
-                                    moveComponent.canMove = false;
+                                    moveComponent.CanMove = false;
                                     cm.GetComponentForEntity<SoundComponent>(Entity.Key).PlayAttackSound = true;
                                     attackComponent.AttackCooldown = attackComponent.RateOfFire;
                                     attackComponent.IsAttacking = true;
@@ -33,7 +33,7 @@ namespace GameEngine.Systems
                             if (attackComponent.AttackCooldown > 0.0f)
                                 attackComponent.AttackCooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                             else
-                                moveComponent.canMove = true;
+                                moveComponent.CanMove = true;
                         }
                     }
                 }

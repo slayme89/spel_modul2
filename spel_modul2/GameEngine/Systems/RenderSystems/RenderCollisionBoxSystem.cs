@@ -23,9 +23,9 @@ namespace GameEngine.Systems
 
                 if (cm.GetComponentsForEntity(entity, out collisionComponent, out positionComponent))
                 {
-                    Rectangle bb = collisionComponent.collisionBox;
+                    Rectangle bb = collisionComponent.CollisionBox;
                     bb.Offset(-bb.Width / 2, -bb.Height / 2);
-                    bb.Offset(positionComponent.position);
+                    bb.Offset(positionComponent.Position);
                     rh.DrawRectangle(bb.WorldToScreen(ref viewport), 2, Color.Yellow, RenderLayer.Foreground1);
                 }
             }

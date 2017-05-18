@@ -31,7 +31,7 @@ namespace GameEngine.Systems
             x *= elapsedSeconds * speed;
             y *= elapsedSeconds * speed;
 
-            pos.position += new Vector2(x, y);
+            pos.Position += new Vector2(x, y);
             
             /*for (float i = 1; i > 0.1; i *= 0.8f)
             {

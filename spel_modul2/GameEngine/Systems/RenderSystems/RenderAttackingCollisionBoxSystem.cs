@@ -23,9 +23,9 @@ namespace GameEngine.Systems
                     if (attackComponent.Type == WeaponType.Sword)
                     {
                         CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(Entity.Key);
-                        int range = collisionComponent.collisionBox.Size.X;
-                        Point hitOffset = new Point((collisionComponent.collisionBox.Width / 2), (collisionComponent.collisionBox.Height / 2));
-                        Rectangle hitArea = new Rectangle(positionComponent.position.ToPoint() - hitOffset + moveComponent.Direction * new Point(range, range), collisionComponent.collisionBox.Size).WorldToScreen(ref viewport);
+                        int range = collisionComponent.CollisionBox.Size.X;
+                        Point hitOffset = new Point((collisionComponent.CollisionBox.Width / 2), (collisionComponent.CollisionBox.Height / 2));
+                        Rectangle hitArea = new Rectangle(positionComponent.Position.ToPoint() - hitOffset + moveComponent.Direction * new Point(range, range), collisionComponent.CollisionBox.Size).WorldToScreen(ref viewport);
                         if(attackComponent.IsAttacking)
                             rh.DrawFilledRectangle(hitArea, Color.Red, RenderLayer.Foreground1);
                         else

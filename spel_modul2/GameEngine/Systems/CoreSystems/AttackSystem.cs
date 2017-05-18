@@ -26,8 +26,8 @@ namespace GameEngine.Systems
                             {
                                 attackComponent.IsAttacking = false;
                                 attackComponent.AttackChargeUp = attackComponent.AttackDelay;
-                                attackComponent.attackCollisionBox = GetAttackRect(entity.Key);
-                                foreach (int entityID in CollisionSystem.DetectAreaCollision(attackComponent.attackCollisionBox))
+                                attackComponent.AttackCollisionBox = GetAttackRect(entity.Key);
+                                foreach (int entityID in CollisionSystem.DetectAreaCollision(attackComponent.AttackCollisionBox))
                                 {
                                     if (entityID == entity.Key)
                                         continue;
@@ -65,9 +65,9 @@ namespace GameEngine.Systems
                 MoveComponent moveComponent = cm.GetComponentForEntity<MoveComponent>(key);
                 CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(key);
                 PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(key);
-                int range = collisionComponent.collisionBox.Size.X;
-                Point hitOffset = new Point((collisionComponent.collisionBox.Width / 2), (collisionComponent.collisionBox.Height / 2));
-                return new Rectangle(positionComponent.position.ToPoint() - hitOffset + moveComponent.Direction * new Point(range, range), collisionComponent.collisionBox.Size);
+                int range = collisionComponent.CollisionBox.Size.X;
+                Point hitOffset = new Point((collisionComponent.CollisionBox.Width / 2), (collisionComponent.CollisionBox.Height / 2));
+                return new Rectangle(positionComponent.Position.ToPoint() - hitOffset + moveComponent.Direction * new Point(range, range), collisionComponent.CollisionBox.Size);
             }
             else
             {

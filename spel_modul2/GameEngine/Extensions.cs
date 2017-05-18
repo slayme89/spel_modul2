@@ -37,7 +37,7 @@ namespace GameEngine
             ComponentManager cm = ComponentManager.GetInstance();
             WorldComponent world = (from w in cm.GetComponentsOfType<WorldComponent>().Values select w).First() as WorldComponent;
             Rectangle bounds = new Rectangle(0, 0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
-            bounds.Offset(world.center - new Point(graphicsDevice.Viewport.Width / 2, graphicsDevice.Viewport.Height / 2));
+            bounds.Offset(world.Center - new Point(graphicsDevice.Viewport.Width / 2, graphicsDevice.Viewport.Height / 2));
 
             return new Viewport(bounds);
         }

@@ -19,9 +19,9 @@ namespace GameEngine.Components
         public bool IsAttacking { get; set; } = false;
         public float AttackDelay { get; set; }
         public bool CanAttack { get; set; }
-        public Rectangle attackCollisionBox { get; set; }
+        public Rectangle AttackCollisionBox { get; set; }
 
-        public AttackComponent(int damage, float rateOfFire, float attackDelay,  WeaponType weaponType)
+        public AttackComponent(int damage, float rateOfFire, float attackDelay, WeaponType weaponType)
         {
             Damage = damage;
             RateOfFire = rateOfFire;

@@ -2,25 +2,26 @@
 {
     public class Button
     {
-        private bool isDown;
+        private bool IsDown;
+
         public Button()
         {
-            isDown = false;
+            IsDown = false;
         }
 
         public bool IsButtonDown()
         {
-            return isDown;
+            return IsDown;
         }
 
         public bool IsButtonUp()
         {
-            return !isDown;
+            return !IsDown;
         }
 
         public void SetButton(bool isDown)
         {
-            this.isDown = isDown;
+            IsDown = isDown;
         }
 
     }

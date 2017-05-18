@@ -16,8 +16,8 @@ namespace GameEngine.Systems
 
             foreach (TextureComponent texture in textures.Values)
             {
-                texture.texture = content.Load<Texture2D>(texture.textureFilename);
-                texture.offset = new Point(texture.texture.Width / 2, texture.texture.Height / 2);
+                texture.Texture = content.Load<Texture2D>(texture.TextureFilename);
+                texture.Offset = new Point(texture.Texture.Width / 2, texture.Texture.Height / 2);
             }
         }
     }

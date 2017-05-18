@@ -5,32 +5,32 @@ namespace GameEngine.Components
 {
     public class AnimationComponent : IComponent
     {
-        public string spritesheetFilename { get; set; }
-        public Texture2D spriteSheet { get; set; }
-        public Point sheetSize { get; set; }
-        public Point frameSize { get; set; }
-        public Point currentFrame;
-        public int frameDuration { get; set; }
-        public int lastFrameDeltaTime { get; set; }
-        public Rectangle sourceRectangle { get; set; }
-        public bool isPaused { get; set; }
-        public Point offset;
-        public RenderLayer layer;
+        public string SpritesheetFilename { get; set; }
+        public Texture2D SpriteSheet { get; set; }
+        public Point SheetSize { get; set; }
+        public Point FrameSize { get; set; }
+        public Point CurrentFrame;
+        public int FrameDuration { get; set; }
+        public int LastFrameDeltaTime { get; set; }
+        public Rectangle SourceRectangle { get; set; }
+        public bool IsPaused { get; set; }
+        public Point Offset;
+        public RenderLayer Layer;
 
         public AnimationComponent(string spritesheetFilename, Point sheetSize, int frameDuration)
         {
-            this.spritesheetFilename = spritesheetFilename;
-            this.sheetSize = sheetSize;
-            this.frameDuration = frameDuration;
-            layer = RenderLayer.Layer1;
+            this.SpritesheetFilename = spritesheetFilename;
+            this.SheetSize = sheetSize;
+            this.FrameDuration = frameDuration;
+            Layer = RenderLayer.Layer1;
         }
 
         public AnimationComponent(string spritesheetFilename, Point sheetSize, int frameDuration, RenderLayer layer)
         {
-            this.spritesheetFilename = spritesheetFilename;
-            this.sheetSize = sheetSize;
-            this.frameDuration = frameDuration;
-            this.layer = layer;
+            this.SpritesheetFilename = spritesheetFilename;
+            this.SheetSize = sheetSize;
+            this.FrameDuration = frameDuration;
+            this.Layer = layer;
         }
     }
 }

@@ -7,6 +7,7 @@ namespace GameEngine.Components
         public Vector2 KnockbackDir { get; set; }
         public float Cooldown { get; set; }
         public bool KnockbackActive { get; set; }
+
         public KnockbackComponent()
         {
             KnockbackActive = false;

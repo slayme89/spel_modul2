@@ -16,10 +16,10 @@ namespace GameEngine.Systems
 
             foreach (AnimationComponent animation in animations.Values)
             {
-                animation.spriteSheet = content.Load<Texture2D>(animation.spritesheetFilename);
-                animation.frameSize = new Point(animation.spriteSheet.Width / animation.sheetSize.X, animation.spriteSheet.Height / animation.sheetSize.Y);
-                animation.offset = new Point(animation.frameSize.X / 2, animation.frameSize.Y / 2);
-                animation.sourceRectangle = new Rectangle(new Point(), animation.frameSize);
+                animation.SpriteSheet = content.Load<Texture2D>(animation.SpritesheetFilename);
+                animation.FrameSize = new Point(animation.SpriteSheet.Width / animation.SheetSize.X, animation.SpriteSheet.Height / animation.SheetSize.Y);
+                animation.Offset = new Point(animation.FrameSize.X / 2, animation.FrameSize.Y / 2);
+                animation.SourceRectangle = new Rectangle(new Point(), animation.FrameSize);
             }
         }
     }

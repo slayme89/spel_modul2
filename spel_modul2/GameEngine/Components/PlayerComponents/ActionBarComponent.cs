@@ -9,6 +9,7 @@ namespace GameEngine.Components
         public Point PositionOnScreen { get; set; }
         public Point SlotSize { get; set; }
         public ActionBarSlotComponent[] Slots { get; set; }
+
         public ActionBarComponent()
         {
             Slots = new ActionBarSlotComponent[4];

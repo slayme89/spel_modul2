@@ -13,7 +13,7 @@ namespace GameEngine.Systems
             {
                 PlayerControlComponent playerControlComponent = (PlayerControlComponent)entity.Value;
                 MoveComponent moveComponent = cm.GetComponentForEntity<MoveComponent>(entity.Key);
-                if (moveComponent.canMove)
+                if (moveComponent.CanMove)
                 {
                     moveComponent.Velocity = playerControlComponent.Movement.GetDirection();
                     if (playerControlComponent.Movement.GetDirection() != new Vector2(0.0f, 0.0f))

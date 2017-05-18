@@ -28,13 +28,13 @@ namespace GameEngine.Systems
                 for (int j = i + 1; j < c.Count; j++)
                 {
                     Rectangle r1, r2;
-                    r1 = c[i].Item2.collisionBox;
+                    r1 = c[i].Item2.CollisionBox;
                     r1.Offset(-r1.Width / 2, -r1.Height / 2);
-                    r1.Offset(c[i].Item3.position);
+                    r1.Offset(c[i].Item3.Position);
 
-                    r2 = c[j].Item2.collisionBox;
+                    r2 = c[j].Item2.CollisionBox;
                     r2.Offset(-r2.Width / 2, -r2.Height / 2);
-                    r2.Offset(c[j].Item3.position);
+                    r2.Offset(c[j].Item3.Position);
 
                     if (r1.Intersects(r2))
                         ResolveCollision(c[i], c[j], r1, r2);
@@ -52,15 +52,15 @@ namespace GameEngine.Systems
                 CollisionComponent collisionComponent;
                 if (cm.GetComponentsForEntity(entity.Key, out positionComponent, out collisionComponent))
                 {
-                    Rectangle bb = collisionComponent.collisionBox;
-                    bb.Offset(positionComponent.position.X - bb.Width / 2, positionComponent.position.Y - bb.Height / 2);
+                    Rectangle bb = collisionComponent.CollisionBox;
+                    bb.Offset(positionComponent.Position.X - bb.Width / 2, positionComponent.Position.Y - bb.Height / 2);
 
                     if (area.Intersects(bb))
-                {
-                    //Collision detected, add them to the list
-                    foundEntities.Add(entity.Key);
+                    {
+                        //Collision detected, add them to the list
+                        foundEntities.Add(entity.Key);
+                    }
                 }
-            }
             }
             return foundEntities;
         }
@@ -75,19 +75,19 @@ namespace GameEngine.Systems
 
             Point axis = GetCollisionAxis(r1, r2);
             if (m1 != null && m2 != null)
-                        {
-                e1.Item3.position += -m1.Velocity * axis.ToVector2();
-                        }
+            {
+                e1.Item3.Position += -m1.Velocity * axis.ToVector2();
+            }
             else if (m1 != null)
             {
-                e1.Item3.position += -m1.Velocity * axis.ToVector2();
-                    }
+                e1.Item3.Position += -m1.Velocity * axis.ToVector2();
+            }
             else if (m2 != null)
             {
 
-                e2.Item3.position += -m2.Velocity * axis.ToVector2();
-                }
+                e2.Item3.Position += -m2.Velocity * axis.ToVector2();
             }
+        }
 
         private Point GetCollisionAxis(Rectangle r1, Rectangle r2)
         {

@@ -14,7 +14,7 @@ namespace GameEngine.Components
     public class InventoryComponent : IComponent
     {
         public int[] Items { get; set; }
-        public Point ColumnsRows{ get; set; }
+        public Point ColumnsRows { get; set; }
         public Point SlotSize { get; set; }
         public Point PositionOnScreen { get; set; }
         public Point SelectedSlot { get; set; }
@@ -26,7 +26,7 @@ namespace GameEngine.Components
         public int[] WeaponBodyHead = new int[3];
         public int[] Skills = new int[12];
         public int[] NotPickedSkills = new int[12];
-        public SpriteFont font { get; set; }
+        public SpriteFont Font { get; set; }
         public LocationInInventory LocationInInventory;
 
         public InventoryComponent(int columns, int rows)

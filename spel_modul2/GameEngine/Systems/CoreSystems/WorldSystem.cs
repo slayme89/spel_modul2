@@ -20,7 +20,7 @@ namespace GameEngine.Systems
             if (players.Count == 1)
             {
                 var player1 = cm.GetComponentForEntity<PositionComponent>(players[0]);
-                world.center = player1.position.ToPoint();
+                world.Center = player1.Position.ToPoint();
             }
             else if (players.Count == 2)
             {
@@ -30,7 +30,7 @@ namespace GameEngine.Systems
                 /*var player1MoveComponent = cm.GetComponentForEntity<MoveComponent>(players[0]);
                 var player2MoveComponent = cm.GetComponentForEntity<MoveComponent>(players[1]);*/
 
-                world.center = Vector2.Lerp(player1.position, player2.position, 0.5f).ToPoint();
+                world.Center = Vector2.Lerp(player1.Position, player2.Position, 0.5f).ToPoint();
             }
         }
 
@@ -54,8 +54,8 @@ namespace GameEngine.Systems
                 Texture2D texture = content.Load<Texture2D>(textureFile);
                 Point p = new Point(x, y);
 
-                if (!world.tiles.ContainsKey(p))
-                    world.tiles.Add(p, texture);
+                if (!world.Tiles.ContainsKey(p))
+                    world.Tiles.Add(p, texture);
             }
         }
     }

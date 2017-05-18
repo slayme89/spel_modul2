@@ -22,20 +22,20 @@ namespace GameEngine.Systems
         {
             AnimationGroupComponent a = animationGroupComponent;
 
-            if (a.isPaused)
+            if (a.IsPaused)
                 return;
 
             a.lastFrameDeltaTime += gameTime.ElapsedGameTime.Milliseconds;
-            if(a.lastFrameDeltaTime > a.frameDuration)
+            if(a.lastFrameDeltaTime > a.FrameDuration)
             {
-                a.groupFrame.X = (a.groupFrame.X + 1) % a.animations[a.activeAnimation].Item2.X;
+                a.groupFrame.X = (a.groupFrame.X + 1) % a.Animations[a.ActiveAnimation].Item2.X;
                 if (a.groupFrame.X == 0)
-                    a.groupFrame.Y = (a.groupFrame.Y + 1) % a.animations[a.activeAnimation].Item2.Y;
-                a.currentFrame = a.groupFrame + a.animations[a.activeAnimation].Item1;
+                    a.groupFrame.Y = (a.groupFrame.Y + 1) % a.Animations[a.ActiveAnimation].Item2.Y;
+                a.currentFrame = a.groupFrame + a.Animations[a.ActiveAnimation].Item1;
 
-                a.sourceRectangle = new Rectangle(a.currentFrame * a.frameSize, a.frameSize);
+                a.sourceRectangle = new Rectangle(a.currentFrame * a.FrameSize, a.FrameSize);
 
-                a.lastFrameDeltaTime -= a.frameDuration;
+                a.lastFrameDeltaTime -= a.FrameDuration;
             }
         }
     }
@@ -60,10 +60,10 @@ namespace GameEngine.Systems
 
             foreach (AnimationGroupComponent animation in animations.Values)
             {
-                animation.spritesheet = content.Load<Texture2D>(animation.spritesheetFilename);
-                animation.frameSize = new Point(animation.spritesheet.Width / animation.sheetSize.X, animation.spritesheet.Height / animation.sheetSize.Y);
-                animation.offset = new Point(animation.frameSize.X / 2, animation.frameSize.Y / 2);
-                animation.sourceRectangle = new Rectangle(new Point(), animation.frameSize);
+                animation.Spritesheet = content.Load<Texture2D>(animation.SpritesheetFilename);
+                animation.FrameSize = new Point(animation.Spritesheet.Width / animation.SheetSize.X, animation.Spritesheet.Height / animation.SheetSize.Y);
+                animation.offset = new Point(animation.FrameSize.X / 2, animation.FrameSize.Y / 2);
+                animation.sourceRectangle = new Rectangle(new Point(), animation.FrameSize);
             }
         }
     }

@@ -45,10 +45,10 @@ namespace GameEngine.Systems
             ComponentManager cm = ComponentManager.GetInstance();
             KnockbackComponent knockbackComponent = cm.GetComponentForEntity<KnockbackComponent>(entityHit);
             PositionComponent posComp = cm.GetComponentForEntity<PositionComponent>(entityHit);
-            Vector2 posCompAttacker = cm.GetComponentForEntity<PositionComponent>(attacker).position;
+            Vector2 posCompAttacker = cm.GetComponentForEntity<PositionComponent>(attacker).Position;
             int attackDmg = damage;
 
-            Vector2 newDir = new Vector2(posComp.position.X - posCompAttacker.X, posComp.position.Y - posCompAttacker.Y);
+            Vector2 newDir = new Vector2(posComp.Position.X - posCompAttacker.X, posComp.Position.Y - posCompAttacker.Y);
             
             knockbackComponent.KnockbackDir = Vector2.Normalize(newDir * attackDmg);
             knockbackComponent.Cooldown = attackDmg / 40.0f;

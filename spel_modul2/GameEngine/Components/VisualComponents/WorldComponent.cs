@@ -6,12 +6,12 @@ namespace GameEngine.Components
 {
     public class WorldComponent : IComponent
     {
-        public Dictionary<Point, Texture2D> tiles;
-        public Point center;
+        public Dictionary<Point, Texture2D> Tiles;
+        public Point Center;
 
         public WorldComponent()
         {
-            tiles = new Dictionary<Point, Texture2D>();
+            Tiles = new Dictionary<Point, Texture2D>();
         }
     }
 }

@@ -18,21 +18,21 @@ namespace GameEngine.Systems
 
         private void Update(GameTime gameTime, AnimationComponent animation)
         {
-            if (animation.isPaused)
+            if (animation.IsPaused)
                 return;
 
-            animation.lastFrameDeltaTime += gameTime.ElapsedGameTime.Milliseconds;
-            if(animation.lastFrameDeltaTime > animation.frameDuration)
+            animation.LastFrameDeltaTime += gameTime.ElapsedGameTime.Milliseconds;
+            if(animation.LastFrameDeltaTime > animation.FrameDuration)
             {
                 //Update current frame
-                animation.currentFrame.X = (animation.currentFrame.X + 1) % animation.sheetSize.X;
-                if (animation.currentFrame.X == 0)
-                    animation.currentFrame.Y = (animation.currentFrame.Y + 1) % animation.sheetSize.Y;
+                animation.CurrentFrame.X = (animation.CurrentFrame.X + 1) % animation.SheetSize.X;
+                if (animation.CurrentFrame.X == 0)
+                    animation.CurrentFrame.Y = (animation.CurrentFrame.Y + 1) % animation.SheetSize.Y;
 
                 //Calculate new source rectangle into the spritesheet
-                animation.sourceRectangle = new Rectangle(animation.currentFrame * animation.frameSize, animation.frameSize);
+                animation.SourceRectangle = new Rectangle(animation.CurrentFrame * animation.FrameSize, animation.FrameSize);
 
-                animation.lastFrameDeltaTime -= animation.frameDuration;
+                animation.LastFrameDeltaTime -= animation.FrameDuration;
             }
         }
     }

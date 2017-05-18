@@ -11,6 +11,5 @@
             Max = maxHealth;
             Current = Max;
         }
-       
     }
 }

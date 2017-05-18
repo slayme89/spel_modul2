@@ -27,11 +27,11 @@ namespace GameEngine.Systems
 
                 if (positionComponent != null)
                 {
-                    Point position = positionComponent.position.ToPoint() - textureComponent.offset;
-                    Rectangle textureBounds = new Rectangle(position.X, position.Y, textureComponent.texture.Width, textureComponent.texture.Height);
+                    Point position = positionComponent.Position.ToPoint() - textureComponent.Offset;
+                    Rectangle textureBounds = new Rectangle(position.X, position.Y, textureComponent.Texture.Width, textureComponent.Texture.Height);
 
                     if (viewportBounds.Intersects(textureBounds))
-                        spriteBatch.Draw(textureComponent.texture, position.WorldToScreen(ref viewport).ToVector2(), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(textureComponent.layer));
+                        spriteBatch.Draw(textureComponent.Texture, position.WorldToScreen(ref viewport).ToVector2(), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(textureComponent.Layer));
                 }
             }
 
@@ -43,11 +43,11 @@ namespace GameEngine.Systems
 
                 if (positionComponent != null)
                 {
-                    Point position = positionComponent.position.ToPoint() - animationComponent.offset;
-                    Rectangle animationBounds = new Rectangle(position.X, position.Y, animationComponent.frameSize.X, animationComponent.frameSize.Y);
+                    Point position = positionComponent.Position.ToPoint() - animationComponent.Offset;
+                    Rectangle animationBounds = new Rectangle(position.X, position.Y, animationComponent.FrameSize.X, animationComponent.FrameSize.Y);
 
                     if (viewportBounds.Intersects(animationBounds))
-                        spriteBatch.Draw(animationComponent.spriteSheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(animationComponent.layer));
+                        spriteBatch.Draw(animationComponent.SpriteSheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.SourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(animationComponent.Layer));
                 }
             }
 
@@ -59,11 +59,11 @@ namespace GameEngine.Systems
 
                 if (positionComponent != null)
                 {
-                    Point position = positionComponent.position.ToPoint() - animationComponent.offset;
-                    Rectangle animationBounds = new Rectangle(position.X, position.Y, animationComponent.frameSize.X, animationComponent.frameSize.Y);
+                    Point position = positionComponent.Position.ToPoint() - animationComponent.offset;
+                    Rectangle animationBounds = new Rectangle(position.X, position.Y, animationComponent.FrameSize.X, animationComponent.FrameSize.Y);
 
                     if (viewportBounds.Intersects(animationBounds))
-                        spriteBatch.Draw(animationComponent.spritesheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(animationComponent.layer));
+                        spriteBatch.Draw(animationComponent.Spritesheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(animationComponent.layer));
                 }
             }
         }
@@ -75,7 +75,7 @@ namespace GameEngine.Systems
             Viewport viewport = Extensions.GetCurrentViewport(renderHelper.graphicsDevice);
             Rectangle viewportBounds = viewport.Bounds;
 
-            foreach (var tile in world.tiles)
+            foreach (var tile in world.Tiles)
             {
                 Point point = new Point(tile.Key.X * tile.Value.Width, tile.Key.Y * tile.Value.Height);
                 Rectangle tileBounds = new Rectangle(point.X, point.Y, tile.Value.Width, tile.Value.Height);
@@ -90,7 +90,7 @@ namespace GameEngine.Systems
             ComponentManager cm = ComponentManager.GetInstance();
             WorldComponent world = (from w in cm.GetComponentsOfType<WorldComponent>().Values select w).First() as WorldComponent;
             Rectangle bounds = new Rectangle(0, 0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
-            bounds.Offset(world.center - new Point(graphicsDevice.Viewport.Width / 2, graphicsDevice.Viewport.Height / 2));
+            bounds.Offset(world.Center - new Point(graphicsDevice.Viewport.Width / 2, graphicsDevice.Viewport.Height / 2));
 
             return new Viewport(bounds);
         }

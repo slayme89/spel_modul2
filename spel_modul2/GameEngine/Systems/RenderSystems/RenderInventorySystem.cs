@@ -61,7 +61,7 @@ namespace GameEngine.Systems
                     {
                         Rectangle equipmentSlot = new Rectangle(new Point(5, 105 - 45 * y) + invenComp.PositionOnScreen, invenComp.SlotSize);
 
-                        rh.DrawString(invenComp.font, ((ItemType)y).ToString(), (equipmentSlot.Location - new Point(0, 15)).ToVector2(), Color.Black, RenderLayer.GUI2);
+                        rh.DrawString(invenComp.Font, ((ItemType)y).ToString(), (equipmentSlot.Location - new Point(0, 15)).ToVector2(), Color.Black, RenderLayer.GUI2);
 
                         if (invenComp.SelectedSlot.X == -y - 1 && invenComp.SelectedSlot.Y <= 0)
                         {
@@ -90,8 +90,8 @@ namespace GameEngine.Systems
                         for (int i = 0; i < 4; i++) // draw all of our stats and statbuttons
                         {
                             Rectangle statButton = new Rectangle(statPos + new Point(40, i * -statYOffset - 6 + 88), new Point(10, 10));
-                            rh.DrawString(invenComp.font, statNames[i], (statPos + new Point(0, i * statYOffset + 5)).ToVector2(), Color.Black, RenderLayer.GUI2);
-                            rh.DrawString(invenComp.font, "" + statNumbers[i], (statPos + new Point(25, i * statYOffset + 5)).ToVector2(), Color.Black, RenderLayer.GUI2);
+                            rh.DrawString(invenComp.Font, statNames[i], (statPos + new Point(0, i * statYOffset + 5)).ToVector2(), Color.Black, RenderLayer.GUI2);
+                            rh.DrawString(invenComp.Font, "" + statNumbers[i], (statPos + new Point(25, i * statYOffset + 5)).ToVector2(), Color.Black, RenderLayer.GUI2);
 
                             if (invenComp.SelectedSlot.X == -i - 1 && invenComp.SelectedSlot.Y == 1)
                             {
@@ -103,11 +103,11 @@ namespace GameEngine.Systems
                         //Specific drawing
                         //Lvl
                         rh.DrawRectangle(new Rectangle((statPos + new Point(-35, 5)), new Point(22, 40)), 2, Color.DarkRed, RenderLayer.GUI2);
-                        rh.DrawString(invenComp.font, "Lvl", (statPos + new Point(-30, 10)).ToVector2(), Color.Black, RenderLayer.GUI2);
-                        rh.DrawString(invenComp.font, lvlComp.CurrentLevel + "", (statPos + new Point(-25, 30)).ToVector2(), Color.Black, RenderLayer.GUI2);
+                        rh.DrawString(invenComp.Font, "Lvl", (statPos + new Point(-30, 10)).ToVector2(), Color.Black, RenderLayer.GUI2);
+                        rh.DrawString(invenComp.Font, lvlComp.CurrentLevel + "", (statPos + new Point(-25, 30)).ToVector2(), Color.Black, RenderLayer.GUI2);
                         //Distributable points
-                        rh.DrawString(invenComp.font, "Pts:", (statPos + new Point(0, statYOffset * 5)).ToVector2(), Color.Black, RenderLayer.GUI2);
-                        rh.DrawString(invenComp.font, statComp.SpendableStats + "", (statPos + new Point(25, statYOffset * 5)).ToVector2(), Color.Black, RenderLayer.GUI2);
+                        rh.DrawString(invenComp.Font, "Pts:", (statPos + new Point(0, statYOffset * 5)).ToVector2(), Color.Black, RenderLayer.GUI2);
+                        rh.DrawString(invenComp.Font, statComp.SpendableStats + "", (statPos + new Point(25, statYOffset * 5)).ToVector2(), Color.Black, RenderLayer.GUI2);
 
                     }
 

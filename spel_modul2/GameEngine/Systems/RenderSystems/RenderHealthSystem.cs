@@ -69,8 +69,8 @@ namespace GameEngine.Systems
                                 currHealth / 2,
                                 10).WorldToScreen(ref viewport);*/
 
-                            healthRectangle = new Rectangle((int)p.position.X, (int)p.position.Y, currHealth / 2, 10).WorldToScreen(ref viewport);
-                            healthRectangle.Offset(-c.collisionBox.Width / 2, -c.collisionBox.Height / 2 - 10);
+                            healthRectangle = new Rectangle((int)p.Position.X, (int)p.Position.Y, currHealth / 2, 10).WorldToScreen(ref viewport);
+                            healthRectangle.Offset(-c.CollisionBox.Width / 2, -c.CollisionBox.Height / 2 - 10);
                         }
                     }
                     rh.Draw(healthTexture, healthRectangle, Color.White, RenderLayer.Foreground1);

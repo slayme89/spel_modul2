@@ -14,7 +14,7 @@ namespace GameEngine.Systems
 
             foreach (InventoryComponent invComp in inventories.Values)
             {
-                invComp.font = content.Load<SpriteFont>("NewSpriteFont");
+                invComp.Font = content.Load<SpriteFont>("NewSpriteFont");
             }
         }
 
