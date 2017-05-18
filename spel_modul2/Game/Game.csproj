@@ -58,8 +58,11 @@
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+    <MonoGameContentReference Include="Content\Content.mgcb" />
+    <None Include="Content\TutorialMap.tmx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\spel_modul2\GameEngine.csproj">

@@ -152,7 +152,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
     <None Include="Class Diagrams\Components\AIComponents Class Diagram.cd" />
     <None Include="Class Diagrams\Components\CoreComponent Class Diagram.cd" />
@@ -165,9 +164,6 @@
     <None Include="Class Diagrams\Systems\LoaderSystems Class Diagram.cd" />
     <None Include="Class Diagrams\Systems\PlayerSystems Class Diagram.cd" />
     <None Include="Class Diagrams\Systems\RenderSystems Class Diagram.cd" />
-    <None Include="Content\TutorialMap.tmx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Class Diagrams\Managers\Managers Class Diagram.cd" />
   </ItemGroup>
   <ItemGroup>
