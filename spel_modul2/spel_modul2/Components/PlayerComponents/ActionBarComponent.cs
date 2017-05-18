@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
-
-namespace GameEngine
+namespace GameEngine.Components
 {
     public delegate void Action(int entity);
 

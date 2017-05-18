@@ -1,8 +1,8 @@
-﻿using System;
+﻿using GameEngine.Components;
 using Microsoft.Xna.Framework;
-using System.Diagnostics;
+using System;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
     class InventorySystem : ISystem
     {

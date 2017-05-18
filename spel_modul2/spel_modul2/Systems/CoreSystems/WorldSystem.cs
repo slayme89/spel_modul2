@@ -1,10 +1,11 @@
-﻿using System.Xml;
+﻿using GameEngine.Components;
+using System.Xml;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
     class WorldSystem : ISystem
     {

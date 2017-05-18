@@ -1,10 +1,9 @@
-﻿using System;
+﻿using GameEngine.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
-
     // This is for debugging attacks
     class RenderAttackingCollisionBoxSystem : ISystem, IRenderSystem
     {

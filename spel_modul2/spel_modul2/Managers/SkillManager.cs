@@ -1,11 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using GameEngine.Components;
+using GameEngine.Systems;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GameEngine
+namespace GameEngine.Managers
 {
     public class SkillManager
     {

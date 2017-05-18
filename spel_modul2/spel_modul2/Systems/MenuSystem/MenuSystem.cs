@@ -1,7 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine.Components;
+using GameEngine.Managers;
+using Microsoft.Xna.Framework;
 using System;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
     class MenuSystem : ISystem
     {

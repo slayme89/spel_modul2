@@ -1,7 +1,8 @@
-﻿using System;
+﻿using GameEngine.Components;
 using Microsoft.Xna.Framework;
+using System;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
     class InteractSystem : ISystem
     {

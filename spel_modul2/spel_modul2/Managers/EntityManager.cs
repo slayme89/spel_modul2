@@ -1,4 +1,4 @@
-﻿namespace GameEngine
+﻿namespace GameEngine.Managers
 {
     public class EntityManager
     {

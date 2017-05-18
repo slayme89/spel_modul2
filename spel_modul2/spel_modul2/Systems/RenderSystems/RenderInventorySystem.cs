@@ -1,8 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Drawing;
+﻿using GameEngine.Components;
+using Microsoft.Xna.Framework;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
     class RenderInventorySystem : ISystem, IRenderSystem
     {
@@ -84,7 +83,7 @@ namespace GameEngine
                         LevelComponent lvlComp = cm.GetComponentForEntity<LevelComponent>(entity.Key);
                         int statYOffset = 25;
                         string[] statNames = new string[4] { "Str: ", "Agi: ", "Sta: ", "Int: " };
-                        int[] statNumbers = new int[4] { statComp.Strength, statComp.Agillity, statComp.Stamina, statComp.Intellect };
+                        int[] statNumbers = new int[4] { statComp.Strength, statComp.Agility, statComp.Stamina, statComp.Intellect };
                         Point statPos = new Point(equipmentBackground.Size.X - 55, 0) + invenComp.PositionOnScreen;
 
                         for (int i = 0; i < 4; i++) // draw all of our stats and statbuttons

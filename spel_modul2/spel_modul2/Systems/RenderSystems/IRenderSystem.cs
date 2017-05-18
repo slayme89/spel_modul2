@@ -1,9 +1,7 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-namespace GameEngine
+﻿namespace GameEngine.Systems
 {
     public interface IRenderSystem
     {
         void Render(RenderHelper renderHelper);
     }
-
 }

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using GameEngine.Components;
 using Microsoft.Xna.Framework;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
     class PlayerMovementSystem : ISystem
     {

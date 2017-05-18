@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System;
+using GameEngine.Components;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
     class CollisionSystem : ISystem
     {

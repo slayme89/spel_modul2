@@ -1,6 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine.Components;
+using Microsoft.Xna.Framework;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
     class SkillSystem : ISystem
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GameEngine
+namespace GameEngine.Components
 {
     public class DamageComponent : IComponent
     {

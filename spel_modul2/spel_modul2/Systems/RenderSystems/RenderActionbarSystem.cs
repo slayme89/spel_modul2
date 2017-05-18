@@ -1,17 +1,11 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using GameEngine.Components;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
+using Microsoft.Xna.Framework.Graphics;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
     class RenderActionbarSystem : ISystem, IRenderSystem
     {
-
         public void Render(RenderHelper renderHelper)
         {
             ComponentManager cm = ComponentManager.GetInstance();
@@ -34,10 +28,10 @@ namespace GameEngine
                 }
             }
         }
+
         public void Update(GameTime gameTime)
         {
 
         }
-
     }
 }

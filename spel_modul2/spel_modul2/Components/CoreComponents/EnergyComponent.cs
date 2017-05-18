@@ -1,4 +1,4 @@
-﻿namespace GameEngine
+﻿namespace GameEngine.Components
 {
     public class EnergyComponent : IComponent
     {

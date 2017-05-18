@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GameEngine.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using System.Diagnostics;
 using Microsoft.Xna.Framework.Input;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
     class SoundSystem : ISystem
     {

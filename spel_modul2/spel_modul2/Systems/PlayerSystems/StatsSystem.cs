@@ -1,6 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine.Components;
+using Microsoft.Xna.Framework;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
     class StatsSystem : ISystem
     {
@@ -58,7 +59,7 @@ namespace GameEngine
                                 AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity);
                                 attackComp.RateOfFire = attackComp.RateOfFire - 0.05f;
                                 moveComp.Speed = moveComp.Speed - 0.03f;
-                                comp.Agillity -= 1;
+                                comp.Agility -= 1;
                             }
                             break;
 
@@ -121,7 +122,7 @@ namespace GameEngine
                 for (int i = 0; i <= statComp.AddAgi; i++)
                     statComp.StatHistory += "agi";
 
-                statComp.Agillity += statComp.AddAgi;
+                statComp.Agility += statComp.AddAgi;
                 statComp.AddAgi = 0;
             }
         }

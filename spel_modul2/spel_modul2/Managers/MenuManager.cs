@@ -1,7 +1,7 @@
-﻿
+﻿using GameEngine.Components;
 using System;
 
-namespace GameEngine
+namespace GameEngine.Managers
 {
     public class MenuManager
     {

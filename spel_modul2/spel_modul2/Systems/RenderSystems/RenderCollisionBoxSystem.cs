@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GameEngine.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Diagnostics;
+using System.Collections.Generic;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
     class RenderCollisionBoxSystem : ISystem, IRenderSystem
     {

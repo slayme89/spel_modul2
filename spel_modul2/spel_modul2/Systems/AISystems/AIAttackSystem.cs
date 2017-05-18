@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Linq;
+using GameEngine.Components;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
     class AIAttackSystem : ISystem
     {

@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine.Components;
+using Microsoft.Xna.Framework;
 using System;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
     class AttackSystem : ISystem
     {

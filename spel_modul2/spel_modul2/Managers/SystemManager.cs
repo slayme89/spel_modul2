@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using GameEngine.Systems;
 
-namespace GameEngine
+namespace GameEngine.Managers
 {
     class SystemManager
     {

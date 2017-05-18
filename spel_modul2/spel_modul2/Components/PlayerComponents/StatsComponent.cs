@@ -1,9 +1,9 @@
-﻿namespace GameEngine
+﻿namespace GameEngine.Components
 {
     public class StatsComponent : IComponent
     {
         public int Strength { get; set; } = 0;
-        public int Agillity { get; set; } = 0;
+        public int Agility { get; set; } = 0;
         public int Stamina { get; set; } = 0;
         public int Intellect { get; set; } = 0;
         public int AddStr { get; set; }
@@ -14,11 +14,11 @@
         public int RemoveStats { get; set; } = 0;
         public string StatHistory = "";
 
-        public StatsComponent(int strength, int agillity, int stamina, int intellect)
+        public StatsComponent(int strength, int agility, int stamina, int intellect)
         {
             Strength = strength;
-            Agillity = agillity;
-            Stamina= stamina;
+            Agility = agility;
+            Stamina = stamina;
             Intellect = intellect;
         }
     }

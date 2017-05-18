@@ -1,8 +1,8 @@
-﻿using System;
+﻿using GameEngine.Components;
+using System;
 using Microsoft.Xna.Framework;
-using System.Diagnostics;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
     class MoveSystem : ISystem
     {

@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace GameEngine
+﻿namespace GameEngine.Components
 {
     public enum ControllerType { Keyboard, Gamepad1, Gamepad2 };
 

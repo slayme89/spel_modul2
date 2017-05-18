@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
+﻿using GameEngine.Components;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
     class SoundLoaderSystem : ISystem
     {

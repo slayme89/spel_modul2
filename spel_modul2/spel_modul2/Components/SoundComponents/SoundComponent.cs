@@ -1,11 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Audio;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GameEngine
+namespace GameEngine.Components
 {
     public class SoundComponent : IComponent
     {

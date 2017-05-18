@@ -1,8 +1,8 @@
-﻿using System;
+﻿using GameEngine.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
     class InputSystem : ISystem
     {

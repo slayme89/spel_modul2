@@ -1,9 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using GameEngine.Components;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using System.Diagnostics;
+using Microsoft.Xna.Framework.Graphics;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
     class RenderHealthSystem : ISystem, IRenderSystem
     {

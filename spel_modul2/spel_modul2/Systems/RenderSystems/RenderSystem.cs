@@ -1,8 +1,9 @@
-﻿using System.Linq;
+﻿using GameEngine.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
     class RenderSystem : ISystem, IRenderSystem
     {

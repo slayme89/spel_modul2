@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace GameEngine
+namespace GameEngine.Components
 {
     public class MoveComponent : IComponent
     {
