@@ -1,6 +1,7 @@
 ﻿using GameEngine.Components;
 using System;
 using Microsoft.Xna.Framework;
+using GameEngine.Managers;
 
 namespace GameEngine.Systems
 {

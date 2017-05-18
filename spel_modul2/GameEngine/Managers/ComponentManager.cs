@@ -3,7 +3,7 @@ using GameEngine.Managers;
 using System;
 using System.Collections.Generic;
 
-namespace GameEngine
+namespace GameEngine.Managers
 {
     public class ComponentManager
     {

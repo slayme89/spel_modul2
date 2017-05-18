@@ -1,4 +1,5 @@
 ﻿using GameEngine.Components;
+using GameEngine.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
@@ -80,7 +81,7 @@ namespace GameEngine.Systems
                 Rectangle tileBounds = new Rectangle(point.X, point.Y, tile.Value.Width, tile.Value.Height);
 
                 if (viewportBounds.Intersects(tileBounds))
-                    renderHelper.spriteBatch.Draw(tile.Value, point.WorldToScreen(ref viewport).ToVector2(), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, (float)RenderLayer.Background1);
+                    renderHelper.spriteBatch.Draw(tile.Value, point.WorldToScreen(ref viewport).ToVector2(), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, (float)RenderLayer.Tiles);
             }
         }
 

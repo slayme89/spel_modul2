@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-public enum RenderLayer { Background1, Background2, Layer1, Layer2, Layer3, Layer4, Foreground1, Foreground2, GUI1, GUI2 , GUI3, Menubackground, MenuButton};
+public enum RenderLayer { Tiles, Background1, Background2, Background3, Layer1, Layer2, Layer3, Layer4, Foreground1, Foreground2, GUI1, GUI2 , GUI3, Menubackground, MenuButton};
 
 public class RenderHelper
 {

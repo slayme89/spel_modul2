@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using GameEngine.Components;
+using GameEngine.Managers;
 
 namespace GameEngine.Systems
 {
