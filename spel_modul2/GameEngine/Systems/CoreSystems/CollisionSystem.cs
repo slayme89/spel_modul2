@@ -21,7 +21,7 @@ namespace GameEngine.Systems
 
                 cm.GetComponentsForEntity(entity, out collisionComponent, out positionComponent);
                 c.Add(new Tuple<int, CollisionComponent, PositionComponent>(entity, collisionComponent, positionComponent));
-        }
+            }
 
             for (int i = 0; i < c.Count; i++)
             {
@@ -73,18 +73,20 @@ namespace GameEngine.Systems
             MoveComponent m2 = cm.GetComponentForEntity<MoveComponent>(e2.Item1);
             Rectangle r3 = Rectangle.Intersect(r1, r2);
 
-            Point axis = GetCollisionAxis(r1, r2);
+            Point axis;
             if (m1 != null && m2 != null)
             {
+                axis = GetCollisionAxis(r1, r2);
                 e1.Item3.Position += -m1.Velocity * axis.ToVector2();
             }
             else if (m1 != null)
             {
+                axis = GetCollisionAxis(r1, r2);
                 e1.Item3.Position += -m1.Velocity * axis.ToVector2();
             }
             else if (m2 != null)
             {
-
+                axis = GetCollisionAxis(r2, r1);
                 e2.Item3.Position += -m2.Velocity * axis.ToVector2();
             }
         }
