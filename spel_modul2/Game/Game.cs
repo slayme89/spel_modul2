@@ -4,7 +4,7 @@ using GameEngine.Components;
 using Microsoft.Xna.Framework;
 using GameEngine.Managers;
 
-namespace Test
+namespace Game
 {
     class RPGGame : GameEngine.GameEngine
     {
@@ -16,6 +16,7 @@ namespace Test
         protected override void LoadContent()
         {
             ComponentManager cm = ComponentManager.GetInstance();
+            EntityFactory factory = new EntityFactory();
 
             for (int i = -640; i <= 640; i += 128)
             {
@@ -58,13 +59,30 @@ namespace Test
                 new LevelComponent(1, 80),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
                 new ActionBarComponent(),
-                new GUIComponent("UI/Player1-Hp-Ene-Xp", Viewport.TitleSafeArea.Left, Viewport.TitleSafeArea.Top),
+                new GUIComponent("UI/Player1-Hp-Ene-Xp", GUIPosition.Left),
                 new InventoryComponent(5, 4),
                 new EnergyComponent(100),
                 new DamageComponent(),
                 new StatsComponent(5, 1, 0, 0),
                 new KnockbackComponent(),
             });
+
+            //Player two
+            //cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[] {
+            //    new TextureComponent("hej"),
+            //    new HealthComponent(100),
+            //    new EnergyComponent(100),
+            //    new DamageComponent(),
+            //    new PositionComponent(100, 500),
+            //    new MoveComponent(0.2f),
+            //    new PlayerControlComponent(ControllerType.Gamepad1),
+            //    new CollisionComponent(50, 50),
+            //    new AttackComponent(100, 0.3f, 0.1f, WeaponType.Sword),
+            //    new PlayerComponent(2),
+            //    new LevelComponent(2, 55),
+            //    new GUIComponent("UI/Player2-Hp-Ene-Xp", gd.Viewport.TitleSafeArea.Right-108, gd.Viewport.TitleSafeArea.Top),
+            //    new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
+            //});
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
@@ -84,73 +102,15 @@ namespace Test
             });
 
 
-
-
-            /*cm.AddEntityWithComponents(new IComponent[]
-            {
-                new AnimationGroupComponent("PlayerSpritesheet", new Point(4, 4), 150,
-                new[] {
-                    //new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
-                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
-                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
-                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
-                }),
-                new PositionComponent(200, 200),
-            });*/
-
-            /*cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-                new TextureComponent("hej"),
-                new PositionComponent(40, 0),
-            });*/
-
-            //Player two
-            //cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[] {
-            //    new TextureComponent("hej"),
-            //    new HealthComponent(100),
-            //    new EnergyComponent(100),
-            //    new DamageComponent(),
-            //    new PositionComponent(100, 500),
-            //    new MoveComponent(0.2f),
-            //    new PlayerControlComponent(ControllerType.Gamepad1),
-            //    new CollisionComponent(50, 50),
-            //    new AttackComponent(100, 0.3f, 0.1f, WeaponType.Sword),
-            //    new PlayerComponent(2),
-            //    new LevelComponent(2, 55),
-            //    new GUIComponent("UI/Player2-Hp-Ene-Xp", gd.Viewport.TitleSafeArea.Right-108, gd.Viewport.TitleSafeArea.Top),
-            //    new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
-            //});
-
-
             //Enemy
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-                new AnimationComponent("PlayerAnimation/NakedFWalk", new Point(4, 1), 150),
-                new HealthComponent(50),
-                new PositionComponent(300, 10),
-                new MoveComponent(0.1f),
-                new AIComponent(160, 160, false),
-                new CollisionComponent(50, 50),
-                new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
-                new AttackComponent(10, 0.5f, 0.3f, WeaponType.Sword),
-                new LevelComponent(5),
-                new DamageComponent(),
-                new KnockbackComponent(),
-            });
-            /*cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-                new AnimationComponent("threerings", new Point(6, 8), 40),
-                new PositionComponent(50, 200),
-                new CollisionComponent(50, 50),
-                new InteractComponent(),
-                new AttackComponent(10, 0.5f, 0.3f, WeaponType.Sword),
-            });*/
+            cm.AddEntityWithComponents(factory.CreateEnemy(300, 10));
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new WorldComponent(),
                 new SoundThemeComponent("Sound/theme"),
             });
+
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
 

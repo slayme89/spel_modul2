@@ -68,7 +68,6 @@
     <Compile Include="Components\CoreComponents\KnockbackComponent.cs" />
     <Compile Include="Components\CoreComponents\QuestComponent.cs" />
     <Compile Include="Components\CoreComponents\SkillComponent.cs" />
-    <Compile Include="Components\EntityFactory.cs" />
     <Compile Include="Components\MenuComponents\MenuBackgroundComponent.cs" />
     <Compile Include="Components\MenuComponents\MenuButtonComponent.cs" />
     <Compile Include="Components\PlayerComponents\ActionBarSlotComponent.cs" />

@@ -1,25 +1,19 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Components
 {
+    public enum GUIPosition { Left, Right };
+
     public class GUIComponent : IComponent
     {
         public string TextureName { get; set; }
         public Texture2D Texture { get; set; }
-        public Point ScreenPosition;
+        public GUIPosition ScreenPosition;
 
-        public GUIComponent(string textureName, Point screenPosition)
+        public GUIComponent(string textureName, GUIPosition screenPosition)
         {
             TextureName = textureName;
             ScreenPosition = screenPosition;
-        }
-
-        public GUIComponent(string textureName, int xPos, int yPos)
-        {
-            TextureName = textureName;
-            ScreenPosition.X = xPos;
-            ScreenPosition.Y = yPos;
         }
     }
 }

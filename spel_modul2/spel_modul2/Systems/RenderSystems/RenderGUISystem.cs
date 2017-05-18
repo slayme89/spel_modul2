@@ -15,10 +15,13 @@ namespace GameEngine.Systems
                 if (entity.Value != null)
                 {
                     GUIComponent guiComponent = (GUIComponent)entity.Value;
+                    int x = guiComponent.ScreenPosition == GUIPosition.Left ? 0 : rh.graphicsDevice.Viewport.TitleSafeArea.Right - 108;
+                    int y = rh.graphicsDevice.Viewport.TitleSafeArea.Top;
+
                     Texture2D texture = guiComponent.Texture;
                     Rectangle containerRect = new Rectangle(
-                        guiComponent.ScreenPosition.X,
-                        guiComponent.ScreenPosition.Y,
+                        x,
+                        y,
                         guiComponent.Texture.Width,
                         guiComponent.Texture.Height
                         );
