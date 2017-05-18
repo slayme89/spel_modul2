@@ -38,7 +38,7 @@ namespace Game
             {
                 new PositionComponent(-200, 0),
                 new CollisionComponent(50, 50),
-                new InteractComponent(InteractType.Talk, "Hello darkness my old friend...", "NewSpriteFont", new Vector2(Viewport.TitleSafeArea.Width / 2 - 200, Viewport.TitleSafeArea.Bottom -80)),
+                new InteractComponent(InteractType.Talk, "Hello darkness my old friend...", "NewSpriteFont", new Vector2(Viewport.TitleSafeArea.Width / 2 - 242, Viewport.TitleSafeArea.Bottom -75)),
             });
 
             cm.AddEntityWithComponents(new IComponent[]
@@ -63,7 +63,7 @@ namespace Game
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new GUIComponent("UI/DialogWindow", new Point(Viewport.TitleSafeArea.Width / 2 - 255, Viewport.TitleSafeArea.Bottom -104), RenderLayer.GUI2)
+                new GUIComponent("UI/DialogWindow", new Point(Viewport.TitleSafeArea.Width / 2 - 255, Viewport.TitleSafeArea.Bottom -80), RenderLayer.GUI2)
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
@@ -73,6 +73,12 @@ namespace Game
             {
                new GUIComponent("UI/Player2-Hp-Ene-Xp", new Point(Viewport.TitleSafeArea.Right, Viewport.TitleSafeArea.Top), RenderLayer.GUI2),
             });
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+               new GUIComponent("UI/ActionBar", new Point(Viewport.TitleSafeArea.Left, Viewport.TitleSafeArea.Bottom - 40), RenderLayer.GUI2),
+            });
+
+
             //End GUI stuff
 
 
