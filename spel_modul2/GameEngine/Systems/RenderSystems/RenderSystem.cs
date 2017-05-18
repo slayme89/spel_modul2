@@ -27,11 +27,11 @@ namespace GameEngine.Systems
 
                 if (positionComponent != null)
                 {
-                    Point position = positionComponent.position.ToPoint() - textureComponent.Offset;
-                    Rectangle textureBounds = new Rectangle(position.X, position.Y, textureComponent.Texture.Width, textureComponent.Texture.Height);
+                    Point position = positionComponent.position.ToPoint() - textureComponent.offset;
+                    Rectangle textureBounds = new Rectangle(position.X, position.Y, textureComponent.texture.Width, textureComponent.texture.Height);
 
                     if (viewportBounds.Intersects(textureBounds))
-                        spriteBatch.Draw(textureComponent.Texture, position.WorldToScreen(ref viewport).ToVector2(), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(textureComponent.Layer));
+                        spriteBatch.Draw(textureComponent.texture, position.WorldToScreen(ref viewport).ToVector2(), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(textureComponent.layer));
                 }
             }
 

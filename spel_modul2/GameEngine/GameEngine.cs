@@ -70,6 +70,7 @@ namespace GameEngine
                 new RenderInventorySystem(),
                 new RenderActionbarSystem(),
                 new InteractSystem(),
+                new RenderGUISystem(),
                 new RenderEnergySystem(),
                 new ItemIconLoaderSystem(),
                 new HealthSystem(),
@@ -98,6 +99,7 @@ namespace GameEngine
             sm.GetSystem<RenderEnergySystem>().Load(Content);
             sm.GetSystem<RenderHealthSystem>().Load(Content);
             sm.GetSystem<RenderExperienceSystem>().Load(Content);
+            sm.GetSystem<RenderGUISystem>().Load(Content);
             sm.GetSystem<ItemIconLoaderSystem>().Load(Content);
             sm.GetSystem<InventoryLoaderSystem>().Load(Content);
             sm.GetSystem<RenderMenuSystem>().Load(Content);
