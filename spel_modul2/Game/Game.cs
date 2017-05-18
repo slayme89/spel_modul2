@@ -58,7 +58,9 @@ namespace Game
             });
 
             cm.AddEntityWithComponents(factory.CreatePlayer(0, 0));
-            //GUI Stuff
+            
+            //////////////////////////GUI Stuff/////////////////////////////
+
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new GUIComponent("UI/DialogWindow", new Point(Viewport.TitleSafeArea.Width / 2 - 255, Viewport.TitleSafeArea.Bottom -104), RenderLayer.GUI2)
@@ -71,6 +73,8 @@ namespace Game
             {
                new GUIComponent("UI/Player2-Hp-Ene-Xp", new Point(Viewport.TitleSafeArea.Right, Viewport.TitleSafeArea.Top), RenderLayer.GUI2),
             });
+            //End GUI stuff
+
 
             /*cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
@@ -148,9 +152,8 @@ namespace Game
                 new ItemComponent(ItemManager.exampleUseItem, "ChainArmorBody", ItemType.Body),
             });
 
-            ////////////////////////////////////////////////////////////////////
             //////////////// Menu Entities ///////////////////////////////////
-            ////////////////////////////////////////////////////////////////////
+
             //Background
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {

@@ -5,7 +5,7 @@ using System;
 
 namespace GameEngine.Systems
 {
-    class InteractSystem : ISystem
+    public class InteractSystem : ISystem
     {
         public void Update(GameTime gameTime)
         {
@@ -23,23 +23,24 @@ namespace GameEngine.Systems
                     {
                         if (controlComponent.Interact.IsButtonDown())
                         {
-                            // Its a trap
-                            if (cm.GetComponentForEntity<InteractComponent>(closestInteractable).Type == InteractType.Trap)
-                                cm.GetComponentForEntity<DamageComponent>(player.Key).IncomingDamage.Add(closestInteractable);
+                            InteractComponent interComp = cm.GetComponentForEntity<InteractComponent>(closestInteractable);
+
+                            //// Its a trap
+                            //if (cm.GetComponentForEntity<InteractComponent>(closestInteractable).Type == InteractType.Trap)
+                            //    cm.GetComponentForEntity<DamageComponent>(player.Key).IncomingDamage.Add(closestInteractable);
                             // Talk (show text)
-                            else if(cm.GetComponentForEntity<InteractComponent>(closestInteractable).Type == InteractType.Talk)
+                            if (interComp.Type == InteractType.Talk)
                             {
-                                foreach(var inter in cm.GetComponentsOfType<InteractComponent>())
+                                if(interComp.IsActive != true)
                                 {
-                                    InteractComponent intComp = (InteractComponent)inter.Value;
-                                    intComp.IsActive = false;
-                                }
-
-                                InteractComponent interactComp = cm.GetComponentForEntity<InteractComponent>(closestInteractable);
-                                interactComp.IsActive = true;
+                                    foreach (var inter in cm.GetComponentsOfType<InteractComponent>())
+                                    {
+                                        InteractComponent intComp = (InteractComponent)inter.Value;
+                                        intComp.IsActive = false;
+                                    }
+                                    interComp.IsActive = true;
+                                }                            
                             }
-
-                           
                         }
                     }
                 }

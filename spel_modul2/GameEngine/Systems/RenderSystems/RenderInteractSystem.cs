@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Systems
 {
-    class RenderInteractSystem : IRenderSystem
+    public class RenderInteractSystem : IRenderSystem
     {
         public void Render(RenderHelper renderHelper)
         {
@@ -18,7 +18,7 @@ namespace GameEngine.Systems
 
                 if (interact.IsActive == true)
                 {
-                    renderHelper.DrawString(interact.SpriteFont, interact.Text, interact.Position, Color.White, RenderLayer.GUI3);
+                    renderHelper.DrawString(interact.SpriteFont, interact.Text, interact.Position, Color.Black, RenderLayer.GUI2);
                 }
             }
 
