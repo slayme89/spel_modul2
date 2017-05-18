@@ -1,6 +1,8 @@
-﻿namespace GameEngine
+﻿using GameEngine.Components;
+
+namespace GameEngine
 {
-    class QuestComponent : IComponent
+    public class QuestComponent : IComponent
     {
         public string Text { get; set; }
         public bool IsDone { get; set; }
