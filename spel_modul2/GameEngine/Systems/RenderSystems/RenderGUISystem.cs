@@ -26,7 +26,7 @@ namespace GameEngine.Systems
                         guiComponent.Texture.Width,
                         guiComponent.Texture.Height
                         );
-                    rh.Draw(texture, containerRect, Color.White, RenderLayer.Foreground2);
+                    rh.Draw(texture, containerRect, Color.White, RenderLayer.GUI2);
                 }
             }
         }

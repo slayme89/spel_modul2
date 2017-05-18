@@ -42,6 +42,23 @@ namespace Game
             });
 
             cm.AddEntityWithComponents(factory.CreatePlayer(0, 0));
+            //GUI Stuff
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                new GUIComponent("UI/DialogWindow", Viewport.TitleSafeArea.Width / 2 - 255, Viewport.TitleSafeArea.Bottom -104)
+            });
+
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+               new GUIComponent("UI/Player1-Hp-Ene-Xp", Viewport.TitleSafeArea.Left, Viewport.TitleSafeArea.Top),
+            });
+
+
+            /*cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                new TextureComponent("hej"),
+                new PositionComponent(40, 0),
+            });*/
 
             //Player two
             //cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[] {
