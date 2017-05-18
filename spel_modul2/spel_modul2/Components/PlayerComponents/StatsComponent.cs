@@ -1,6 +1,6 @@
 ﻿namespace GameEngine
 {
-    class StatsComponent : IComponent
+    public class StatsComponent : IComponent
     {
         public int Strength { get; set; } = 0;
         public int Agillity { get; set; } = 0;

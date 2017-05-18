@@ -2,7 +2,7 @@
 
 namespace GameEngine
 {
-    class AIComponent : IComponent
+    public class AIComponent : IComponent
     {
         public Point Destination { get; set; }
         public bool IsFriendly { get; set; }

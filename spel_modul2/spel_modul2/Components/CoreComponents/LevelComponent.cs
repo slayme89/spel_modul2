@@ -2,7 +2,7 @@
 
 namespace GameEngine
 {
-    class LevelComponent : IComponent
+    public class LevelComponent : IComponent
     {
         public int StartLevel { get; set; } = 1;
         public int CurrentLevel { get; set; }

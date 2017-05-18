@@ -5,7 +5,8 @@ using Microsoft.Xna.Framework.Graphics;
 namespace GameEngine
 {
     public delegate void Action(int entity);
-    class ActionBarComponent : IComponent
+
+    public class ActionBarComponent : IComponent
     {
         public Point PositionOnScreen { get; set; }
         public Point SlotSize { get; set; }

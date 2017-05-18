@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameEngine
 {
-    class ItemManager
+    public class ItemManager
     {
         public static void exampleUseItem(int entity)
         {

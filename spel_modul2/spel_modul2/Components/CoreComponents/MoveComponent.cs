@@ -2,7 +2,7 @@
 
 namespace GameEngine
 {
-    class MoveComponent : IComponent
+    public class MoveComponent : IComponent
     {
         public Vector2 Velocity { get; set; }
         public float Speed { get; set; }

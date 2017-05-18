@@ -2,9 +2,9 @@
 
 namespace GameEngine
 {
-    enum ControllerType { Keyboard, Gamepad1, Gamepad2 };
+    public enum ControllerType { Keyboard, Gamepad1, Gamepad2 };
 
-    class PlayerControlComponent : IComponent
+    public class PlayerControlComponent : IComponent
     {
         public ControllerType ControllerType { get; set; }
         public Stick Movement { get; set; }

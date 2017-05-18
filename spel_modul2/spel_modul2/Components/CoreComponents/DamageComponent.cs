@@ -2,7 +2,7 @@
 
 namespace GameEngine
 {
-    class DamageComponent : IComponent
+    public class DamageComponent : IComponent
     {
         public List<int> IncomingDamage { get; set; }
         public int LastAttacker { get; set; }

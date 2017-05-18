@@ -8,7 +8,8 @@ namespace GameEngine
         Bow,
         Magic
     }
-    class AttackComponent : IComponent
+
+    public class AttackComponent : IComponent
     {
         public int Damage { get; set; }
         public float RateOfFire { get; set; }

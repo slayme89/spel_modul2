@@ -2,7 +2,7 @@
 
 namespace GameEngine
 {
-    class KnockbackComponent : IComponent
+    public class KnockbackComponent : IComponent
     {
         public Vector2 KnockbackDir { get; set; }
         public float Cooldown { get; set; }

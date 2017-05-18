@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameEngine
 {
-    class Stick
+    public class Stick
     {
         private Vector2 stickDirection;
 

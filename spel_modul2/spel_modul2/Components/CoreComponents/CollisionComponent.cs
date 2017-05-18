@@ -2,7 +2,7 @@
 
 namespace GameEngine
 {
-    class CollisionComponent : IComponent
+    public class CollisionComponent : IComponent
     {
         public Rectangle collisionBox;
         public CollisionComponent(int height, int width)

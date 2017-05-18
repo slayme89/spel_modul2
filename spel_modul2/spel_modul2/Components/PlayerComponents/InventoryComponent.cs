@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace GameEngine
 {
-    enum LocationInInventory
+    public enum LocationInInventory
     {
         Bagspace,
         Equipment,
         Skills,
         Stats
     }
-    class InventoryComponent : IComponent
+
+    public class InventoryComponent : IComponent
     {
         public int[] Items { get; set; }
         public Point ColumnsRows{ get; set; }
@@ -32,6 +33,7 @@ namespace GameEngine
         public int[] NotPickedSkills = new int[12];
         public SpriteFont font { get; set; }
         public LocationInInventory LocationInInventory;
+
         public InventoryComponent(int columns, int rows)
         {
             HeldItem = 0;

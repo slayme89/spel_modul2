@@ -1,97 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using GameEngine;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
-namespace GameEngine
+namespace Test
 {
-    public class Engine : Game
+    class RPGGame : GameEngine.GameEngine
     {
-        private GraphicsDeviceManager graphics;
-        ComponentManager cm = ComponentManager.GetInstance();
-        SystemManager sm = SystemManager.GetInstance();
-        GraphicsDevice gd;
-        SpriteBatch sb;
-        public static GraphicsDevice graphicsDevice;
-        private RenderHelper renderHelper;
-
-        //GameState Manager
-        StateManager stateManager = StateManager.GetInstance();
-
-
-        // Frame rate related stuff
-        private float frameCount = 0.0f;
-        private float elapsedTime = 0.0f;
-
-        public Engine()
-        {
-            graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-
-            IsFixedTimeStep = false;
-            IsMouseVisible = true;
-
-            graphics.SynchronizeWithVerticalRetrace = false;
-        }
-
         protected override void Initialize()
         {
-            gd = graphics.GraphicsDevice;
-            sb = new SpriteBatch(gd);
-            renderHelper = new RenderHelper(gd, sb);
-            stateManager.SetState("Menu");
-            graphics.PreferredBackBufferHeight = 600;
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.ApplyChanges();
-
-            sm.AddSystems(new object[] {
-                new AnimationSystem(),
-                new AnimationLoaderSystem(),
-                new TextureLoaderSystem(),
-                new MoveSystem(),
-                new CollisionSystem(),
-                new RenderSystem(),
-                new RenderCollisionBoxSystem(),
-                new PlayerMovementSystem(),
-                new AIMovementSystem(),
-                new InputSystem(),
-                new AttackSystem(),
-                new PlayerAttackSystem(),
-                new RenderAttackingCollisionBoxSystem(),
-                new WorldSystem(),
-                new AIAttackSystem(),
-                new SoundSystem(),
-                new SoundLoaderSystem(),
-                new DamageSystem(),
-                new KnockbackSystem(),
-                new RenderHealthSystem(),
-                new InventorySystem(),
-                new RenderInventorySystem(),
-                new RenderActionbarSystem(),
-                new InteractSystem(),
-                new RenderGUISystem(),
-                new RenderEnergySystem(),
-                new ItemIconLoaderSystem(),
-                new HealthSystem(),
-                new RenderExperienceSystem(),
-                new AnimationGroupSystem(),
-                new AnimationGroupLoaderSystem(),
-                new RenderAnimationGroupSystem(),
-                new InventoryLoaderSystem(),
-                new ActionBarSystem(),
-                new LevelSystem(),
-                new StatsSystem(),
-                new MenuSystem(),
-                new RenderMenuSystem(),
-                new SkillLoaderSystem(),
-            });
-
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-
-
+            ComponentManager cm = ComponentManager.GetInstance();
 
             for (int i = -640; i <= 640; i += 128)
             {
@@ -134,7 +60,7 @@ namespace GameEngine
                 new LevelComponent(1, 80),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
                 new ActionBarComponent(),
-                new GUIComponent("UI/Player1-Hp-Ene-Xp", gd.Viewport.TitleSafeArea.Left, gd.Viewport.TitleSafeArea.Top),
+                new GUIComponent("UI/Player1-Hp-Ene-Xp", Viewport.TitleSafeArea.Left, Viewport.TitleSafeArea.Top),
                 new InventoryComponent(5, 4),
                 new EnergyComponent(100),
                 new DamageComponent(),
@@ -229,7 +155,7 @@ namespace GameEngine
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                
+
                 new ItemComponent(ItemManager.exampleUseItem, "Staff", ItemType.Weapon),
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
@@ -273,81 +199,7 @@ namespace GameEngine
                new MenuButtonComponent("MainQuit", MenuManager.Quit, "Menu/QuitNormal", "Menu/QuitHighlight", new Vector2(100, 140), RenderLayer.MenuButton),
             });
             //End of menu entities
-
-
-            sm.GetSystem<AnimationLoaderSystem>().Load(Content);
-            sm.GetSystem<TextureLoaderSystem>().Load(Content);
-            sm.GetSystem<WorldSystem>().Load(Content);
-            sm.GetSystem<SoundLoaderSystem>().Load(Content);
-            sm.GetSystem<RenderEnergySystem>().Load(Content);
-            sm.GetSystem<RenderHealthSystem>().Load(Content);
-            sm.GetSystem<RenderExperienceSystem>().Load(Content);
-            sm.GetSystem<RenderGUISystem>().Load(Content);
-            sm.GetSystem<ItemIconLoaderSystem>().Load(Content);
-            sm.GetSystem<InventoryLoaderSystem>().Load(Content);
-            sm.GetSystem<RenderMenuSystem>().Load(Content);
-            sm.GetSystem<SkillLoaderSystem>().Load(Content);
-
-
-            sm.GetSystem<AnimationGroupLoaderSystem>().Load(Content);
-            
             base.LoadContent();
-        }
-
-        protected override void Draw(GameTime gameTime)
-        {
-
-            sb.Begin(SpriteSortMode.FrontToBack);
-            gd.Clear(Color.Blue);
-
-            //Normal gameplay state
-            if (stateManager.GetState() == "Game")
-            {
-                sm.RenderAllSystems(renderHelper);
-            }
-
-            //Menu state
-            if (stateManager.GetState() == "Menu")
-            {
-                //Only render the menu (RenderMenuSystem)
-                sm.Render<RenderMenuSystem>(renderHelper);
-            }
-
-            sb.End();
-
-
-            frameCount++;
-            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (elapsedTime >= 1.0f)
-            {
-                elapsedTime -= 1.0f;
-                Window.Title = frameCount.ToString();
-                frameCount = 0.0f;
-            }
-            
-
-            //base.Draw(gameTime);
-        }
-
-        protected override void Update(GameTime gameTime)
-        {
-            //Normal gameplay state
-            if (stateManager.GetState() == "Game")
-            {
-                ComponentManager.GetInstance().Update();
-                SystemManager.GetInstance().UpdateAllSystems(gameTime);
-            }
-
-            //Menu state
-            if (stateManager.GetState() == "Menu")
-            {
-                SystemManager.GetInstance().Update<InputSystem>(gameTime);
-                SystemManager.GetInstance().Update<MenuSystem>(gameTime);
-            }
-
-            
-
-            base.Update(gameTime);
         }
     }
 }

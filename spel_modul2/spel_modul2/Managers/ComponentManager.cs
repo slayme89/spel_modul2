@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GameEngine
 {
-    class ComponentManager
+    public class ComponentManager
     {
         private Dictionary<int, Dictionary<Type, IComponent>> entityComponents;
         private List<int> entities;

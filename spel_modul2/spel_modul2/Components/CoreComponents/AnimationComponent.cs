@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine
 {
-    class AnimationComponent : IComponent
+    public class AnimationComponent : IComponent
     {
         public string spritesheetFilename { get; set; }
         public Texture2D spriteSheet { get; set; }

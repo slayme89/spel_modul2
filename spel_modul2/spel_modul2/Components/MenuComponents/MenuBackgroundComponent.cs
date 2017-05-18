@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine
 {
-    class MenuBackgroundComponent : IComponent
+    public class MenuBackgroundComponent : IComponent
     {
         public bool IsActive { get; set; }
         public string Name { get; set; }

@@ -3,7 +3,7 @@ using System;
 
 namespace GameEngine
 {
-    class MenuManager
+    public class MenuManager
     {
         // Go to Play mode
         public static void Play()

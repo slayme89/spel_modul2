@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameEngine
 {
-    class Button
+    public class Button
     {
         private bool isDown;
         public Button()

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine
 {
-    class WorldComponent : IComponent
+    public class WorldComponent : IComponent
     {
         public Dictionary<Point, Texture2D> tiles;
         public Point center;

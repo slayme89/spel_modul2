@@ -1,6 +1,6 @@
 ﻿namespace GameEngine
 {
-    class EnergyComponent : IComponent
+    public class EnergyComponent : IComponent
     {
         public int Max { get; set; }
         public int Current { get; set; }

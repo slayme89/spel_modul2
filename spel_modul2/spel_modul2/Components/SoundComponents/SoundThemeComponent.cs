@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameEngine
 {
-    class SoundThemeComponent : IComponent
+    public class SoundThemeComponent : IComponent
     {
         public SoundEffectInstance Music { get; set; }
         public string MusicFile { get; set; }

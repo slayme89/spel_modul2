@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine
 {
-    class GUIComponent : IComponent
+    public class GUIComponent : IComponent
     {
         public string TextureName { get; set; }
         public Texture2D Texture { get; set; }

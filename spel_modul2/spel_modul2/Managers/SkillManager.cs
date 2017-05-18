@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameEngine
 {
-    class SkillManager
+    public class SkillManager
     {
         public static void HeavyAttack(int entity)
         {

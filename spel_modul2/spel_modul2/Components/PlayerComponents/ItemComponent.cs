@@ -15,7 +15,8 @@ namespace GameEngine
         Consumable,
         Skill
     }
-    class ItemComponent : IComponent, ActionBarSlotComponent
+
+    public class ItemComponent : IComponent, ActionBarSlotComponent
     {
         public int InventoryPosition { get; set; }
         public int actionBarPosition { get; set; }

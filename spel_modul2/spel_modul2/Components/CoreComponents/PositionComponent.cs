@@ -2,7 +2,7 @@
 
 namespace GameEngine
 {
-    class PositionComponent : IComponent
+    public class PositionComponent : IComponent
     {
         public Vector2 position;
 

@@ -1,6 +1,6 @@
 ﻿namespace GameEngine
 {
-    class EntityManager
+    public class EntityManager
     {
         static int nextId;
 
