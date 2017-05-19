@@ -12,8 +12,7 @@ namespace GameEngine.Systems
             ComponentManager cm = ComponentManager.GetInstance();
             foreach (var player in cm.GetComponentsOfType<PlayerComponent>())
             {
-                PlayerComponent playerComponent = (PlayerComponent)player.Value;
-                if(cm.HasEntityComponent<PlayerControlComponent>(player.Key) && cm.HasEntityComponent<PositionComponent>(player.Key))
+                if (cm.HasEntityComponent<PlayerControlComponent>(player.Key) && cm.HasEntityComponent<PositionComponent>(player.Key))
                 {
                     PlayerControlComponent controlComponent = cm.GetComponentForEntity<PlayerControlComponent>(player.Key);
                     PositionComponent playerPositionComponent = cm.GetComponentForEntity<PositionComponent>(player.Key);
@@ -25,21 +24,20 @@ namespace GameEngine.Systems
                         {
                             InteractComponent interComp = cm.GetComponentForEntity<InteractComponent>(closestInteractable);
 
-                            //// Its a trap
-                            //if (cm.GetComponentForEntity<InteractComponent>(closestInteractable).Type == InteractType.Trap)
-                            //    cm.GetComponentForEntity<DamageComponent>(player.Key).IncomingDamage.Add(closestInteractable);
-                            // Talk (show text)
-                            if (interComp.Type == InteractType.Talk)
+                            // Its a trap
+                            if (interComp.Type == InteractType.Trap && cm.HasEntityComponent<AttackComponent>(closestInteractable))
                             {
-                                if(interComp.IsActive != true)
+                                cm.GetComponentForEntity<DamageComponent>(player.Key).IncomingDamage.Add(closestInteractable);
+                            }
+                            //Talk(show text)
+                            else if (interComp.Type == InteractType.Talk && cm.HasEntityComponent<TextComponent>(closestInteractable))
+                            {
+                                foreach (var inter in cm.GetComponentsOfType<InteractComponent>())
                                 {
-                                    foreach (var inter in cm.GetComponentsOfType<InteractComponent>())
-                                    {
-                                        InteractComponent intComp = (InteractComponent)inter.Value;
-                                        intComp.IsActive = false;
-                                    }
-                                    interComp.IsActive = true;
-                                }                            
+                                    if (cm.HasEntityComponent<TextComponent>(inter.Key))
+                                        cm.GetComponentForEntity<TextComponent>(inter.Key).IsActive = false;
+                                }
+                                cm.GetComponentForEntity<TextComponent>(closestInteractable).IsActive = true;
                             }
                         }
                     }
@@ -56,7 +54,7 @@ namespace GameEngine.Systems
             {
                 PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(entity.Key);
                 float distance = Vector2.Distance(position, positionComponent.Position);
-                if(distance < closestDist)
+                if (distance < closestDist)
                 {
                     closestNr = entity.Key;
                     closestDist = distance;

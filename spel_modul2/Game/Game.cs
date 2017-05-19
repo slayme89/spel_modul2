@@ -38,7 +38,8 @@ namespace Game
             {
                 new PositionComponent(-200, 0),
                 new CollisionComponent(50, 50),
-                new InteractComponent(InteractType.Talk, "Hello darkness my old friend...", "NewSpriteFont", new Vector2(Viewport.TitleSafeArea.Width / 2 - 242, Viewport.TitleSafeArea.Bottom -75)),
+                new InteractComponent(InteractType.Talk),
+                new TextComponent( "NewSpriteFont", "Hello darkness my old friend...", new Vector2(Viewport.TitleSafeArea.Width / 2 - 242, Viewport.TitleSafeArea.Bottom -75), Color.Black, false)
             });
 
             cm.AddEntityWithComponents(new IComponent[]
