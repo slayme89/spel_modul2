@@ -59,11 +59,11 @@ namespace GameEngine.Systems
 
                 if (positionComponent != null)
                 {
-                    Point position = positionComponent.Position.ToPoint() - animationComponent.offset;
+                    Point position = positionComponent.Position.ToPoint() - animationComponent.Offset;
                     Rectangle animationBounds = new Rectangle(position.X, position.Y, animationComponent.FrameSize.X, animationComponent.FrameSize.Y);
 
                     if (viewportBounds.Intersects(animationBounds))
-                        spriteBatch.Draw(animationComponent.Spritesheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.sourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(animationComponent.layer));
+                        spriteBatch.Draw(animationComponent.Spritesheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.SourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(animationComponent.Layer));
                 }
             }
         }
