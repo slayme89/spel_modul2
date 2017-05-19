@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine.Managers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Components
@@ -10,16 +11,16 @@ namespace GameEngine.Components
         public Point Offset;
         public RenderLayer Layer;
 
-        public TextureComponent(string textureFilename)
-        {
-            TextureFilename = textureFilename;
-            Layer = RenderLayer.Layer1;
-        }
+        public TextureComponent(string textureFilename) : this(textureFilename, RenderLayer.Layer1) { }
 
         public TextureComponent(string textureFilename, RenderLayer layer)
         {
+            ResourceManager rm = ResourceManager.GetInstance();
+
             TextureFilename = textureFilename;
             Layer = layer;
+
+            Texture = rm.GetResource<Texture2D>(textureFilename);
         }
     }
 }

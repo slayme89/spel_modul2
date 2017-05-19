@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameEngine.Managers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Components
@@ -19,18 +20,26 @@ namespace GameEngine.Components
 
         public AnimationComponent(string spritesheetFilename, Point sheetSize, int frameDuration)
         {
+            ResourceManager rm = ResourceManager.GetInstance();
+
             SpritesheetFilename = spritesheetFilename;
             SheetSize = sheetSize;
             FrameDuration = frameDuration;
             Layer = RenderLayer.Layer1;
+
+            SpriteSheet = rm.GetResource<Texture2D>(spritesheetFilename);
         }
 
         public AnimationComponent(string spritesheetFilename, Point sheetSize, int frameDuration, RenderLayer layer)
         {
+            ResourceManager rm = ResourceManager.GetInstance();
+
             SpritesheetFilename = spritesheetFilename;
             SheetSize = sheetSize;
             FrameDuration = frameDuration;
             Layer = layer;
+
+            SpriteSheet = rm.GetResource<Texture2D>(spritesheetFilename);
         }
     }
 }

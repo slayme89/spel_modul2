@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using GameEngine.Managers;
 
 namespace GameEngine.Components
 {
@@ -20,33 +21,30 @@ namespace GameEngine.Components
             set
             {
                 activeAnimation = value;
-                groupFrame = new Point(0, 0);
-                currentFrame = groupFrame + Animations[activeAnimation].Item1;
+                GroupFrame = new Point(0, 0);
+                CurrentFrame = GroupFrame + Animations[activeAnimation].Item1;
             }
         }
-        public int lastFrameDeltaTime { get; set; }
-        public Point groupFrame;
-        public Point currentFrame;
-        public Rectangle sourceRectangle { get; set; }
-        public Point offset;
-        public RenderLayer layer;
+        public int LastFrameDeltaTime { get; set; }
+        public Point GroupFrame;
+        public Point CurrentFrame;
+        public Rectangle SourceRectangle { get; set; }
+        public Point Offset;
+        public RenderLayer Layer;
 
-        public AnimationGroupComponent(string spritesheetFilename, Point sheetSize, int frameDuration, params Tuple<Point, Point>[] animations)
-        {
-            this.SpritesheetFilename = spritesheetFilename;
-            this.SheetSize = sheetSize;
-            this.Animations = animations;
-            this.FrameDuration = frameDuration;
-            this.layer = RenderLayer.Layer1;
-        }
+        public AnimationGroupComponent(string spritesheetFilename, Point sheetSize, int frameDuration, params Tuple<Point, Point>[] animations) : this(spritesheetFilename, sheetSize, frameDuration, RenderLayer.Layer1, animations) { }
 
         public AnimationGroupComponent(string spritesheetFilename, Point sheetSize, int frameDuration, RenderLayer layer, params Tuple<Point, Point>[] animations)
         {
-            this.SpritesheetFilename = spritesheetFilename;
-            this.SheetSize = sheetSize;
-            this.Animations = animations;
-            this.FrameDuration = frameDuration;
-            this.layer = layer;
+            ResourceManager rm = ResourceManager.GetInstance();
+
+            SpritesheetFilename = spritesheetFilename;
+            SheetSize = sheetSize;
+            Animations = animations;
+            FrameDuration = frameDuration;
+            Layer = layer;
+
+            Spritesheet = rm.GetResource<Texture2D>(spritesheetFilename);
         }
     }
 }

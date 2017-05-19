@@ -1,37 +1,44 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework.Content;
+using System.Collections.Generic;
 
 namespace GameEngine.Managers
 {
-    class ResourceManager
+    public class ResourceManager
     {
-        static ResourceManager instance;
+        static ResourceManager Instance;
         Dictionary<string, object> resources;
+        public ContentManager Content;
 
         static ResourceManager()
         {
-            instance = new ResourceManager();
+            Instance = new ResourceManager();
         }
 
-        static ResourceManager GetInstance()
+        public static ResourceManager GetInstance()
         {
-            return instance;
+            return Instance;
         }
 
         private ResourceManager()
         {
             resources = new Dictionary<string, object>();
+            Content = null;
         }
 
         public T GetResource<T>(string name)
         {
             object resource;
-            instance.resources.TryGetValue(name, out resource);
+            if (!Instance.resources.TryGetValue(name, out resource))
+            {
+                resource = Content.Load<T>(name);
+                AddResource(name, resource);
+            }
             return (T)resource;
         }
 
         public void AddResource(string name, object resource)
         {
-            instance.resources.Add(name, resource);
+            Instance.resources.Add(name, resource);
         }
     }
 }

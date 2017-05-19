@@ -1,4 +1,4 @@
-﻿
+﻿using GameEngine.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -15,12 +15,15 @@ namespace GameEngine.Components
 
         public TextComponent(string path, string text, Vector2 position, Color color, bool isActive)
         {
+            ResourceManager rm = ResourceManager.GetInstance();
+
             Position = position;
             SpriteFontPath = path;
             Text = text;
             Color = color;
             IsActive = isActive;
-        }
 
+            SpriteFont = rm.GetResource<SpriteFont>(path);
+        }
     }
 }

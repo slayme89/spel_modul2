@@ -28,6 +28,7 @@ namespace GameEngine
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            ResourceManager.GetInstance().Content = Content;
 
             IsFixedTimeStep = false;
             IsMouseVisible = true;

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Audio;
+using GameEngine.Managers;
 
 namespace GameEngine.Components
 {
@@ -16,12 +17,18 @@ namespace GameEngine.Components
 
         public SoundComponent(string walkfile, string attackFile, string damageFile)
         {
+            ResourceManager rm = ResourceManager.GetInstance();
+
             AttackFile = attackFile;
             WalkFile = walkfile;
             DamageFile = damageFile;
             PlayWalkSound = false;
             PlayAttackSound = false;
             PlayDamageSound = false;
+
+            WalkSound = rm.GetResource<SoundEffect>(walkfile).CreateInstance();
+            AttackSound = rm.GetResource<SoundEffect>(attackFile).CreateInstance();
+            DamageSound = rm.GetResource<SoundEffect>(damageFile).CreateInstance();
         }
     }
 }

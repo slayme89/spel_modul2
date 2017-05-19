@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Audio;
+﻿using GameEngine.Managers;
+using Microsoft.Xna.Framework.Audio;
 
 namespace GameEngine.Components
 {
@@ -10,8 +11,12 @@ namespace GameEngine.Components
 
         public SoundThemeComponent(string filePath)
         {
+            ResourceManager rm = ResourceManager.GetInstance();
+
             PlayMusic = true;
             MusicFile = filePath;
+
+            Music = rm.GetResource<SoundEffect>(filePath).CreateInstance();
         }
     }
 }
