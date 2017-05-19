@@ -114,6 +114,7 @@
     <Compile Include="Systems\MenuSystem\MenuSystem.cs" />
     <Compile Include="Systems\PlayerSystems\ActionBarSystem.cs" />
     <Compile Include="Systems\PlayerSystems\PlayerArmSystem.cs" />
+    <Compile Include="Systems\PlayerSystems\PlayerSpriteTurnSystem.cs" />
     <Compile Include="Systems\PlayerSystems\SkillSystem.cs" />
     <Compile Include="Systems\LoaderSystems\InventoryLoaderSystem.cs" />
     <Compile Include="Systems\PlayerSystems\StatsSystem.cs" />

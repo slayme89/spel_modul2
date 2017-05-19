@@ -40,9 +40,8 @@ namespace Game
         {
             return new IComponent[]
             {
-                new AnimationGroupComponent("PlayerAnimation/PlayerSpritesheetBIG", new Point(4, 4), 150,
+                new AnimationGroupComponent("PlayerAnimation/PlayerSpritesheetBIG", new Point(4, 4), 15,
                 new[] {
-                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
                     new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
                     new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
                     new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
