@@ -71,6 +71,7 @@ namespace GameEngine
                 new RenderActionbarSystem(),
                 new InteractSystem(),
                 new RenderGUISystem(),
+                new EnergySystem(),
                 new RenderEnergySystem(),
                 new ItemIconLoaderSystem(),
                 new HealthSystem(),
