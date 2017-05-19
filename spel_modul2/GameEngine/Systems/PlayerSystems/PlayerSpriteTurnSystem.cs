@@ -24,7 +24,6 @@ namespace GameEngine.Systems
                     return;
                 AnimationGroupComponent playerAnimation = cm.GetComponentForEntity<AnimationGroupComponent>(armComp.playerID);
                 int animation = getAnimationRow(moveComp.Direction);
-                Debug.WriteLine(animation + "    " + moveComp.Direction);
                 armAnimation.ActiveAnimation = animation;
                 playerAnimation.ActiveAnimation = animation;
             }

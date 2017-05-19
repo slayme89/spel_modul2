@@ -34,7 +34,7 @@ namespace GameEngine.Managers
                 if (cm.HasEntityComponent<DamageComponent>(entityHit) && !cm.HasEntityComponent<PlayerControlComponent>(entityHit))
                 {
                     DamageComponent damageComp = cm.GetComponentForEntity<DamageComponent>(entityHit);
-                    float damage = 10 + statComp.Strength * 3.5f;
+                    float damage = 11 + statComp.Strength * 3.5f;
                     damageComp.IncomingDamage.Add((int)damage);
                     damageComp.LastAttacker = entity;
                 }

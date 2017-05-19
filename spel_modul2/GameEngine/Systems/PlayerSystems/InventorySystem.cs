@@ -18,16 +18,17 @@ namespace GameEngine.Systems
                 {
                     InventoryComponent invenComp = cm.GetComponentForEntity<InventoryComponent>(entity.Key);
                     //Test to add item press 1 on the keyboard or rt + a on gamepad
-                    //if (playerComp.ActionBar1.IsButtonDown())
-                    //{
-                    //    foreach (var item in cm.GetComponentsOfType<ItemComponent>())
-                    //        AddItemToInventory(entity.Key, item.Key);
-                    //}
-                    if(invenComp.ItemsToAdd.Count > 0)
+                    if (playerComp.ActionBar2.IsButtonDown())
                     {
-                        foreach(int item in invenComp.ItemsToAdd)
+                        foreach (var item in cm.GetComponentsOfType<ItemComponent>())
+                            invenComp.ItemsToAdd.Add(item.Key);
+                    }
+                    if (invenComp.ItemsToAdd.Count > 0)
+                    {
+                        foreach (int item in invenComp.ItemsToAdd.ToArray())
                         {
                             AddItemToInventory(entity.Key, item);
+                            invenComp.ItemsToAdd.Remove(item);
                         }
                     }
                     if (playerComp.Inventory.IsButtonDown())
@@ -118,7 +119,7 @@ namespace GameEngine.Systems
                                         //Choose the skill selected if it has not already been picked and prerequisite requirements have been met
                                         if (ChooseAvailableSkill(ref invenComp, GetSelectedSkillSlot(invenComp.SelectedSlot.X, invenComp.SelectedSlot.Y)))
                                             statComp.SpendableStats -= 5;
-                                }
+                                    }
                                 }
                                 else
                                 {
@@ -202,35 +203,23 @@ namespace GameEngine.Systems
                             }
                             else if (cm.HasEntityComponent<ActionBarComponent>(entity.Key))
                             {
-                                
+
                                 ActionBarComponent actionBComp = cm.GetComponentForEntity<ActionBarComponent>(entity.Key);
                                 if (playerComp.ActionBar1.IsButtonDown())
                                 {
-                                    int selectedArraySlot = 0;
-                                    if (invenComp.LocationInInventory == LocationInInventory.Bagspace)
-                                    {
-                                        selectedArraySlot = invenComp.SelectedSlot.Y + (invenComp.ColumnsRows.X) * invenComp.SelectedSlot.X;
-                                        if(invenComp.Items[selectedArraySlot] != 0)
-                                            actionBComp.Slots[0] = cm.GetComponentForEntity<ItemComponent>(invenComp.Items[selectedArraySlot]);
-                                    }
-                                    else if (invenComp.LocationInInventory == LocationInInventory.Skills)
-                                    {
-                                        selectedArraySlot = GetSelectedSkillSlot(invenComp.SelectedSlot.X, invenComp.SelectedSlot.Y);
-                                        if (invenComp.Skills[selectedArraySlot] != 0)
-                                            actionBComp.Slots[0] = cm.GetComponentForEntity<SkillComponent>(invenComp.Skills[selectedArraySlot]);
-                                    }
+                                    BindToActionBar(ref invenComp, ref actionBComp, ref cm, 0);
                                 }
                                 else if (playerComp.ActionBar2.IsButtonDown())
                                 {
-
+                                    BindToActionBar(ref invenComp, ref actionBComp, ref cm, 1);
                                 }
                                 else if (playerComp.ActionBar3.IsButtonDown())
                                 {
-
+                                    BindToActionBar(ref invenComp, ref actionBComp, ref cm, 2);
                                 }
                                 else if (playerComp.ActionBar4.IsButtonDown())
                                 {
-
+                                    BindToActionBar(ref invenComp, ref actionBComp, ref cm, 3);
                                 }
                                 else
                                 {
@@ -248,6 +237,39 @@ namespace GameEngine.Systems
                 }
             }
         }
+
+        void BindToActionBar(ref InventoryComponent invenComp, ref ActionBarComponent actionBComp, ref ComponentManager cm, int slotNumber)
+        {
+
+            int selectedArraySlot = 0;
+            ActionBarSlotComponent aBSC = null;
+            if (invenComp.LocationInInventory == LocationInInventory.Bagspace)
+            {
+                selectedArraySlot = invenComp.SelectedSlot.Y + (invenComp.ColumnsRows.X) * invenComp.SelectedSlot.X;
+                if (invenComp.Items[selectedArraySlot] != 0)
+                {
+                    aBSC = cm.GetComponentForEntity<ItemComponent>(invenComp.Items[selectedArraySlot]);
+                    actionBComp.Slots[slotNumber] = aBSC;
+                }
+            }
+            else if (invenComp.LocationInInventory == LocationInInventory.Skills)
+            {
+                selectedArraySlot = GetSelectedSkillSlot(invenComp.SelectedSlot.X, invenComp.SelectedSlot.Y);
+                if (invenComp.Skills[selectedArraySlot] != 0)
+                {
+                    aBSC = cm.GetComponentForEntity<SkillComponent>(invenComp.Skills[selectedArraySlot]);
+                    actionBComp.Slots[slotNumber] = aBSC;
+                }
+            }
+            for (int i = 0; i < actionBComp.Slots.Length; i++)
+            {
+                if (i == slotNumber)
+                    continue;
+                if (actionBComp.Slots[i] == aBSC)
+                    actionBComp.Slots[i] = null;
+            }
+        }
+
 
         bool UpdateInventoryFocus(InventoryComponent invenComp, Point nextSlot)
         {
