@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace GameEngine.Components
 {
@@ -19,6 +20,11 @@ namespace GameEngine.Components
             CollisionBox.Width = size.X;
             CollisionBox.Height = size.Y;
             Offset = offset;
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

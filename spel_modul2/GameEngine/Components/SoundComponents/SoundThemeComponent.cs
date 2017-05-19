@@ -1,4 +1,5 @@
-﻿using GameEngine.Managers;
+﻿using System;
+using GameEngine.Managers;
 using Microsoft.Xna.Framework.Audio;
 
 namespace GameEngine.Components
@@ -18,6 +19,11 @@ namespace GameEngine.Components
 
             Music = rm.GetResource<SoundEffect>(filePath).CreateInstance();
             Music.Volume *= 0.1f;
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }

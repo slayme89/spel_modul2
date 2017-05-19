@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace GameEngine.Components
 {
@@ -25,6 +26,11 @@ namespace GameEngine.Components
             AttackChargeUp = attackDelay;
             AttackDelay = attackDelay;
             CanAttack = true;
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace GameEngine.Components
 {
@@ -14,6 +15,11 @@ namespace GameEngine.Components
         {
             Slots = new ActionBarSlotComponent[4];
             SlotSize = new Point(30, 30);
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }

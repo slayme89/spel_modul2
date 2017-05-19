@@ -12,5 +12,10 @@ namespace GameEngine.Components
         {
             KnockbackActive = false;
         }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

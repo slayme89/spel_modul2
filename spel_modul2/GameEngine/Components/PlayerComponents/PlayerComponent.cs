@@ -8,5 +8,10 @@
         {
             Number = playerNum;
         }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

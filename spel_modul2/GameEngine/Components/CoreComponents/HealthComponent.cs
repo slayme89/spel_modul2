@@ -1,4 +1,6 @@
-﻿namespace GameEngine.Components
+﻿using System;
+
+namespace GameEngine.Components
 {
     public class HealthComponent : IComponent
     {
@@ -19,6 +21,11 @@
             Max = maxHealth;
             Current = Max;
             DeathTimer = deathTimer;
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

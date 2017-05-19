@@ -17,5 +17,10 @@ namespace GameEngine.Components
         {
             Position = new Vector2(x, y);
         }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

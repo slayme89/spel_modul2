@@ -1,4 +1,6 @@
-﻿namespace GameEngine.Components
+﻿using System;
+
+namespace GameEngine.Components
 {
     public class StatsComponent : IComponent
     {
@@ -20,6 +22,11 @@
             Agility = agility;
             Stamina = stamina;
             Intellect = intellect;
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }

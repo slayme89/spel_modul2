@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 
 namespace GameEngine.Components
 {
@@ -15,6 +16,11 @@ namespace GameEngine.Components
             IsFriendly = isFriendly;
             DetectRange = 200;
             TargetEntity = 0;
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

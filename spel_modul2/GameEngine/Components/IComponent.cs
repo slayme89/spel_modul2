@@ -1,7 +1,9 @@
-﻿namespace GameEngine.Components
+﻿using System;
+
+namespace GameEngine.Components
 {
     //implement this interface when creating a component
-    public interface IComponent
+    public interface IComponent : ICloneable
     {
     }
 }

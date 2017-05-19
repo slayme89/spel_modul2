@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using System;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Components
 {
@@ -25,6 +26,11 @@ namespace GameEngine.Components
             Use = action;
             Type = type;
             TextureFileName = itemIconFileName;
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }

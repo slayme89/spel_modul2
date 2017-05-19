@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using GameEngine.Managers;
+using System;
 
 namespace GameEngine.Components
 {
@@ -30,6 +31,19 @@ namespace GameEngine.Components
             WalkSound.IsLooped = true;
             AttackSound = rm.GetResource<SoundEffect>(attackFile).CreateInstance();
             DamageSound = rm.GetResource<SoundEffect>(damageFile).CreateInstance();
+        }
+
+        public object Clone()
+        {
+            ResourceManager rm = ResourceManager.GetInstance();
+            SoundComponent o = (SoundComponent)MemberwiseClone();
+            o.WalkSound = rm.GetResource<SoundEffect>(WalkFile).CreateInstance();
+            o.WalkFile = string.Copy(WalkFile);
+            o.AttackSound = rm.GetResource<SoundEffect>(AttackFile).CreateInstance();
+            o.AttackFile = string.Copy(AttackFile);
+            o.DamageSound = rm.GetResource<SoundEffect>(DamageFile).CreateInstance();
+            o.DamageFile = string.Copy(DamageFile);
+            return o;
         }
     }
 }

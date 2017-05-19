@@ -29,5 +29,14 @@ namespace GameEngine.Components
             Position = position;
             Layer = layer;
         }
+
+        public object Clone()
+        {
+            MenuButtonComponent o = (MenuButtonComponent)MemberwiseClone();
+            o.Name = string.Copy(Name);
+            o.NormalTexturePath = string.Copy(NormalTexturePath);
+            o.HighlightTexturePath = string.Copy(HighlightTexturePath);
+            return o;
+        }
     }
 }

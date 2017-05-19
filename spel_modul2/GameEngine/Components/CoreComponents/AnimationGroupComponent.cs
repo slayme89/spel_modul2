@@ -46,5 +46,18 @@ namespace GameEngine.Components
 
             Spritesheet = rm.GetResource<Texture2D>(spritesheetFilename);
         }
+
+        public object Clone()
+        {
+            AnimationGroupComponent o = (AnimationGroupComponent)MemberwiseClone();
+            o.SpritesheetFilename = string.Copy(SpritesheetFilename);
+
+            for (int i = 0; i < Animations.Length; i++)
+            {
+                o.Animations[i] = new Tuple<Point, Point>(Animations[i].Item1, Animations[i].Item2);
+            }
+
+            return o;
+        }
     }
 }

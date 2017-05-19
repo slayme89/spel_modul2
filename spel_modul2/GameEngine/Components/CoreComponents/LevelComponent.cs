@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GameEngine.Components
 {
@@ -25,6 +26,14 @@ namespace GameEngine.Components
             Experience = startExperience;
             ExperienceGains = new List<int>();
             ExperienceLoss = new List<int>();
+        }
+
+        public object Clone()
+        {
+            LevelComponent o = (LevelComponent)MemberwiseClone();
+            o.ExperienceGains = new List<int>(ExperienceGains);
+            o.ExperienceLoss = new List<int>(ExperienceLoss);
+            return o;
         }
     }
 }

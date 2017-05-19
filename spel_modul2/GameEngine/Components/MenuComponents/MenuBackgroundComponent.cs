@@ -20,5 +20,13 @@ namespace GameEngine.Components
             Position = position;
             Layer = Layer;
         }
+
+        public object Clone()
+        {
+            MenuBackgroundComponent o = (MenuBackgroundComponent)MemberwiseClone();
+            o.Name = string.Copy(Name);
+            o.TexturePath = string.Copy(TexturePath);
+            return o;
+        }
     }
 }

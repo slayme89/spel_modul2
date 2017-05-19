@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System;
 
 namespace GameEngine.Components
 {
@@ -42,6 +43,11 @@ namespace GameEngine.Components
             SlotSpace = new Point(5, 5);
             SelectSlotDelay = 0.15f;
             selectSlotCurCooldown = 0.0f;
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }

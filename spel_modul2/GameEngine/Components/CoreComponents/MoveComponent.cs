@@ -8,6 +8,7 @@ namespace GameEngine.Components
         public float Speed { get; set; }
         public Point Direction { get; set; }
         public bool CanMove { get; set; }
+
         public MoveComponent()
         {
             CanMove = true;
@@ -22,6 +23,11 @@ namespace GameEngine.Components
             Velocity = new Vector2();
             Speed = speed;
             Direction = new Point(0, 1);
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

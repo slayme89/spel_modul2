@@ -1,4 +1,5 @@
-﻿using GameEngine.Managers;
+﻿using System;
+using GameEngine.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -22,6 +23,11 @@ namespace GameEngine.Components
 
             Texture = rm.GetResource<Texture2D>(textureFilename);
             Offset = new Point(Texture.Width / 2, Texture.Height / 2);
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }

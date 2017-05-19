@@ -1,4 +1,5 @@
-﻿using GameEngine.Managers;
+﻿using System;
+using GameEngine.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -20,6 +21,11 @@ namespace GameEngine.Components
             Layer = layer;
 
             Texture = rm.GetResource<Texture2D>(textureName);
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }

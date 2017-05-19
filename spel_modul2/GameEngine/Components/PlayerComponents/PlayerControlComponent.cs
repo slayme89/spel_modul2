@@ -1,4 +1,6 @@
-﻿namespace GameEngine.Components
+﻿using System;
+
+namespace GameEngine.Components
 {
     public enum ControllerType { Keyboard, Gamepad1, Gamepad2 };
 
@@ -30,6 +32,11 @@
             ActionBar2 = new Button();
             ActionBar3 = new Button();
             ActionBar4 = new Button();
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }

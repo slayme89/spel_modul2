@@ -23,5 +23,13 @@ namespace GameEngine.Components
             Use = action;
             IconFileName = iconFileName;
         }
+
+        public object Clone()
+        {
+            SkillComponent o = (SkillComponent)MemberwiseClone();
+            o.UsingEntities = new List<int>(UsingEntities);
+            o.IconFileName = string.Copy(IconFileName);
+            return o;
+        }
     }
 }

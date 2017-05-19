@@ -1,4 +1,5 @@
-﻿using GameEngine.Managers;
+﻿using System;
+using GameEngine.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -33,6 +34,11 @@ namespace GameEngine.Components
             FrameSize = new Point(SpriteSheet.Width / SheetSize.X, SpriteSheet.Height / SheetSize.Y);
             Offset = new Point(FrameSize.X / 2, FrameSize.Y / 2);
             SourceRectangle = new Rectangle(new Point(), FrameSize);
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

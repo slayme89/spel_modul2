@@ -1,4 +1,6 @@
-﻿namespace GameEngine.Components
+﻿using System;
+
+namespace GameEngine.Components
 {
     public enum InteractType { Trap, Talk, Loot };
 
@@ -9,6 +11,11 @@
         public InteractComponent(InteractType type)
         {
             Type = type;
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

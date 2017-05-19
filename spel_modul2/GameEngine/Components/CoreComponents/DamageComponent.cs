@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GameEngine.Components
 {
@@ -10,6 +11,13 @@ namespace GameEngine.Components
         public DamageComponent()
         {
             IncomingDamage = new List<int>();
+        }
+
+        public object Clone()
+        {
+            DamageComponent o = (DamageComponent)MemberwiseClone();
+            o.IncomingDamage = new List<int>(IncomingDamage);
+            return o;
         }
     }
 }

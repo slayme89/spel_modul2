@@ -1,4 +1,5 @@
-﻿using GameEngine.Managers;
+﻿using System;
+using GameEngine.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -24,6 +25,11 @@ namespace GameEngine.Components
             IsActive = isActive;
 
             SpriteFont = rm.GetResource<SpriteFont>(path);
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }

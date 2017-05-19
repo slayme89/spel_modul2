@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -12,6 +13,11 @@ namespace GameEngine.Components
         public WorldComponent()
         {
             Tiles = new Dictionary<Point, Texture2D>();
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }
