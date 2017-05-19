@@ -27,6 +27,7 @@ namespace GameEngine.Components
             PlayDamageSound = false;
 
             WalkSound = rm.GetResource<SoundEffect>(walkfile).CreateInstance();
+            WalkSound.IsLooped = true;
             AttackSound = rm.GetResource<SoundEffect>(attackFile).CreateInstance();
             DamageSound = rm.GetResource<SoundEffect>(damageFile).CreateInstance();
         }

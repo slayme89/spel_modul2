@@ -18,17 +18,7 @@ namespace GameEngine.Components
         public Point Offset;
         public RenderLayer Layer;
 
-        public AnimationComponent(string spritesheetFilename, Point sheetSize, int frameDuration)
-        {
-            ResourceManager rm = ResourceManager.GetInstance();
-
-            SpritesheetFilename = spritesheetFilename;
-            SheetSize = sheetSize;
-            FrameDuration = frameDuration;
-            Layer = RenderLayer.Layer1;
-
-            SpriteSheet = rm.GetResource<Texture2D>(spritesheetFilename);
-        }
+        public AnimationComponent(string spritesheetFilename, Point sheetSize, int frameDuration) : this(spritesheetFilename, sheetSize, frameDuration, RenderLayer.Layer1) { }
 
         public AnimationComponent(string spritesheetFilename, Point sheetSize, int frameDuration, RenderLayer layer)
         {
@@ -40,6 +30,9 @@ namespace GameEngine.Components
             Layer = layer;
 
             SpriteSheet = rm.GetResource<Texture2D>(spritesheetFilename);
+            FrameSize = new Point(SpriteSheet.Width / SheetSize.X, SpriteSheet.Height / SheetSize.Y);
+            Offset = new Point(FrameSize.X / 2, FrameSize.Y / 2);
+            SourceRectangle = new Rectangle(new Point(), FrameSize);
         }
     }
 }

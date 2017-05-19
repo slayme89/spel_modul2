@@ -110,7 +110,6 @@
     <Compile Include="Systems\CoreSystems\EnergySystem.cs" />
     <Compile Include="Systems\CoreSystems\HealthSystem.cs" />
     <Compile Include="Systems\CoreSystems\KnockbackSystem.cs" />
-    <Compile Include="Systems\LoaderSystems\AnimationLoaderSystem.cs" />
     <Compile Include="Systems\LoaderSystems\SkillLoaderSystem.cs" />
     <Compile Include="Systems\MenuSystem\MenuSystem.cs" />
     <Compile Include="Systems\PlayerSystems\ActionBarSystem.cs" />
@@ -142,9 +141,7 @@
     <Compile Include="Systems\RenderSystems\RenderInventorySystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderMenuSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderSystem.cs" />
-    <Compile Include="Systems\LoaderSystems\SoundLoaderSystem.cs" />
     <Compile Include="Systems\CoreSystems\SoundSystem.cs" />
-    <Compile Include="Systems\LoaderSystems\TextureLoaderSystem.cs" />
     <Compile Include="Systems\CoreSystems\MoveSystem.cs" />
     <Compile Include="Systems\CoreSystems\WorldSystem.cs" />
   </ItemGroup>

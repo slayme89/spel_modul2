@@ -21,6 +21,7 @@ namespace GameEngine.Components
             Layer = layer;
 
             Texture = rm.GetResource<Texture2D>(textureFilename);
+            Offset = new Point(Texture.Width / 2, Texture.Height / 2);
         }
     }
 }

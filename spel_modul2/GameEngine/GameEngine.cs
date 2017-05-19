@@ -48,8 +48,6 @@ namespace GameEngine
 
             sm.AddSystems(new object[] {
                 new AnimationSystem(),
-                new AnimationLoaderSystem(),
-                new TextureLoaderSystem(),
                 new MoveSystem(),
                 new CollisionSystem(),
                 new RenderSystem(),
@@ -63,7 +61,6 @@ namespace GameEngine
                 new WorldSystem(),
                 new AIAttackSystem(),
                 new SoundSystem(),
-                new SoundLoaderSystem(),
                 new DamageSystem(),
                 new KnockbackSystem(),
                 new RenderHealthSystem(),
@@ -99,10 +96,7 @@ namespace GameEngine
 
         protected override void LoadContent()
         {
-            sm.GetSystem<AnimationLoaderSystem>().Load(Content);
-            sm.GetSystem<TextureLoaderSystem>().Load(Content);
             sm.GetSystem<WorldSystem>().Load(Content);
-            sm.GetSystem<SoundLoaderSystem>().Load(Content);
             sm.GetSystem<RenderEnergySystem>().Load(Content);
             sm.GetSystem<RenderHealthSystem>().Load(Content);
             sm.GetSystem<RenderExperienceSystem>().Load(Content);
@@ -112,8 +106,6 @@ namespace GameEngine
             sm.GetSystem<RenderMenuSystem>().Load(Content);
             sm.GetSystem<SkillLoaderSystem>().Load(Content);
             sm.GetSystem<RenderTextSystem>().Load(Content);
-
-
             sm.GetSystem<AnimationGroupLoaderSystem>().Load(Content);
             
             base.LoadContent();
