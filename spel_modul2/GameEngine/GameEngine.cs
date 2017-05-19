@@ -89,6 +89,7 @@ namespace GameEngine
                 new RenderTextSystem(),
                 new PlayerSpriteTurnSystem(),
                 new SkillManager(),
+                new PlayerEquipmentSystem(),
             });
 
             base.Initialize();

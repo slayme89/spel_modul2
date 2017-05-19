@@ -156,7 +156,6 @@ namespace Game
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-
                 new ItemComponent(ItemManager.exampleUseItem, "Staff", ItemType.Weapon),
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
@@ -171,14 +170,29 @@ namespace Game
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new ItemComponent(ItemManager.exampleUseItem, "GoldArmorBody", ItemType.Body),
+                
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new ItemComponent(ItemManager.exampleUseItem, "ChainArmorHead", ItemType.Head),
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/KnightArmorHeadSpritesheetMEDIUM", new Point(4, 4), 15, RenderLayer.Layer2,
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                }),
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new ItemComponent(ItemManager.exampleUseItem, "ChainArmorBody", ItemType.Body),
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/KnightArmorBodySpritesheetMEDIUM", new Point(4, 4), 15, RenderLayer.Layer2,
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                }),
             });
 
             //////////////// Menu Entities ///////////////////////////////////

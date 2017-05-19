@@ -20,11 +20,11 @@ namespace GameEngine.Systems
                 actionBarComp.PositionOnScreen = new Point(renderHelper.graphicsDevice.Viewport.TitleSafeArea.Left, renderHelper.graphicsDevice.Viewport.TitleSafeArea.Bottom - actionBarHeight);
                 Rectangle actionBarBackground = new Rectangle(actionBarComp.PositionOnScreen, new Point(actionBarWidth, actionBarHeight));
 
-                //renderHelper.DrawFilledRectangle(actionBarBackground, Color.DarkGray, RenderLayer.GUI1);
+                renderHelper.DrawFilledRectangle(actionBarBackground, Color.DarkGray, RenderLayer.GUI1);
                 for (int slot = 0; slot < 4; slot++)
                 {
                     Rectangle actionBarSlot = new Rectangle(new Point(actionBarComp.PositionOnScreen.X + (actionBarComp.SlotSize.X + 5) * slot + 5, actionBarComp.PositionOnScreen.Y + 5), actionBarComp.SlotSize);
-                    //renderHelper.DrawFilledRectangle(actionBarSlot, Color.Gray, RenderLayer.GUI2);
+                    renderHelper.DrawFilledRectangle(actionBarSlot, Color.Gray, RenderLayer.GUI2);
                     if(actionBarComp.Slots[slot] != null)
                     {
                         
