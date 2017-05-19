@@ -32,10 +32,10 @@ namespace GameEngine.Systems
                                 int num = oldLevel - newLevel;
                                 statComponent.RemoveStats += 3 * num;
                             }
-                            // Permadeath, Remove entity and everything assosiated with that entity
-                            if (levelComponent.CurrentLevel == 0)
+                            // see if level is 0 or less, set it to 0
+                            if (levelComponent.CurrentLevel >= 0)
                             {
-                                cm.RemoveEntity(entity.Key);
+                                levelComponent.CurrentLevel = 0;
                             }
                         }
                         levelComponent.ExperienceLoss = new List<int>();

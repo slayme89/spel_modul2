@@ -47,7 +47,7 @@ namespace GameEngine.Systems
                                 {
                                    if(cm.GetComponentForEntity<HealthComponent>(closestInteractable).IsAlive == false)
                                     {
-
+                                        cm.GetComponentForEntity<InventoryComponent>(player.Key).ItemsToAdd.Add(closestInteractable);
                                     }
                                 }
                             }
