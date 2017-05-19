@@ -107,7 +107,6 @@ namespace GameEngine
             sm.GetSystem<RenderMenuSystem>().Load(Content);
             sm.GetSystem<SkillLoaderSystem>().Load(Content);
             sm.GetSystem<RenderTextSystem>().Load(Content);
-            sm.GetSystem<AnimationGroupLoaderSystem>().Load(Content);
             
             base.LoadContent();
         }

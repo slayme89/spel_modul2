@@ -45,6 +45,9 @@ namespace GameEngine.Components
             Layer = layer;
 
             Spritesheet = rm.GetResource<Texture2D>(spritesheetFilename);
+            FrameSize = new Point(Spritesheet.Width / SheetSize.X, Spritesheet.Height / SheetSize.Y);
+            Offset = new Point(FrameSize.X / 2, FrameSize.Y / 2);
+            SourceRectangle = new Rectangle(new Point(), FrameSize);
         }
 
         public object Clone()
