@@ -65,7 +65,7 @@ namespace Game
             cm.AddEntityWithComponents(new IComponent[]
             {
                 new PositionComponent(0, 0),
-                new AnimationGroupComponent("PlayerAnimation/PlayerArmsSpritesheetBIG", new Point(4, 8), 15, RenderLayer.Layer2,
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/PlayerArmsSpritesheetMEDIUM", new Point(4, 8), 15, RenderLayer.Layer2,
                 new[] {
                     new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
                     new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
@@ -162,6 +162,7 @@ namespace Game
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new ItemComponent(ItemManager.exampleUseItem, "Sword", ItemType.Weapon),
+                new SwordComponent(10),
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {

@@ -44,7 +44,7 @@ namespace Game
         {
             return new IComponent[]
             {
-                new AnimationGroupComponent("PlayerAnimation/PlayerSpritesheetBIG", new Point(4, 4), 15,
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/PlayerSpritesheetMEDIUM", new Point(4, 4), 15,
                 new[] {
                     new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
                     new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
@@ -55,8 +55,8 @@ namespace Game
                 new PositionComponent(x, y),
                 new MoveComponent(0.2f),
                 new PlayerControlComponent(ControllerType.Keyboard),
-                new CollisionComponent(50, 70),
-                new AttackComponent(10, 0.3f, 0.1f, WeaponType.Sword),
+                new CollisionComponent(30, 35),
+                new AttackComponent(10, 0.3f, 0.1f, WeaponType.None),
                 new PlayerComponent(1),
                 new LevelComponent(1, 80),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),

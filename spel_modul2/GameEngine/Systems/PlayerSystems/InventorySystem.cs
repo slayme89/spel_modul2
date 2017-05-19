@@ -18,7 +18,7 @@ namespace GameEngine.Systems
                 {
                     InventoryComponent invenComp = cm.GetComponentForEntity<InventoryComponent>(entity.Key);
                     //Test to add item press 1 on the keyboard or rt + a on gamepad
-                    if (playerComp.ActionBar2.IsButtonDown())
+                    if (playerComp.ActionBar1.IsButtonDown())
                     {
                         foreach (var item in cm.GetComponentsOfType<ItemComponent>())
                             invenComp.ItemsToAdd.Add(item.Key);
@@ -130,45 +130,36 @@ namespace GameEngine.Systems
                                         //if our currently selected slot is in one of the equipment slots
                                         int equipPos = Math.Abs(invenComp.SelectedSlot.X) - 1;
                                         if ((int)heldItemComp.Type == equipPos)
-                                            if (invenComp.WeaponBodyHead[equipPos] == 0)
-                                            {
-                                                //if there are no items equipped in the selected slot. We equip the held item
-                                                invenComp.WeaponBodyHead[equipPos] = invenComp.HeldItem;
-                                                invenComp.Items[heldItemComp.InventoryPosition] = 0;
-                                                heldItemComp.InventoryPosition = -equipPos;
-                                            }
-                                            else
+                                        {
+                                            int equipToSwap = 0;
+                                            if (invenComp.WeaponBodyHead[equipPos] != 0)
                                             {
                                                 //if there is an item in the selected slot. Swap locations of the items
-                                                int equipToSwap = invenComp.WeaponBodyHead[equipPos];
-                                                invenComp.WeaponBodyHead[equipPos] = invenComp.HeldItem;
-                                                invenComp.Items[heldItemComp.InventoryPosition] = equipToSwap;
+                                                equipToSwap = invenComp.WeaponBodyHead[equipPos];
                                                 cm.GetComponentForEntity<ItemComponent>(equipToSwap).InventoryPosition = heldItemComp.InventoryPosition;
-                                                heldItemComp.InventoryPosition = -equipPos;
                                             }
+                                            invenComp.WeaponBodyHead[equipPos] = invenComp.HeldItem;
+                                            invenComp.Items[heldItemComp.InventoryPosition] = equipToSwap;
+                                            heldItemComp.InventoryPosition = -equipPos;
+                                        }
                                     }
                                     else if (invenComp.LocationInInventory == LocationInInventory.Bagspace)
                                     {
-                                        if (invenComp.Items[selectedArraySlot] == 0)
-                                        {
-                                            //Moved held item
-                                            invenComp.Items[selectedArraySlot] = invenComp.HeldItem;
-                                            invenComp.Items[heldItemComp.InventoryPosition] = 0;
-                                            heldItemComp.InventoryPosition = selectedArraySlot;
-                                        }
-                                        else
+                                        int itemToSwap = 0;
+                                        if (invenComp.Items[selectedArraySlot] != 0)
                                         {
                                             //Swap item locations
-                                            int itemToSwap = 0;
                                             itemToSwap = invenComp.Items[selectedArraySlot];
-                                            invenComp.Items[selectedArraySlot] = invenComp.HeldItem;
                                             invenComp.Items[heldItemComp.InventoryPosition] = itemToSwap;
                                             cm.GetComponentForEntity<ItemComponent>(itemToSwap).InventoryPosition = heldItemComp.InventoryPosition;
-                                            heldItemComp.InventoryPosition = selectedArraySlot;
                                         }
+                                        invenComp.Items[selectedArraySlot] = invenComp.HeldItem;
+                                        invenComp.Items[heldItemComp.InventoryPosition] = itemToSwap;
+                                        heldItemComp.InventoryPosition = selectedArraySlot;
                                     }
                                     invenComp.HeldItem = 0; // no matter what action was taken, the held item should be deselected so we can choose a new one in the future
                                 }
+                                UpdateActualEquippedItems(ref invenComp, ref cm, entity.Key);
                             }
                             //Quick equip
                             else if (playerComp.Attack.IsButtonDown())
@@ -200,6 +191,7 @@ namespace GameEngine.Systems
                                         }
                                     }
                                 }
+                                UpdateActualEquippedItems(ref invenComp, ref cm, entity.Key);
                             }
                             else if (cm.HasEntityComponent<ActionBarComponent>(entity.Key))
                             {
@@ -270,6 +262,26 @@ namespace GameEngine.Systems
             }
         }
 
+        void UpdateActualEquippedItems(ref InventoryComponent invenComp, ref ComponentManager cm, int entity)
+        {
+            AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity);
+            if (invenComp.WeaponBodyHead[0] != 0)
+            {
+                int weaponID = invenComp.WeaponBodyHead[0];
+                if (cm.HasEntityComponent<SwordComponent>(weaponID))
+                {
+                    attackComp.Type = WeaponType.Sword;
+                    attackComp.Damage = cm.GetComponentForEntity<SwordComponent>(weaponID).Damage;
+                }
+            }
+            else if (attackComp.Type != WeaponType.None)
+                attackComp.Type = WeaponType.None;
+            if(invenComp.WeaponBodyHead[1] != 0)
+            {
+                int bodyArmorID = invenComp.WeaponBodyHead[1];
+
+            }
+        }
 
         bool UpdateInventoryFocus(InventoryComponent invenComp, Point nextSlot)
         {
