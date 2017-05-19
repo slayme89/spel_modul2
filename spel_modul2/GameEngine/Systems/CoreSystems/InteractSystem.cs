@@ -24,7 +24,7 @@ namespace GameEngine.Systems
                         {
                             InteractComponent interComp = cm.GetComponentForEntity<InteractComponent>(closestInteractable);
 
-                            // Its a trap
+                            // Its a trap(Deal damage)
                             if (interComp.Type == InteractType.Trap && cm.HasEntityComponent<AttackComponent>(closestInteractable))
                             {
                                 cm.GetComponentForEntity<DamageComponent>(player.Key).IncomingDamage.Add(closestInteractable);
@@ -38,6 +38,18 @@ namespace GameEngine.Systems
                                         cm.GetComponentForEntity<TextComponent>(inter.Key).IsActive = false;
                                 }
                                 cm.GetComponentForEntity<TextComponent>(closestInteractable).IsActive = true;
+                            }
+                            //Loot(Give item to looter)
+                            else if (interComp.Type == InteractType.Loot && cm.HasEntityComponent<ItemComponent>(closestInteractable))
+                            {
+                                //See if its a dead entity
+                                if (cm.HasEntityComponent<HealthComponent>(closestInteractable))
+                                {
+                                   if(cm.GetComponentForEntity<HealthComponent>(closestInteractable).IsAlive == false)
+                                    {
+
+                                    }
+                                }
                             }
                         }
                     }

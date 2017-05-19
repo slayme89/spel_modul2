@@ -1,6 +1,6 @@
 ﻿namespace GameEngine.Components
 {
-    public enum InteractType { Trap, Talk };
+    public enum InteractType { Trap, Talk, Loot };
 
     public class InteractComponent : IComponent
     {
