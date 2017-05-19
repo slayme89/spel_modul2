@@ -12,8 +12,12 @@ namespace Game
         {
             return new IComponent[]
             {
-                new AnimationComponent("PlayerAnimation/NakedFWalk", new Point(4, 1), 150),
-                new HealthComponent(50),
+                new AnimationGroupComponent("PlayerAnimation/NakedFWalk", new Point(4, 1), 150, 
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(4, 0), new Point(1, 1)),
+                }),
+                new HealthComponent(50, 10.0f),
                 new PositionComponent(x, y),
                 new MoveComponent(0.1f),
                 new AIComponent(160, 160, false),

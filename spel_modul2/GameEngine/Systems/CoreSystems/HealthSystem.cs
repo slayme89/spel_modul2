@@ -13,8 +13,15 @@ namespace GameEngine.Systems
             {
                 HealthComponent healthComponent = (HealthComponent)entity.Value;
 
+                // Dec deathtimer
+                if (healthComponent.DeathTimer > 0 && healthComponent.IsAlive == false && cm.HasEntityComponent<AIComponent>(entity.Key))
+                    healthComponent.DeathTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                // Remove the entity when the deathtimer expires
+                if (healthComponent.DeathTimer <= 0.0f)
+                    cm.RemoveEntity(entity.Key);
+
                 // Check if the entity health is below 0 and it is alive
-                if(healthComponent.Current <= 0 && healthComponent.IsAlive)
+                if (healthComponent.Current <= 0 && healthComponent.IsAlive)
                 {
                     healthComponent.IsAlive = false;
 
@@ -61,14 +68,8 @@ namespace GameEngine.Systems
                         // Give the last attacker experience points
                         cm.GetComponentForEntity<LevelComponent>(cm.GetComponentForEntity<DamageComponent>(entity.Key).LastAttacker).ExperienceGains.Add(entity.Key);
                         //Set animation to deathAnimation
-                        //cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key).ActiveAnimation = cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key).Animations[];
-                        //if timer != 0, dec it
-                        if(healthComponent.DeathTimer < 0)
-                            healthComponent.DeathTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-                        // Remove the entity when the deathtimer expires
-                        if (healthComponent.DeathTimer >= 0.0f)
-                            cm.RemoveEntity(entity.Key);
+                        cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key).ActiveAnimation = cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key).Animations.Length - 1;
+                        
                         // Cant attack
                         if (cm.HasEntityComponent<AttackComponent>(entity.Key))
                             cm.GetComponentForEntity<AttackComponent>(entity.Key).CanAttack = false;
