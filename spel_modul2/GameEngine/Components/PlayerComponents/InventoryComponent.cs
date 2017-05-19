@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace GameEngine.Components
 {
@@ -14,6 +15,7 @@ namespace GameEngine.Components
     public class InventoryComponent : IComponent
     {
         public int[] Items { get; set; }
+        public List<int> ItemsToAdd = new List<int>();
         public Point ColumnsRows { get; set; }
         public Point SlotSize { get; set; }
         public Point PositionOnScreen { get; set; }

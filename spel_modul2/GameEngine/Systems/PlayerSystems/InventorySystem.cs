@@ -23,7 +23,13 @@ namespace GameEngine.Systems
                     //    foreach (var item in cm.GetComponentsOfType<ItemComponent>())
                     //        AddItemToInventory(entity.Key, item.Key);
                     //}
-
+                    if(invenComp.ItemsToAdd.Count > 0)
+                    {
+                        foreach(int item in invenComp.ItemsToAdd)
+                        {
+                            AddItemToInventory(entity.Key, item);
+                        }
+                    }
                     if (playerComp.Inventory.IsButtonDown())
                     {
                         if (cm.HasEntityComponent<MoveComponent>(entity.Key) && cm.HasEntityComponent<AttackComponent>(entity.Key))

@@ -17,8 +17,11 @@ namespace GameEngine.Systems
             ComponentManager cm = ComponentManager.GetInstance();
             foreach (var entity in cm.GetComponentsOfType<ArmComponent>())
             {
-                PositionComponent posComp = cm.GetComponentForEntity<PositionComponent>(entity.Key);
                 ArmComponent armComp = (ArmComponent)entity.Value;
+                if (!cm.HasEntityComponent<PositionComponent>(armComp.playerID))
+                    return;
+                PositionComponent posComp = cm.GetComponentForEntity<PositionComponent>(entity.Key);
+
                 if (armComp.playerID == 0)
                     armComp.playerID = GetId(cm);
                 posComp.Position = cm.GetComponentForEntity<PositionComponent>(armComp.playerID).Position;

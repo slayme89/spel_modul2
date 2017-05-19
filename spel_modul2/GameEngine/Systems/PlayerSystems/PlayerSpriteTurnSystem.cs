@@ -20,6 +20,8 @@ namespace GameEngine.Systems
                 ArmComponent armComp = (ArmComponent)entity.Value;
                 MoveComponent moveComp = cm.GetComponentForEntity<MoveComponent>(armComp.playerID);
                 AnimationGroupComponent armAnimation = cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key);
+                if (!cm.HasEntityComponent<AnimationGroupComponent>(armComp.playerID))
+                    return;
                 AnimationGroupComponent playerAnimation = cm.GetComponentForEntity<AnimationGroupComponent>(armComp.playerID);
                 int animation = getAnimationRow(moveComp.Direction);
                 Debug.WriteLine(animation + "    " + moveComp.Direction);

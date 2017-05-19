@@ -32,7 +32,7 @@ namespace Game
 
             cm.AddEntityWithComponents(new TextureComponent("tree1_layer1", RenderLayer.Background2), new PositionComponent(x, y));
             cm.AddEntityWithComponents(new TextureComponent("tree1_layer2", RenderLayer.Background3), new PositionComponent(x, y));
-            cm.AddEntityWithComponents(new TextureComponent("tree1_layer3", RenderLayer.Layer2), new PositionComponent(x, y));
+            cm.AddEntityWithComponents(new TextureComponent("tree1_layer3", RenderLayer.Layer3), new PositionComponent(x, y));
             cm.AddEntityWithComponents(new CollisionComponent(23, 19), new PositionComponent(x + 1, y + 22));
         }
 
