@@ -5,7 +5,7 @@ using GameEngine.Systems;
 
 namespace GameEngine.Managers
 {
-    class SystemManager
+    public class SystemManager
     {
         private Dictionary<Type, object> systems;
         private static SystemManager systemManagerInstance;

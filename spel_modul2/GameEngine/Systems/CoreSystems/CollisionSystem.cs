@@ -6,7 +6,7 @@ using GameEngine.Managers;
 
 namespace GameEngine.Systems
 {
-    class CollisionSystem : ISystem
+    public class CollisionSystem : ISystem
     {
         public void Update(GameTime gameTime)
         {
@@ -93,7 +93,7 @@ namespace GameEngine.Systems
 
         private Point GetCollisionAxis(Rectangle r1, Rectangle r2)
         {
-            return new Point(1, 1);
+            //return new Point(1, 1);
             if (r1.Intersects(new Rectangle(r2.Left, r2.Top + 2, 1, r2.Height - 4)))
                 return new Point(1, 0);
             else if (r1.Intersects(new Rectangle(r2.Right - 1, r2.Top + 2, 1, r2.Height - 4)))
@@ -102,6 +102,7 @@ namespace GameEngine.Systems
                 return new Point(0, 1);
             else if (r1.Intersects(new Rectangle(r2.Left + 2, r2.Bottom - 1, r2.Width - 4, 1)))
                 return new Point(0, 1);
+            return new Point(1, 1);
         }
     }
 }

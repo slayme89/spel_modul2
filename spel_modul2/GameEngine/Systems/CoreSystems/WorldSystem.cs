@@ -8,7 +8,7 @@ using GameEngine.Managers;
 
 namespace GameEngine.Systems
 {
-    class WorldSystem : ISystem
+    public class WorldSystem : ISystem
     {
         public void Update(GameTime gameTime)
         {

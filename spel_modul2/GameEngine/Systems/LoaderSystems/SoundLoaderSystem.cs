@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace GameEngine.Systems
 {
-    class SoundLoaderSystem : ISystem
+    public class SoundLoaderSystem : ISystem
     {
         public void Update(GameTime gameTime)
         {

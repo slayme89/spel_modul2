@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace GameEngine.Systems
 {
-    class RenderCollisionBoxSystem : ISystem, IRenderSystem
+    public class RenderCollisionBoxSystem : ISystem, IRenderSystem
     {
         void ISystem.Update(GameTime gameTime) {}
 

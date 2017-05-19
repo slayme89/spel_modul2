@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GameEngine.Systems
 {
-    class LevelSystem : ISystem
+    public class LevelSystem : ISystem
     {
         public void Update(GameTime gameTime)
         {

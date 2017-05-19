@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace GameEngine.Systems
 {
-    class KnockbackSystem : ISystem
+    public class KnockbackSystem : ISystem
     {
         public void Update(GameTime gameTime)
         {

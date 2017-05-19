@@ -5,7 +5,7 @@ using System;
 
 namespace GameEngine.Systems
 {
-    class InventorySystem : ISystem
+    public class InventorySystem : ISystem
     {
         public void Update(GameTime gameTime)
         {

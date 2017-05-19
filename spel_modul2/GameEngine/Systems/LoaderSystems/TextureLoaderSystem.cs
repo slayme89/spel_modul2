@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Systems
 {
-    class TextureLoaderSystem : ISystem
+    public class TextureLoaderSystem : ISystem
     {
         void ISystem.Update(GameTime gameTime) { }
 

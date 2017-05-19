@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace GameEngine.Systems
 {
     // This is for debugging attacks
-    class RenderAttackingCollisionBoxSystem : ISystem, IRenderSystem
+    public class RenderAttackingCollisionBoxSystem : ISystem, IRenderSystem
     {
         public void Render(RenderHelper rh)
         {

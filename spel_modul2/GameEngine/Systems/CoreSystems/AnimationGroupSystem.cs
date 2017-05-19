@@ -6,7 +6,7 @@ using GameEngine.Managers;
 
 namespace GameEngine.Systems
 {
-    class AnimationGroupSystem : ISystem
+    public class AnimationGroupSystem : ISystem
     {
         public void Update(GameTime gameTime)
         {

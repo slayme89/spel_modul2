@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Systems
 {
-    class ItemIconLoaderSystem : ISystem
+    public class ItemIconLoaderSystem : ISystem
     {
         public void Load(ContentManager content)
         {

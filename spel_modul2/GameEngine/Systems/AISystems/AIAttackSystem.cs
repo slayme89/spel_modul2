@@ -6,7 +6,7 @@ using GameEngine.Managers;
 
 namespace GameEngine.Systems
 {
-    class AIAttackSystem : ISystem
+    public class AIAttackSystem : ISystem
     {
         public void Update(GameTime gameTime)
         {

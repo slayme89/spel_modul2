@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Systems
 {
-    class RenderExperienceSystem : ISystem, IRenderSystem
+    public class RenderExperienceSystem : ISystem, IRenderSystem
     {
         private Texture2D ExperienceTexture;
         public void Update(GameTime gameTime)

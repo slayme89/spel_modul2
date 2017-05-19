@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace GameEngine.Systems
 {
-    class PlayerAttackSystem : ISystem
+    public class PlayerAttackSystem : ISystem
     {
         public void Update(GameTime gameTime)
         {

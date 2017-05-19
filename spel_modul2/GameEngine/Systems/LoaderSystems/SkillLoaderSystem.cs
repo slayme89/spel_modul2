@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Systems
 {
-    class SkillLoaderSystem : ISystem
+    public class SkillLoaderSystem : ISystem
     {
         public void Update(GameTime gameTime)
         {

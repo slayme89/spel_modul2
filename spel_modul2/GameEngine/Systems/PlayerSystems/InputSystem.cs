@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace GameEngine.Systems
 {
-    class InputSystem : ISystem
+    public class InputSystem : ISystem
     {
         private KeyboardState previousKeyboardState;
         private GamePadState previousGamepadState1;

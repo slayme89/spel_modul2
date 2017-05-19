@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace GameEngine.Systems
 {
-    class ActionBarSystem : ISystem
+    public class ActionBarSystem : ISystem
     {
         public void Update(GameTime gameTime)
         {

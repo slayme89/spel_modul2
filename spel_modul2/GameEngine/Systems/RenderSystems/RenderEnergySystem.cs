@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Systems
 {
-    class RenderEnergySystem : ISystem, IRenderSystem
+    public class RenderEnergySystem : ISystem, IRenderSystem
     {
         private Texture2D energyTexture;
 

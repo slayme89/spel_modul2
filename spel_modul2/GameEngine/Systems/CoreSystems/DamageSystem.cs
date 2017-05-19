@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace GameEngine.Systems
 {
-    class DamageSystem : ISystem
+    public class DamageSystem : ISystem
     {
         public void Update(GameTime gameTime)
         {

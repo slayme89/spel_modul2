@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace GameEngine
+namespace GameEngine.Systems
 {
     public interface ISystem
     {

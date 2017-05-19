@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Systems
 {
-    class RenderGUISystem : IRenderSystem
+    public class RenderGUISystem : IRenderSystem
     {
         public void Render(RenderHelper rh)
         {

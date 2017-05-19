@@ -5,7 +5,7 @@ using GameEngine.Managers;
 
 namespace GameEngine.Systems
 {
-    class MoveSystem : ISystem
+    public class MoveSystem : ISystem
     {
         public void Update(GameTime gameTime)
         {

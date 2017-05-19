@@ -6,7 +6,7 @@ using GameEngine.Managers;
 
 namespace GameEngine.Systems
 {
-    class InventoryLoaderSystem : ISystem
+    public class InventoryLoaderSystem : ISystem
     {
         public void Load(ContentManager content)
         {

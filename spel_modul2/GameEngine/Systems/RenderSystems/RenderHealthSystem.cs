@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Systems
 {
-    class RenderHealthSystem : ISystem, IRenderSystem
+    public class RenderHealthSystem : ISystem, IRenderSystem
     {
         private Texture2D healthTexture;
 

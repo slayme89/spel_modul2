@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Systems
 {
-    class RenderActionbarSystem : ISystem, IRenderSystem
+    public class RenderActionbarSystem : ISystem, IRenderSystem
     {
         public void Render(RenderHelper renderHelper)
         {

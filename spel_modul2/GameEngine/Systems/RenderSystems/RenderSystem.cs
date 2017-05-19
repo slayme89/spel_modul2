@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace GameEngine.Systems
 {
-    class RenderSystem : ISystem, IRenderSystem
+    public class RenderSystem : ISystem, IRenderSystem
     {
         void ISystem.Update(GameTime gameTime) {}
 

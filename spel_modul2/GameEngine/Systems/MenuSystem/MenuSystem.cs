@@ -5,7 +5,7 @@ using System;
 
 namespace GameEngine.Systems
 {
-    class MenuSystem : ISystem
+    public class MenuSystem : ISystem
     {
         private bool IsActive = false;
         private bool IsInit = false;

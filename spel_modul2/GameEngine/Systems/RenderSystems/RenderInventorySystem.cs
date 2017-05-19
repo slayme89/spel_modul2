@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace GameEngine.Systems
 {
-    class RenderInventorySystem : ISystem, IRenderSystem
+    public class RenderInventorySystem : ISystem, IRenderSystem
     {
         public void Render(RenderHelper rh)
         {

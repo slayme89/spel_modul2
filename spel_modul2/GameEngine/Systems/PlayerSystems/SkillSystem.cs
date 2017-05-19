@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace GameEngine.Systems
 {
-    class SkillSystem : ISystem
+    public class SkillSystem : ISystem
     {
         public void Update(GameTime gameTime)
         {
