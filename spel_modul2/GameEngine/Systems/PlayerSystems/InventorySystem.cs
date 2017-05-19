@@ -24,7 +24,7 @@ namespace GameEngine.Systems
                             invenComp.ItemsToAdd.Add(item.Key);
                     }
                     if (invenComp.ItemsToAdd.Count > 0)
-                        {
+                    {
                         foreach (int item in invenComp.ItemsToAdd.ToArray())
                         {
                             AddItemToInventory(entity.Key, item);
@@ -119,7 +119,7 @@ namespace GameEngine.Systems
                                         //Choose the skill selected if it has not already been picked and prerequisite requirements have been met
                                         if (ChooseAvailableSkill(ref invenComp, GetSelectedSkillSlot(invenComp.SelectedSlot.X, invenComp.SelectedSlot.Y)))
                                             statComp.SpendableStats -= 5;
-                                }
+                                    }
                                 }
                                 else
                                 {
@@ -203,12 +203,12 @@ namespace GameEngine.Systems
                             }
                             else if (cm.HasEntityComponent<ActionBarComponent>(entity.Key))
                             {
-                                
+
                                 ActionBarComponent actionBComp = cm.GetComponentForEntity<ActionBarComponent>(entity.Key);
                                 if (playerComp.ActionBar1.IsButtonDown())
                                 {
                                     BindToActionBar(ref invenComp, ref actionBComp, ref cm, 0);
-                                    }
+                                }
                                 else if (playerComp.ActionBar2.IsButtonDown())
                                 {
                                     BindToActionBar(ref invenComp, ref actionBComp, ref cm, 1);

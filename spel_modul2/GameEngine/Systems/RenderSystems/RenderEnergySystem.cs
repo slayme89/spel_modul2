@@ -25,7 +25,7 @@ namespace GameEngine.Systems
 
                 if (energyComponent != null && healthComponent != null && healthComponent.IsAlive == true)
                 {
-                    float currEnergy = energyComponent.Current;
+                    int currEnergy = energyComponent.Current;
                     Rectangle energyRectangle = new Rectangle();
                     int playNum = cm.GetComponentForEntity<PlayerComponent>(entity.Key).Number;
                     float scaledEnergy = (float)currEnergy / energyComponent.Max * 100f;

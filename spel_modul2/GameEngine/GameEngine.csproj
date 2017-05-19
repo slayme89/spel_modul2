@@ -107,7 +107,6 @@
     <Compile Include="Systems\CoreSystems\AttackSystem.cs" />
     <Compile Include="Systems\CoreSystems\CollisionSystem.cs" />
     <Compile Include="Systems\CoreSystems\DamageSystem.cs" />
-    <Compile Include="Systems\CoreSystems\EnergySystem.cs" />
     <Compile Include="Systems\CoreSystems\HealthSystem.cs" />
     <Compile Include="Systems\CoreSystems\KnockbackSystem.cs" />
     <Compile Include="Systems\LoaderSystems\AnimationLoaderSystem.cs" />
