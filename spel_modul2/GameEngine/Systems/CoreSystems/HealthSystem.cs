@@ -13,16 +13,11 @@ namespace GameEngine.Systems
             {
                 HealthComponent healthComponent = (HealthComponent)entity.Value;
 
-                //Update all deathTimers for dead AI entities
-                if(healthComponent.IsAlive = false && cm.HasEntityComponent<AIComponent>(entity.Key) && healthComponent.DeathTimer > 0.0f)
-                {
-                    healthComponent.DeathTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                }
-
-
                 // Check if the entity health is below 0 and it is alive
                 if(healthComponent.Current <= 0 && healthComponent.IsAlive)
                 {
+                    healthComponent.IsAlive = false;
+
                     // If the entity is a player
                     if (cm.HasEntityComponent<PlayerComponent>(entity.Key))
                     {
@@ -31,10 +26,6 @@ namespace GameEngine.Systems
                         switch (levelComponent.CurrentLevel)
                         {
                             // if player is level 0, he dies
-                            case 0:
-                                healthComponent.IsAlive = false;
-                                cm.RemoveEntity(entity.Key);
-                                break;
                             case 1: levelComponent.ExperienceLoss.Add(-45); break;
                             case 2: levelComponent.ExperienceLoss.Add(-46); break;
                             case 3: levelComponent.ExperienceLoss.Add(-61); break;
@@ -46,6 +37,15 @@ namespace GameEngine.Systems
                             case 9: levelComponent.ExperienceLoss.Add(-400); break;
                             case 10: levelComponent.ExperienceLoss.Add(-400); break;
                         }
+
+                        if (levelComponent.CurrentLevel > 0)
+                        {
+                            healthComponent.IsAlive = true;
+                            healthComponent.Current = healthComponent.Max;
+                        }
+                        else if(levelComponent.CurrentLevel <= 0)
+                            cm.RemoveEntity(entity.Key);
+
                         // TODO
                         // Move player to graveyard location
                         //cm.GetComponentForEntity<PositionComponent>(entity.Key).position = GraveYardPos;
@@ -58,14 +58,23 @@ namespace GameEngine.Systems
                     //If the entity is a NPC
                     else if (cm.HasEntityComponent<AIComponent>(entity.Key))
                     {
-                        healthComponent.IsAlive = false;
                         // Give the last attacker experience points
                         cm.GetComponentForEntity<LevelComponent>(cm.GetComponentForEntity<DamageComponent>(entity.Key).LastAttacker).ExperienceGains.Add(entity.Key);
                         //Set animation to deathAnimation
-                        cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key).ActiveAnimation = cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key).Animations.Length - 1;
+                        //cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key).ActiveAnimation = cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key).Animations[];
+                        //if timer != 0, dec it
+                        if(healthComponent.DeathTimer < 0)
+                            healthComponent.DeathTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+
                         // Remove the entity when the deathtimer expires
                         if (healthComponent.DeathTimer >= 0.0f)
                             cm.RemoveEntity(entity.Key);
+                        // Cant attack
+                        if (cm.HasEntityComponent<AttackComponent>(entity.Key))
+                            cm.GetComponentForEntity<AttackComponent>(entity.Key).CanAttack = false;
+                        // cant move
+                        if (cm.HasEntityComponent<MoveComponent>(entity.Key))
+                            cm.GetComponentForEntity<MoveComponent>(entity.Key).CanMove = false;
                     }
                 }
             }

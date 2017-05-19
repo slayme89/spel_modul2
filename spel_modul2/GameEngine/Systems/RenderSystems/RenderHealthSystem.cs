@@ -73,7 +73,7 @@ namespace GameEngine.Systems
                             healthRectangle.Offset(-c.CollisionBox.Width / 2, -c.CollisionBox.Height / 2 - 10);
                         }
                     }
-                    rh.Draw(healthTexture, healthRectangle, Color.White, RenderLayer.Foreground1);
+                    rh.Draw(healthTexture, healthRectangle, Color.White, RenderLayer.GUI1);
                 }
             }
         }

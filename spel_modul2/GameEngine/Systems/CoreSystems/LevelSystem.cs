@@ -33,7 +33,7 @@ namespace GameEngine.Systems
                                 statComponent.RemoveStats += 3 * num;
                             }
                             // see if level is 0 or less, set it to 0
-                            if (levelComponent.CurrentLevel >= 0)
+                            if (levelComponent.CurrentLevel < 0)
                             {
                                 levelComponent.CurrentLevel = 0;
                             }
