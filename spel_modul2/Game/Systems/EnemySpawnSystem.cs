@@ -43,6 +43,11 @@ namespace Game.Systems
             List<IComponent> template = new List<IComponent>(c.EnemyTemplate);
             int entity;
 
+            for (int i = 0; i < template.Count; i++)
+            {
+                template[i] = (IComponent)template[i].Clone();
+            }
+
             for (int i = 0; i < MaxSpawnTries; i++)
             {
                 x = rand.Next() % c.SpawnMaxRadius;

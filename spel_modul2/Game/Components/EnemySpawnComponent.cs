@@ -31,7 +31,6 @@ namespace Game.Components
 
             for (int i = EnemyTemplate.Count - 1; i > 0; i--)
             {
-                enemyTemplate[i] = (IComponent)enemyTemplate[i].Clone();
                 if (enemyTemplate[i] is CollisionComponent)
                 {
                     CollisionComponent = (CollisionComponent)EnemyTemplate[i];
