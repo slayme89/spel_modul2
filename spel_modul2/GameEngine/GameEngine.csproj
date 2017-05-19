@@ -63,6 +63,7 @@
     <Compile Include="Components\CoreComponents\AnimationGroupComponent.cs" />
     <Compile Include="Components\CoreComponents\AttackComponent.cs" />
     <Compile Include="Components\CoreComponents\CollisionComponent.cs" />
+    <Compile Include="Components\CoreComponents\CooldownComponent.cs" />
     <Compile Include="Components\CoreComponents\DamageComponent.cs" />
     <Compile Include="Components\CoreComponents\EnergyComponent.cs" />
     <Compile Include="Components\CoreComponents\KnockbackComponent.cs" />

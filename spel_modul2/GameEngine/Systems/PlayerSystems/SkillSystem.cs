@@ -18,11 +18,12 @@ namespace GameEngine.Systems
                     if (cm.HasEntityComponent<EnergyComponent>(entityUser))
                     {
                         EnergyComponent energyComponent = cm.GetComponentForEntity<EnergyComponent>(entityUser);
+                       
+                                                 
                         if(skillComponent.EnergyCost < energyComponent.Current)
                         {
                             skillComponent.Use(entityUser);
                             energyComponent.Current -= skillComponent.EnergyCost;
-                            skillComponent.CooldownTimer = skillComponent.Cooldown;
                     }
                         //if (skillComponenet.CooldownTimer <= 0 && skillComponenet.EnergyCost < energyComponent.Current)
                         //{
