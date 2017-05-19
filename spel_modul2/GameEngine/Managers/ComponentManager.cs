@@ -154,7 +154,7 @@ namespace GameEngine.Managers
 
         public void RemoveComponentFromEntity<T>(int entity) where T : IComponent
         {
-            if (entityComponents[entity].ContainsKey(typeof(T)))
+            if(entityComponents.ContainsKey(entity))
             {
                 entityComponents[entity].Remove(typeof(T));
                 componentGroups[typeof(T)].Remove(entity);

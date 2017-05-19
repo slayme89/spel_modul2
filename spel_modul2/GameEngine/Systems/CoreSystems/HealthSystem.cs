@@ -50,7 +50,7 @@ namespace GameEngine.Systems
                             healthComponent.IsAlive = true;
                             healthComponent.Current = healthComponent.Max;
                         }
-                        else if(levelComponent.CurrentLevel <= 0)
+                        else if (levelComponent.CurrentLevel <= 0)
                             cm.RemoveEntity(entity.Key);
 
                         // TODO
@@ -69,13 +69,13 @@ namespace GameEngine.Systems
                         cm.GetComponentForEntity<LevelComponent>(cm.GetComponentForEntity<DamageComponent>(entity.Key).LastAttacker).ExperienceGains.Add(entity.Key);
                         //Set animation to deathAnimation
                         cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key).ActiveAnimation = cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key).Animations.Length - 1;
-                        
+
                         // Cant attack
-                        if (cm.HasEntityComponent<AttackComponent>(entity.Key))
-                            cm.GetComponentForEntity<AttackComponent>(entity.Key).CanAttack = false;
+                        cm.RemoveComponentFromEntity<AttackComponent>(entity.Key);
                         // cant move
-                        if (cm.HasEntityComponent<MoveComponent>(entity.Key))
-                            cm.GetComponentForEntity<MoveComponent>(entity.Key).CanMove = false;
+                        cm.RemoveComponentFromEntity<MoveComponent>(entity.Key);
+                        cm.RemoveComponentFromEntity<KnockbackComponent>(entity.Key);
+                        cm.RemoveComponentFromEntity<CollisionComponent>(entity.Key);
                     }
                 }
             }
