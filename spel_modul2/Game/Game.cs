@@ -1,6 +1,8 @@
 ﻿using GameEngine.Components;
 using Microsoft.Xna.Framework;
 using GameEngine.Managers;
+using Game.Components;
+using Game.Systems;
 using System;
 
 namespace Game
@@ -9,6 +11,9 @@ namespace Game
     {
         protected override void Initialize()
         {
+            SystemManager sm = SystemManager.GetInstance();
+            sm.AddSystem(new EnemySpawnSystem());
+
             base.Initialize();
         }
 
@@ -27,6 +32,12 @@ namespace Game
                     new PositionComponent(i, 150),
                 });
             }
+
+            //Enemy spawnsystem
+            cm.AddEntityWithComponents(new IComponent[]
+            {
+                new EnemySpawnComponent(new Point(200, 200), 3, 10000, 200, factory.CreateEnemy(0, 0)),
+            });
 
             cm.AddEntityWithComponents(new IComponent[]
             {

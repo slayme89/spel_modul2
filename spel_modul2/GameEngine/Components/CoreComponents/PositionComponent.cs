@@ -6,6 +6,8 @@ namespace GameEngine.Components
     {
         public Vector2 Position;
 
+        public PositionComponent() { }
+
         public PositionComponent(Vector2 position)
         {
             Position = position;

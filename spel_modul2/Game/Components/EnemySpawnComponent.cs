@@ -11,31 +11,39 @@ namespace Game.Components
     public class EnemySpawnComponent : IComponent
     {
         public int[] RespawnCountdown;
-        public int RespawnTimer;
-        public IComponent[] EnemyTemplate;
+        public int RespawnTime;
+        public List<IComponent> EnemyTemplate;
         public int[] EnemyEntities;
         public int MaxEnemies;
         public Point SpawnLocation;
         public int SpawnMaxRadius;
-        public IComponent CollisionComponent;
+        public CollisionComponent CollisionComponent;
 
-        public EnemySpawnComponent(Point spawnLocation, int maxEnemies, int respawnTimer, int spawnMaxRadius, IComponent[] enemyTemplate)
+        public EnemySpawnComponent(Point spawnLocation, int maxEnemies, int respawnTime, int spawnMaxRadius, IComponent[] enemyTemplate)
         {
             SpawnLocation = spawnLocation;
             MaxEnemies = maxEnemies;
-            RespawnTimer = respawnTimer;
+            RespawnTime = respawnTime;
             SpawnMaxRadius = spawnMaxRadius;
-            EnemyTemplate = enemyTemplate;
+            EnemyTemplate = new List<IComponent>(enemyTemplate);
             RespawnCountdown = new int[maxEnemies];
             EnemyEntities = new int[maxEnemies];
 
-            for (int i = 0; i < enemyTemplate.Length; i++)
+            for (int i = EnemyTemplate.Count - 1; i > 0; i--)
             {
                 if (enemyTemplate[i] is CollisionComponent)
                 {
-                    CollisionComponent = enemyTemplate[i];
-                    break;
+                    CollisionComponent = (CollisionComponent)EnemyTemplate[i];
                 }
+                else if(EnemyTemplate[i] is PositionComponent)
+                {
+                    EnemyTemplate.RemoveAt(i);
+                }
+            }
+
+            for (int i = 0; i < maxEnemies; i++)
+            {
+                EnemyEntities[i] = -1;
             }
         }
     }

@@ -36,6 +36,11 @@ namespace GameEngine.Managers
             return entities;
         }
 
+        public bool HasEntity(int entity)
+        {
+            return entityComponents.ContainsKey(entity);
+        }
+
         public void AddComponentsToEntity(int entity, params IComponent[] components)
         {
             //Check if the current entity have a dictionary
