@@ -86,7 +86,7 @@ namespace GameEngine
                 new RenderMenuSystem(),
                 new SkillLoaderSystem(),
                 new SkillSystem(),
-                new SkillManager(),
+                new PlayerArmSystem(),
                 new RenderTextSystem()
             });
 

@@ -56,6 +56,7 @@ namespace Game
                     new Tuple<Point, Point>(new Point(0, 6), new Point(4, 1)),
                     new Tuple<Point, Point>(new Point(0, 7), new Point(4, 1)),
                 }),
+                new ArmComponent(),
             });
 
             cm.AddEntityWithComponents(factory.CreatePlayer(0, 0));
