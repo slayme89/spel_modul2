@@ -75,7 +75,6 @@ namespace GameEngine
                 new HealthSystem(),
                 new RenderExperienceSystem(),
                 new AnimationGroupSystem(),
-                new AnimationGroupLoaderSystem(),
                 new RenderAnimationGroupSystem(),
                 new InventoryLoaderSystem(),
                 new ActionBarSystem(),
