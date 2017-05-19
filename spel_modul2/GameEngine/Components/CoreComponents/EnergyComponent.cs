@@ -2,8 +2,8 @@
 {
     public class EnergyComponent : IComponent
     {
-        public int Max { get; set; }
-        public int Current { get; set; }
+        public float Max { get; set; }
+        public float Current { get; set; }
 
         public EnergyComponent(int max)
         {
