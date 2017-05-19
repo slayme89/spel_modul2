@@ -11,6 +11,7 @@
         {
             Max = maxHealth;
             Current = Max;
+            DeathTimer = 1.0f;
         }
 
         public HealthComponent(int maxHealth, float deathTimer)
