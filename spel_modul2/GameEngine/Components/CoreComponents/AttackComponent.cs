@@ -2,12 +2,7 @@
 
 namespace GameEngine.Components
 {
-    public enum WeaponType
-    {
-        Sword,
-        Bow,
-        Magic
-    }
+    public enum WeaponType { Sword, Bow, Magic }
 
     public class AttackComponent : IComponent
     {

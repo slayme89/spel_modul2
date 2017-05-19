@@ -67,7 +67,7 @@
     <Compile Include="Components\CoreComponents\EnergyComponent.cs" />
     <Compile Include="Components\CoreComponents\KnockbackComponent.cs" />
     <Compile Include="Components\CoreComponents\SkillComponent.cs" />
-    <Compile Include="Components\CoreComponents\TextComponent.cs" />
+    <Compile Include="Components\VisualComponents\TextComponent.cs" />
     <Compile Include="Components\MenuComponents\MenuBackgroundComponent.cs" />
     <Compile Include="Components\MenuComponents\MenuButtonComponent.cs" />
     <Compile Include="Components\PlayerComponents\ActionBarSlotComponent.cs" />

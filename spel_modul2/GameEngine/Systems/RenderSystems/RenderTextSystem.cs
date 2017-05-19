@@ -11,14 +11,14 @@ namespace GameEngine.Systems
         {
             ComponentManager cm = ComponentManager.GetInstance();
 
-            foreach(var textEntity in cm.GetComponentsOfType<TextComponent>())
+            foreach (var textEntity in cm.GetComponentsOfType<TextComponent>())
             {
                 TextComponent text = (TextComponent)textEntity.Value;
 
-                //If its a text to display
+                //If a text is active, display it
                 if (text.IsActive)
                 {
-                        renderHelper.DrawString(text.SpriteFont, text.Text, text.Position, text.Color, RenderLayer.GUI3);
+                    renderHelper.DrawString(text.SpriteFont, text.Text, text.Position, text.Color, RenderLayer.GUI3);
                 }
             }
         }

@@ -1,7 +1,6 @@
 ﻿using GameEngine.Components;
 using GameEngine.Managers;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 
 namespace GameEngine.Systems

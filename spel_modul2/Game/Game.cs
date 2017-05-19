@@ -34,12 +34,21 @@ namespace Game
                 new PositionComponent(250, 100),
             });
 
+            //Test talk
             cm.AddEntityWithComponents(new IComponent[]
             {
                 new PositionComponent(-200, 0),
                 new CollisionComponent(50, 50),
                 new InteractComponent(InteractType.Talk),
                 new TextComponent( "NewSpriteFont", "Hello darkness my old friend...", new Vector2(Viewport.TitleSafeArea.Width / 2 - 242, Viewport.TitleSafeArea.Bottom -75), Color.Black, false)
+            });
+            //Test trap
+            cm.AddEntityWithComponents(new IComponent[]
+            {
+                new PositionComponent(-400, 0),
+                new CollisionComponent(50, 50),
+                new InteractComponent(InteractType.Trap),
+                new AttackComponent(7, 1.0f, 2.2f, WeaponType.Sword),
             });
 
             cm.AddEntityWithComponents(new IComponent[]
