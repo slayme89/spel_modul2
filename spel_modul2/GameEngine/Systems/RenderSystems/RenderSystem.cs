@@ -63,7 +63,10 @@ namespace GameEngine.Systems
                     Rectangle animationBounds = new Rectangle(position.X, position.Y, animationComponent.FrameSize.X, animationComponent.FrameSize.Y);
 
                     if (viewportBounds.Intersects(animationBounds))
-                        spriteBatch.Draw(animationComponent.Spritesheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.SourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(animationComponent.Layer));
+                    {
+                        spriteBatch.Draw(animationComponent.Spritesheet, animationBounds.WorldToScreen(ref viewport), animationComponent.SourceRectangle, Color.White);
+                        //spriteBatch.Draw(animationComponent.Spritesheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.SourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(animationComponent.Layer));
+                    }
                 }
             }
         }

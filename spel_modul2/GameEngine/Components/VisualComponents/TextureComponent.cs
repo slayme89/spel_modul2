@@ -27,7 +27,7 @@ namespace GameEngine.Components
 
         public object Clone()
         {
-            throw new NotImplementedException();
+            return MemberwiseClone();
         }
     }
 }

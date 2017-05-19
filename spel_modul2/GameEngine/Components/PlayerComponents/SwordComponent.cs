@@ -14,5 +14,10 @@ namespace GameEngine.Components
         {
             Damage = damage;
         }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

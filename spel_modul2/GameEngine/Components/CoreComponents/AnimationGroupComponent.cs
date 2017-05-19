@@ -49,8 +49,10 @@ namespace GameEngine.Components
 
         public object Clone()
         {
+            ResourceManager rm = ResourceManager.GetInstance();
             AnimationGroupComponent o = (AnimationGroupComponent)MemberwiseClone();
-            o.SpritesheetFilename = string.Copy(SpritesheetFilename);
+            //o.SpritesheetFilename = string.Copy(SpritesheetFilename);
+            //o.Spritesheet = rm.GetResource<Texture2D>(SpritesheetFilename);
 
             for (int i = 0; i < Animations.Length; i++)
             {

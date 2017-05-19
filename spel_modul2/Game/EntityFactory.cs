@@ -12,16 +12,16 @@ namespace Game
         {
             return new IComponent[]
             {
-                new AnimationGroupComponent("PlayerAnimation/NakedFWalk", new Point(4, 1), 150, 
+                new AnimationGroupComponent("PlayerAnimation/NakedFWalk", new Point(4, 1), 150,
                 new[] {
                     new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
-                    new Tuple<Point, Point>(new Point(4, 0), new Point(1, 1)),
+                    //new Tuple<Point, Point>(new Point(4, 0), new Point(1, 1)),
                 }),
                 new HealthComponent(50, 10.0f),
                 new PositionComponent(x, y),
                 new MoveComponent(0.1f),
                 new AIComponent(160, 160, false),
-                new CollisionComponent(50, 50),
+                new CollisionComponent(20, 20),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
                 new AttackComponent(10, 0.5f, 0.3f, WeaponType.Sword),
                 new LevelComponent(5),
@@ -56,7 +56,7 @@ namespace Game
                 new MoveComponent(0.2f),
                 new PlayerControlComponent(ControllerType.Keyboard),
                 new CollisionComponent(30, 35),
-                new AttackComponent(10, 0.3f, 0.1f, WeaponType.None),
+                new AttackComponent(10, 0.3f, 0.1f, WeaponType.Sword),
                 new PlayerComponent(1),
                 new LevelComponent(1, 80),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
