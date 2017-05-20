@@ -123,7 +123,7 @@
     <Compile Include="Systems\LoaderSystems\ItemIconLoaderSystem.cs" />
     <Compile Include="Systems\RenderSystems\IRenderSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderActionbarSystem.cs" />
-    <Compile Include="Systems\RenderSystems\RenderCooldownTimer.cs" />
+    <Compile Include="Systems\RenderSystems\RenderCooldownTimerSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderEnergySystem.cs" />
     <Compile Include="Systems\PlayerSystems\InputSystem.cs" />
     <Compile Include="Systems\CoreSystems\InteractSystem.cs" />

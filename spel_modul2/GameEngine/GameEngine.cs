@@ -1,5 +1,6 @@
 ﻿using GameEngine.Managers;
 using GameEngine.Systems;
+using GameEngine.Systems.RenderSystems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -90,6 +91,7 @@ namespace GameEngine
                 new PlayerSpriteTurnSystem(),
                 new SkillManager(),
                 new CooldownSystem(),
+                new RenderCooldownTimerSystem(),
             });
 
             base.Initialize();
@@ -108,6 +110,7 @@ namespace GameEngine
             sm.GetSystem<SkillLoaderSystem>().Load(Content);
             sm.GetSystem<RenderTextSystem>().Load(Content);
             sm.GetSystem<AnimationGroupLoaderSystem>().Load(Content);
+            sm.GetSystem<RenderCooldownTimerSystem>().Load(Content);
             
             base.LoadContent();
         }
