@@ -42,6 +42,7 @@ namespace Game
                 new PlayerEquipmentSystem(),
                 new DamageSystem(),
                 new KnockbackSystem(),
+                new CooldownSystem(),
             });
 
             base.Initialize();
