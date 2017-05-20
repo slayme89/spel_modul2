@@ -10,6 +10,13 @@ namespace GameEngine.Systems
     {
         void ISystem.Update(GameTime gameTime) {}
 
+        private Group<PositionComponent, AnimationGroupComponent> animationGroups;
+
+        public RenderSystem()
+        {
+            animationGroups = new Group<PositionComponent, AnimationGroupComponent>();
+        }
+
         public void Render(RenderHelper renderHelper)
         {
             ComponentManager cm = ComponentManager.GetInstance();
@@ -52,19 +59,16 @@ namespace GameEngine.Systems
             }
 
             //Render all animationgroups
-            foreach (var entity in cm.GetComponentsOfType<AnimationGroupComponent>())
+            foreach(var entity in animationGroups)
             {
-                AnimationGroupComponent animationComponent = (AnimationGroupComponent)entity.Value;
-                PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(entity.Key);
+                AnimationGroupComponent animationComponent = entity.Item2;
+                PositionComponent positionComponent = entity.Item1;
 
-                if (positionComponent != null)
-                {
-                    Point position = positionComponent.Position.ToPoint() - animationComponent.Offset;
-                    Rectangle animationBounds = new Rectangle(position.X, position.Y, animationComponent.FrameSize.X, animationComponent.FrameSize.Y);
+                Point position = positionComponent.Position.ToPoint() - animationComponent.Offset;
+                Rectangle animationBounds = new Rectangle(position.X, position.Y, animationComponent.FrameSize.X, animationComponent.FrameSize.Y);
 
-                    if (viewportBounds.Intersects(animationBounds))
-                        spriteBatch.Draw(animationComponent.Spritesheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.SourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(animationComponent.Layer));
-                }
+                if (viewportBounds.Intersects(animationBounds))
+                    spriteBatch.Draw(animationComponent.Spritesheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.SourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(animationComponent.Layer));
             }
         }
 

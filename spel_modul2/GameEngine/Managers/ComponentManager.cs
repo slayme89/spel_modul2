@@ -31,6 +31,15 @@ namespace GameEngine.Managers
             return componentManagerInstance;
         }
 
+        public delegate void OnComponentAddedEvent(int entity, IComponent component);
+        public event OnComponentAddedEvent OnComponentAdded;
+
+        public delegate void OnComponentRemovedEvent(int entity, IComponent component);
+        public event OnComponentRemovedEvent OnComponentRemoved;
+
+        public delegate void OnEntityRemovedEvent(int entity);
+        public event OnEntityRemovedEvent OnEntityRemoved;
+
         public List<int> GetEntities()
         {
             return entities;
@@ -56,6 +65,7 @@ namespace GameEngine.Managers
                 //Add the component to both dictionaries
                 entityComponents[entity].Add(component.GetType(), component);
                 componentGroups[component.GetType()][entity] = component;
+                OnComponentAdded(entity, component);
             }
         }
 
@@ -88,6 +98,7 @@ namespace GameEngine.Managers
 
                     entityComponents.Remove(entity);
                 }
+                OnEntityRemoved(entity);
             }
 
             removedEntities.Clear();
@@ -156,6 +167,9 @@ namespace GameEngine.Managers
         {
             if(entityComponents.ContainsKey(entity))
             {
+                T component = GetComponentForEntity<T>(entity);
+                OnComponentRemoved(entity, component);
+
                 entityComponents[entity].Remove(typeof(T));
                 componentGroups[typeof(T)].Remove(entity);
             }
