@@ -81,7 +81,6 @@
     <Compile Include="GameEngine.cs" />
     <Compile Include="Components\IComponent.cs" />
     <Compile Include="Managers\MenuManager.cs" />
-    <Compile Include="Managers\ItemManager.cs" />
     <Compile Include="Managers\ResourceManager.cs" />
     <Compile Include="Managers\EntityManager.cs" />
     <Compile Include="Managers\StateManager.cs" />

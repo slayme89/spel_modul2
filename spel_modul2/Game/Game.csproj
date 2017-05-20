@@ -61,6 +61,7 @@
     <Compile Include="EntityBuilder.cs" />
     <Compile Include="EntityFactory.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="GameManagers\ItemManager.cs" />
     <Compile Include="GameManagers\SkillManager.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

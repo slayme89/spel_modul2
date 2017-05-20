@@ -1,4 +1,4 @@
-﻿namespace GameEngine.Managers
+﻿namespace Game.Managers
 {
     public class ItemManager
     {
