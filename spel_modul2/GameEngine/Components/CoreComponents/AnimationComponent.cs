@@ -9,15 +9,16 @@ namespace GameEngine.Components
     {
         public string SpritesheetFilename { get; set; }
         public Texture2D SpriteSheet { get; set; }
-        public Point SheetSize { get; set; }
-        public Point FrameSize { get; set; }
-        public Point CurrentFrame;
         public int FrameDuration { get; set; }
-        public int LastFrameDeltaTime { get; set; }
-        public Rectangle SourceRectangle { get; set; }
         public bool IsPaused { get; set; }
         public Point Offset;
         public RenderLayer Layer;
+
+        internal int LastFrameTime { get; set; }
+        internal Rectangle SourceRectangle { get; set; }
+        internal Point SheetSize { get; set; }
+        internal Point FrameSize { get; set; }
+        internal Point CurrentFrame;
 
         public AnimationComponent(string spritesheetFilename, Point sheetSize, int frameDuration) : this(spritesheetFilename, sheetSize, frameDuration, RenderLayer.Layer1) { }
 

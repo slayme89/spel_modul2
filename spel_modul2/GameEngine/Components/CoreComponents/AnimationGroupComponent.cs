@@ -9,12 +9,11 @@ namespace GameEngine.Components
     {
         public string SpritesheetFilename { get; set; }
         public Texture2D Spritesheet { get; set; }
-        public Point SheetSize { get; set; }
+        public Point Offset;
+        public RenderLayer Layer;
         public Tuple<Point, Point>[] Animations { get; set; }
-        public Point FrameSize { get; set; }
         public int FrameDuration { get; set; }
         public bool IsPaused { get; set; }
-        private int activeAnimation;
         public int ActiveAnimation
         {
             get { return activeAnimation; }
@@ -25,12 +24,15 @@ namespace GameEngine.Components
                 CurrentFrame = GroupFrame + Animations[activeAnimation].Item1;
             }
         }
-        public int LastFrameDeltaTime { get; set; }
-        public Point GroupFrame;
-        public Point CurrentFrame;
-        public Rectangle SourceRectangle { get; set; }
-        public Point Offset;
-        public RenderLayer Layer;
+
+        internal Point SheetSize { get; set; }
+        internal Point FrameSize { get; set; }
+        internal int LastFrameTime { get; set; }
+        internal Point GroupFrame;
+        internal Point CurrentFrame;
+        internal Rectangle SourceRectangle { get; set; }
+
+        private int activeAnimation;        
 
         public AnimationGroupComponent(string spritesheetFilename, Point sheetSize, int frameDuration, params Tuple<Point, Point>[] animations) : this(spritesheetFilename, sheetSize, frameDuration, RenderLayer.Layer1, animations) { }
 

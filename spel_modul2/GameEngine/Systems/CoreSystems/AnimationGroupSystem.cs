@@ -25,8 +25,8 @@ namespace GameEngine.Systems
             if (a.IsPaused)
                 return;
 
-            a.LastFrameDeltaTime += gameTime.ElapsedGameTime.Milliseconds;
-            if(a.LastFrameDeltaTime > a.FrameDuration)
+            a.LastFrameTime += gameTime.ElapsedGameTime.Milliseconds;
+            if (a.LastFrameTime > a.FrameDuration)
             {
                 a.GroupFrame.X = (a.GroupFrame.X + 1) % a.Animations[a.ActiveAnimation].Item2.X;
                 if (a.GroupFrame.X == 0)
@@ -35,7 +35,7 @@ namespace GameEngine.Systems
 
                 a.SourceRectangle = new Rectangle(a.CurrentFrame * a.FrameSize, a.FrameSize);
 
-                a.LastFrameDeltaTime -= a.FrameDuration;
+                a.LastFrameTime -= a.FrameDuration;
             }
         }
     }

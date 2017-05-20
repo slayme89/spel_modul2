@@ -21,8 +21,8 @@ namespace GameEngine.Systems
             if (animation.IsPaused)
                 return;
 
-            animation.LastFrameDeltaTime += gameTime.ElapsedGameTime.Milliseconds;
-            if(animation.LastFrameDeltaTime > animation.FrameDuration)
+            animation.LastFrameTime += gameTime.ElapsedGameTime.Milliseconds;
+            if(animation.LastFrameTime > animation.FrameDuration)
             {
                 //Update current frame
                 animation.CurrentFrame.X = (animation.CurrentFrame.X + 1) % animation.SheetSize.X;
@@ -32,7 +32,7 @@ namespace GameEngine.Systems
                 //Calculate new source rectangle into the spritesheet
                 animation.SourceRectangle = new Rectangle(animation.CurrentFrame * animation.FrameSize, animation.FrameSize);
 
-                animation.LastFrameDeltaTime -= animation.FrameDuration;
+                animation.LastFrameTime -= animation.FrameDuration;
             }
         }
     }
