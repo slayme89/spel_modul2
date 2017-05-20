@@ -4,6 +4,7 @@ using GameEngine.Managers;
 using GameEngine.Systems;
 using Microsoft.Xna.Framework;
 using System;
+using System.Diagnostics;
 
 namespace Game.Systems
 {
@@ -89,7 +90,11 @@ namespace Game.Systems
                                         //Unequip equipment
                                         int equipPos = Math.Abs(invenComp.SelectedSlot.X) - 1;
                                         if (AddItemToInventory(entity.Key, invenComp.WeaponBodyHead[equipPos]))
+                                        {
+                                            UnEquipItemVisually(invenComp.WeaponBodyHead[equipPos], cm);
                                             invenComp.WeaponBodyHead[equipPos] = 0;
+                                        }
+                                            
                                     }
                                     else if (invenComp.LocationInInventory == LocationInInventory.Bagspace)
                                         //Picked an item to hold
@@ -139,6 +144,7 @@ namespace Game.Systems
                                                 //if there is an item in the selected slot. Swap locations of the items
                                                 equipToSwap = invenComp.WeaponBodyHead[equipPos];
                                                 cm.GetComponentForEntity<ItemComponent>(equipToSwap).InventoryPosition = heldItemComp.InventoryPosition;
+                                                UnEquipItemVisually(equipToSwap, cm);
                                             }
                                             invenComp.WeaponBodyHead[equipPos] = invenComp.HeldItem;
                                             invenComp.Items[heldItemComp.InventoryPosition] = equipToSwap;
@@ -154,6 +160,7 @@ namespace Game.Systems
                                             itemToSwap = invenComp.Items[selectedArraySlot];
                                             invenComp.Items[heldItemComp.InventoryPosition] = itemToSwap;
                                             cm.GetComponentForEntity<ItemComponent>(itemToSwap).InventoryPosition = heldItemComp.InventoryPosition;
+                                            
                                         }
                                         invenComp.Items[selectedArraySlot] = invenComp.HeldItem;
                                         invenComp.Items[heldItemComp.InventoryPosition] = itemToSwap;
@@ -190,6 +197,7 @@ namespace Game.Systems
 
                                             cm.GetComponentForEntity<ItemComponent>(itemToMove).InventoryPosition = selectedItemComp.InventoryPosition;
                                             selectedItemComp.InventoryPosition = -(int)selectedItemComp.Type - 1;
+                                            UnEquipItemVisually(itemToMove, cm);
                                         }
                                     }
                                 }
@@ -262,6 +270,11 @@ namespace Game.Systems
                 if (actionBComp.Slots[i] == aBSC)
                     actionBComp.Slots[i] = null;
             }
+        }
+
+        void UnEquipItemVisually(int entity, ComponentManager cm)
+        {
+            cm.RemoveComponentFromEntity<PositionComponent>(entity);
         }
 
         void UpdateActualEquippedItems(ref InventoryComponent invenComp, ref ComponentManager cm, int entity)

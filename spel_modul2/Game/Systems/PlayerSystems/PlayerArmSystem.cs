@@ -14,6 +14,8 @@ namespace Game.Systems
 {
     class PlayerArmSystem : ISystem
     {
+        int armID;
+
         public void Update(GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
@@ -25,31 +27,23 @@ namespace Game.Systems
                 PositionComponent posComp = cm.GetComponentForEntity<PositionComponent>(entity.Key);
 
                 if (armComp.playerID == 0)
-                    armComp.playerID = GetId(cm);
+                    armComp.playerID = GetId(cm, armComp);
                 posComp.Position = cm.GetComponentForEntity<PositionComponent>(armComp.playerID).Position;
             }
         }
 
-        int GetId(ComponentManager cm)
+        int GetId(ComponentManager cm, ArmComponent arm)
         {
             int freeID = 0;
-            foreach (ArmComponent arm in cm.GetComponentsOfType<ArmComponent>().Values)
+            foreach (var playerEntity in cm.GetComponentsOfType<PlayerControlComponent>())
             {
-                int countToTwo = 0;
-                int numbofPlayers = 0;
-                foreach (var playerEntity in cm.GetComponentsOfType<PlayerControlComponent>())
+                if (armID != playerEntity.Key)
                 {
-                    if (arm.playerID != playerEntity.Key)
-                    {
-                        countToTwo++;
-                        freeID = playerEntity.Key;
-                    }
-                    numbofPlayers++;
+                    freeID = playerEntity.Key;
                 }
-                if (countToTwo == numbofPlayers)
-                    return freeID;
             }
-            return 0;
+            armID = freeID;
+            return freeID;
         }
     }
 }

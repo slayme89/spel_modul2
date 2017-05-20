@@ -53,7 +53,7 @@ namespace Game.Systems
                                         if (cm.HasEntityComponent<TextComponent>(inter.Key))
                                             cm.GetComponentForEntity<TextComponent>(inter.Key).IsActive = false;
                                     }
-                                    cm.GetComponentForEntity<TextComponent>(closestInteractable).IsActive = true;
+                                    //cm.GetComponentForEntity<TextComponent>(closestInteractable).IsActive = true; //lägg till en item entity inte interact
 
                                 }
                             }

@@ -97,13 +97,13 @@ namespace Game
                 new InteractComponent(InteractType.Loot),
                 new TextComponent("NewSpriteFont", "You looted the cadaver and got something.", new Vector2(Viewport.TitleSafeArea.Width / 2 - 242, Viewport.TitleSafeArea.Bottom -75), Color.Black, false),
                 new HealthComponent(0),
-                new ItemComponent(ItemManager.exampleUseItem, "Sword", ItemType.Weapon),
+                //new ItemComponent(ItemManager.exampleUseItem, "Sword", ItemType.Weapon), // Items måste vara separata entities
             });
 
             cm.AddEntityWithComponents(new IComponent[]
             {
                 new PositionComponent(0, 0),
-                new AnimationGroupComponent("PlayerAnimation/MEDIUM/PlayerArmsSpritesheetMEDIUM", new Point(4, 8), 15, RenderLayer.Layer2,
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/PlayerArmsSpritesheetMEDIUM", new Point(4, 8), 15, RenderLayer.Layer3,
                 new[] {
                     new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
                     new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
@@ -117,7 +117,26 @@ namespace Game
                 new ArmComponent(),
             });
 
+            //cm.AddEntityWithComponents(new IComponent[]
+            //{
+            //    new PositionComponent(100, 100),
+            //    new AnimationGroupComponent("PlayerAnimation/MEDIUM/PlayerArmsSpritesheetMEDIUM", new Point(4, 8), 15, RenderLayer.Layer3,
+            //    new[] {
+            //        new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+            //        new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+            //        new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+            //        new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+            //        new Tuple<Point, Point>(new Point(0, 4), new Point(4, 1)),
+            //        new Tuple<Point, Point>(new Point(0, 5), new Point(4, 1)),
+            //        new Tuple<Point, Point>(new Point(0, 6), new Point(4, 1)),
+            //        new Tuple<Point, Point>(new Point(0, 7), new Point(4, 1)),
+            //    }),
+            //    new ArmComponent(),
+            //});
+            //cm.AddEntityWithComponents(factory.CreatePlayer(100, 100));
+
             cm.AddEntityWithComponents(factory.CreatePlayer(0, 0));
+            
 
             //////////////////////////GUI Stuff/////////////////////////////
 
@@ -200,6 +219,17 @@ namespace Game
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new ItemComponent(ItemManager.exampleUseItem, "Sword", ItemType.Weapon),
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/SwordSpritesheetMEDIUM", new Point(4, 4), 15, RenderLayer.Layer3,
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                }),
                 new SwordComponent(10),
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
