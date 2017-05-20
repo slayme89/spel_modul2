@@ -165,7 +165,8 @@ namespace Game
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new SkillComponent(SkillManager.HeavyAttack, 10, 10, "HeavyAttack")
+                new SkillComponent(SkillManager.HeavyAttack, 10, "HeavyAttack"),
+                new CooldownComponent(3),
             });
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]

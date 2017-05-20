@@ -6,8 +6,6 @@ namespace Game.Components
 {
     public class SkillComponent : IComponent, ActionBarSlotComponent
     {
-        public float CooldownTimer { get; set; }
-        public int Cooldown { get; set; }
         public int EnergyCost { get; set; }
         public List<int> UsingEntities = new List<int>();
         public string IconFileName { get; set; }
@@ -15,11 +13,8 @@ namespace Game.Components
         public Action Use { get; set; }
         public bool IsItem { get; set; } = false;
 
-        public SkillComponent(Action action, int cooldown, int energyCost, string iconFileName)
+        public SkillComponent(Action action, int energyCost, string iconFileName)
         {
-            
-            Cooldown = cooldown;
-            CooldownTimer = 0;
             EnergyCost = energyCost;
             Use = action;
             IconFileName = iconFileName;
