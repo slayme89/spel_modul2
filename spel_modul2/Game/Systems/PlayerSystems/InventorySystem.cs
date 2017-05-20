@@ -20,6 +20,7 @@ namespace Game.Systems
                 if (cm.HasEntityComponent<InventoryComponent>(entity.Key))
                 {
                     InventoryComponent invenComp = cm.GetComponentForEntity<InventoryComponent>(entity.Key);
+                    
                     //Test to add item press 1 on the keyboard or rt + a on gamepad
                     if (playerComp.ActionBar1.IsButtonDown())
                     {

@@ -62,7 +62,36 @@ namespace Game
                 new LevelComponent(1, 80),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
                 new ActionBarComponent(),
-                new InventoryComponent(5, 4),
+                new InventoryComponent(5, 4, new Point(10, 100)),
+                new EnergyComponent(100),
+                new DamageComponent(),
+                new StatsComponent(5, 1, 0, 0),
+                new KnockbackComponent(),
+            };
+        }
+
+        public IComponent[] CreatePlayerTwo(int x, int y)
+        {
+            return new IComponent[]
+            {
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/PlayerSpritesheetMEDIUM", new Point(4, 4), 15,
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                }),
+                new HealthComponent(100),
+                new PositionComponent(x, y),
+                new MoveComponent(0.2f),
+                new PlayerControlComponent(ControllerType.Gamepad1),
+                new CollisionComponent(30, 35),
+                new AttackComponent(10, 0.3f, 0.1f, WeaponType.None),
+                new PlayerComponent(2),
+                new LevelComponent(1, 80),
+                new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
+                new ActionBarComponent(),
+                new InventoryComponent(5, 4, new Point(500, 100)),
                 new EnergyComponent(100),
                 new DamageComponent(),
                 new StatsComponent(5, 1, 0, 0),

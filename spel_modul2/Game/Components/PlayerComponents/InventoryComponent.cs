@@ -33,11 +33,11 @@ namespace Game.Components
         public SpriteFont Font { get; set; }
         public LocationInInventory LocationInInventory;
 
-        public InventoryComponent(int columns, int rows)
+        public InventoryComponent(int columns, int rows, Point position)
         {
             HeldItem = 0;
             Items = new int[columns * rows];
-            PositionOnScreen = new Point(10, 100);
+            PositionOnScreen = position;
             IsOpen = false;
             ColumnsRows = new Point(columns, rows);
             SlotSize = new Point(30, 30);

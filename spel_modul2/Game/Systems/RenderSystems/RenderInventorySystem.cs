@@ -3,6 +3,7 @@ using GameEngine.Components;
 using GameEngine.Managers;
 using GameEngine.Systems;
 using Microsoft.Xna.Framework;
+using System.Diagnostics;
 
 namespace Game.Systems
 {
@@ -20,6 +21,14 @@ namespace Game.Systems
                 {
                     Rectangle equipmentBackground = new Rectangle(invenComp.PositionOnScreen, new Point(120, 120) + invenComp.SlotSpace * invenComp.ColumnsRows);
 
+                    if (cm.HasEntityComponent<PlayerComponent>(entity.Key))
+                    {
+                        int pNum = cm.GetComponentForEntity<PlayerComponent>(entity.Key).Number;
+                        if (pNum == 2)
+                        {
+                            invenComp.PositionOnScreen = new Point(rh.graphicsDevice.Viewport.TitleSafeArea.Right - 235, invenComp.PositionOnScreen.Y);
+                        }
+                    }
                     //Inventory stuff
 
                     Point itemInventoryPos = new Point(invenComp.PositionOnScreen.X, invenComp.PositionOnScreen.Y + equipmentBackground.Height);

@@ -14,8 +14,9 @@ namespace Game.Systems
         {
             var inventories = ComponentManager.GetInstance().GetComponentsOfType<InventoryComponent>();
 
-            foreach (InventoryComponent invComp in inventories.Values)
+            foreach (var entity in inventories)
             {
+                InventoryComponent invComp = (InventoryComponent)entity.Value;
                 invComp.Font = content.Load<SpriteFont>("NewSpriteFont");
             }
         }

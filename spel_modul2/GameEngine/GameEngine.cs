@@ -19,7 +19,6 @@ namespace GameEngine
         //GameState Manager
         StateManager stateManager = StateManager.GetInstance();
 
-
         // Frame rate related stuff
         private float frameCount = 0.0f;
         private float elapsedTime = 0.0f;
