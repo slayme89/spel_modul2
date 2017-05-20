@@ -43,12 +43,16 @@ namespace GameEngine.Systems
                             else if (interComp.Type == InteractType.Loot && cm.HasEntityComponent<ItemComponent>(closestInteractable))
                             {
                                 //See if its a dead entity
-                                if (cm.HasEntityComponent<HealthComponent>(closestInteractable))
+                                if (cm.HasEntityComponent<HealthComponent>(closestInteractable) && cm.GetComponentForEntity<HealthComponent>(closestInteractable).Current == 0)
                                 {
-                                   if(cm.GetComponentForEntity<HealthComponent>(closestInteractable).IsAlive == false)
+                                    cm.GetComponentForEntity<InventoryComponent>(player.Key).ItemsToAdd.Add(closestInteractable);
+                                    foreach (var inter in cm.GetComponentsOfType<InteractComponent>())
                                     {
-                                        cm.GetComponentForEntity<InventoryComponent>(player.Key).ItemsToAdd.Add(closestInteractable);
+                                        if (cm.HasEntityComponent<TextComponent>(inter.Key))
+                                            cm.GetComponentForEntity<TextComponent>(inter.Key).IsActive = false;
                                     }
+                                    cm.GetComponentForEntity<TextComponent>(closestInteractable).IsActive = true;
+
                                 }
                             }
                         }

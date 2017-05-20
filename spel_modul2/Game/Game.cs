@@ -58,8 +58,10 @@ namespace Game
             {
                 new PositionComponent(-400, 0),
                 new CollisionComponent(50, 50),
-                new InteractComponent(InteractType.Trap),
-                new AttackComponent(7, 1.0f, 2.2f, WeaponType.Sword),
+                new InteractComponent(InteractType.Loot),
+                new TextComponent("NewSpriteFont", "You looted the cadaver and got something.", new Vector2(Viewport.TitleSafeArea.Width / 2 - 242, Viewport.TitleSafeArea.Bottom -75), Color.Black, false),
+                new HealthComponent(0),
+                new ItemComponent(ItemManager.exampleUseItem, "Sword", ItemType.Weapon),
             });
 
             cm.AddEntityWithComponents(new IComponent[]
