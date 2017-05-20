@@ -61,31 +61,16 @@
     <Compile Include="Components\AIComponents\AIComponent.cs" />
     <Compile Include="Components\Button.cs" />
     <Compile Include="Components\CoreComponents\AnimationGroupComponent.cs" />
-    <Compile Include="Components\CoreComponents\AttackComponent.cs" />
     <Compile Include="Components\CoreComponents\CollisionComponent.cs" />
-    <Compile Include="Components\CoreComponents\DamageComponent.cs" />
-    <Compile Include="Components\CoreComponents\EnergyComponent.cs" />
-    <Compile Include="Components\CoreComponents\KnockbackComponent.cs" />
-    <Compile Include="Components\CoreComponents\SkillComponent.cs" />
-    <Compile Include="Components\PlayerComponents\SwordComponent.cs" />
     <Compile Include="Components\VisualComponents\TextComponent.cs" />
     <Compile Include="Components\MenuComponents\MenuBackgroundComponent.cs" />
     <Compile Include="Components\MenuComponents\MenuButtonComponent.cs" />
-    <Compile Include="Components\PlayerComponents\ActionBarSlotComponent.cs" />
-    <Compile Include="Components\PlayerComponents\ArmComponent.cs" />
     <Compile Include="Components\Stick.cs" />
     <Compile Include="Components\VisualComponents\GUIComponent.cs" />
-    <Compile Include="Components\CoreComponents\HealthComponent.cs" />
-    <Compile Include="Components\PlayerComponents\ActionBarComponent.cs" />
-    <Compile Include="Components\CoreComponents\InteractComponent.cs" />
-    <Compile Include="Components\PlayerComponents\InventoryComponent.cs" />
-    <Compile Include="Components\CoreComponents\LevelComponent.cs" />
     <Compile Include="Components\CoreComponents\MoveComponent.cs" />
-    <Compile Include="Components\PlayerComponents\ItemComponent.cs" />
     <Compile Include="Components\PlayerComponents\PlayerComponent.cs" />
     <Compile Include="Components\PlayerComponents\PlayerControlComponent.cs" />
     <Compile Include="Components\CoreComponents\PositionComponent.cs" />
-    <Compile Include="Components\PlayerComponents\StatsComponent.cs" />
     <Compile Include="Components\SoundComponents\SoundComponent.cs" />
     <Compile Include="Components\SoundComponents\SoundThemeComponent.cs" />
     <Compile Include="Components\VisualComponents\TextureComponent.cs" />
@@ -99,53 +84,25 @@
     <Compile Include="Managers\ItemManager.cs" />
     <Compile Include="Managers\ResourceManager.cs" />
     <Compile Include="Managers\EntityManager.cs" />
-    <Compile Include="Managers\SkillManager.cs" />
     <Compile Include="Managers\StateManager.cs" />
     <Compile Include="RenderHelper.cs" />
-    <Compile Include="Systems\AISystems\AIAttackSystem.cs" />
-    <Compile Include="Systems\AISystems\AIMovementSystem.cs" />
     <Compile Include="Systems\CoreSystems\AnimationGroupSystem.cs" />
-    <Compile Include="Systems\CoreSystems\AttackSystem.cs" />
     <Compile Include="Systems\CoreSystems\CollisionSystem.cs" />
-    <Compile Include="Systems\CoreSystems\DamageSystem.cs" />
-    <Compile Include="Systems\CoreSystems\EnergySystem.cs" />
-    <Compile Include="Systems\CoreSystems\HealthSystem.cs" />
-    <Compile Include="Systems\CoreSystems\KnockbackSystem.cs" />
-    <Compile Include="Systems\LoaderSystems\SkillLoaderSystem.cs" />
+    <Compile Include="Systems\CoreSystems\WorldSystem.cs" />
     <Compile Include="Systems\MenuSystem\MenuSystem.cs" />
-    <Compile Include="Systems\PlayerSystems\ActionBarSystem.cs" />
-    <Compile Include="Systems\PlayerSystems\PlayerArmSystem.cs" />
-    <Compile Include="Systems\PlayerSystems\PlayerSpriteTurnSystem.cs" />
-    <Compile Include="Systems\PlayerSystems\SkillSystem.cs" />
-    <Compile Include="Systems\LoaderSystems\InventoryLoaderSystem.cs" />
-    <Compile Include="Systems\PlayerSystems\StatsSystem.cs" />
-    <Compile Include="Systems\LoaderSystems\ItemIconLoaderSystem.cs" />
     <Compile Include="Systems\RenderSystems\IRenderSystem.cs" />
-    <Compile Include="Systems\RenderSystems\RenderActionbarSystem.cs" />
-    <Compile Include="Systems\RenderSystems\RenderEnergySystem.cs" />
     <Compile Include="Systems\PlayerSystems\InputSystem.cs" />
-    <Compile Include="Systems\CoreSystems\InteractSystem.cs" />
-    <Compile Include="Systems\PlayerSystems\InventorySystem.cs" />
     <Compile Include="Systems\ISystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Managers\SystemManager.cs" />
     <Compile Include="Systems\CoreSystems\AnimationSystem.cs" />
-    <Compile Include="Systems\CoreSystems\LevelSystem.cs" />
-    <Compile Include="Systems\PlayerSystems\PlayerAttackSystem.cs" />
-    <Compile Include="Systems\PlayerSystems\PlayerMovementSystem.cs" />
-    <Compile Include="Systems\RenderSystems\RenderAttackingCollisionBoxSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderCollisionBoxSystem.cs" />
-    <Compile Include="Systems\RenderSystems\RenderExperienceSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderGUISystem.cs" />
-    <Compile Include="Systems\RenderSystems\RenderHealthSystem.cs" />
-    <Compile Include="Systems\PlayerSystems\PlayerEquipmentSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderTextSystem.cs" />
-    <Compile Include="Systems\RenderSystems\RenderInventorySystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderMenuSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderSystem.cs" />
     <Compile Include="Systems\CoreSystems\SoundSystem.cs" />
     <Compile Include="Systems\CoreSystems\MoveSystem.cs" />
-    <Compile Include="Systems\CoreSystems\WorldSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -186,6 +143,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Systems\AISystems\" />
+    <Folder Include="Systems\LoaderSystems\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -12,13 +12,47 @@ namespace Game
         protected override void Initialize()
         {
             SystemManager sm = SystemManager.GetInstance();
-            sm.AddSystem(new EnemySpawnSystem());
+            sm.AddSystems(new object[] {
+                new RenderHealthSystem(),
+                new RenderInventorySystem(),
+                new RenderActionbarSystem(),
+                new RenderExperienceSystem(),
+                new RenderEnergySystem(),
+                new RenderAttackingCollisionBoxSystem(),
+                new ItemIconLoaderSystem(),
+                new InventoryLoaderSystem(),
+                new SkillLoaderSystem(),
+                new SkillManager(),
+                new AIMovementSystem(),
+                new AIAttackSystem(),
+                new EnemySpawnSystem(),
+                new AttackSystem(),
+                new EnergySystem(),
+                new HealthSystem(),
+                new InteractSystem(),
+                new LevelSystem(),
+                new ActionBarSystem(),
+                new StatsSystem(),
+                new InventorySystem(),
+                new PlayerAttackSystem(),
+                new PlayerMovementSystem(),
+                new SkillSystem(),
+                new PlayerArmSystem(),
+                new PlayerSpriteTurnSystem(),
+                new PlayerEquipmentSystem(),
+                new DamageSystem(),
+                new KnockbackSystem(),
+            });
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
+            SystemManager sm = SystemManager.GetInstance();
+
+            
+
             ComponentManager cm = ComponentManager.GetInstance();
             EntityFactory factory = new EntityFactory();
 
@@ -82,7 +116,7 @@ namespace Game
             });
 
             cm.AddEntityWithComponents(factory.CreatePlayer(0, 0));
-            
+
             //////////////////////////GUI Stuff/////////////////////////////
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
@@ -172,7 +206,7 @@ namespace Game
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new ItemComponent(ItemManager.exampleUseItem, "GoldArmorBody", ItemType.Body),
-                
+
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
@@ -216,6 +250,14 @@ namespace Game
                new MenuButtonComponent("MainQuit", MenuManager.Quit, "Menu/QuitNormal", "Menu/QuitHighlight", new Vector2(100, 140), RenderLayer.MenuButton),
             });
             //End of menu entities
+
+            sm.GetSystem<ItemIconLoaderSystem>().Load(Content);
+            sm.GetSystem<InventoryLoaderSystem>().Load(Content);
+            sm.GetSystem<SkillLoaderSystem>().Load(Content);
+            sm.GetSystem<RenderEnergySystem>().Load(Content);
+            sm.GetSystem<RenderHealthSystem>().Load(Content);
+            sm.GetSystem<RenderExperienceSystem>().Load(Content);
+
             base.LoadContent();
         }
     }

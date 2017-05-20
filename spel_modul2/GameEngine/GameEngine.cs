@@ -52,43 +52,15 @@ namespace GameEngine
                 new CollisionSystem(),
                 new RenderSystem(),
                 new RenderCollisionBoxSystem(),
-                new PlayerMovementSystem(),
-                new AIMovementSystem(),
                 new InputSystem(),
-                new AttackSystem(),
-                new PlayerAttackSystem(),
-                new RenderAttackingCollisionBoxSystem(),
                 new WorldSystem(),
-                new AIAttackSystem(),
                 new SoundSystem(),
-                new DamageSystem(),
-                new KnockbackSystem(),
-                new RenderHealthSystem(),
-                new InventorySystem(),
-                new RenderInventorySystem(),
-                new RenderActionbarSystem(),
-                new InteractSystem(),
                 new RenderGUISystem(),
-                new EnergySystem(),
-                new RenderEnergySystem(),
-                new ItemIconLoaderSystem(),
-                new HealthSystem(),
-                new RenderExperienceSystem(),
                 new AnimationGroupSystem(),
                 new RenderAnimationGroupSystem(),
-                new InventoryLoaderSystem(),
-                new ActionBarSystem(),
-                new LevelSystem(),
-                new StatsSystem(),
                 new MenuSystem(),
                 new RenderMenuSystem(),
-                new SkillLoaderSystem(),
-                new SkillSystem(),
-                new PlayerArmSystem(),
                 new RenderTextSystem(),
-                new PlayerSpriteTurnSystem(),
-                new SkillManager(),
-                new PlayerEquipmentSystem(),
             });
 
             base.Initialize();
@@ -97,14 +69,8 @@ namespace GameEngine
         protected override void LoadContent()
         {
             sm.GetSystem<WorldSystem>().Load(Content);
-            sm.GetSystem<RenderEnergySystem>().Load(Content);
-            sm.GetSystem<RenderHealthSystem>().Load(Content);
-            sm.GetSystem<RenderExperienceSystem>().Load(Content);
             sm.GetSystem<RenderGUISystem>().Load(Content);
-            sm.GetSystem<ItemIconLoaderSystem>().Load(Content);
-            sm.GetSystem<InventoryLoaderSystem>().Load(Content);
             sm.GetSystem<RenderMenuSystem>().Load(Content);
-            sm.GetSystem<SkillLoaderSystem>().Load(Content);
             sm.GetSystem<RenderTextSystem>().Load(Content);
             
             base.LoadContent();
