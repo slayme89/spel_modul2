@@ -41,6 +41,8 @@ namespace GameEngine.Managers
             }
         }
 
+
+
         public void Render(RenderHelper renderHelper)
         {
             Viewport viewport = Extensions.GetCurrentViewport(renderHelper.graphicsDevice);

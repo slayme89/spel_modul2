@@ -12,29 +12,21 @@ namespace GameEngine.Systems
             ComponentManager cm = ComponentManager.GetInstance();
             foreach (var entity in cm.GetComponentsOfType<SkillComponent>())
             {
+                CooldownComponent cd = cm.GetComponentForEntity<CooldownComponent>(entity.Key);
                 SkillComponent skillComponent = (SkillComponent)entity.Value;
                 foreach (int entityUser in skillComponent.UsingEntities)
                 {
                     if (cm.HasEntityComponent<EnergyComponent>(entityUser))
                     {
                         EnergyComponent energyComponent = cm.GetComponentForEntity<EnergyComponent>(entityUser);
-                       
-                                                 
-                        if(skillComponent.EnergyCost < energyComponent.Current)
+
+                        if (skillComponent.EnergyCost < energyComponent.Current && cd.CooldownTimer <= 0)
                         {
                             skillComponent.Use(entityUser);
                             energyComponent.Current -= skillComponent.EnergyCost;
-                    }
-                        //if (skillComponenet.CooldownTimer <= 0 && skillComponenet.EnergyCost < energyComponent.Current)
-                        //{
-                        //    skillComponenet.Use(entityUser);
-                        //    energyComponent.Current -= skillComponenet.EnergyCost;
-                        //    skillComponenet.CooldownTimer = skillComponenet.Cooldown;
-                        //}
-                        //else
-                        //{
-                        //    skillComponenet.CooldownTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                        //}
+                            cd.CooldownTimer = cd.Cooldown;
+
+                        }
                     }
                 }
                 skillComponent.UsingEntities.Clear();
@@ -42,3 +34,4 @@ namespace GameEngine.Systems
         }
     }
 }
+

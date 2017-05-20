@@ -107,6 +107,7 @@
     <Compile Include="Systems\CoreSystems\AnimationGroupSystem.cs" />
     <Compile Include="Systems\CoreSystems\AttackSystem.cs" />
     <Compile Include="Systems\CoreSystems\CollisionSystem.cs" />
+    <Compile Include="Systems\CoreSystems\CooldownSystem.cs" />
     <Compile Include="Systems\CoreSystems\DamageSystem.cs" />
     <Compile Include="Systems\CoreSystems\EnergySystem.cs" />
     <Compile Include="Systems\CoreSystems\HealthSystem.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Systems\LoaderSystems\ItemIconLoaderSystem.cs" />
     <Compile Include="Systems\RenderSystems\IRenderSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderActionbarSystem.cs" />
+    <Compile Include="Systems\RenderSystems\RenderCooldownTimer.cs" />
     <Compile Include="Systems\RenderSystems\RenderEnergySystem.cs" />
     <Compile Include="Systems\PlayerSystems\InputSystem.cs" />
     <Compile Include="Systems\CoreSystems\InteractSystem.cs" />

@@ -7,15 +7,16 @@ using System.Threading.Tasks;
 namespace GameEngine.Components
 {
     
-    class CooldownComponent : IComponent
+    public class CooldownComponent : IComponent
     {
-        public int Cooldown { get; set; }
         public float CooldownTimer { get; set; }
+        public int Cooldown { get; set; }
 
         public CooldownComponent(int cooldown)
         {
-            Cooldown = cooldown;
             CooldownTimer = 0;
+            Cooldown = cooldown;
+            
         }
 
         public object Clone()

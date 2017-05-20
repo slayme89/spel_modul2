@@ -12,7 +12,8 @@ namespace GameEngine.Components
         public Action Use { get; set; }
         public bool IsItem { get; set; } = false;
 
-        public SkillComponent(Action action, int cooldown, int energyCost, string iconFileName)
+
+        public SkillComponent(Action action, int energyCost, string iconFileName)
         {
             EnergyCost = energyCost;
             Use = action;
