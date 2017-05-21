@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Content;
 using GameEngine.Components;
 using GameEngine.Managers;
 using System;
+using System.Diagnostics;
 
 namespace GameEngine.Systems
 {
@@ -16,6 +17,7 @@ namespace GameEngine.Systems
             foreach(AnimationGroupComponent animationGroupComponent in cm.GetComponentsOfType<AnimationGroupComponent>().Values)
             {
                 Update(gameTime, animationGroupComponent);
+                Debug.WriteLine("");
             }
         }
 
@@ -36,7 +38,7 @@ namespace GameEngine.Systems
 
                 a.SourceRectangle = new Rectangle(a.CurrentFrame * a.FrameSize, a.FrameSize);
 
-                a.LastFrameTime -= a.FrameDuration;
+                a.LastFrameTime = 0.0f;
             }
         }
     }

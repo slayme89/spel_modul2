@@ -3,6 +3,7 @@ using GameEngine.Components;
 using GameEngine.Managers;
 using GameEngine.Systems;
 using Microsoft.Xna.Framework;
+using System.Diagnostics;
 
 namespace Game.Systems
 {
@@ -41,7 +42,8 @@ namespace Game.Systems
             {  
                 while(comp.RemoveStats > 0)
                 {
-                    string stat = comp.StatHistory.Substring(comp.StatHistory.Length - 3, comp.StatHistory.Length);
+                    //Debug.WriteLine((comp.StatHistory.Length - 4) + "  " + (comp.StatHistory.Length - 1));
+                    string stat = comp.StatHistory.Substring(comp.StatHistory.Length - 4, comp.StatHistory.Length - 1);
                     switch (stat)
                     {
                         case "str":

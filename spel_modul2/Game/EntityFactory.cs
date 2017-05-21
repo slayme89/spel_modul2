@@ -41,12 +41,16 @@ namespace Game
             cm.AddEntityWithComponents(new CollisionComponent(23, 19), new PositionComponent(x + 1, y + 22));
         }
 
-        public IComponent[] CreatePlayer(int x, int y)
+        public IComponent[] CreatePlayerOne(int x, int y)
         {
             return new IComponent[]
             {
-                new AnimationGroupComponent("PlayerAnimation/MEDIUM/PlayerSpritesheetMEDIUM", new Point(4, 4), 15,
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/PlayerSpritesheetMEDIUM", new Point(4, 4), 150,
                 new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(1, 1)),
                     new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
                     new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
                     new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
@@ -74,8 +78,12 @@ namespace Game
         {
             return new IComponent[]
             {
-                new AnimationGroupComponent("PlayerAnimation/MEDIUM/PlayerSpritesheetMEDIUM", new Point(4, 4), 15,
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/PlayerSpritesheetMEDIUM", new Point(4, 4), 150,
                 new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(1, 1)),
                     new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
                     new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
                     new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),

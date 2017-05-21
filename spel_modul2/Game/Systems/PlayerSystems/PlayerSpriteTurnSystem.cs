@@ -17,7 +17,7 @@ namespace Game.Systems
         public void Update(GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-            foreach(var entity in cm.GetComponentsOfType<ArmComponent>())
+            foreach (var entity in cm.GetComponentsOfType<ArmComponent>())
             {
                 ArmComponent armComp = (ArmComponent)entity.Value;
                 MoveComponent moveComp = cm.GetComponentForEntity<MoveComponent>(armComp.playerID);
@@ -26,16 +26,23 @@ namespace Game.Systems
                     return;
                 AnimationGroupComponent playerAnimation = cm.GetComponentForEntity<AnimationGroupComponent>(armComp.playerID);
                 int animation = GetAnimationRow(moveComp.Direction);
-                
-                armAnimation.ActiveAnimation = animation;
-                playerAnimation.ActiveAnimation = animation;
 
-                if (cm.HasEntityComponent<InventoryComponent>(armComp.playerID))
+                int walking = cm.GetComponentForEntity<MoveComponent>(armComp.playerID).Velocity != new Vector2(0.0f, 0.0f) ? 4 : 0;
+                int attacking = cm.GetComponentForEntity<AttackComponent>(armComp.playerID).AttackCooldown > 0.0f ? 4 : 0;
+                if (playerAnimation.ActiveAnimation != animation + walking)
                 {
-                    InventoryComponent invenComp = cm.GetComponentForEntity<InventoryComponent>(armComp.playerID);
-                    ChangeEquipmentDirection(cm, ref invenComp, 0, animation);
-                    ChangeEquipmentDirection(cm, ref invenComp, 1, animation);
-                    ChangeEquipmentDirection(cm, ref invenComp, 2, animation);
+                    playerAnimation.ActiveAnimation = animation + walking;
+                }
+                if (armAnimation.ActiveAnimation != animation + attacking)
+                {
+                    armAnimation.ActiveAnimation = animation + attacking;
+                    if (cm.HasEntityComponent<InventoryComponent>(armComp.playerID))
+                    {
+                        InventoryComponent invenComp = cm.GetComponentForEntity<InventoryComponent>(armComp.playerID);
+                        ChangeEquipmentDirection(cm, ref invenComp, 0, animation + attacking);
+                        ChangeEquipmentDirection(cm, ref invenComp, 1, animation);
+                        ChangeEquipmentDirection(cm, ref invenComp, 2, animation);
+                    }
                 }
             }
         }

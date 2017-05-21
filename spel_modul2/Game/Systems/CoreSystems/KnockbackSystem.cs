@@ -27,6 +27,7 @@ namespace Game.Systems
                     if(knockbackComponent.Cooldown <= 0.0f)
                     {
                         knockbackComponent.KnockbackActive = false;
+                        moveComponent.Velocity = new Vector2(0,0);
                     }
                 }
             }

@@ -20,7 +20,16 @@ namespace Game.Systems
 
                 int actionBarHeight = (actionBarComp.SlotSize.Y + 10);
                 int actionBarWidth = (actionBarComp.SlotSize.Y + 5) * 4 + 5;
-                actionBarComp.PositionOnScreen = new Point(renderHelper.graphicsDevice.Viewport.TitleSafeArea.Left, renderHelper.graphicsDevice.Viewport.TitleSafeArea.Bottom - actionBarHeight);
+                int positionRight = renderHelper.graphicsDevice.Viewport.TitleSafeArea.Left;
+                if (cm.HasEntityComponent<PlayerComponent>(entity.Key))
+                {
+                    int pNum = cm.GetComponentForEntity<PlayerComponent>(entity.Key).Number;
+                    if (pNum == 2)
+                    {
+                        positionRight = renderHelper.graphicsDevice.Viewport.TitleSafeArea.Right - 145;
+                    }
+                }
+                actionBarComp.PositionOnScreen = new Point(positionRight, renderHelper.graphicsDevice.Viewport.TitleSafeArea.Bottom - actionBarHeight);
                 Rectangle actionBarBackground = new Rectangle(actionBarComp.PositionOnScreen, new Point(actionBarWidth, actionBarHeight));
 
                 renderHelper.DrawFilledRectangle(actionBarBackground, Color.DarkGray, RenderLayer.GUI1);
