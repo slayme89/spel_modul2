@@ -236,7 +236,7 @@ namespace Game
 
 
             //Player1
-            cm.AddEntityWithComponents(factory.CreatePlayerOne(128, 128 * 13));
+            cm.AddEntityWithComponents(factory.CreatePlayerOne(128, 128));
 
             //Enemy
             cm.AddEntityWithComponents(factory.CreateEnemy(250, 200));
