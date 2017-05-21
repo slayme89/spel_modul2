@@ -363,6 +363,7 @@ namespace Game
                     new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
                     new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
                 }),
+                new ArmorComponent(5),
              });
 
             //Item body armor in world
@@ -383,6 +384,7 @@ namespace Game
                     new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
                     new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
                 }),
+                new ArmorComponent(10),
              });
 
             //////////////// Menu Entities ///////////////////////////////////

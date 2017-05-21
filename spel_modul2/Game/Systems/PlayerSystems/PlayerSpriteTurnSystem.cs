@@ -32,22 +32,19 @@ namespace Game.Systems
                 if (playerAnimation.ActiveAnimation != animation + walking)
                 {
                     playerAnimation.ActiveAnimation = animation + walking;
-                    if (cm.HasEntityComponent<InventoryComponent>(armComp.playerID))
-                    {
-                        InventoryComponent invenComp = cm.GetComponentForEntity<InventoryComponent>(armComp.playerID);
-                        ChangeEquipmentDirection(cm, ref invenComp, 0, animation + attacking);
-                        ChangeEquipmentDirection(cm, ref invenComp, 1, animation + walking);
-                        ChangeEquipmentDirection(cm, ref invenComp, 2, animation + walking);
-                    }
                 }
                 if (armAnimation.ActiveAnimation != animation + attacking)
                 {
-                    if (cm.HasEntityComponent<InventoryComponent>(armComp.playerID))
-                    {
-                        InventoryComponent invenComp = cm.GetComponentForEntity<InventoryComponent>(armComp.playerID);
-                        ChangeEquipmentDirection(cm, ref invenComp, 0, animation + attacking);
-                    }
+                    
                     armAnimation.ActiveAnimation = animation + attacking;
+                }
+                if (cm.HasEntityComponent<InventoryComponent>(armComp.playerID))
+                {
+                    InventoryComponent invenComp = cm.GetComponentForEntity<InventoryComponent>(armComp.playerID);
+
+                    ChangeEquipmentDirection(cm, ref invenComp, 0, animation + attacking);
+                    ChangeEquipmentDirection(cm, ref invenComp, 1, animation + walking);
+                    ChangeEquipmentDirection(cm, ref invenComp, 2, animation + walking);
                 }
             }
         }
@@ -57,7 +54,8 @@ namespace Game.Systems
             if (invenComp.WeaponBodyHead[pos] != 0 && cm.HasEntityComponent<AnimationGroupComponent>(invenComp.WeaponBodyHead[pos]))
             {
                 AnimationGroupComponent animGroupComp = cm.GetComponentForEntity<AnimationGroupComponent>(invenComp.WeaponBodyHead[pos]);
-                animGroupComp.ActiveAnimation = anim;
+                if(animGroupComp.ActiveAnimation != anim)
+                    animGroupComp.ActiveAnimation = anim;
             }
         }
 

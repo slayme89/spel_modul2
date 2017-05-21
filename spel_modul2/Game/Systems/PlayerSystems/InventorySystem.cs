@@ -125,7 +125,8 @@ namespace Game.Systems
                                     {
                                         StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity.Key);
                                         //Choose the skill selected if it has not already been picked and prerequisite requirements have been met
-                                        if (ChooseAvailableSkill(ref invenComp, GetSelectedSkillSlot(invenComp.SelectedSlot.X, invenComp.SelectedSlot.Y)))
+                                        if (ChooseAvailableSkill(ref invenComp, GetSelectedSkillSlot(invenComp.SelectedSlot.X, invenComp.SelectedSlot.Y)) 
+                                            && statComp.SpendableStats >= 5)
                                             statComp.SpendableStats -= 5;
                                     }
                                 }
@@ -292,11 +293,29 @@ namespace Game.Systems
             }
             else if (attackComp.Type != WeaponType.None)
                 attackComp.Type = WeaponType.None;
-            if(invenComp.WeaponBodyHead[1] != 0)
+            if (invenComp.WeaponBodyHead[1] != 0)
             {
                 int bodyArmorID = invenComp.WeaponBodyHead[1];
-
+                if (cm.HasEntityComponent<ArmorComponent>(bodyArmorID))
+                {
+                    DamageComponent damageComp = cm.GetComponentForEntity<DamageComponent>(entity);
+                    damageComp.DamageReduction[0] = cm.GetComponentForEntity<ArmorComponent>(bodyArmorID).Defence;
+                }
             }
+            else
+                cm.GetComponentForEntity<DamageComponent>(entity).DamageReduction[0] = 0;
+            if (invenComp.WeaponBodyHead[2] != 0)
+            {
+                int headArmorID = invenComp.WeaponBodyHead[2];
+                if (cm.HasEntityComponent<ArmorComponent>(headArmorID))
+                {
+                    DamageComponent damageComp = cm.GetComponentForEntity<DamageComponent>(entity);
+                    damageComp.DamageReduction[1] = cm.GetComponentForEntity<ArmorComponent>(headArmorID).Defence;
+                }
+            }
+            else
+                cm.GetComponentForEntity<DamageComponent>(entity).DamageReduction[1] = 0;
+
         }
 
         bool UpdateInventoryFocus(InventoryComponent invenComp, Point nextSlot)
@@ -339,7 +358,6 @@ namespace Game.Systems
         int GetSelectedSkillSlot(int x, int y)
         {
             int selectedSkillSlot = x + y;
-
 
             switch (y)
             {

@@ -4,6 +4,7 @@ using GameEngine.Managers;
 using GameEngine.Systems;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Game.Systems
 {
@@ -19,7 +20,9 @@ namespace Game.Systems
                 {
                     if (entity.Key != damage)
                     {
-                        ApplyDamageToEntity(entity.Key, damage);
+                        int reduction =  (int)(1 + damage / ((damageComponent.DamageReduction[0] + damageComponent.DamageReduction[1]) * 0.03f + 1));
+                        Debug.WriteLine(reduction + "  " + damageComponent.DamageReduction[0]);
+                        ApplyDamageToEntity(entity.Key, reduction);
                         cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayDamageSound = true;
                         if (cm.HasEntityComponent<KnockbackComponent>(entity.Key) && cm.HasEntityComponent<MoveComponent>(entity.Key))
                         {
