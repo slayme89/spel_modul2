@@ -56,58 +56,67 @@ namespace Game
             ComponentManager cm = ComponentManager.GetInstance();
             EntityFactory factory = new EntityFactory();
 
-            factory.AddTree(-100, -100);
 
-            for (int i = -640; i <= 640; i += 128)
+            // Add trees around the map
+            for (int i = 0; i <= 10; i++)
             {
-                cm.AddEntityWithComponents(new IComponent[]
+                cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
                 {
-                    new TextureComponent("road1", RenderLayer.Background1),
-                    new PositionComponent(i, 150),
+                    new TextureComponent("tree1", RenderLayer.Foreground1),
+                    new PositionComponent(-1, i * 105)
+
                 });
             }
 
+
+
+            ////////////// Map bounds ///////////////////////////////
+
+            //Left
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                    new CollisionComponent(40, 128 * 14),
+                    new PositionComponent(0, 128 * 14 / 2)
+            });
+            // Top
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                    new CollisionComponent(128 * 40, 40),
+                    new PositionComponent(128 * 40 / 2, 0)
+            });
+            //Right
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                    new CollisionComponent(40, 128 * 14),
+                    new PositionComponent(128 * 40, 128 * 14 / 2)
+            });
+            //Bot
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                    new CollisionComponent(128 * 40, 40),
+                    new PositionComponent(128 * 40 / 2, 128 * 14)
+            });
+            //Water
+            
+
+
+
+
+            //factory.AddTree(0, 50);
+
+
+
             //Enemy spawnsystem
-            cm.AddEntityWithComponents(new IComponent[]
-            {
-                new EnemySpawnComponent(new Point(200, 200), 3, 10000, 200, factory.CreateEnemy(0, 0)),
-            });
+            //cm.AddEntityWithComponents(new IComponent[]
+            //{
+            //    new EnemySpawnComponent(new Point(200, 200), 3, 10000, 200, factory.CreateEnemy(0, 0)),
+            //});
 
-            cm.AddEntityWithComponents(new IComponent[]
-            {
-                new TextureComponent("stone1"),
-                new PositionComponent(250, 100),
-            });
-
-            //Test talk
-            cm.AddEntityWithComponents(new IComponent[]
-            {
-                new PositionComponent(-200, 0),
-                new CollisionComponent(50, 50),
-                new InteractComponent(InteractType.Talk),
-                new TextComponent( "NewSpriteFont", "Hello darkness my old friend...", new Vector2(Viewport.TitleSafeArea.Width / 2 - 242, Viewport.TitleSafeArea.Bottom -75), Color.Black, false)
-            });
-            //Test loot
-            cm.AddEntityWithComponents(new IComponent[]
-            {
-                new PositionComponent(-400, 0),
-                new CollisionComponent(50, 50),
-                new InteractComponent(InteractType.Loot),
-                new ItemComponent(ItemManager.exampleUseItem, "Sword", ItemType.Weapon),
-                new AnimationGroupComponent("PlayerAnimation/MEDIUM/SwordSpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer3,
-                new[] {
-                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
-                    new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
-                    new Tuple<Point, Point>(new Point(0, 2), new Point(1, 1)),
-                    new Tuple<Point, Point>(new Point(0, 3), new Point(1, 1)),
-                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
-                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
-                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
-                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
-                }),
-                new SwordComponent(10),
-
-            });
+            //cm.AddEntityWithComponents(new IComponent[]
+            //{
+            //    new TextureComponent("stone1"),
+            //    new PositionComponent(250, 100),
+            //});
 
             cm.AddEntityWithComponents(new IComponent[]
             {
@@ -142,13 +151,16 @@ namespace Game
                 }),
                 new ArmComponent(),
             });
-            cm.AddEntityWithComponents(factory.CreatePlayerTwo(100, 100));
-
-            cm.AddEntityWithComponents(factory.CreatePlayerOne(0, 0));
             
+            
+            //cm.AddEntityWithComponents(factory.CreatePlayerTwo(100, 100));
+
+
+            //Player1
+            cm.AddEntityWithComponents(factory.CreatePlayer(100, 60));
+
 
             //////////////////////////GUI Stuff/////////////////////////////
-
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new GUIComponent("UI/DialogWindow", new Point(Viewport.TitleSafeArea.Width / 2 - 255, Viewport.TitleSafeArea.Bottom -80), RenderLayer.GUI2)
@@ -165,55 +177,13 @@ namespace Game
             {
                new GUIComponent("UI/ActionBar", new Point(Viewport.TitleSafeArea.Left, Viewport.TitleSafeArea.Bottom - 40), RenderLayer.GUI2),
             });
-
-
             //End GUI stuff
-
-
-            /*cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-                new TextureComponent("hej"),
-                new PositionComponent(40, 0),
-            });*/
-
-            //Player two
-            //cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[] {
-            //    new TextureComponent("hej"),
-            //    new HealthComponent(100),
-            //    new EnergyComponent(100),
-            //    new DamageComponent(),
-            //    new PositionComponent(100, 500),
-            //    new MoveComponent(0.2f),
-            //    new PlayerControlComponent(ControllerType.Gamepad1),
-            //    new CollisionComponent(50, 50),
-            //    new AttackComponent(100, 0.3f, 0.1f, WeaponType.Sword),
-            //    new PlayerComponent(2),
-            //    new LevelComponent(2, 55),
-            //    new GUIComponent("UI/Player2-Hp-Ene-Xp", gd.Viewport.TitleSafeArea.Right-108, gd.Viewport.TitleSafeArea.Top),
-            //    new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
-            //});
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new SkillComponent(SkillManager.HeavyAttack, 10, "HeavyAttack"),
                 new CooldownComponent(3),
             });
-
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-                new TextureComponent("tree1"),
-                new PositionComponent(10, 10),
-            });
-
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-                new TextureComponent("trees1"),
-                new PositionComponent(200, -25),
-            });
-
-
-            //Enemy
-            cm.AddEntityWithComponents(factory.CreateEnemy(300, 10));
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
