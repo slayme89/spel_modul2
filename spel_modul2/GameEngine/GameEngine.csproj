@@ -75,6 +75,7 @@
     <Compile Include="Components\SoundComponents\SoundThemeComponent.cs" />
     <Compile Include="Components\VisualComponents\TextureComponent.cs" />
     <Compile Include="Components\VisualComponents\WorldComponent.cs" />
+    <Compile Include="EntityTuple.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="Managers\ComponentManager.cs" />

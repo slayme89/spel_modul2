@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace GameEngine
 {
-    public class Group<T1, T2> : IEnumerable<Tuple<T1, T2>>
+    public class Group<T1, T2> : IEnumerable<EntityTuple<T1, T2>>
     {
         ComponentManager cm = ComponentManager.GetInstance();
-        Dictionary<int, Tuple<T1, T2>> entities;
+        Dictionary<int, EntityTuple<T1, T2>> entities;
         Type t1, t2;
 
         public Group()
@@ -21,7 +21,7 @@ namespace GameEngine
             cm.OnComponentRemoved += ComponentRemoved;
             cm.OnEntityRemoved += EntityRemoved;
 
-            entities = new Dictionary<int, Tuple<T1, T2>>();
+            entities = new Dictionary<int, EntityTuple<T1, T2>>();
             t1 = typeof(T1);
             t2 = typeof(T2);
         }
@@ -50,10 +50,10 @@ namespace GameEngine
             components = cm.GetComponentsForEntity(entity);
             if (components.TryGetValue(t1, out v1) &&
                 components.TryGetValue(t2, out v2))
-                entities.Add(entity, Tuple.Create((T1)v1, (T2)v2));
+                entities.Add(entity, EntityTuple.Create(entity, (T1)v1, (T2)v2));
         }
 
-        public IEnumerator<Tuple<T1, T2>> GetEnumerator()
+        public IEnumerator<EntityTuple<T1, T2>> GetEnumerator()
         {
             foreach (var entity in entities)
             {
@@ -70,10 +70,10 @@ namespace GameEngine
         }
     }
 
-    public class Group<T1, T2, T3> : IEnumerable<Tuple<T1, T2, T3>>
+    public class Group<T1, T2, T3> : IEnumerable<EntityTuple<T1, T2, T3>>
     {
         ComponentManager cm = ComponentManager.GetInstance();
-        Dictionary<int, Tuple<T1, T2, T3>> entities;
+        Dictionary<int, EntityTuple<T1, T2, T3>> entities;
         Type t1, t2, t3;
 
         public Group()
@@ -82,7 +82,7 @@ namespace GameEngine
             cm.OnComponentRemoved += ComponentRemoved;
             cm.OnEntityRemoved += EntityRemoved;
 
-            entities = new Dictionary<int, Tuple<T1, T2, T3>>();
+            entities = new Dictionary<int, EntityTuple<T1, T2, T3>>();
             t1 = typeof(T1);
             t2 = typeof(T2);
             t3 = typeof(T3);
@@ -113,10 +113,10 @@ namespace GameEngine
             if (components.TryGetValue(t1, out v1) &&
                 components.TryGetValue(t2, out v2) &&
                 components.TryGetValue(t3, out v3))
-                entities.Add(entity, Tuple.Create((T1)v1, (T2)v2, (T3)v3));
+                entities.Add(entity, EntityTuple.Create(entity, (T1)v1, (T2)v2, (T3)v3));
         }
 
-        public IEnumerator<Tuple<T1, T2, T3>> GetEnumerator()
+        public IEnumerator<EntityTuple<T1, T2, T3>> GetEnumerator()
         {
             foreach (var entity in entities)
             {

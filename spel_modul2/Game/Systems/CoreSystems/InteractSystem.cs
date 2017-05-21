@@ -5,27 +5,35 @@ using GameEngine.Systems;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using GameEngine;
 
 namespace Game.Systems
 {
     public class InteractSystem : ISystem
     {
+        Group<PlayerComponent, PlayerControlComponent, PositionComponent> players;
+
+        public InteractSystem()
+        {
+            players = new Group<PlayerComponent, PlayerControlComponent, PositionComponent>();
+        }
+
         public void Update(GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-            foreach (var player in cm.GetComponentsOfType<PlayerComponent>())
+            foreach (var player in players)
             {
-                if (cm.HasEntityComponent<PlayerControlComponent>(player.Key) && cm.HasEntityComponent<PositionComponent>(player.Key))
-                {
-                    PlayerControlComponent controlComponent = cm.GetComponentForEntity<PlayerControlComponent>(player.Key);
-                    PositionComponent playerPositionComponent = cm.GetComponentForEntity<PositionComponent>(player.Key);
-                    int closestInteractable = FindClosestInteractable(playerPositionComponent.Position);
+                PlayerComponent playerComponent = player.Item1;
+                PlayerControlComponent controlComponent = player.Item2;
+                PositionComponent playerPositionComponent = player.Item3;
 
-                    if (closestInteractable != -1)
+                int closestInteractable = FindClosestInteractable(playerPositionComponent.Position);
+
+                if (closestInteractable != -1)
+                {
+                    if (controlComponent.Interact.IsButtonDown())
                     {
-                        if (controlComponent.Interact.IsButtonDown())
-                        {
-                            InteractComponent interComp = cm.GetComponentForEntity<InteractComponent>(closestInteractable);
+                        InteractComponent interComp = cm.GetComponentForEntity<InteractComponent>(closestInteractable);
 
                             // Its a trap(Deal damage)
                             if (interComp.Type == InteractType.Trap && cm.HasEntityComponent<AttackComponent>(closestInteractable))

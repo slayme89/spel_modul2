@@ -7,24 +7,28 @@ namespace GameEngine.Systems
 {
     public class MoveSystem : ISystem
     {
+        private Group<MoveComponent, PositionComponent> movements;
+
+        public MoveSystem()
+        {
+            movements = new Group<MoveComponent, PositionComponent>();
+        }
+
         public void Update(GameTime gameTime)
         {
-            ComponentManager cm = ComponentManager.GetInstance();
-            foreach (var entity in cm.GetComponentsOfType<MoveComponent>())
+            foreach (var entity in movements)
             {
-                MoveComponent moveComponent = (MoveComponent)entity.Value;
+                MoveComponent moveComponent = entity.Item1;
+                PositionComponent positionComponent = entity.Item2;
                 Vector2 velocity = moveComponent.Velocity;
-                PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(entity.Key);
 
                 float x = moveComponent.Velocity.X;
                 float y = moveComponent.Velocity.Y;
 
-                ApplyMovement(x, y, moveComponent.Speed, (float)gameTime.ElapsedGameTime.TotalMilliseconds, positionComponent, entity.Key);
+                ApplyMovement(x, y, moveComponent.Speed, (float)gameTime.ElapsedGameTime.TotalMilliseconds, positionComponent, entity.Entity);
                 // Check for direction
-                if(moveComponent.Velocity != new Vector2(0.0f, 0.0f))
+                if (moveComponent.Velocity != new Vector2(0.0f, 0.0f))
                     moveComponent.Direction = CalcDirection(x, y);
-
-               
             }
         }
 
