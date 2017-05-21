@@ -54,6 +54,7 @@
     <Compile Include="Components\PlayerComponents\ActionBarComponent.cs" />
     <Compile Include="Components\PlayerComponents\ActionBarSlotComponent.cs" />
     <Compile Include="Components\PlayerComponents\ArmComponent.cs" />
+    <Compile Include="Components\PlayerComponents\ArmorComponent.cs" />
     <Compile Include="Components\PlayerComponents\InventoryComponent.cs" />
     <Compile Include="Components\PlayerComponents\ItemComponent.cs" />
     <Compile Include="Components\PlayerComponents\StatsComponent.cs" />

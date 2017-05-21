@@ -27,8 +27,7 @@ namespace GameEngine.Systems
 
             if (a.IsPaused)
                 return;
-
-            a.LastFrameTime += gameTime.ElapsedGameTime.Milliseconds;
+            
             if (a.LastFrameTime > a.FrameDuration)
             {
                 a.GroupFrame.X = (a.GroupFrame.X + 1) % a.Animations[a.ActiveAnimation].Item2.X;
@@ -39,6 +38,9 @@ namespace GameEngine.Systems
                 a.SourceRectangle = new Rectangle(a.CurrentFrame * a.FrameSize, a.FrameSize);
 
                 a.LastFrameTime = 0.0f;
+            }else
+            {
+                a.LastFrameTime += gameTime.ElapsedGameTime.Milliseconds;
             }
         }
     }
