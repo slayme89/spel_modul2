@@ -8,19 +8,23 @@ namespace GameEngine.Systems
 {
     public class CollisionSystem : ISystem
     {
+        private Group<CollisionComponent, PositionComponent> collisions;
+
+        public CollisionSystem()
+        {
+            collisions = new Group<CollisionComponent, PositionComponent>();
+        }
+
         public void Update(GameTime gameTime)
         {
-            ComponentManager cm = ComponentManager.GetInstance();
             List<Tuple<int, CollisionComponent, PositionComponent>> c = new List<Tuple<int, CollisionComponent, PositionComponent>>();
-
-            Dictionary<int, IComponent> entities = cm.GetComponentsOfType<CollisionComponent>();
-            foreach (var entity in entities.Keys)
+            
+            foreach (var entity in collisions)
             {
-                CollisionComponent collisionComponent;
-                PositionComponent positionComponent;
-
-                cm.GetComponentsForEntity(entity, out collisionComponent, out positionComponent);
-                c.Add(new Tuple<int, CollisionComponent, PositionComponent>(entity, collisionComponent, positionComponent));
+                CollisionComponent collisionComponent = entity.Item1;
+                PositionComponent positionComponent = entity.Item2;
+                
+                c.Add(new Tuple<int, CollisionComponent, PositionComponent>(entity.Entity, collisionComponent, positionComponent));
             }
 
             for (int i = 0; i < c.Count; i++)
