@@ -40,7 +40,7 @@ namespace GameEngine
             gd = graphics.GraphicsDevice;
             sb = new SpriteBatch(gd);
             renderHelper = new RenderHelper(gd, sb);
-            stateManager.SetState("Menu");
+            stateManager.State = GameState.Menu;
             graphics.PreferredBackBufferHeight = 600;
             graphics.PreferredBackBufferWidth = 800;
             graphics.ApplyChanges();
@@ -82,13 +82,13 @@ namespace GameEngine
             gd.Clear(Color.Blue);
 
             //Normal gameplay state
-            if (stateManager.GetState() == "Game")
+            if (stateManager.State == GameState.Game)
             {
                 sm.RenderAllSystems(renderHelper);
             }
 
             //Menu state
-            if (stateManager.GetState() == "Menu")
+            if (stateManager.State == GameState.Menu)
             {
                 //Only render the menu (RenderMenuSystem)
                 sm.Render<RenderMenuSystem>(renderHelper);
@@ -113,14 +113,14 @@ namespace GameEngine
         protected override void Update(GameTime gameTime)
         {
             //Normal gameplay state
-            if (stateManager.GetState() == "Game")
+            if (stateManager.State == GameState.Game)
             {
                 ComponentManager.GetInstance().Update();
                 SystemManager.GetInstance().UpdateAllSystems(gameTime);
             }
 
             //Menu state
-            if (stateManager.GetState() == "Menu")
+            if (stateManager.State == GameState.Menu)
             {
                 SystemManager.GetInstance().Update<InputSystem>(gameTime);
                 SystemManager.GetInstance().Update<MenuSystem>(gameTime);

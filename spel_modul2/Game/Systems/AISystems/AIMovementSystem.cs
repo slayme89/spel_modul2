@@ -30,8 +30,14 @@ namespace Game.Systems
                             {
                                 moveComp.Velocity = new Vector2(nextMovement.X / distance, nextMovement.Y / distance);
                                 cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = true;
+                                if (cm.HasEntityComponent<AnimationGroupComponent>(entity.Key))
+                                {
+                                    AnimationGroupComponent animGroupComp = cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key);
+                                    int anim = GetAnimationRow(moveComp.Direction) + 4;
+                                    if(animGroupComp.ActiveAnimation != anim)
+                                        animGroupComp.ActiveAnimation = anim;
+                                }
                             }
-
                             else
                             {
                                 moveComp.Velocity = new Vector2(0, 0);
@@ -47,6 +53,18 @@ namespace Game.Systems
                     }
                 }
             }
+        }
+
+        int GetAnimationRow(Point direction)
+        {
+            if (direction.X > 0 && direction.Y == 0)
+                return 3;
+            else if (direction.X == 0 && direction.Y > 0)
+                return 0;
+            else if (direction.X < 0 && direction.Y == 0)
+                return 1;
+            else
+                return 2;
         }
     }
 }

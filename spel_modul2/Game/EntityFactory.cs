@@ -13,10 +13,20 @@ namespace Game
         {
             return new IComponent[]
             {
-                new AnimationGroupComponent("PlayerAnimation/NakedFWalk", new Point(4, 1), 150, 
+                new AnimationGroupComponent("SkeletonSpritesheet", new Point(4, 8), 150, 
                 new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(1, 1)),
                     new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
-                    new Tuple<Point, Point>(new Point(4, 0), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 4), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 5), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 6), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 7), new Point(4, 1)),
                 }),
                 new HealthComponent(50, 10.0f),
                 new PositionComponent(x, y),

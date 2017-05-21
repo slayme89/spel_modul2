@@ -10,7 +10,7 @@ namespace GameEngine.Managers
         {
             ClearAllButtons();
             ClearAllBbackgrounds();
-            StateManager.GetInstance().SetState("Game");
+            StateManager.GetInstance().State = GameState.Game;
         }
 
         //Quit game

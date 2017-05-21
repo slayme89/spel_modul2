@@ -70,6 +70,13 @@ namespace Game.Systems
                             attackComponent.AttackCooldown = attackComponent.RateOfFire;
                             attackComponent.IsAttacking = true;
                             cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayAttackSound = true;
+                            if (cm.HasEntityComponent<AnimationGroupComponent>(entity.Key))
+                            {
+                                AnimationGroupComponent animGroupComp = cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key);
+                                int anim = GetAnimationRow(moveComp.Direction) + 8;
+                                if (animGroupComp.ActiveAnimation != anim)
+                                    animGroupComp.ActiveAnimation = anim;
+                            }
                         }
                     }
                     if (attackComponent.AttackCooldown > 0.0f)
@@ -78,6 +85,18 @@ namespace Game.Systems
                         moveComp.CanMove = true;
                 }
             }
+        }
+
+        int GetAnimationRow(Point direction)
+        {
+            if (direction.X > 0 && direction.Y == 0)
+                return 3;
+            else if (direction.X == 0 && direction.Y > 0)
+                return 0;
+            else if (direction.X < 0 && direction.Y == 0)
+                return 1;
+            else
+                return 2;
         }
     }
 }

@@ -39,7 +39,7 @@ namespace GameEngine.Systems
                     }
                 }
 
-                if(StateManager.GetInstance().GetState() == "Menu")
+                if(StateManager.GetInstance().State == GameState.Menu)
                 {
                     if (!IsInit)
                         InitMenu();
@@ -48,7 +48,6 @@ namespace GameEngine.Systems
 
                     if (SelectCooldown <= 0.0f)
                     {
-                        SelectCooldown = MaxSelectCooldown;
                         Vector2 stickDir = contComp.Movement.GetDirection();
                         //Check navigation in the menu
                         if (Math.Abs(stickDir.Y) > 0.5f)
@@ -62,6 +61,7 @@ namespace GameEngine.Systems
                                 SelectedButton = i - 1;
                             cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Ishighlighted = true;
                         }
+                        SelectCooldown = MaxSelectCooldown;
                     }
                     else
                         SelectCooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -75,7 +75,7 @@ namespace GameEngine.Systems
                 if (contComp.Menu.IsButtonDown() == true && IsActive == false)
                 {
                     SelectedButton = 0;
-                    StateManager.GetInstance().SetState("Menu");
+                    StateManager.GetInstance().State = GameState.Menu;
                     IsActive = true;
 
                     if (IsInit == false)
@@ -88,11 +88,11 @@ namespace GameEngine.Systems
                     ClearMenu();
                     IsActive = false;
                     IsInit = false;
-                    StateManager.GetInstance().SetState("Game");
+                    StateManager.GetInstance().State = GameState.Game;
                 }
 
                 //If State is changed to "Game"
-                if (StateManager.GetInstance().GetState() == "Game")
+                if (StateManager.GetInstance().State == GameState.Game)
                 {
                     ClearMenu();
                     IsActive = false;

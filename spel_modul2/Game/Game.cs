@@ -351,7 +351,7 @@ namespace Game
                 new PositionComponent(300, 60),
                 new CollisionComponent(50, 50),
                 new InteractComponent(InteractType.Loot),
-                new ItemComponent(ItemManager.exampleUseItem, "ChainArmorHead", ItemType.Head),
+                new ItemComponent(ItemManager.exampleUseItem, "KnightHelmetHead", ItemType.Head),
                 new AnimationGroupComponent("PlayerAnimation/MEDIUM/KnightArmorHeadSpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
                 new[] {
                     new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
@@ -366,13 +366,13 @@ namespace Game
                 new ArmorComponent(5),
              });
 
-            //Item body armor in world
+            //Knight body armor in world
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new PositionComponent(300, 60),
                 new CollisionComponent(50, 50),
                 new InteractComponent(InteractType.Loot),
-                new ItemComponent(ItemManager.exampleUseItem, "ChainArmorBody", ItemType.Body),
+                new ItemComponent(ItemManager.exampleUseItem, "KnightArmorBody", ItemType.Body),
                 new AnimationGroupComponent("PlayerAnimation/MEDIUM/KnightArmorBodySpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
                 new[] {
                     new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
@@ -385,6 +385,90 @@ namespace Game
                     new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
                 }),
                 new ArmorComponent(10),
+             });
+
+            //Archer Head armor in world
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                new PositionComponent(300, 60),
+                new CollisionComponent(50, 50),
+                new InteractComponent(InteractType.Loot),
+                new ItemComponent(ItemManager.exampleUseItem, "ArcherHatHead", ItemType.Head),
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/ArcherArmorHeadSpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                }),
+                new ArmorComponent(3),
+             });
+
+            //Archer body armor in world
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                new PositionComponent(300, 60),
+                new CollisionComponent(50, 50),
+                new InteractComponent(InteractType.Loot),
+                new ItemComponent(ItemManager.exampleUseItem, "ArcherArmorBody", ItemType.Body),
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/ArcherArmorBodySpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                }),
+                new ArmorComponent(6),
+             });
+
+            //Mage Head armor in world
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                new PositionComponent(300, 60),
+                new CollisionComponent(50, 50),
+                new InteractComponent(InteractType.Loot),
+                new ItemComponent(ItemManager.exampleUseItem, "MageCowlHead", ItemType.Head),
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/MageArmorHeadSpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                }),
+                new ArmorComponent(1),
+             });
+
+            //Mage body armor in world
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                new PositionComponent(300, 60),
+                new CollisionComponent(50, 50),
+                new InteractComponent(InteractType.Loot),
+                new ItemComponent(ItemManager.exampleUseItem, "MageArmorBody", ItemType.Body),
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/MageArmorBodySpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                }),
+                new ArmorComponent(3),
              });
 
             //////////////// Menu Entities ///////////////////////////////////

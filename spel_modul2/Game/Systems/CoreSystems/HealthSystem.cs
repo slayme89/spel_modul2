@@ -52,7 +52,7 @@ namespace Game.Systems
                             healthComponent.IsAlive = true;
                             healthComponent.Current = healthComponent.Max;
                         }
-                        else if (levelComponent.CurrentLevel <= 0)
+                        else 
                             cm.RemoveEntity(entity.Key);
 
                         // TODO

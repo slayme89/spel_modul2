@@ -1,9 +1,15 @@
 ﻿namespace GameEngine.Managers
 {
+    enum GameState
+    {
+        Main,
+        Menu,
+        Game,
+    }
     class StateManager
     {
         static StateManager instance;
-        private string State { get; set; }
+        public GameState State { get; set; }
      
 
         static StateManager()
@@ -14,16 +20,6 @@
         public static StateManager GetInstance()
         {
             return instance;
-        }
-
-        public void SetState(string state)
-        {
-            State = state;
-        }
-
-        public string GetState()
-        {
-            return State;
         }
     }
 }
