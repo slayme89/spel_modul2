@@ -20,47 +20,36 @@ namespace Game.Systems
             foreach(var entity in cm.GetComponentsOfType<InventoryComponent>())
             {
                 InventoryComponent invenComp = (InventoryComponent)entity.Value;
-                int weaponID = invenComp.WeaponBodyHead[0];
-                int bodyID = invenComp.WeaponBodyHead[1];
-                int headID = invenComp.WeaponBodyHead[2];
-                ItemComponent weapon = cm.GetComponentForEntity<ItemComponent>(weaponID);
-                ItemComponent body = cm.GetComponentForEntity<ItemComponent>(bodyID);
-                ItemComponent head = cm.GetComponentForEntity<ItemComponent>(headID);
-                PositionComponent playerPos = cm.GetComponentForEntity<PositionComponent>(entity.Key);
-                if(weaponID != 0)
+                PositionComponent playerPosComp = cm.GetComponentForEntity<PositionComponent>(entity.Key);
+                Vector2 playerPos = CalculatePlayerNextPos(cm, entity.Key, (float)gameTime.ElapsedGameTime.TotalMilliseconds);
+
+                for(int i = 0; i < 3; i++)
                 {
-                    if (!cm.HasEntityComponent<PositionComponent>(weaponID))
-                        cm.AddComponentsToEntity(weaponID, new PositionComponent());
-                    else
-                    {
-                        PositionComponent weaponPos = cm.GetComponentForEntity<PositionComponent>(weaponID);
-                        if (weaponPos.Position != playerPos.Position)
-                            weaponPos.Position = playerPos.Position;
-                    }
-                }
-                if (bodyID != 0)
-                {
-                    if (!cm.HasEntityComponent<PositionComponent>(bodyID))
-                        cm.AddComponentsToEntity(bodyID, new PositionComponent());
-                    else
-                    {
-                        PositionComponent bodyPos = cm.GetComponentForEntity<PositionComponent>(bodyID);
-                        if (bodyPos.Position != playerPos.Position)
-                            bodyPos.Position = playerPos.Position;
-                    }
-                }
-                if (headID != 0)
-                {
-                    if (!cm.HasEntityComponent<PositionComponent>(headID))
-                        cm.AddComponentsToEntity(headID, new PositionComponent());
-                    else
-                    {
-                        PositionComponent headPos = cm.GetComponentForEntity<PositionComponent>(headID);
-                        if (headPos.Position != playerPos.Position)
-                            headPos.Position = playerPos.Position;
-                    }
+                    UpdateEquipmentPosition(cm, invenComp.WeaponBodyHead[i], playerPos);
                 }
             }
+        }
+
+        void UpdateEquipmentPosition(ComponentManager cm, int equipmentID, Vector2 playerPos)
+        {
+            if (equipmentID != 0)
+            {
+                if (!cm.HasEntityComponent<PositionComponent>(equipmentID))
+                    cm.AddComponentsToEntity(equipmentID, new PositionComponent());
+                else
+                {
+                    PositionComponent posComp = cm.GetComponentForEntity<PositionComponent>(equipmentID);
+                    
+                    if (posComp.Position != playerPos)
+                        posComp.Position = playerPos;
+                }
+            }
+        }
+
+        Vector2 CalculatePlayerNextPos(ComponentManager cm, int playerID, float elapsedMilliseconds)
+        {
+            MoveComponent moveComp = cm.GetComponentForEntity<MoveComponent>(playerID);
+            return moveComp.Velocity * moveComp.Speed * elapsedMilliseconds + cm.GetComponentForEntity<PositionComponent>(playerID).Position;
         }
     }
 }

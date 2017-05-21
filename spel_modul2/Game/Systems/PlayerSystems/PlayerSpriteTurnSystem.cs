@@ -32,17 +32,22 @@ namespace Game.Systems
                 if (playerAnimation.ActiveAnimation != animation + walking)
                 {
                     playerAnimation.ActiveAnimation = animation + walking;
-                }
-                if (armAnimation.ActiveAnimation != animation + attacking)
-                {
-                    armAnimation.ActiveAnimation = animation + attacking;
                     if (cm.HasEntityComponent<InventoryComponent>(armComp.playerID))
                     {
                         InventoryComponent invenComp = cm.GetComponentForEntity<InventoryComponent>(armComp.playerID);
                         ChangeEquipmentDirection(cm, ref invenComp, 0, animation + attacking);
-                        ChangeEquipmentDirection(cm, ref invenComp, 1, animation);
-                        ChangeEquipmentDirection(cm, ref invenComp, 2, animation);
+                        ChangeEquipmentDirection(cm, ref invenComp, 1, animation + walking);
+                        ChangeEquipmentDirection(cm, ref invenComp, 2, animation + walking);
                     }
+                }
+                if (armAnimation.ActiveAnimation != animation + attacking)
+                {
+                    if (cm.HasEntityComponent<InventoryComponent>(armComp.playerID))
+                    {
+                        InventoryComponent invenComp = cm.GetComponentForEntity<InventoryComponent>(armComp.playerID);
+                        ChangeEquipmentDirection(cm, ref invenComp, 0, animation + attacking);
+                    }
+                    armAnimation.ActiveAnimation = animation + attacking;
                 }
             }
         }

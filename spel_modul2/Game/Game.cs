@@ -36,9 +36,9 @@ namespace Game
                 new StatsSystem(),
                 new InventorySystem(),
                 new PlayerAttackSystem(),
+                new PlayerArmSystem(),
                 new PlayerMovementSystem(),
                 new SkillSystem(),
-                new PlayerArmSystem(),
                 new PlayerSpriteTurnSystem(),
                 new PlayerEquipmentSystem(),
                 new DamageSystem(),
@@ -97,7 +97,7 @@ namespace Game
                     new PositionComponent(128 * 40 / 2, 128 * 14)
             });
             //Water
-            
+
 
 
 
@@ -151,8 +151,8 @@ namespace Game
                 }),
                 new ArmComponent(),
             });
-            
-            
+
+
             //cm.AddEntityWithComponents(factory.CreatePlayerTwo(100, 100));
 
 
@@ -242,6 +242,67 @@ namespace Game
                     new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
                 }),
             });
+
+            //Item sword in world
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                new PositionComponent(300, 60),
+                new CollisionComponent(50, 50),
+                new InteractComponent(InteractType.Loot),
+                new ItemComponent(ItemManager.exampleUseItem, "Sword", ItemType.Weapon),
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/SwordSpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer4,
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                }),
+                new SwordComponent(10),
+             });
+
+            //Item head armor in world
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                new PositionComponent(300, 60),
+                new CollisionComponent(50, 50),
+                new InteractComponent(InteractType.Loot),
+                new ItemComponent(ItemManager.exampleUseItem, "ChainArmorHead", ItemType.Head),
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/KnightArmorHeadSpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                }),
+             });
+
+            //Item body armor in world
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                new PositionComponent(300, 60),
+                new CollisionComponent(50, 50),
+                new InteractComponent(InteractType.Loot),
+                new ItemComponent(ItemManager.exampleUseItem, "ChainArmorBody", ItemType.Body),
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/KnightArmorBodySpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                }),
+             });
 
             //////////////// Menu Entities ///////////////////////////////////
 

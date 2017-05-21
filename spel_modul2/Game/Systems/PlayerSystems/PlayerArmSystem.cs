@@ -28,7 +28,11 @@ namespace Game.Systems
 
                 if (armComp.playerID == 0)
                     armComp.playerID = GetId(cm, armComp);
-                posComp.Position = cm.GetComponentForEntity<PositionComponent>(armComp.playerID).Position;
+                Vector2 nextPos = new Vector2(0.0f, 0.0f);
+                if(cm.HasEntityComponent<MoveComponent>(armComp.playerID))
+                    nextPos = CalculatePlayerNextPos(cm, armComp.playerID, (float)gameTime.ElapsedGameTime.TotalMilliseconds);
+
+                posComp.Position = nextPos;
             }
         }
 
@@ -44,6 +48,12 @@ namespace Game.Systems
             }
             armID = freeID;
             return freeID;
+        }
+
+        Vector2 CalculatePlayerNextPos(ComponentManager cm, int playerID, float elapsedMilliseconds)
+        {
+            MoveComponent moveComp = cm.GetComponentForEntity<MoveComponent>(playerID);
+            return moveComp.Velocity * moveComp.Speed * elapsedMilliseconds + cm.GetComponentForEntity<PositionComponent>(playerID).Position;
         }
     }
 }
