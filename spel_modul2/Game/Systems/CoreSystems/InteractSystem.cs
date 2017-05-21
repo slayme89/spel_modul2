@@ -31,7 +31,7 @@ namespace Game.Systems
 
                 if (closestInteractable != -1)
                 {
-                    if (controlComponent.Interact.IsButtonDown())
+                    if (controlComponent.Interact.IsButtonDown() && !cm.GetComponentForEntity<InventoryComponent>(player.Entity).IsOpen)
                     {
                         InteractComponent interComp = cm.GetComponentForEntity<InteractComponent>(closestInteractable);
 

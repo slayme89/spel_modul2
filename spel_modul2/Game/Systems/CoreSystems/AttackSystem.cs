@@ -32,7 +32,7 @@ namespace Game.Systems
                                 attackComponent.AttackCollisionBox = GetAttackRect(entity.Key);
                                 foreach (int entityID in CollisionSystem.DetectAreaCollision(attackComponent.AttackCollisionBox))
                                 {
-                                    if (entityID == entity.Key)
+                                    if (entityID == entity.Key || cm.HasEntityComponent<AIComponent>(entity.Key) && cm.HasEntityComponent<AIComponent>(entityID))
                                         continue;
                                     DamageComponent damageComponent = cm.GetComponentForEntity<DamageComponent>(entityID);
                                     if (damageComponent != null)

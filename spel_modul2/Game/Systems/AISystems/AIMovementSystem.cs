@@ -22,7 +22,7 @@ namespace Game.Systems
                         if (cm.HasEntityComponent<PositionComponent>(entity.Key) && moveComp.CanMove)
                         {
                             PositionComponent posComp = ComponentManager.GetInstance().GetComponentForEntity<PositionComponent>(entity.Key);
-                            ((AIComponent)entity.Value).Destination = cm.GetComponentForEntity<PositionComponent>(((AIComponent)entity.Value).TargetEntity).Position.ToPoint();
+                            //((AIComponent)entity.Value).Destination = cm.GetComponentForEntity<PositionComponent>(((AIComponent)entity.Value).TargetEntity).Position.ToPoint();
                             Vector2 pointToCompare = posComp.Position + new Vector2(moveComp.Direction.X * 5, moveComp.Direction.Y * 5);
                             Vector2 nextMovement = new Vector2(((AIComponent)entity.Value).Destination.X - pointToCompare.X, ((AIComponent)entity.Value).Destination.Y - pointToCompare.Y);
                             float distance = (float)Math.Sqrt(nextMovement.X * nextMovement.X + nextMovement.Y * nextMovement.Y);

@@ -159,6 +159,8 @@ namespace Game
             //Player1
             cm.AddEntityWithComponents(factory.CreatePlayerOne(100, 60));
 
+            //Enemy
+            cm.AddEntityWithComponents(factory.CreateEnemy(250, 200));
 
             //////////////////////////GUI Stuff/////////////////////////////
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]

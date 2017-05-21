@@ -5,6 +5,7 @@ using GameEngine.Components;
 using GameEngine.Managers;
 using GameEngine.Systems;
 using Game.Components;
+using System.Diagnostics;
 
 namespace Game.Systems
 {
@@ -50,14 +51,21 @@ namespace Game.Systems
                     AttackComponent attackComponent = cm.GetComponentForEntity<AttackComponent>(entity.Key);
                     if (ai.TargetEntity != 0)
                     {
-                        Vector2 pointToCompare = posComp.Position + new Vector2(moveComp.Direction.X * 5, moveComp.Direction.Y * 5);
-                        if (attackComponent.AttackCooldown <= 0.0f && Vector2.Distance(cm.GetComponentForEntity<PositionComponent>(closestEntity).Position, pointToCompare) <= 70)
+                        Vector2 pointToTarget = posComp.Position + new Vector2(moveComp.Direction.X * 40, moveComp.Direction.Y * 40);
+                        Vector2 pointToTCompare;
+
+                        PositionComponent posOftarget = cm.GetComponentForEntity<PositionComponent>(ai.TargetEntity);
+                        Vector2 unNormalizedDir = new Vector2(posOftarget.Position.X - posComp.Position.X, posOftarget.Position.Y - posComp.Position.Y);
+                        float distance = (float)Math.Sqrt(unNormalizedDir.X * unNormalizedDir.X + unNormalizedDir.Y * unNormalizedDir.Y);
+                        Vector2 direction = new Vector2(unNormalizedDir.X / distance, unNormalizedDir.Y / distance);
+
+                        moveComp.Direction = MoveSystem.CalcDirection(direction.X, direction.Y);
+                        pointToTarget = posOftarget.Position + new Vector2(-moveComp.Direction.X * 50, -moveComp.Direction.Y * 50);
+                        pointToTCompare = posComp.Position + new Vector2(moveComp.Direction.X * 50, moveComp.Direction.Y * 50);
+                        ai.Destination = pointToTarget.ToPoint();
+                        if (attackComponent.AttackCooldown <= 0.0f && Vector2.Distance(posOftarget.Position, pointToTCompare) <= 30)
                         {
-                            PositionComponent posOftarget = cm.GetComponentForEntity<PositionComponent>(ai.TargetEntity);
-                            Vector2 unNormalizedDir = new Vector2(posOftarget.Position.X - posComp.Position.X, posOftarget.Position.Y - posComp.Position.Y);
-                            float distance = (float)Math.Sqrt(unNormalizedDir.X * unNormalizedDir.X + unNormalizedDir.Y * unNormalizedDir.Y);
-                            Vector2 direction = new Vector2(unNormalizedDir.X / distance, unNormalizedDir.Y / distance);
-                            moveComp.Direction = MoveSystem.CalcDirection(direction.X, direction.Y);
+
                             moveComp.CanMove = false;
                             attackComponent.AttackCooldown = attackComponent.RateOfFire;
                             attackComponent.IsAttacking = true;
