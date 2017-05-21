@@ -24,7 +24,7 @@ namespace Game
                 new AIComponent(160, 160, false),
                 new CollisionComponent(50, 50),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
-                new AttackComponent(10, 0.5f, 0.3f, WeaponType.Sword),
+                new AttackComponent(10, 0.8f, 0.35f, WeaponType.Sword),
                 new LevelComponent(5),
                 new DamageComponent(),
                 new KnockbackComponent(),
