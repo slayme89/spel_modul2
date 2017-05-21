@@ -17,7 +17,6 @@ namespace GameEngine.Systems
             foreach(AnimationGroupComponent animationGroupComponent in cm.GetComponentsOfType<AnimationGroupComponent>().Values)
             {
                 Update(gameTime, animationGroupComponent);
-                Debug.WriteLine("");
             }
         }
 
@@ -28,7 +27,7 @@ namespace GameEngine.Systems
             if (a.IsPaused)
                 return;
             
-            if (a.LastFrameTime > a.FrameDuration)
+            if (a.LastFrameTime <= 0.0f)
             {
                 a.GroupFrame.X = (a.GroupFrame.X + 1) % a.Animations[a.ActiveAnimation].Item2.X;
                 if (a.GroupFrame.X == 0)
@@ -37,10 +36,10 @@ namespace GameEngine.Systems
 
                 a.SourceRectangle = new Rectangle(a.CurrentFrame * a.FrameSize, a.FrameSize);
 
-                a.LastFrameTime = 0.0f;
+                a.LastFrameTime = a.FrameDuration;
             }else
             {
-                a.LastFrameTime += gameTime.ElapsedGameTime.Milliseconds;
+                a.LastFrameTime -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             }
         }
     }

@@ -157,7 +157,7 @@ namespace Game
 
 
             //Player1
-            cm.AddEntityWithComponents(factory.CreatePlayer(100, 60));
+            cm.AddEntityWithComponents(factory.CreatePlayerOne(100, 60));
 
 
             //////////////////////////GUI Stuff/////////////////////////////
