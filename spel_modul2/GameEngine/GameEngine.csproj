@@ -78,10 +78,11 @@
     <Compile Include="EntityTuple.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Group.cs" />
-    <Compile Include="Managers\ComponentManager.cs" />
+    <Compile Include="Managers\ComponentManager\ComponentManager.cs" />
     <Compile Include="Components\CoreComponents\AnimationComponent.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="Components\IComponent.cs" />
+    <Compile Include="Managers\ComponentManager\TryGetEntityComponent.cs" />
     <Compile Include="Managers\MenuManager.cs" />
     <Compile Include="Managers\ResourceManager.cs" />
     <Compile Include="Managers\EntityManager.cs" />

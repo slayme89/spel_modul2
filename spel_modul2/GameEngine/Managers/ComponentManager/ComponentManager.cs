@@ -1,11 +1,10 @@
 ﻿using GameEngine.Components;
-using GameEngine.Managers;
 using System;
 using System.Collections.Generic;
 
 namespace GameEngine.Managers
 {
-    public class ComponentManager
+    public partial class ComponentManager
     {
         private Dictionary<int, Dictionary<Type, IComponent>> entityComponents;
         private List<int> entities;
@@ -118,7 +117,7 @@ namespace GameEngine.Managers
                 return entityComponents[entity];
             return null;
         }
-
+        
         public bool HasEntityComponent<T>(int entity)
         {
             Dictionary<Type, IComponent> components;
@@ -130,42 +129,7 @@ namespace GameEngine.Managers
 
             return false;
         }
-
-        public bool TryGetComponentForEntity<T>(int entity, out T arg)
-        {
-            Dictionary<Type, IComponent> components;
-            IComponent component;
-            arg = default(T);
-
-            if(entityComponents.TryGetValue(entity, out components) && components.TryGetValue(typeof(T), out component))
-            {
-                arg = (T)component;
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool TryGetComponentsForEntity<T1, T2>(int entity, out T1 arg1, out T2 arg2)
-        {
-            arg1 = default(T1);
-            arg2 = default(T2);
-            Dictionary<Type, IComponent> components;
-
-            if (entityComponents.TryGetValue(entity, out components))
-            {
-                IComponent arg1out, arg2out;
-                if (components.TryGetValue(typeof(T1), out arg1out) && components.TryGetValue(typeof(T2), out arg2out))
-                {
-                    arg1 = (T1)arg1out;
-                    arg2 = (T2)arg2out;
-                    return true;
-                }
-            }
-            
-            return false;
-        }
-
+        
         public T GetComponentForEntity<T>(int entity) where T : IComponent
         {
             if (entityComponents.ContainsKey(entity))
