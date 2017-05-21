@@ -56,18 +56,81 @@ namespace Game
             ComponentManager cm = ComponentManager.GetInstance();
             EntityFactory factory = new EntityFactory();
 
-
-            // Add trees around the map
-            for (int i = 0; i <= 10; i++)
+            // Left oob
+            for (int i = 0; i <= 5; i++)
             {
                 cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
                 {
-                    new TextureComponent("tree1", RenderLayer.Foreground1),
-                    new PositionComponent(-1, i * 105)
-
+                    new TextureComponent("forest", RenderLayer.Background1),
+                    new PositionComponent(-500, -600 + 600 * i)
+                });
+            }
+            // Right oob
+            for (int i = 0; i <= 5; i++)
+            {
+                cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+                {
+                    new TextureComponent("forest", RenderLayer.Background1),
+                    new PositionComponent(128 * 40 + 500,  300 +600 * i)
+                });
+            }
+            // top oob
+            for (int i = 0; i <= 5; i++)
+            {
+                cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+                {
+                    new TextureComponent("forest", RenderLayer.Background2),
+                    new PositionComponent(500 + 1000 * i, -300)
+                });
+            }
+            // bot oob
+            for (int i = 0; i <= 5; i++)
+            {
+                cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+                {
+                    new TextureComponent("forest", RenderLayer.Background2),
+                    new PositionComponent(500 + 1000 * i, 128 * 14 + 300)
                 });
             }
 
+            //Water tree
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                    new TextureComponent("tree1", RenderLayer.Background2),
+                    new PositionComponent(0, 128*9)
+            });
+
+            //Water tree bot
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                    new TextureComponent("stone1", RenderLayer.Foreground1),
+                    new PositionComponent(128 * 17 - 4, 128 * 14 - 5)
+            });
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                    new TextureComponent("tree1", RenderLayer.Foreground2),
+                    new PositionComponent(128 * 17 +50, 128 * 13 + 90)
+            });
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                    new TextureComponent("tree1", RenderLayer.Foreground1),
+                    new PositionComponent(128 * 17 + 100, 128 * 13 + 90)
+            });
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                    new TextureComponent("tree1", RenderLayer.Foreground2),
+                    new PositionComponent(128 * 17 + 150, 128 * 13 + 90)
+            });
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                    new TextureComponent("tree1", RenderLayer.Foreground1),
+                    new PositionComponent(128 * 17 + 200, 128 * 13 + 90)
+            });
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                    new TextureComponent("tree1", RenderLayer.Foreground2),
+                    new PositionComponent(128 * 17 + 250, 128 * 13 + 90)
+            });
 
 
             ////////////// Map bounds ///////////////////////////////
@@ -76,19 +139,19 @@ namespace Game
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                     new CollisionComponent(40, 128 * 14),
-                    new PositionComponent(0, 128 * 14 / 2)
+                    new PositionComponent(0, 128 * 7)
             });
             // Top
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                     new CollisionComponent(128 * 40, 40),
-                    new PositionComponent(128 * 40 / 2, 0)
+                    new PositionComponent(128 * 20, 0)
             });
             //Right
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                     new CollisionComponent(40, 128 * 14),
-                    new PositionComponent(128 * 40, 128 * 14 / 2)
+                    new PositionComponent(128 * 40, 128 * 7)
             });
             //Bot
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
@@ -108,13 +171,13 @@ namespace Game
                     new CollisionComponent(128 * 12 + 30, 20),
                     new PositionComponent(128 * 13, 128 * 9 - 10)
             });
-            //water - below bridge
+            //water - other
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                    new CollisionComponent(128 + 32, 128 * 5),
-                    new PositionComponent(128 * 18 + 63, 128 * 11 + 54)
+                    new CollisionComponent(128 + 164, 128 * 5),
+                    new PositionComponent(128 * 18 - 3, 128 * 11 + 54)
             });
-            
+
 
 
 
@@ -173,7 +236,7 @@ namespace Game
 
 
             //Player1
-            cm.AddEntityWithComponents(factory.CreatePlayerOne(128 * 18, 800));
+            cm.AddEntityWithComponents(factory.CreatePlayerOne(128, 128 * 13));
 
             //Enemy
             cm.AddEntityWithComponents(factory.CreateEnemy(250, 200));
