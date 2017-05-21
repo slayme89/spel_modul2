@@ -96,9 +96,25 @@ namespace Game
                     new CollisionComponent(128 * 40, 40),
                     new PositionComponent(128 * 40 / 2, 128 * 14)
             });
-            //Water
-
-
+            //Water bridge - left
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                    new CollisionComponent(128 * 6 + 10, 20),
+                    new PositionComponent(128 * 3 + 20, 128 * 9 - 12)
+            });
+            //Water bridge - right
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                    new CollisionComponent(128 * 12 + 30, 20),
+                    new PositionComponent(128 * 13, 128 * 9 - 10)
+            });
+            //water - below bridge
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                    new CollisionComponent(128 + 32, 128 * 5),
+                    new PositionComponent(128 * 18 + 63, 128 * 11 + 54)
+            });
+            
 
 
 
@@ -157,7 +173,7 @@ namespace Game
 
 
             //Player1
-            cm.AddEntityWithComponents(factory.CreatePlayerOne(100, 60));
+            cm.AddEntityWithComponents(factory.CreatePlayerOne(128 * 18, 800));
 
             //Enemy
             cm.AddEntityWithComponents(factory.CreateEnemy(250, 200));
