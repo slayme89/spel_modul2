@@ -10,11 +10,15 @@ namespace GameEngine.Systems
     {
         void ISystem.Update(GameTime gameTime) {}
 
-        private Group<PositionComponent, AnimationGroupComponent> animationGroups;
+        private Group<AnimationGroupComponent, PositionComponent> animationGroups;
+        private Group<TextureComponent, PositionComponent> textures;
+        private Group<AnimationComponent, PositionComponent> animations;
 
         public RenderSystem()
         {
-            animationGroups = new Group<PositionComponent, AnimationGroupComponent>();
+            animationGroups = new Group<AnimationGroupComponent, PositionComponent>();
+            textures = new Group<TextureComponent, PositionComponent>();
+            animations = new Group<AnimationComponent, PositionComponent>();
         }
 
         public void Render(RenderHelper renderHelper)
@@ -27,42 +31,37 @@ namespace GameEngine.Systems
             RenderTiles(renderHelper);
 
             //Render all textures
-            foreach (var entity in cm.GetComponentsOfType<TextureComponent>())
+
+            foreach (var entity in textures)
             {
-                TextureComponent textureComponent = (TextureComponent)entity.Value;
-                PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(entity.Key);
+                TextureComponent textureComponent = entity.Item1;
+                PositionComponent positionComponent = entity.Item2;
 
-                if (positionComponent != null)
-                {
-                    Point position = positionComponent.Position.ToPoint() - textureComponent.Offset;
-                    Rectangle textureBounds = new Rectangle(position.X, position.Y, textureComponent.Texture.Width, textureComponent.Texture.Height);
+                Point position = positionComponent.Position.ToPoint() - textureComponent.Offset;
+                Rectangle textureBounds = new Rectangle(position.X, position.Y, textureComponent.Texture.Width, textureComponent.Texture.Height);
 
-                    if (viewportBounds.Intersects(textureBounds))
-                        spriteBatch.Draw(textureComponent.Texture, position.WorldToScreen(ref viewport).ToVector2(), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(textureComponent.Layer));
-                }
+                if (viewportBounds.Intersects(textureBounds))
+                    spriteBatch.Draw(textureComponent.Texture, position.WorldToScreen(ref viewport).ToVector2(), null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(textureComponent.Layer));
             }
 
             //Render all animations
-            foreach (var entity in cm.GetComponentsOfType<AnimationComponent>())
+            foreach (var entity in animations)
             {
-                AnimationComponent animationComponent = (AnimationComponent)entity.Value;
-                PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(entity.Key);
+                AnimationComponent animationComponent = entity.Item1;
+                PositionComponent positionComponent = entity.Item2;
 
-                if (positionComponent != null)
-                {
-                    Point position = positionComponent.Position.ToPoint() - animationComponent.Offset;
-                    Rectangle animationBounds = new Rectangle(position.X, position.Y, animationComponent.FrameSize.X, animationComponent.FrameSize.Y);
+                Point position = positionComponent.Position.ToPoint() - animationComponent.Offset;
+                Rectangle animationBounds = new Rectangle(position.X, position.Y, animationComponent.FrameSize.X, animationComponent.FrameSize.Y);
 
-                    if (viewportBounds.Intersects(animationBounds))
-                        spriteBatch.Draw(animationComponent.SpriteSheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.SourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(animationComponent.Layer));
-                }
+                if (viewportBounds.Intersects(animationBounds))
+                    spriteBatch.Draw(animationComponent.SpriteSheet, position.WorldToScreen(ref viewport).ToVector2(), animationComponent.SourceRectangle, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, renderHelper.GetLayerDepth(animationComponent.Layer));
             }
 
             //Render all animationgroups
             foreach(var entity in animationGroups)
             {
-                AnimationGroupComponent animationComponent = entity.Item2;
-                PositionComponent positionComponent = entity.Item1;
+                AnimationGroupComponent animationComponent = entity.Item1;
+                PositionComponent positionComponent = entity.Item2;
 
                 Point position = positionComponent.Position.ToPoint() - animationComponent.Offset;
                 Rectangle animationBounds = new Rectangle(position.X, position.Y, animationComponent.FrameSize.X, animationComponent.FrameSize.Y);
