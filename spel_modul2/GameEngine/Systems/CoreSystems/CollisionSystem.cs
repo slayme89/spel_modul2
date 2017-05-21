@@ -54,7 +54,7 @@ namespace GameEngine.Systems
             {
                 PositionComponent positionComponent;
                 CollisionComponent collisionComponent;
-                if (cm.GetComponentsForEntity(entity.Key, out positionComponent, out collisionComponent))
+                if (cm.TryGetComponentsForEntity(entity.Key, out positionComponent, out collisionComponent))
                 {
                     Rectangle bb = collisionComponent.CollisionBox;
                     bb.Offset(positionComponent.Position.X - bb.Width / 2, positionComponent.Position.Y - bb.Height / 2);

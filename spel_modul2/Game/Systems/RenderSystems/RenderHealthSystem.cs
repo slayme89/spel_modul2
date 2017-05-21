@@ -64,7 +64,7 @@ namespace Game.Systems
                         CollisionComponent aiCollisionBox = cm.GetComponentForEntity<CollisionComponent>(entity.Key);
                         PositionComponent p;
                         CollisionComponent c;
-                        if (cm.GetComponentsForEntity(entity.Key, out p, out c))
+                        if (cm.TryGetComponentsForEntity(entity.Key, out p, out c))
                         {
                             /*healthRectangle = new Rectangle(
                                 aiCollisionBox.collisionBox.Location.X,

@@ -21,7 +21,7 @@ namespace GameEngine.Systems
                 CollisionComponent collisionComponent;
                 PositionComponent positionComponent;
 
-                if (cm.GetComponentsForEntity(entity, out collisionComponent, out positionComponent))
+                if (cm.TryGetComponentsForEntity(entity, out collisionComponent, out positionComponent))
                 {
                     Rectangle bb = collisionComponent.CollisionBox;
                     bb.Offset(-bb.Width / 2, -bb.Height / 2);
