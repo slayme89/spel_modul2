@@ -35,36 +35,36 @@ namespace Game.Systems
                     {
                         InteractComponent interComp = cm.GetComponentForEntity<InteractComponent>(closestInteractable);
 
-                            // Its a trap(Deal damage)
-                            if (interComp.Type == InteractType.Trap && cm.HasEntityComponent<AttackComponent>(closestInteractable))
+                        // Its a trap(Deal damage)
+                        if (interComp.Type == InteractType.Trap && cm.HasEntityComponent<AttackComponent>(closestInteractable))
+                        {
+                            cm.GetComponentForEntity<DamageComponent>(player.Entity).IncomingDamage.Add(closestInteractable);
+                        }
+                        //Talk(show text)
+                        else if (interComp.Type == InteractType.Talk && cm.HasEntityComponent<TextComponent>(closestInteractable))
+                        {
+                            foreach (var inter in cm.GetComponentsOfType<InteractComponent>())
                             {
-                                cm.GetComponentForEntity<DamageComponent>(player.Key).IncomingDamage.Add(closestInteractable);
+                                if (cm.HasEntityComponent<TextComponent>(inter.Key))
+                                    cm.GetComponentForEntity<TextComponent>(inter.Key).IsActive = false;
                             }
-                            //Talk(show text)
-                            else if (interComp.Type == InteractType.Talk && cm.HasEntityComponent<TextComponent>(closestInteractable))
-                            {
-                                foreach (var inter in cm.GetComponentsOfType<InteractComponent>())
-                                {
-                                    if (cm.HasEntityComponent<TextComponent>(inter.Key))
-                                        cm.GetComponentForEntity<TextComponent>(inter.Key).IsActive = false;
-                                }
-                                cm.GetComponentForEntity<TextComponent>(closestInteractable).IsActive = true;
-                            }
-                            //Loot(Give item to looter)
-                            else if (interComp.Type == InteractType.Loot && cm.HasEntityComponent<ItemComponent>(closestInteractable))
-                            {
-                                //Remove components
-                                cm.RemoveComponentFromEntity<InteractComponent>(closestInteractable);
-                                cm.RemoveComponentFromEntity<CollisionComponent>(closestInteractable);
-                                cm.RemoveComponentFromEntity<PositionComponent>(closestInteractable);
-                                //Give the item to the player
-                                cm.GetComponentForEntity<InventoryComponent>(player.Key).ItemsToAdd.Add(closestInteractable);
-                            }
+                            cm.GetComponentForEntity<TextComponent>(closestInteractable).IsActive = true;
+                        }
+                        //Loot(Give item to looter)
+                        else if (interComp.Type == InteractType.Loot && cm.HasEntityComponent<ItemComponent>(closestInteractable))
+                        {
+                            //Remove components
+                            cm.RemoveComponentFromEntity<InteractComponent>(closestInteractable);
+                            cm.RemoveComponentFromEntity<CollisionComponent>(closestInteractable);
+                            cm.RemoveComponentFromEntity<PositionComponent>(closestInteractable);
+                            //Give the item to the player
+                            cm.GetComponentForEntity<InventoryComponent>(player.Entity).ItemsToAdd.Add(closestInteractable);
                         }
                     }
                 }
             }
         }
+
 
         private int FindClosestInteractable(Vector2 position)
         {
@@ -82,13 +82,6 @@ namespace Game.Systems
                 }
             }
             return closestNr;
-        }
-
-        private float CalcDistance(Point destination, Point origin)
-        {
-            int x = destination.X - origin.X;
-            int y = destination.Y - origin.Y;
-            return (float)Math.Sqrt(x * x + y * y);
         }
     }
 }
