@@ -87,14 +87,12 @@ namespace Game
                 new InteractComponent(InteractType.Talk),
                 new TextComponent( "NewSpriteFont", "Hello darkness my old friend...", new Vector2(Viewport.TitleSafeArea.Width / 2 - 242, Viewport.TitleSafeArea.Bottom -75), Color.Black, false)
             });
-            //Test trap
+            //Test loot
             cm.AddEntityWithComponents(new IComponent[]
             {
                 new PositionComponent(-400, 0),
                 new CollisionComponent(50, 50),
                 new InteractComponent(InteractType.Loot),
-                new TextComponent("NewSpriteFont", "You looted the cadaver and got something.", new Vector2(Viewport.TitleSafeArea.Width / 2 - 242, Viewport.TitleSafeArea.Bottom -75), Color.Black, false),
-                new HealthComponent(0),
                 new ItemComponent(ItemManager.exampleUseItem, "Sword", ItemType.Weapon), // Items måste vara separata entities
             });
 

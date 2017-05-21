@@ -4,6 +4,7 @@ using GameEngine.Managers;
 using GameEngine.Systems;
 using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 
 namespace Game.Systems
 {
@@ -44,18 +45,12 @@ namespace Game.Systems
                             //Loot(Give item to looter)
                             else if (interComp.Type == InteractType.Loot && cm.HasEntityComponent<ItemComponent>(closestInteractable))
                             {
-                                //See if its a dead entity
-                                if (cm.HasEntityComponent<HealthComponent>(closestInteractable) && cm.GetComponentForEntity<HealthComponent>(closestInteractable).Current == 0)
-                                {
-                                    cm.GetComponentForEntity<InventoryComponent>(player.Key).ItemsToAdd.Add(closestInteractable);
-                                    foreach (var inter in cm.GetComponentsOfType<InteractComponent>())
-                                    {
-                                        if (cm.HasEntityComponent<TextComponent>(inter.Key))
-                                            cm.GetComponentForEntity<TextComponent>(inter.Key).IsActive = false;
-                                    }
-                                    cm.GetComponentForEntity<TextComponent>(closestInteractable).IsActive = true;
-
-                                }
+                                //Remove components
+                                cm.RemoveComponentFromEntity<InteractComponent>(closestInteractable);
+                                cm.RemoveComponentFromEntity<CollisionComponent>(closestInteractable);
+                                cm.RemoveComponentFromEntity<PositionComponent>(closestInteractable);
+                                //Give the item to the player
+                                cm.GetComponentForEntity<InventoryComponent>(player.Key).ItemsToAdd.Add(closestInteractable);
                             }
                         }
                     }
