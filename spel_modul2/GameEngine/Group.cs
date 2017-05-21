@@ -1,11 +1,15 @@
 ﻿using GameEngine.Components;
 using GameEngine.Managers;
 using System;
-using System.Collections.Generic;
 using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Generic;
+
+/* Use a group if you need a collection of components for an entity often.
+ * The group keeps track and updates itself when new entities are added or removed.
+ * For best performance instantiate the groups type parameters from least used to most used eg.
+ * new Group<PlayerComponent, PositionComponent> in this way dictionary lookups are reduced when the group
+ * handles events internally. 
+ */
 
 namespace GameEngine
 {
