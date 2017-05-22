@@ -42,7 +42,7 @@ namespace Game
                 new PlayerSpriteTurnSystem(),
                 new PlayerEquipmentSystem(),
                 new DamageSystem(),
-                new KnockbackSystem(),
+                //new KnockbackSystem(),
                 new CooldownSystem(),
             });
 

@@ -27,7 +27,7 @@ namespace GameEngine.Components
 
         internal Point SheetSize { get; set; }
         internal Point FrameSize { get; set; }
-        internal float LastFrameTime { get; set; }
+        internal double LastFrameTime { get; set; }
         internal Point GroupFrame;
         internal Point CurrentFrame;
         internal Rectangle SourceRectangle { get; set; }
