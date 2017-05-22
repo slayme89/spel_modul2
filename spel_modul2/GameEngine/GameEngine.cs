@@ -50,7 +50,7 @@ namespace GameEngine
                 new MoveSystem(),
                 new CollisionSystem(),
                 new RenderSystem(),
-                new RenderCollisionBoxSystem(),
+                //new RenderCollisionBoxSystem(),
                 new InputSystem(),
                 new WorldSystem(),
                 new SoundSystem(),

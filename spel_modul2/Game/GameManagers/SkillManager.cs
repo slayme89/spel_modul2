@@ -48,9 +48,9 @@ namespace GameEngine.Managers
 
         public void Render(RenderHelper renderHelper)
         {
-            Viewport viewport = Extensions.GetCurrentViewport(renderHelper.graphicsDevice);
-            if (heavyAttack != null)
-                renderHelper.DrawRectangle(heavyAttack.WorldToScreen(ref viewport), 5, Color.Red, RenderLayer.Foreground1);
+            //Viewport viewport = Extensions.GetCurrentViewport(renderHelper.graphicsDevice);
+            //if (heavyAttack != null)
+            //    renderHelper.DrawRectangle(heavyAttack.WorldToScreen(ref viewport), 5, Color.Red, RenderLayer.Foreground1);
         }
     }
 }
