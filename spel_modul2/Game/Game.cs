@@ -19,7 +19,7 @@ namespace Game
                 new RenderActionbarSystem(),
                 new RenderExperienceSystem(),
                 new RenderEnergySystem(),
-                //new RenderAttackingCollisionBoxSystem(),
+                new RenderAttackingCollisionBoxSystem(),
                 new ItemIconLoaderSystem(),
                 new InventoryLoaderSystem(),
                 new SkillLoaderSystem(),
@@ -42,7 +42,7 @@ namespace Game
                 new PlayerSpriteTurnSystem(),
                 new PlayerEquipmentSystem(),
                 new DamageSystem(),
-                //new KnockbackSystem(),
+                new KnockbackSystem(),
                 new CooldownSystem(),
             });
 

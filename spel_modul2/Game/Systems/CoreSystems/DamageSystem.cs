@@ -48,11 +48,13 @@ namespace Game.Systems
             ComponentManager cm = ComponentManager.GetInstance();
             KnockbackComponent knockbackComponent = cm.GetComponentForEntity<KnockbackComponent>(entityHit);
             PositionComponent posComp = cm.GetComponentForEntity<PositionComponent>(entityHit);
+            MoveComponent moveComp = cm.GetComponentForEntity<MoveComponent>(entityHit);
             Vector2 posCompAttacker = cm.GetComponentForEntity<PositionComponent>(attacker).Position;
             int attackDmg = damage;
 
             Vector2 newDir = new Vector2(posComp.Position.X - posCompAttacker.X, posComp.Position.Y - posCompAttacker.Y);
-            
+
+            knockbackComponent.prevDir = moveComp.Direction.ToVector2();
             knockbackComponent.KnockbackDir = Vector2.Normalize(newDir * attackDmg);
             knockbackComponent.Cooldown = attackDmg / 40.0f;
             knockbackComponent.KnockbackActive = true;

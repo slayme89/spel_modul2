@@ -22,6 +22,11 @@ namespace Game.Systems
                 ArmComponent armComp = (ArmComponent)entity.Value;
                 MoveComponent moveComp = cm.GetComponentForEntity<MoveComponent>(armComp.playerID);
                 AnimationGroupComponent armAnimation = cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key);
+                KnockbackComponent knockbackComp = cm.GetComponentForEntity<KnockbackComponent>(armComp.playerID);
+                
+                if (knockbackComp != null && knockbackComp.KnockbackActive)
+                    return;
+
                 if (!cm.HasEntityComponent<AnimationGroupComponent>(armComp.playerID))
                     return;
                 AnimationGroupComponent playerAnimation = cm.GetComponentForEntity<AnimationGroupComponent>(armComp.playerID);

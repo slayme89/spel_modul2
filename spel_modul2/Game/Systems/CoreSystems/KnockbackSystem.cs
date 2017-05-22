@@ -28,6 +28,7 @@ namespace Game.Systems
                     {
                         knockbackComponent.KnockbackActive = false;
                         moveComponent.Velocity = new Vector2(0,0);
+                        moveComponent.Direction = knockbackComponent.prevDir.ToPoint();
                     }
                 }
             }
