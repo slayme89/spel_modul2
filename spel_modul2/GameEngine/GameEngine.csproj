@@ -90,6 +90,7 @@
     <Compile Include="RenderHelper.cs" />
     <Compile Include="Systems\CoreSystems\AnimationGroupSystem.cs" />
     <Compile Include="Systems\CoreSystems\CollisionSystem.cs" />
+    <Compile Include="Systems\CoreSystems\TextDurationSystem.cs" />
     <Compile Include="Systems\CoreSystems\WorldSystem.cs" />
     <Compile Include="Systems\MenuSystem\MenuSystem.cs" />
     <Compile Include="Systems\RenderSystems\IRenderSystem.cs" />

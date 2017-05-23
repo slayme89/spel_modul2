@@ -17,9 +17,7 @@ namespace GameEngine.Systems
 
                 //If a text is active, display it
                 if (text.IsActive)
-                {
                     renderHelper.DrawString(text.SpriteFont, text.Text, text.Position, text.Color, RenderLayer.GUI3);
-                }
             }
         }
 

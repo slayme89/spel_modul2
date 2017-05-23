@@ -50,7 +50,7 @@ namespace GameEngine
                 new MoveSystem(),
                 new CollisionSystem(),
                 new RenderSystem(),
-                //new RenderCollisionBoxSystem(),
+                new RenderCollisionBoxSystem(),
                 new InputSystem(),
                 new WorldSystem(),
                 new SoundSystem(),
@@ -60,6 +60,7 @@ namespace GameEngine
                 new MenuSystem(),
                 new RenderMenuSystem(),
                 new RenderTextSystem(),
+                new TextDurationSystem(),
             });
 
             base.Initialize();

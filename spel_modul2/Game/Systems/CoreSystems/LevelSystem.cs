@@ -1,5 +1,4 @@
 ﻿using Game.Components;
-using GameEngine.Components;
 using GameEngine.Managers;
 using GameEngine.Systems;
 using Microsoft.Xna.Framework;
@@ -36,9 +35,7 @@ namespace Game.Systems
                             }
                             // see if level is 0 or less, set it to 0
                             if (levelComponent.CurrentLevel < 0)
-                            {
                                 levelComponent.CurrentLevel = 0;
-                            }
                         }
                         levelComponent.ExperienceLoss = new List<int>();
                     }

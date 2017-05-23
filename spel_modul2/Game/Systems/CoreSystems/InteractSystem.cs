@@ -3,8 +3,6 @@ using GameEngine.Components;
 using GameEngine.Managers;
 using GameEngine.Systems;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
 using GameEngine;
 
 namespace Game.Systems
@@ -40,6 +38,7 @@ namespace Game.Systems
                         {
                             cm.GetComponentForEntity<HealthComponent>(player.Entity).IncomingDamage.Add(closestInteractable);
                         }
+
                         //Talk(show text)
                         else if (interComp.Type == InteractType.Talk && cm.HasEntityComponent<TextComponent>(closestInteractable))
                         {
@@ -50,6 +49,7 @@ namespace Game.Systems
                             }
                             cm.GetComponentForEntity<TextComponent>(closestInteractable).IsActive = true;
                         }
+
                         //Loot(Give item to looter)
                         else if (interComp.Type == InteractType.Loot && cm.HasEntityComponent<ItemComponent>(closestInteractable))
                         {

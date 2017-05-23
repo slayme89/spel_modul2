@@ -179,9 +179,24 @@ namespace Game
             });
 
 
+            //Test Talk
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                    new InteractComponent(InteractType.Talk),
+
+                    new TextComponent(
+                    "NewSpriteFont",
+                    "Hej hej hej hej hej hej hej...",
+                    new Vector2(Viewport.TitleSafeArea.Center.X - 240,
+                    Viewport.TitleSafeArea.Bottom - 75),
+                    Color.Black,
+                    false),
+
+                    new TextureComponent("GameWorld/signpost"),
+                    new PositionComponent(228, 228)
+            });
 
 
-            //factory.AddTree(0, 50);
 
 
 
@@ -245,24 +260,29 @@ namespace Game
             cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(750, 700), 5, 100, 100, factory.CreateEnemy(0, 0)));
 
 
-            //////////////////////////GUI Stuff/////////////////////////////
+            ////////////////////////// GUI /////////////////////////////
+
+            // Dialog window
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new GUIComponent("UI/DialogWindow", new Point(Viewport.TitleSafeArea.Width / 2 - 255, Viewport.TitleSafeArea.Bottom -80), RenderLayer.GUI2)
             });
+            // P1 hp, ene, xp
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                new GUIComponent("UI/Player1-Hp-Ene-Xp", new Point(Viewport.TitleSafeArea.Left, Viewport.TitleSafeArea.Top), RenderLayer.GUI2),
             });
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-               new GUIComponent("UI/Player2-Hp-Ene-Xp", new Point(Viewport.TitleSafeArea.Right - 108, Viewport.TitleSafeArea.Top), RenderLayer.GUI2),
-            });
+            // P2 hp, ene, xp
+            //cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            //{
+            //   new GUIComponent("UI/Player2-Hp-Ene-Xp", new Point(Viewport.TitleSafeArea.Right - 108, Viewport.TitleSafeArea.Top), RenderLayer.GUI2),
+            //});
+            // P1 Ationbar
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                new GUIComponent("UI/ActionBar", new Point(Viewport.TitleSafeArea.Left, Viewport.TitleSafeArea.Bottom - 40), RenderLayer.GUI2),
             });
-            //End GUI stuff
+            //////////////////////////// End GUI ///////////////////
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {

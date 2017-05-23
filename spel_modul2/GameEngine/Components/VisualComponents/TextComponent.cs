@@ -13,6 +13,7 @@ namespace GameEngine.Components
         public string SpriteFontPath { get; set; }
         public string Text { get; set; }
         public Color Color;
+        public float Duration { get; set; }
 
         public TextComponent(string path, string text, Vector2 position, Color color, bool isActive)
         {
@@ -23,6 +24,7 @@ namespace GameEngine.Components
             Text = text;
             Color = color;
             IsActive = isActive;
+            Duration = 4.0f;
 
             SpriteFont = rm.GetResource<SpriteFont>(path);
         }
