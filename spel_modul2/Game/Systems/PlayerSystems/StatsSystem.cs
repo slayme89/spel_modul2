@@ -42,8 +42,8 @@ namespace Game.Systems
             {  
                 while(comp.RemoveStats > 0)
                 {
-                    //Debug.WriteLine((comp.StatHistory.Length - 4) + "  " + (comp.StatHistory.Length - 1));
-                    string stat = comp.StatHistory.Substring(comp.StatHistory.Length - 4, comp.StatHistory.Length - 1);
+                    int start = comp.StatHistory.Length - 3;
+                    string stat = comp.StatHistory.Substring(start);
                     switch (stat)
                     {
                         case "str":
@@ -105,7 +105,7 @@ namespace Game.Systems
                 attackComp.Damage = attackComp.Damage + (2 * statComp.AddStr);
                 healthComp.Max = healthComp.Max + (1 * statComp.AddStr);
 
-                for(int i = 0; i<=statComp.AddStr; i++)
+                for(int i = 0; i<=statComp.AddStr - 1; i++)
                     statComp.StatHistory += "str";
 
                 statComp.Strength += statComp.AddStr;
@@ -124,7 +124,7 @@ namespace Game.Systems
                 attackComp.RateOfFire = attackComp.RateOfFire - (0.001f * statComp.AddAgi);
                 moveComp.Speed = moveComp.Speed + (0.001f * statComp.AddAgi);
 
-                for (int i = 0; i <= statComp.AddAgi; i++)
+                for (int i = 0; i <= statComp.AddAgi - 1; i++)
                     statComp.StatHistory += "agi";
 
                 statComp.Agility += statComp.AddAgi;
@@ -142,7 +142,7 @@ namespace Game.Systems
                 HealthComponent healthComp = cm.GetComponentForEntity<HealthComponent>(entity);
                 healthComp.Max = healthComp.Max + (2 * statComp.AddSta);
 
-                for (int i = 0; i <= statComp.AddSta; i++)
+                for (int i = 0; i <= statComp.AddSta - 1; i++)
                     statComp.StatHistory += "sta";
 
                 statComp.Stamina += statComp.AddSta;
@@ -159,7 +159,7 @@ namespace Game.Systems
                 EnergyComponent energyComp = cm.GetComponentForEntity<EnergyComponent>(entity);
                 energyComp.Max = energyComp.Max + (2 * statComp.AddInt);
 
-                for (int i = 0; i <= statComp.AddInt; i++)
+                for (int i = 0; i <= statComp.AddInt - 1; i++)
                     statComp.StatHistory += "int";
 
                 statComp.Intellect += statComp.AddInt;

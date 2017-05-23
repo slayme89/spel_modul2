@@ -19,10 +19,10 @@ namespace Game.Components
 
         public StatsComponent(int strength, int agility, int stamina, int intellect)
         {
-            Strength = strength;
-            Agility = agility;
-            Stamina = stamina;
-            Intellect = intellect;
+            AddStr = strength;
+            AddAgi = agility;
+            AddSta = stamina;
+            AddInt = intellect;
         }
 
         public object Clone()
