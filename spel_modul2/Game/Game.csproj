@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="Components\CoreComponents\AttackComponent.cs" />
     <Compile Include="Components\CoreComponents\CooldownComponent.cs" />
-    <Compile Include="Components\CoreComponents\DamageComponent.cs" />
     <Compile Include="Components\CoreComponents\EnergyComponent.cs" />
     <Compile Include="Components\CoreComponents\HealthComponent.cs" />
     <Compile Include="Components\CoreComponents\InteractComponent.cs" />

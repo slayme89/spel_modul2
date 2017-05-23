@@ -1,7 +1,6 @@
 ﻿using GameEngine.Components;
 using Game.Components;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using GameEngine.Managers;
 
@@ -37,7 +36,6 @@ namespace Game
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
                 new AttackComponent(10, 0.8f, 0.35f, WeaponType.Sword),
                 new LevelComponent(5),
-                new DamageComponent(),
                 new KnockbackComponent(),
             };
         }
@@ -79,7 +77,6 @@ namespace Game
                 new ActionBarComponent(),
                 new InventoryComponent(5, 4, new Point(10, 100)),
                 new EnergyComponent(100),
-                new DamageComponent(),
                 new StatsComponent(5, 1, 0, 0),
                 new KnockbackComponent(),
             };
@@ -112,7 +109,6 @@ namespace Game
                 new ActionBarComponent(),
                 new InventoryComponent(5, 4, new Point(500, 100)),
                 new EnergyComponent(100),
-                new DamageComponent(),
                 new StatsComponent(5, 1, 0, 0),
                 new KnockbackComponent(),
             };

@@ -68,7 +68,7 @@ namespace Game.Systems
                     else if (cm.HasEntityComponent<AIComponent>(entity.Key))
                     {
                         // Give the last attacker experience points
-                        cm.GetComponentForEntity<LevelComponent>(cm.GetComponentForEntity<DamageComponent>(entity.Key).LastAttacker).ExperienceGains.Add(entity.Key);
+                        cm.GetComponentForEntity<LevelComponent>(cm.GetComponentForEntity<HealthComponent>(entity.Key).LastAttacker).ExperienceGains.Add(entity.Key);
                         //Set animation to deathAnimation
                         cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key).ActiveAnimation = cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key).Animations.Length - 1;
 

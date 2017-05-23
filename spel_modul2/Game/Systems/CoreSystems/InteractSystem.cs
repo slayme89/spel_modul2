@@ -38,7 +38,7 @@ namespace Game.Systems
                         // Its a trap(Deal damage)
                         if (interComp.Type == InteractType.Trap && cm.HasEntityComponent<AttackComponent>(closestInteractable))
                         {
-                            cm.GetComponentForEntity<DamageComponent>(player.Entity).IncomingDamage.Add(closestInteractable);
+                            cm.GetComponentForEntity<HealthComponent>(player.Entity).IncomingDamage.Add(closestInteractable);
                         }
                         //Talk(show text)
                         else if (interComp.Type == InteractType.Talk && cm.HasEntityComponent<TextComponent>(closestInteractable))

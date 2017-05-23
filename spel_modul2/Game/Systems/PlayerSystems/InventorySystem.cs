@@ -298,23 +298,23 @@ namespace Game.Systems
                 int bodyArmorID = invenComp.WeaponBodyHead[1];
                 if (cm.HasEntityComponent<ArmorComponent>(bodyArmorID))
                 {
-                    DamageComponent damageComp = cm.GetComponentForEntity<DamageComponent>(entity);
+                    HealthComponent damageComp = cm.GetComponentForEntity<HealthComponent>(entity);
                     damageComp.DamageReduction[0] = cm.GetComponentForEntity<ArmorComponent>(bodyArmorID).Defence;
                 }
             }
             else
-                cm.GetComponentForEntity<DamageComponent>(entity).DamageReduction[0] = 0;
+                cm.GetComponentForEntity<HealthComponent>(entity).DamageReduction[0] = 0;
             if (invenComp.WeaponBodyHead[2] != 0)
             {
                 int headArmorID = invenComp.WeaponBodyHead[2];
                 if (cm.HasEntityComponent<ArmorComponent>(headArmorID))
                 {
-                    DamageComponent damageComp = cm.GetComponentForEntity<DamageComponent>(entity);
+                    HealthComponent damageComp = cm.GetComponentForEntity<HealthComponent>(entity);
                     damageComp.DamageReduction[1] = cm.GetComponentForEntity<ArmorComponent>(headArmorID).Defence;
                 }
             }
             else
-                cm.GetComponentForEntity<DamageComponent>(entity).DamageReduction[1] = 0;
+                cm.GetComponentForEntity<HealthComponent>(entity).DamageReduction[1] = 0;
 
         }
 

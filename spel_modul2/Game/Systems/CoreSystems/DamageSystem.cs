@@ -4,7 +4,6 @@ using GameEngine.Managers;
 using GameEngine.Systems;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Game.Systems
 {
@@ -13,9 +12,9 @@ namespace Game.Systems
         public void Update(GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-            foreach (var entity in cm.GetComponentsOfType<DamageComponent>())
+            foreach (var entity in cm.GetComponentsOfType<HealthComponent>())
             {
-                DamageComponent damageComponent = (DamageComponent)entity.Value;
+                HealthComponent damageComponent = (HealthComponent)entity.Value;
                 foreach (int damage in damageComponent.IncomingDamage)
                 {
                     if (entity.Key != damage)

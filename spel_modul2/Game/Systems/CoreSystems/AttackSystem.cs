@@ -34,7 +34,7 @@ namespace Game.Systems
                                 {
                                     if (entityID == entity.Key || cm.HasEntityComponent<AIComponent>(entity.Key) && cm.HasEntityComponent<AIComponent>(entityID))
                                         continue;
-                                    DamageComponent damageComponent = cm.GetComponentForEntity<DamageComponent>(entityID);
+                                    HealthComponent damageComponent = cm.GetComponentForEntity<HealthComponent>(entityID);
                                     if (damageComponent != null)
                                     {
                                         damageComponent.IncomingDamage.Add(attackComponent.Damage);
