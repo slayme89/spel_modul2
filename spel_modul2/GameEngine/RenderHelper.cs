@@ -34,12 +34,14 @@ public class RenderHelper
 
     public void Draw(Texture2D texture, Vector2 position, RenderLayer layer)
     {
-        spriteBatch.Draw(texture, position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, GetLayerDepth(layer));
+        if (texture != null)
+            spriteBatch.Draw(texture, position, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, GetLayerDepth(layer));
     }
 
     public void Draw(Texture2D texture, Rectangle destinationRectangle, Color color, RenderLayer layer)
     {
-        spriteBatch.Draw(texture, destinationRectangle, null, color, 0f, Vector2.Zero, SpriteEffects.None, GetLayerDepth(layer));
+        if (texture != null)
+            spriteBatch.Draw(texture, destinationRectangle, null, color, 0f, Vector2.Zero, SpriteEffects.None, GetLayerDepth(layer));
     }
 
     public void DrawString(SpriteFont spriteFont, string text, Vector2 position, Color color, RenderLayer layer)

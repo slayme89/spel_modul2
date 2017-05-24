@@ -31,7 +31,7 @@ namespace Game
                 }),
                 new HealthComponent(50, 10.0f),
                 new PositionComponent(x, y),
-                new MoveComponent(0.1f),
+                new MoveComponent(0.5f),
                 new AIComponent(160, 160, false),
                 new CollisionComponent(25, 35),
                 new SoundComponent("Sound/walk", "Sound/sword", "Sound/damage"),
@@ -39,7 +39,7 @@ namespace Game
                 new LevelComponent(5),
                 new KnockbackComponent(),
                 new InteractComponent(InteractType.Loot),
-                new ItemComponent(AddHealth, "ItemIcons/sword", ItemType.Consumable),
+                new ItemComponent(AddHealth, "GameWorld/Bread", ItemType.Consumable),
             };
         }
 
@@ -51,7 +51,7 @@ namespace Game
             ComponentManager cm = ComponentManager.GetInstance();
             if (cm.TryGetEntityComponents(entity, out h, out i, out a))
             {
-                h.Current = MathHelper.Clamp(h.Current + 10, 0, h.Max);
+                h.Current = MathHelper.Clamp(h.Current + 40, 0, h.Max);
                 i.Items[position] = 0;
                 
                 for(int j = 0; j < a.Slots.Length; j++)

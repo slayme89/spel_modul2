@@ -60,7 +60,7 @@ namespace Game.Systems
                                 rh.DrawFilledRectangle(inventorySlot, Color.Gray, RenderLayer.GUI2);
                             if (invenComp.Items[column + (invenComp.ColumnsRows.X) * row] != 0)
                             {
-                                rh.Draw(cm.GetComponentForEntity<ItemComponent>(invenComp.Items[column + (invenComp.ColumnsRows.X) * row]).ItemIcon, inventorySlot, Color.Yellow, RenderLayer.GUI3);
+                                rh.Draw(cm.GetComponentForEntity<ItemComponent>(invenComp.Items[column + (invenComp.ColumnsRows.X) * row]).ItemIcon, inventorySlot, Color.White, RenderLayer.GUI3);
                             }
                         }
                     }
@@ -82,7 +82,7 @@ namespace Game.Systems
                             rh.DrawFilledRectangle(equipmentSlot, Color.Gray, RenderLayer.GUI2);
                         if (invenComp.WeaponBodyHead[y] != 0)
                         {
-                            rh.Draw(cm.GetComponentForEntity<ItemComponent>(invenComp.WeaponBodyHead[y]).ItemIcon, equipmentSlot, Color.Yellow, RenderLayer.GUI3);
+                            rh.Draw(cm.GetComponentForEntity<ItemComponent>(invenComp.WeaponBodyHead[y]).ItemIcon, equipmentSlot, Color.White, RenderLayer.GUI3);
                         }
                     }
 
