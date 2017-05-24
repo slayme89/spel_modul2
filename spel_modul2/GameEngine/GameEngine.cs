@@ -32,7 +32,7 @@ namespace GameEngine
             IsFixedTimeStep = false;
             IsMouseVisible = true;
 
-            graphics.SynchronizeWithVerticalRetrace = false;
+            graphics.SynchronizeWithVerticalRetrace = true;
         }
 
         protected override void Initialize()

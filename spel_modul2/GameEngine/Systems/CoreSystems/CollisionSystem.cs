@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using GameEngine.Components;
 using GameEngine.Managers;
+using System.Diagnostics;
 
 namespace GameEngine.Systems
 {
@@ -76,23 +77,42 @@ namespace GameEngine.Systems
             MoveComponent m1 = cm.GetComponentForEntity<MoveComponent>(e1.Item1);
             MoveComponent m2 = cm.GetComponentForEntity<MoveComponent>(e2.Item1);
             Rectangle r3 = Rectangle.Intersect(r1, r2);
+            float x = 0, y = 0;
 
-            Point axis;
+
+
             if (m1 != null && m2 != null)
             {
-                axis = GetCollisionAxis(r1, r2);
-                e1.Item3.Position += -m1.Velocity * axis.ToVector2();
+                e1.Item3.Position = m1.PreviousPosition;
+                e2.Item3.Position = m2.PreviousPosition;
             }
             else if (m1 != null)
             {
-                axis = GetCollisionAxis(r1, r2);
-                e1.Item3.Position += -m1.Velocity * axis.ToVector2();
+                Debug.WriteLine(r3);
+                e1.Item3.Position = m1.PreviousPosition;
             }
             else if (m2 != null)
             {
-                axis = GetCollisionAxis(r2, r1);
-                e2.Item3.Position += -m2.Velocity * axis.ToVector2();
+                e2.Item3.Position = m2.PreviousPosition;
             }
+
+
+            //Point axis;
+            //if (m1 != null && m2 != null)
+            //{
+            //    axis = GetCollisionAxis(r1, r2);
+            //    e1.Item3.Position += -m1.Velocity * axis.ToVector2();
+            //}
+            //else if (m1 != null)
+            //{
+            //    axis = GetCollisionAxis(r1, r2);
+            //    e1.Item3.Position += -m1.Velocity * axis.ToVector2();
+            //}
+            //else if (m2 != null)
+            //{
+            //    axis = GetCollisionAxis(r2, r1);
+            //    e2.Item3.Position += -m2.Velocity * axis.ToVector2();
+            //}
         }
 
         private Point GetCollisionAxis(Rectangle r1, Rectangle r2)

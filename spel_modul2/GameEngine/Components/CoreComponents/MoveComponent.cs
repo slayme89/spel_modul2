@@ -8,9 +8,11 @@ namespace GameEngine.Components
         public float Speed { get; set; }
         public Point Direction { get; set; }
         public bool CanMove { get; set; }
+        public Vector2 PreviousPosition { get; set; }
 
         public MoveComponent()
         {
+            PreviousPosition = new Vector2(0, 0);
             CanMove = true;
             Velocity = new Vector2();
             Speed = 1.0f;
@@ -19,6 +21,7 @@ namespace GameEngine.Components
 
         public MoveComponent(float speed)
         {
+            PreviousPosition = new Vector2(0, 0);
             CanMove = true;
             Velocity = new Vector2();
             Speed = speed;

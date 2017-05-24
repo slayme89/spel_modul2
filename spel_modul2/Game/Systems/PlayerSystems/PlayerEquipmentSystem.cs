@@ -21,7 +21,7 @@ namespace Game.Systems
             {
                 InventoryComponent invenComp = (InventoryComponent)entity.Value;
                 PositionComponent playerPosComp = cm.GetComponentForEntity<PositionComponent>(entity.Key);
-                Vector2 playerPos = CalculatePlayerNextPos(cm, entity.Key, (float)gameTime.ElapsedGameTime.TotalMilliseconds);
+                Vector2 playerPos = playerPosComp.Position;
 
                 for(int i = 0; i < 3; i++)
                 {
@@ -44,12 +44,6 @@ namespace Game.Systems
                         posComp.Position = playerPos;
                 }
             }
-        }
-
-        Vector2 CalculatePlayerNextPos(ComponentManager cm, int playerID, float elapsedMilliseconds)
-        {
-            MoveComponent moveComp = cm.GetComponentForEntity<MoveComponent>(playerID);
-            return moveComp.Velocity * moveComp.Speed * elapsedMilliseconds + cm.GetComponentForEntity<PositionComponent>(playerID).Position;
         }
     }
 }

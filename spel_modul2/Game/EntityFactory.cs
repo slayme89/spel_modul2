@@ -70,7 +70,7 @@ namespace Game
                 }),
                 new HealthComponent(100),
                 new PositionComponent(x, y),
-                new MoveComponent(0.2f),
+                new MoveComponent(1),
                 new PlayerControlComponent(ControllerType.Keyboard),
                 new CollisionComponent(30, 35),
                 new AttackComponent(10, 0.3f, 0.1f, WeaponType.None),

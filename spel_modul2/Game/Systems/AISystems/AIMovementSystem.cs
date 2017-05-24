@@ -28,7 +28,7 @@ namespace Game.Systems
 
                             if (distance > 2f)
                             {
-                                moveComp.Velocity = new Vector2(nextMovement.X / distance, nextMovement.Y / distance);
+                                moveComp.Velocity = new Vector2(nextMovement.X / distance, nextMovement.Y / distance) * moveComp.Speed;
                                 cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = true;
                                 if (cm.HasEntityComponent<AnimationGroupComponent>(entity.Key))
                                 {

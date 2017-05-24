@@ -16,7 +16,7 @@ namespace Game.Systems
                 MoveComponent moveComponent = cm.GetComponentForEntity<MoveComponent>(entity.Key);
                 if (moveComponent.CanMove)
                 {
-                    moveComponent.Velocity = playerControlComponent.Movement.GetDirection();
+                    moveComponent.Velocity = playerControlComponent.Movement.GetDirection() * moveComponent.Speed;
                     if (playerControlComponent.Movement.GetDirection() != new Vector2(0.0f, 0.0f))
                     {
                         if (cm.HasEntityComponent<AnimationGroupComponent>(entity.Key))

@@ -36,17 +36,21 @@ namespace Game
                 new StatsSystem(),
                 new InventorySystem(),
                 new PlayerAttackSystem(),
-                new PlayerArmSystem(),
                 new PlayerMovementSystem(),
                 new SkillSystem(),
                 new PlayerSpriteTurnSystem(),
-                new PlayerEquipmentSystem(),
                 new DamageSystem(),
                 new KnockbackSystem(),
                 new CooldownSystem(),
             });
 
             base.Initialize();
+
+            //Late Update
+            sm.AddSystems(new object[] {
+                new PlayerArmSystem(),
+                new PlayerEquipmentSystem(),
+            });
         }
 
         protected override void LoadContent()
@@ -212,6 +216,7 @@ namespace Game
             //    new PositionComponent(250, 100),
             //});
 
+            //Player arms!
             cm.AddEntityWithComponents(new IComponent[]
             {
                 new PositionComponent(0, 0),
