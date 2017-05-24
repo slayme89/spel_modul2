@@ -13,6 +13,8 @@ namespace GameEngine.Systems
         private int SelectedButton;
         private float SelectCooldown = 0.0f;
         private float MaxSelectCooldown = 0.1f;
+        Random random = new Random();
+
 
         public void Update(GameTime gameTime)
         {
@@ -45,6 +47,8 @@ namespace GameEngine.Systems
                         InitMenu();
                     if (!IsActive)
                         IsActive = true;
+
+                    FadeEffect(gameTime);
 
                     if (SelectCooldown <= 0.0f)
                     {
@@ -128,9 +132,56 @@ namespace GameEngine.Systems
                 MenuBackgroundComponent backgroundComp = (MenuBackgroundComponent)background.Value;
 
                 if (backgroundComp.Name.Substring(0, 4) == "Main")
-                    backgroundComp.IsActive = true;
+                    backgroundComp.IsActive = true;  
             }
             IsInit = true;
+        }
+
+        public void FadeEffect(GameTime gameTime)
+        {
+            ComponentManager cm = ComponentManager.GetInstance();
+
+            foreach (var background in cm.GetComponentsOfType<MenuBackgroundComponent>())
+            {
+                MenuBackgroundComponent backgroundComp = (MenuBackgroundComponent)background.Value;
+
+                if (backgroundComp.IsActive)
+                {
+                    
+                    //Decrement the delay by the number of seconds that have elapsed since
+                    //the last time that the Update method was called
+                    backgroundComp.mFadeDelay -= gameTime.ElapsedGameTime.TotalSeconds;
+
+                    // TODO
+                    //backgroundComp.mFadeDelayMove -= gameTime.ElapsedGameTime.TotalSeconds;
+
+                    //if (backgroundComp.mFadeDelayMove <= 0)
+                    //{
+                    //    backgroundComp.mFadeDelayMove = .03;
+                    //}
+
+
+                    //If the Fade delays has dropped below zero, then it is time to 
+                    //fade in/fade out the image a little bit more.
+                    if (backgroundComp.mFadeDelay <= 0)
+                    {
+                        //Reset the Fade delay
+                        backgroundComp.mFadeDelay = .1;
+
+                        //Increment/Decrement the fade value for the image
+                        backgroundComp.mAlphaValue += backgroundComp.mFadeIncrement;
+
+                        //If the AlphaValue is equal or above the max Alpha value or
+                        //has dropped below or equal to the min Alpha value, then 
+                        //reverse the fade
+                        if (backgroundComp.mAlphaValue <= 210 || backgroundComp.mAlphaValue >= 255)
+                        {
+                            backgroundComp.mFadeIncrement *= -1;
+                        }
+                    }
+                }
+            }
+            
         }
 
         private void ClearMenu()

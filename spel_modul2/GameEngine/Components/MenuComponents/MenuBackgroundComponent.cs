@@ -11,6 +11,13 @@ namespace GameEngine.Components
         public Texture2D Texture { get; set; }
         public Point Position { get; set; }
         public RenderLayer Layer { get; set; }
+        //Fading stuff
+        public int mAlphaValue { get; set; }
+        public int mFadeIncrement { get; set; }
+        public double mFadeDelay { get; set; }
+
+        //Moveing stuff
+        public double mFadeDelayMove { get; set; }
 
         public MenuBackgroundComponent(string name, string texturePath, Point position, RenderLayer layer)
         {
@@ -19,7 +26,13 @@ namespace GameEngine.Components
             TexturePath = texturePath;
             Position = position;
             Layer = Layer;
-        }
+
+            //fading stuff
+            mAlphaValue = 210;
+            mFadeIncrement = 1;
+            mFadeDelay = .1;
+            mFadeDelayMove = .03;
+    }
 
         public object Clone()
         {

@@ -528,7 +528,7 @@ namespace Game
             //Background
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new MenuBackgroundComponent("MainMenuBackground", "Menu/MenuBackgroundBlack", new Point(0, 0), RenderLayer.Menubackground)
+                new MenuBackgroundComponent("MainMenuBackground", "Menu/forest-menu", new Point(0, 0), RenderLayer.Menubackground)
 
             });
             //Play in main menu

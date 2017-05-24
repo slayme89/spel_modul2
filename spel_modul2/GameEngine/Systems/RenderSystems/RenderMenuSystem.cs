@@ -30,10 +30,10 @@ namespace GameEngine.Systems
                     Rectangle containerRect = new Rectangle(
                     backgroundComp.Position.X,
                     backgroundComp.Position.Y,
-                    backgroundComp.Texture.Width,
-                    backgroundComp.Texture.Height
+                    renderHelper.graphicsDevice.Viewport.TitleSafeArea.Width * 2,
+                    renderHelper.graphicsDevice.Viewport.TitleSafeArea.Width * 2
                     );
-                    renderHelper.Draw(backgroundComp.Texture, containerRect, Color.White, RenderLayer.Menubackground);
+                    renderHelper.Draw(backgroundComp.Texture, containerRect, new Color(255, 255, 255, (byte)MathHelper.Clamp(backgroundComp.mAlphaValue, 0, 255)), RenderLayer.Menubackground);
                 }
             }
         }

@@ -403,18 +403,6 @@
 /processorParam:TextureFormat=Color
 /build:Menu/QuitNormal.png
 
-#begin Menu/MenuBackgroundBlack.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Menu/MenuBackgroundBlack.png
-
 #begin Menu/BackToMainMenuHighlight.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -978,6 +966,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GameWorld/signpost.png
+
+#begin Menu/forest-menu.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Menu/forest-menu.jpg
 
 #begin ItemIcons/Bread.png
 /importer:TextureImporter
