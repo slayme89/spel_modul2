@@ -4,7 +4,7 @@ using GameEngine.Components;
 
 namespace Game.Components
 {
-    public delegate void Action(int entity);
+    public delegate void Action(int entity, int position);
 
     public class ActionBarComponent : IComponent
     {

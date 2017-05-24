@@ -24,7 +24,7 @@ namespace Game.Systems
 
                         if (skillComponent.EnergyCost < energyComponent.Current && cd.CooldownTimer <= 0)
                         {
-                            skillComponent.Use(entityUser);
+                            skillComponent.Use(entityUser, 0);
                             energyComponent.Current -= skillComponent.EnergyCost;
                             cd.CooldownTimer = cd.Cooldown;
 

@@ -15,7 +15,7 @@ namespace GameEngine.Managers
     public class SkillManager : IRenderSystem
     {
         static Rectangle heavyAttack;
-        public static void HeavyAttack(int entity)
+        public static void HeavyAttack(int entity, int position)
         {
             ComponentManager cm = ComponentManager.GetInstance();
             PositionComponent posComp;

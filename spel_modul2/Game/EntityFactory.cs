@@ -39,8 +39,27 @@ namespace Game
                 new LevelComponent(5),
                 new KnockbackComponent(),
                 new InteractComponent(InteractType.Loot),
-                new ItemComponent(e => { Debug.WriteLine("hej"); }, "ItemIcons/sword", ItemType.Consumable),
+                new ItemComponent(AddHealth, "ItemIcons/sword", ItemType.Consumable),
             };
+        }
+
+        private void AddHealth(int entity, int position)
+        {
+            HealthComponent h;
+            InventoryComponent i;
+            ActionBarComponent a;
+            ComponentManager cm = ComponentManager.GetInstance();
+            if (cm.TryGetEntityComponents(entity, out h, out i, out a))
+            {
+                h.Current = MathHelper.Clamp(h.Current + 10, 0, h.Max);
+                i.Items[position] = 0;
+                
+                for(int j = 0; j < a.Slots.Length; j++)
+                {
+                    if (a.Slots[j]?.Use == AddHealth)
+                        a.Slots[j] = null;
+                }
+            }
         }
 
         public void AddTree(int x, int y)

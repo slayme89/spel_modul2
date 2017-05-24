@@ -2,7 +2,7 @@
 {
     public class ItemManager
     {
-        public static void exampleUseItem(int entity)
+        public static void exampleUseItem(int entity, int position)
         {
             return;
         }
