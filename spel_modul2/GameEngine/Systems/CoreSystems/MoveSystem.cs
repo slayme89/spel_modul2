@@ -24,7 +24,6 @@ namespace GameEngine.Systems
 
                 float x = moveComponent.Velocity.X;
                 float y = moveComponent.Velocity.Y;
-                moveComponent.PreviousPosition = positionComponent.Position;
 
                 ApplyMovement(x, y, 0.2f, (float)gameTime.ElapsedGameTime.TotalMilliseconds, positionComponent, entity.Entity);
                 // Check for direction

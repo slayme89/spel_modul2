@@ -33,7 +33,7 @@ namespace GameEngine.Systems
                     renderHelper.graphicsDevice.Viewport.TitleSafeArea.Width * 2,
                     renderHelper.graphicsDevice.Viewport.TitleSafeArea.Width * 2
                     );
-                    renderHelper.Draw(backgroundComp.Texture, containerRect, new Color(255, 255, 255, (byte)MathHelper.Clamp(backgroundComp.mAlphaValue, 0, 255)), RenderLayer.Menubackground);
+                    renderHelper.Draw(backgroundComp.Texture, containerRect, new Color(255f, 255f, 255f, (byte)MathHelper.Clamp(backgroundComp.mAlphaValue, 0, 255)), RenderLayer.Menubackground);
                 }
             }
         }

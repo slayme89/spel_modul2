@@ -79,28 +79,28 @@ namespace GameEngine.Systems
             Rectangle r3 = Rectangle.Intersect(r1, r2);
             float x = 0, y = 0;
 
+            Vector2 dir = e1.Item3.Position - e2.Item3.Position;
 
             Point axis;
             if (m1 != null && m2 != null)
             {
-                axis = GetCollisionAxis(r1, r2);
-                //e1.Item3.Position = m1.PreviousPosition + (-m1.Velocity * axis.ToVector2()) * r3.Size.ToVector2();
-                //e1.Item3.Position = m1.PreviousPosition;
-                //e2.Item3.Position = m2.PreviousPosition; (e1.Item3.Position - m1.PreviousPosition)
-                Vector2 dist = -m1.Velocity * axis.ToVector2() * r3.Size.ToVector2() * axis.ToVector2();
+                axis = GetCollisionAxis(r1, r2, r3);
+
+                Vector2 dist = (r3.Size.ToVector2() * axis.ToVector2());
                 e1.Item3.Position += dist;
             }
             else if (m1 != null)
             {
-                axis = GetCollisionAxis(r1, r2);
-                Debug.WriteLine(r3);
-                Vector2 dist = -m1.Velocity * axis.ToVector2() * r3.Size.ToVector2() * axis.ToVector2();
+                axis = GetCollisionAxis(r1, r2, r3);
+
+                Vector2 dist = (r3.Size.ToVector2() * axis.ToVector2());
                 e1.Item3.Position += dist;
             }
             else if (m2 != null)
             {
-                axis = GetCollisionAxis(r2, r1);
-                Vector2 dist = -m2.Velocity * axis.ToVector2() * r3.Size.ToVector2() * axis.ToVector2();
+                axis = GetCollisionAxis(r2, r1, r3);
+
+                Vector2 dist = (r3.Size.ToVector2() * axis.ToVector2());
                 e2.Item3.Position += dist;
             }
 
@@ -122,19 +122,30 @@ namespace GameEngine.Systems
             //    e2.Item3.Position += -m2.Velocity * axis.ToVector2();
             //}
         }
-
-        private Point GetCollisionAxis(Rectangle r1, Rectangle r2)
+        //r3 is intersecting rectangle between r1 and r2
+        private Point GetCollisionAxis(Rectangle r1, Rectangle r2, Rectangle r3)
         {
-            //return new Point(1, 1);
-            if (r1.Intersects(new Rectangle(r2.Left, r2.Top + 2, 1, r2.Height - 4)))
-                return new Point(1, 0);
-            else if (r1.Intersects(new Rectangle(r2.Right - 1, r2.Top + 2, 1, r2.Height - 4)))
-                return new Point(1, 0);
-            else if (r1.Intersects(new Rectangle(r2.Left + 2, r2.Top, r2.Width - 4, 1)))
+            //Top Wall
+            if(r1.Bottom >= r2.Top && r1.Top < r2.Top && r3.Width > r3.Height)
+                return new Point(0, -1);
+            //Left Wall
+            if(r1.Right >= r2.Left && r1.Left < r2.Left && r3.Height > r3.Width)
+                return new Point(-1, 0);
+            //Bottom Wall
+            if(r1.Top <= r2.Bottom && r1.Bottom > r2.Bottom && r3.Width > r3.Height)
                 return new Point(0, 1);
-            else if (r1.Intersects(new Rectangle(r2.Left + 2, r2.Bottom - 1, r2.Width - 4, 1)))
-                return new Point(0, 1);
+            //Right Wall
+            if(r1.Left <= r2.Right && r1.Right > r2.Right && r3.Height > r3.Width)
+                return new Point(1, 0);
             return new Point(1, 1);
+        }
+
+        public static Point CalcDirection(float x, float y)
+        {
+            if (Math.Abs(x) > Math.Abs(y))
+                return x > 0 ? new Point(1, 0) : new Point(-1, 0);
+            else
+                return y > 0 ? new Point(0, 1) : new Point(0, -1);
         }
     }
 }
