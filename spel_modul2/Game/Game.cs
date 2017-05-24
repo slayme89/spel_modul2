@@ -20,7 +20,7 @@ namespace Game
                 new RenderExperienceSystem(),
                 new RenderEnergySystem(),
                 new RenderAttackingCollisionBoxSystem(),
-                new ItemIconLoaderSystem(),
+                //new ItemIconLoaderSystem(),
                 new InventoryLoaderSystem(),
                 new SkillLoaderSystem(),
                 new SkillManager(),
@@ -543,7 +543,7 @@ namespace Game
             });
             //End of menu entities
 
-            sm.GetSystem<ItemIconLoaderSystem>().Load(Content);
+            //sm.GetSystem<ItemIconLoaderSystem>().Load(Content);
             sm.GetSystem<InventoryLoaderSystem>().Load(Content);
             sm.GetSystem<SkillLoaderSystem>().Load(Content);
             sm.GetSystem<RenderEnergySystem>().Load(Content);

@@ -979,7 +979,7 @@
 /processorParam:TextureFormat=Color
 /build:GameWorld/signpost.png
 
-#begin GameWorld/Bread.png
+#begin ItemIcons/Bread.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -989,5 +989,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:GameWorld/Bread.png
+/build:ItemIcons/Bread.png
 

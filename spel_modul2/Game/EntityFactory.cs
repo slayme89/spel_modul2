@@ -39,7 +39,7 @@ namespace Game
                 new LevelComponent(5),
                 new KnockbackComponent(),
                 new InteractComponent(InteractType.Loot),
-                new ItemComponent(AddHealth, "GameWorld/Bread", ItemType.Consumable),
+                new ItemComponent(AddHealth, "Bread", ItemType.Consumable),
             };
         }
 
@@ -49,9 +49,11 @@ namespace Game
             InventoryComponent i;
             ActionBarComponent a;
             ComponentManager cm = ComponentManager.GetInstance();
+
             if (cm.TryGetEntityComponents(entity, out h, out i, out a))
             {
                 h.Current = MathHelper.Clamp(h.Current + 40, 0, h.Max);
+                cm.RemoveEntity(i.Items[position]);
                 i.Items[position] = 0;
                 
                 for(int j = 0; j < a.Slots.Length; j++)

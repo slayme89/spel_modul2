@@ -25,16 +25,18 @@ namespace Game.Components
 
         public ItemComponent(Action action, string itemIconFileName, ItemType type)
         {
+            ResourceManager rm = ResourceManager.GetInstance();
             Use = action;
             Type = type;
             TextureFileName = itemIconFileName;
+            ItemIcon = rm.GetResource<Texture2D>("ItemIcons/" + TextureFileName);
         }
 
         public object Clone()
         {
             ResourceManager rm = ResourceManager.GetInstance();
             ItemComponent o = (ItemComponent)MemberwiseClone();
-            ItemIcon = rm.GetResource<Texture2D>(TextureFileName);
+            ItemIcon = rm.GetResource<Texture2D>("ItemIcons/" + TextureFileName);
             return o;
         }
     }

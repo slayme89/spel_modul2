@@ -29,11 +29,11 @@ namespace Game.Systems
                     //}
                     if (invenComp.ItemsToAdd.Count > 0)
                     {
-                        foreach (int item in invenComp.ItemsToAdd.ToArray())
+                        foreach (int item in invenComp.ItemsToAdd)
                         {
                             AddItemToInventory(entity.Key, item);
-                            invenComp.ItemsToAdd.Remove(item);
                         }
+                        invenComp.ItemsToAdd.Clear();
                     }
                     if (playerComp.Inventory.IsButtonDown())
                     {
