@@ -304,7 +304,6 @@
 #begin NewSpriteFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:NewSpriteFont.spritefont
 
@@ -979,4 +978,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GameWorld/signpost.png
+
+#begin GameWorld/Bread.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GameWorld/Bread.png
 
