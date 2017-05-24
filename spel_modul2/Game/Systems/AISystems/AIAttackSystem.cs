@@ -53,16 +53,18 @@ namespace Game.Systems
                         Vector2 pointToTarget, pointToTCompare;
                         Point nextDir;
                         PositionComponent posOftarget = cm.GetComponentForEntity<PositionComponent>(ai.TargetEntity);
+                        CollisionComponent collComp = cm.GetComponentForEntity<CollisionComponent>(entity.Key);
                         Vector2 unNormalizedDir = new Vector2(posOftarget.Position.X - posComp.Position.X, posOftarget.Position.Y - posComp.Position.Y);
                         float distance = (float)Math.Sqrt(unNormalizedDir.X * unNormalizedDir.X + unNormalizedDir.Y * unNormalizedDir.Y);
                         Vector2 direction = new Vector2(unNormalizedDir.X / distance, unNormalizedDir.Y / distance);
 
                         nextDir = MoveSystem.CalcDirection(direction.X, direction.Y);
-                        pointToTarget = posOftarget.Position + new Vector2(-nextDir.X * 50, -nextDir.Y * 50);
-                        pointToTCompare = posComp.Position + new Vector2(nextDir.X * 50, nextDir.Y * 50);
+                        pointToTarget = posOftarget.Position + new Vector2(-nextDir.X * ((attackComponent.AttackCollisionBox.Width / 2) + collComp.CollisionBox.Width), -nextDir.Y * ((attackComponent.AttackCollisionBox.Height / 2) + collComp.CollisionBox.Height));
+                        pointToTCompare = posComp.Position + new Vector2(nextDir.X * attackComponent.AttackCollisionBox.Width, nextDir.Y * attackComponent.AttackCollisionBox.Height);
                         ai.Destination = pointToTarget.ToPoint();
-                        if (attackComponent.AttackCooldown <= 0.0f 
-                            && Vector2.Distance(posOftarget.Position, pointToTCompare) <= 30 
+
+                        if (attackComponent.AttackCooldown <= 0.0f
+                            && Vector2.Distance(posOftarget.Position, pointToTCompare) <= attackComponent.AttackCollisionBox.Width
                             && !cm.GetComponentForEntity<KnockbackComponent>(entity.Key).KnockbackActive)
                         {
                             moveComp.Direction = nextDir;
@@ -78,6 +80,7 @@ namespace Game.Systems
                                     animGroupComp.ActiveAnimation = anim;
                             }
                         }
+
                     }
                     if (attackComponent.AttackCooldown > 0.0f)
                         attackComponent.AttackCooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;

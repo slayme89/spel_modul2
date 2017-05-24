@@ -77,50 +77,23 @@ namespace GameEngine.Systems
             MoveComponent m1 = cm.GetComponentForEntity<MoveComponent>(e1.Item1);
             MoveComponent m2 = cm.GetComponentForEntity<MoveComponent>(e2.Item1);
             Rectangle r3 = Rectangle.Intersect(r1, r2);
-            float x = 0, y = 0;
-
-            Vector2 dir = e1.Item3.Position - e2.Item3.Position;
 
             Point axis;
-            if (m1 != null && m2 != null)
+            
+            if (m1 != null)
             {
                 axis = GetCollisionAxis(r1, r2, r3);
 
-                Vector2 dist = (r3.Size.ToVector2() * axis.ToVector2());
+                Vector2 dist = axis.ToVector2() * r3.Size.ToVector2();
                 e1.Item3.Position += dist;
             }
-            else if (m1 != null)
-            {
-                axis = GetCollisionAxis(r1, r2, r3);
-
-                Vector2 dist = (r3.Size.ToVector2() * axis.ToVector2());
-                e1.Item3.Position += dist;
-            }
-            else if (m2 != null)
+            if (m2 != null)
             {
                 axis = GetCollisionAxis(r2, r1, r3);
 
-                Vector2 dist = (r3.Size.ToVector2() * axis.ToVector2());
+                Vector2 dist = axis.ToVector2() * r3.Size.ToVector2();
                 e2.Item3.Position += dist;
             }
-
-
-            //Point axis;
-            //if (m1 != null && m2 != null)
-            //{
-            //    axis = GetCollisionAxis(r1, r2);
-            //    e1.Item3.Position += -m1.Velocity * axis.ToVector2();
-            //}
-            //else if (m1 != null)
-            //{
-            //    axis = GetCollisionAxis(r1, r2);
-            //    e1.Item3.Position += -m1.Velocity * axis.ToVector2();
-            //}
-            //else if (m2 != null)
-            //{
-            //    axis = GetCollisionAxis(r2, r1);
-            //    e2.Item3.Position += -m2.Velocity * axis.ToVector2();
-            //}
         }
         //r3 is intersecting rectangle between r1 and r2
         private Point GetCollisionAxis(Rectangle r1, Rectangle r2, Rectangle r3)
@@ -138,14 +111,6 @@ namespace GameEngine.Systems
             if(r1.Left <= r2.Right && r1.Right > r2.Right && r3.Height > r3.Width)
                 return new Point(1, 0);
             return new Point(1, 1);
-        }
-
-        public static Point CalcDirection(float x, float y)
-        {
-            if (Math.Abs(x) > Math.Abs(y))
-                return x > 0 ? new Point(1, 0) : new Point(-1, 0);
-            else
-                return y > 0 ? new Point(0, 1) : new Point(0, -1);
         }
     }
 }

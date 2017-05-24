@@ -27,6 +27,7 @@ namespace Game.Components
             AttackChargeUp = attackDelay;
             AttackDelay = attackDelay;
             CanAttack = true;
+            AttackCollisionBox = new Rectangle(0, 0, 25, 25);
         }
 
         public object Clone()

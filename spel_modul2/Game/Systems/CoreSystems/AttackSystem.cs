@@ -19,7 +19,6 @@ namespace Game.Systems
                 {
                     if (cm.HasEntityComponent<CollisionComponent>(entity.Key))
                     {
-                        CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(entity.Key);
                         if (attackComponent.CanAttack && attackComponent.IsAttacking)
                         {
                             cm.GetComponentForEntity<MoveComponent>(entity.Key).Velocity = new Vector2(0.0f, 0.0f);
@@ -65,11 +64,11 @@ namespace Game.Systems
             if (cm.HasEntityComponent<MoveComponent>(key))
             {
                 MoveComponent moveComponent = cm.GetComponentForEntity<MoveComponent>(key);
-                CollisionComponent collisionComponent = cm.GetComponentForEntity<CollisionComponent>(key);
+                AttackComponent attackComponent = cm.GetComponentForEntity<AttackComponent>(key);
                 PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(key);
-                int range = collisionComponent.CollisionBox.Size.X;
-                Point hitOffset = new Point((collisionComponent.CollisionBox.Width / 2), (collisionComponent.CollisionBox.Height / 2));
-                return new Rectangle(positionComponent.Position.ToPoint() - hitOffset + moveComponent.Direction * new Point(range, range), collisionComponent.CollisionBox.Size);
+                int range = attackComponent.AttackCollisionBox.Size.X;
+                Point hitOffset = new Point((attackComponent.AttackCollisionBox.Width / 2), (attackComponent.AttackCollisionBox.Height / 2));
+                return new Rectangle(positionComponent.Position.ToPoint() - hitOffset + moveComponent.Direction * new Point(range, range), attackComponent.AttackCollisionBox.Size);
             }
             else
             {
