@@ -80,20 +80,28 @@ namespace GameEngine.Systems
             float x = 0, y = 0;
 
 
-
+            Point axis;
             if (m1 != null && m2 != null)
             {
-                e1.Item3.Position = m1.PreviousPosition;
-                e2.Item3.Position = m2.PreviousPosition;
+                axis = GetCollisionAxis(r1, r2);
+                //e1.Item3.Position = m1.PreviousPosition + (-m1.Velocity * axis.ToVector2()) * r3.Size.ToVector2();
+                //e1.Item3.Position = m1.PreviousPosition;
+                //e2.Item3.Position = m2.PreviousPosition; (e1.Item3.Position - m1.PreviousPosition)
+                Vector2 dist = -m1.Velocity * axis.ToVector2() * r3.Size.ToVector2() * axis.ToVector2();
+                e1.Item3.Position += dist;
             }
             else if (m1 != null)
             {
+                axis = GetCollisionAxis(r1, r2);
                 Debug.WriteLine(r3);
-                e1.Item3.Position = m1.PreviousPosition;
+                Vector2 dist = -m1.Velocity * axis.ToVector2() * r3.Size.ToVector2() * axis.ToVector2();
+                e1.Item3.Position += dist;
             }
             else if (m2 != null)
             {
-                e2.Item3.Position = m2.PreviousPosition;
+                axis = GetCollisionAxis(r2, r1);
+                Vector2 dist = -m2.Velocity * axis.ToVector2() * r3.Size.ToVector2() * axis.ToVector2();
+                e2.Item3.Position += dist;
             }
 
 
