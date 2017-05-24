@@ -59,12 +59,12 @@ namespace Game.Systems
                         Vector2 direction = new Vector2(unNormalizedDir.X / distance, unNormalizedDir.Y / distance);
 
                         nextDir = MoveSystem.CalcDirection(direction.X, direction.Y);
-                        pointToTarget = posOftarget.Position + new Vector2(-nextDir.X * ((attackComponent.AttackCollisionBox.Width / 2) + collComp.CollisionBox.Width), -nextDir.Y * ((attackComponent.AttackCollisionBox.Height / 2) + collComp.CollisionBox.Height));
-                        pointToTCompare = posComp.Position + new Vector2(nextDir.X * attackComponent.AttackCollisionBox.Width, nextDir.Y * attackComponent.AttackCollisionBox.Height);
+                        pointToTarget = posOftarget.Position + new Vector2(-nextDir.X * (collComp.CollisionBox.Width), -nextDir.Y * (collComp.CollisionBox.Height));
+                        pointToTCompare = posComp.Position + new Vector2(nextDir.X * (collComp.CollisionBox.Width), nextDir.Y * (collComp.CollisionBox.Height));
                         ai.Destination = pointToTarget.ToPoint();
 
                         if (attackComponent.AttackCooldown <= 0.0f
-                            && Vector2.Distance(posOftarget.Position, pointToTCompare) <= attackComponent.AttackCollisionBox.Width
+                            && Vector2.Distance(posComp.Position, pointToTarget) <= (collComp.CollisionBox.Width * Math.Abs(nextDir.X) + collComp.CollisionBox.Height * Math.Abs(nextDir.Y)) / 2
                             && !cm.GetComponentForEntity<KnockbackComponent>(entity.Key).KnockbackActive)
                         {
                             moveComp.Direction = nextDir;
