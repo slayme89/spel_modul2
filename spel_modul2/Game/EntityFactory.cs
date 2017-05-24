@@ -3,6 +3,7 @@ using Game.Components;
 using Microsoft.Xna.Framework;
 using System;
 using GameEngine.Managers;
+using System.Diagnostics;
 
 namespace Game
 {
@@ -37,6 +38,8 @@ namespace Game
                 new AttackComponent(10, 0.8f, 0.35f, WeaponType.Sword),
                 new LevelComponent(5),
                 new KnockbackComponent(),
+                new InteractComponent(InteractType.Loot),
+                new ItemComponent(e => { Debug.WriteLine("hej"); }, "ItemIcons/sword", ItemType.Consumable),
             };
         }
 

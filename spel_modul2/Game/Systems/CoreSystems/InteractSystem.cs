@@ -25,7 +25,7 @@ namespace Game.Systems
                 PlayerControlComponent controlComponent = player.Item2;
                 PositionComponent playerPositionComponent = player.Item3;
 
-                int closestInteractable = FindClosestInteractable(playerPositionComponent.Position);
+                int closestInteractable = FindClosestInteractable(player.Entity, playerPositionComponent.Position);
 
                 if (closestInteractable != -1)
                 {
@@ -51,7 +51,7 @@ namespace Game.Systems
                         }
 
                         //Loot(Give item to looter)
-                        else if (interComp.Type == InteractType.Loot && cm.HasEntityComponent<ItemComponent>(closestInteractable))
+                        else if (interComp.Type == InteractType.Loot && cm.HasEntityComponent<ItemComponent>(closestInteractable) && !cm.HasEntityComponent<HealthComponent>(closestInteractable))
                         {
                             //Remove components
                             cm.RemoveComponentFromEntity<InteractComponent>(closestInteractable);
@@ -66,13 +66,15 @@ namespace Game.Systems
         }
 
 
-        private int FindClosestInteractable(Vector2 position)
+        private int FindClosestInteractable(int self, Vector2 position)
         {
             ComponentManager cm = ComponentManager.GetInstance();
             int closestNr = -1;
             float closestDist = 100;
             foreach (var entity in cm.GetComponentsOfType<InteractComponent>())
             {
+                if (entity.Key == self)
+                    continue;
                 PositionComponent positionComponent = cm.GetComponentForEntity<PositionComponent>(entity.Key);
                 float distance = Vector2.Distance(position, positionComponent.Position);
                 if (distance < closestDist)

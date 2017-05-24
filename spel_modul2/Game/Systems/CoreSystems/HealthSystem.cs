@@ -78,6 +78,7 @@ namespace Game.Systems
                         cm.RemoveComponentFromEntity<MoveComponent>(entity.Key);
                         cm.RemoveComponentFromEntity<KnockbackComponent>(entity.Key);
                         cm.RemoveComponentFromEntity<CollisionComponent>(entity.Key);
+                        cm.RemoveComponentFromEntity<HealthComponent>(entity.Key);
                     }
                 }
             }

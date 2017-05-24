@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework.Graphics;
 using GameEngine.Components;
+using GameEngine.Managers;
 
 namespace Game.Components
 {
@@ -31,7 +32,10 @@ namespace Game.Components
 
         public object Clone()
         {
-            throw new NotImplementedException();
+            ResourceManager rm = ResourceManager.GetInstance();
+            ItemComponent o = (ItemComponent)MemberwiseClone();
+            ItemIcon = rm.GetResource<Texture2D>(TextureFileName);
+            return o;
         }
     }
 }
