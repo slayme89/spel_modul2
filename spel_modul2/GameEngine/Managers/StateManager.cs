@@ -5,6 +5,7 @@
         Main,
         Menu,
         Game,
+        Exit,
     }
     class StateManager
     {

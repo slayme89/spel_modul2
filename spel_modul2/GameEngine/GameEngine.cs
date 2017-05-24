@@ -127,7 +127,8 @@ namespace GameEngine
                 SystemManager.GetInstance().Update<MenuSystem>(gameTime);
             }
 
-            
+            if (stateManager.State == GameState.Exit)
+                Exit();
 
             base.Update(gameTime);
         }

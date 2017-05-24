@@ -1,5 +1,4 @@
 ﻿using GameEngine.Components;
-using System;
 
 namespace GameEngine.Managers
 {
@@ -16,7 +15,7 @@ namespace GameEngine.Managers
         //Quit game
         public static void Quit()
         {
-            Environment.Exit(1);
+            StateManager.GetInstance().State = GameState.Exit;
         }
 
         public static void ClearAllButtons()
