@@ -11,6 +11,7 @@ namespace GameEngine.Managers
         private Dictionary<Type, Dictionary<int, IComponent>> componentGroups;
         private static ComponentManager componentManagerInstance;
         private List<int> removedEntities;
+        private List<Tuple<int, Type>> removedComponents;
 
         static ComponentManager()
         {
@@ -23,6 +24,7 @@ namespace GameEngine.Managers
             componentGroups = new Dictionary<Type, Dictionary<int, IComponent>>();
             removedEntities = new List<int>();
             entities = new List<int>();
+            removedComponents = new List<Tuple<int, Type>>();
         }
 
         public static ComponentManager GetInstance()
@@ -101,6 +103,33 @@ namespace GameEngine.Managers
             }
 
             removedEntities.Clear();
+
+            /*if (entityComponents.ContainsKey(entity))
+            {
+                T component = GetComponentForEntity<T>(entity);
+                OnComponentRemoved(entity, component);
+
+                entityComponents[entity].Remove(typeof(T));
+                componentGroups[typeof(T)].Remove(entity);
+            }*/
+
+            foreach (Tuple<int, Type> entity in removedComponents)
+            {
+                Dictionary<Type, IComponent> components;
+                IComponent component;
+                Dictionary<int, IComponent> componentgroup;
+
+                if (entityComponents.TryGetValue(entity.Item1, out components) && components.TryGetValue(entity.Item2, out component))
+                {
+                    OnComponentRemoved(entity.Item1, component);
+                    components.Remove(entity.Item2);
+                }
+
+                if (componentGroups.TryGetValue(entity.Item2, out componentgroup))
+                    componentgroup.Remove(entity.Item1);
+            }
+
+            removedComponents.Clear();
         }
 
         public Dictionary<int, IComponent> GetComponentsOfType<T>()
@@ -144,14 +173,7 @@ namespace GameEngine.Managers
 
         public void RemoveComponentFromEntity<T>(int entity) where T : IComponent
         {
-            if(entityComponents.ContainsKey(entity))
-            {
-                T component = GetComponentForEntity<T>(entity);
-                OnComponentRemoved(entity, component);
-
-                entityComponents[entity].Remove(typeof(T));
-                componentGroups[typeof(T)].Remove(entity);
-            }
+            removedComponents.Add(new Tuple<int, Type>(entity, typeof(T)));
         }
     }
 }
