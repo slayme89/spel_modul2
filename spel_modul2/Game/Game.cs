@@ -547,7 +547,7 @@ namespace Game
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new MenuBackgroundComponent(
-                    MenuType.Main,
+                    MenuBackgroundType.Main,
                     "Menu/forest-menu",
                     new Point(0, 0),
                     RenderLayer.Menubackground,
@@ -559,7 +559,7 @@ namespace Game
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new MenuButtonComponent(
-                    ButtonType.Main,
+                    MenuButtonType.Main,
                     MenuManager.Play,
                     "Menu/PlayNoo",
                     "Menu/PlayHii",
@@ -571,7 +571,7 @@ namespace Game
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                new MenuButtonComponent(
-                   ButtonType.Main,
+                   MenuButtonType.Main,
                    MenuManager.Quit,
                    "Menu/QuitNoo",
                    "Menu/QuitHii",

@@ -35,7 +35,7 @@ namespace GameEngine.Systems
                     );
                     renderHelper.Draw(backgroundComp.Texture, containerRect, new Color(255f, 255f, 255f, (byte)MathHelper.Clamp(backgroundComp.mAlphaValue, 0, 255)), RenderLayer.Menubackground);
                 }
-                else
+                else if(backgroundComp.IsActive && backgroundComp.HasMovingEffect)
                 {
                     Rectangle containerRect = new Rectangle(
                     backgroundComp.Position.X,

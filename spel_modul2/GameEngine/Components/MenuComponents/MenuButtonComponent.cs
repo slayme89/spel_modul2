@@ -4,13 +4,13 @@ using Microsoft.Xna.Framework.Graphics;
 namespace GameEngine.Components
 {
     public delegate void ButtonAction();
-    public enum ButtonType { Main };
+    public enum MenuButtonType { Main };
 
     public class MenuButtonComponent : IComponent
     {
         public bool IsActive { get; set; }
         public bool Ishighlighted { get; set; }
-        public ButtonType Type { get; set; }
+        public MenuButtonType Type { get; set; }
         public string NormalTexturePath { get; set; }
         public string HighlightTexturePath { get; set; }
         public ButtonAction Use { get; set; }
@@ -19,7 +19,7 @@ namespace GameEngine.Components
         public Vector2 Position { get; set; }
         public RenderLayer Layer { get; set; }
 
-        public MenuButtonComponent(ButtonType type, ButtonAction buttonAction, string normalTexturePath, string highlightTexturePath, Vector2 position, RenderLayer layer)
+        public MenuButtonComponent(MenuButtonType type, ButtonAction buttonAction, string normalTexturePath, string highlightTexturePath, Vector2 position, RenderLayer layer)
         {
             IsActive = false;
             Ishighlighted = false;
@@ -34,6 +34,7 @@ namespace GameEngine.Components
         public object Clone()
         {
             MenuButtonComponent o = (MenuButtonComponent)MemberwiseClone();
+            o.Type = Type;
             o.NormalTexturePath = string.Copy(NormalTexturePath);
             o.HighlightTexturePath = string.Copy(HighlightTexturePath);
             return o;
