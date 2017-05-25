@@ -944,3 +944,9 @@
 /processorParam:TextureFormat=Color
 /build:Menu/QuitNoo.png
 
+#begin Sound/skeletondamage.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/skeletondamage.wav
+

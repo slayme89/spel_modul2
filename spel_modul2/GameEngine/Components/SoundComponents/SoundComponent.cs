@@ -31,6 +31,9 @@ namespace GameEngine.Components
             WalkSound.IsLooped = true;
             AttackSound = rm.GetResource<SoundEffect>(attackFile).CreateInstance();
             DamageSound = rm.GetResource<SoundEffect>(damageFile).CreateInstance();
+            WalkSound.Volume *= 0.3f;
+            AttackSound.Volume *= 0.3f;
+            DamageSound.Volume *= 0.3f;
         }
 
         public object Clone()
@@ -43,6 +46,9 @@ namespace GameEngine.Components
             o.AttackFile = string.Copy(AttackFile);
             o.DamageSound = rm.GetResource<SoundEffect>(DamageFile).CreateInstance();
             o.DamageFile = string.Copy(DamageFile);
+            o.WalkSound.Volume *= 0.3f;
+            o.AttackSound.Volume *= 0.3f;
+            o.DamageSound.Volume *= 0.3f;
             return o;
         }
     }

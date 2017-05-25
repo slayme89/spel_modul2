@@ -18,7 +18,7 @@ namespace GameEngine.Components
             MusicFile = filePath;
 
             Music = rm.GetResource<SoundEffect>(filePath).CreateInstance();
-            Music.Volume *= 0.1f;
+            Music.Volume *= 0.5f;
         }
 
         public object Clone()
