@@ -191,7 +191,7 @@ namespace GameEngine.Systems
                         //If the AlphaValue is equal or above the max Alpha value or
                         //has dropped below or equal to the min Alpha value, then 
                         //reverse the fade
-                        if (backgroundComp.mAlphaValue <= 200 || backgroundComp.mAlphaValue >= 255)
+                        if (backgroundComp.mAlphaValue <= 190 || backgroundComp.mAlphaValue >= 255)
                         {
                             backgroundComp.mFadeIncrement *= -1;
                         }

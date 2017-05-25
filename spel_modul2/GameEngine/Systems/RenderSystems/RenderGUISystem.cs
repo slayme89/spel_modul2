@@ -11,12 +11,12 @@ namespace GameEngine.Systems
         public void Render(RenderHelper rh)
         {
             ComponentManager cm = ComponentManager.GetInstance();
+
             foreach (var entity in cm.GetComponentsOfType<GUIComponent>())
             {
-                if (entity.Value != null)
-                {
-                    GUIComponent guiComponent = (GUIComponent)entity.Value;
-                    
+                GUIComponent guiComponent = (GUIComponent)entity.Value;
+                if (guiComponent.IsActive)
+                {       
                     Texture2D texture = guiComponent.Texture;
                     Rectangle containerRect = new Rectangle(
                         guiComponent.ScreenPosition.X,

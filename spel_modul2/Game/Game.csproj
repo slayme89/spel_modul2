@@ -72,6 +72,7 @@
     <Compile Include="Systems\CoreSystems\DamageSystem.cs" />
     <Compile Include="Systems\CoreSystems\EnemySpawnSystem.cs" />
     <Compile Include="Systems\CoreSystems\EnergySystem.cs" />
+    <Compile Include="Systems\CoreSystems\GUISystem.cs" />
     <Compile Include="Systems\CoreSystems\HealthSystem.cs" />
     <Compile Include="Systems\CoreSystems\InteractSystem.cs" />
     <Compile Include="Systems\CoreSystems\KnockbackSystem.cs" />

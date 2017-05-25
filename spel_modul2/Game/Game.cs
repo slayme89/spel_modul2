@@ -5,6 +5,7 @@ using Game.Components;
 using Game.Systems;
 using System;
 using Game.Managers;
+using Game.Systems.CoreSystems;
 
 namespace Game
 {
@@ -42,6 +43,7 @@ namespace Game
                 new DamageSystem(),
                 new KnockbackSystem(),
                 new CooldownSystem(),
+                new GUISystem(),
             });
 
             base.Initialize();
@@ -270,22 +272,38 @@ namespace Game
             // Dialog window
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new GUIComponent("UI/DialogWindow", new Point(Viewport.TitleSafeArea.Width / 2 - 255, Viewport.TitleSafeArea.Bottom -80), RenderLayer.GUI2)
+                new GUIComponent(
+                GUIType.Misc,
+                "UI/DialogWindow",
+                new Point(Viewport.TitleSafeArea.Width / 2 - 255, Viewport.TitleSafeArea.Bottom -80),
+                RenderLayer.GUI2)
             });
             // P1 hp, ene, xp
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-               new GUIComponent("UI/Player1-Hp-Ene-Xp", new Point(Viewport.TitleSafeArea.Left, Viewport.TitleSafeArea.Top), RenderLayer.GUI2),
+               new GUIComponent(
+               GUIType.Player1,
+               "UI/Player1-Hp-Ene-Xp",
+               new Point(Viewport.TitleSafeArea.Left,Viewport.TitleSafeArea.Top),
+               RenderLayer.GUI2),
             });
-            // P2 hp, ene, xp
-            //cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            //{
-            //   new GUIComponent("UI/Player2-Hp-Ene-Xp", new Point(Viewport.TitleSafeArea.Right - 108, Viewport.TitleSafeArea.Top), RenderLayer.GUI2),
-            //});
+            //P2 hp, ene, xp
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+               new GUIComponent(
+                   GUIType.Player2,
+                   "UI/Player2-Hp-Ene-Xp",
+                   new Point(Viewport.TitleSafeArea.Right - 108, Viewport.TitleSafeArea.Top),
+                   RenderLayer.GUI2),
+            });
             // P1 Ationbar
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-               new GUIComponent("UI/ActionBar", new Point(Viewport.TitleSafeArea.Left, Viewport.TitleSafeArea.Bottom - 40), RenderLayer.GUI2),
+               new GUIComponent(
+                   GUIType.Player1,
+                   "UI/ActionBar",
+                   new Point(Viewport.TitleSafeArea.Left, Viewport.TitleSafeArea.Bottom - 40),
+                   RenderLayer.GUI2),
             });
             //////////////////////////// End GUI ///////////////////
 

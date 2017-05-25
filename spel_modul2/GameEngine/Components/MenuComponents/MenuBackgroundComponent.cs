@@ -28,7 +28,7 @@ namespace GameEngine.Components
             Layer = Layer;
 
             //fading stuff
-            mAlphaValue = 210;
+            mAlphaValue = 240;
             mFadeIncrement = 1;
             mFadeDelay = .1;
             //mFadeDelayMove = .03;
