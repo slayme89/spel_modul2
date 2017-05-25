@@ -547,32 +547,37 @@ namespace Game
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new MenuBackgroundComponent(
-                    "MainMenuBackground",
+                    MenuType.Main,
                     "Menu/forest-menu",
                     new Point(0, 0),
-                    RenderLayer.Menubackground)
-
+                    RenderLayer.Menubackground,
+                    true,
+                    true
+                    )
             });
             //Play in main menu
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new MenuButtonComponent("MainPlay",
-                MenuManager.Play,
-                "Menu/PlayNoo",
-                "Menu/PlayHii",
-                new Vector2(Viewport.TitleSafeArea.Width / 2, Viewport.TitleSafeArea.Height / 2),
-                RenderLayer.MenuButton)
+                new MenuButtonComponent(
+                    ButtonType.Main,
+                    MenuManager.Play,
+                    "Menu/PlayNoo",
+                    "Menu/PlayHii",
+                    new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Center.Y),
+                    RenderLayer.MenuButton
+                    )
             });
             //Quit in main menu
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                new MenuButtonComponent(
-                   "MainQuit",
+                   ButtonType.Main,
                    MenuManager.Quit,
                    "Menu/QuitNoo",
                    "Menu/QuitHii",
-                   new Vector2(Viewport.TitleSafeArea.Width / 2, Viewport.TitleSafeArea.Height / 2 + 100),
-                   RenderLayer.MenuButton),
+                   new Vector2(Viewport.TitleSafeArea.Center.X -100, Viewport.TitleSafeArea.Center.Y + 100),
+                   RenderLayer.MenuButton
+                   )
             });
             //End of menu entities
 

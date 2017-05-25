@@ -25,7 +25,7 @@ namespace GameEngine.Systems
             foreach (var background in cm.GetComponentsOfType<MenuBackgroundComponent>())
             {
                 MenuBackgroundComponent backgroundComp = (MenuBackgroundComponent)background.Value;
-                if (backgroundComp.IsActive)
+                if (backgroundComp.IsActive && backgroundComp.HasFadingEffect)
                 {
                     Rectangle containerRect = new Rectangle(
                     backgroundComp.Position.X,
@@ -34,6 +34,16 @@ namespace GameEngine.Systems
                     renderHelper.graphicsDevice.Viewport.TitleSafeArea.Width * 2
                     );
                     renderHelper.Draw(backgroundComp.Texture, containerRect, new Color(255f, 255f, 255f, (byte)MathHelper.Clamp(backgroundComp.mAlphaValue, 0, 255)), RenderLayer.Menubackground);
+                }
+                else
+                {
+                    Rectangle containerRect = new Rectangle(
+                    backgroundComp.Position.X,
+                    backgroundComp.Position.Y,
+                    renderHelper.graphicsDevice.Viewport.TitleSafeArea.Width * 2,
+                    renderHelper.graphicsDevice.Viewport.TitleSafeArea.Width * 2
+                    );
+                    renderHelper.Draw(backgroundComp.Texture, containerRect, Color.White, RenderLayer.Menubackground);
                 }
             }
         }

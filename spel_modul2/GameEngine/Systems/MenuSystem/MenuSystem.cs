@@ -23,9 +23,10 @@ namespace GameEngine.Systems
             {
                 PlayerControlComponent contComp = (PlayerControlComponent)contEntity.Value;
 
-                //Clear the list
+                //Reset buttonList
                 ActiveButtonsList = null;
                 ActiveButtonsList = new int[10];
+                
                 //Add all active buttons in the list
                 int i = 0;
                 foreach (var button in cm.GetComponentsOfType<MenuButtonComponent>())
@@ -39,15 +40,26 @@ namespace GameEngine.Systems
                     }
                 }
 
-                if(StateManager.GetInstance().State == GameState.Menu)
+                // Check if its time to initialize the menu
+                if (StateManager.GetInstance().State == GameState.Menu)
                 {
                     if (!IsInit)
                         InitMenu();
                     if (!IsActive)
                         IsActive = true;
 
-                    FadeEffect(gameTime);
+                    // Apply effects on menu background
+                    foreach (var menuBackground in cm.GetComponentsOfType<MenuBackgroundComponent>())
+                    {
+                        MenuBackgroundComponent men = (MenuBackgroundComponent)menuBackground.Value;
 
+                        if (men.HasFadingEffect && men.IsActive)
+                            FadeEffect(gameTime, men);
+                        if (men.HasMovingEffect && men.IsActive)
+                            MoveEffect(gameTime, men);
+                    }
+                    
+                    // Makes the menu button selection smooth
                     if (SelectCooldown <= 0.0f)
                     {
                         Vector2 stickDir = contComp.Movement.GetDirection();
@@ -68,7 +80,7 @@ namespace GameEngine.Systems
                     else
                         SelectCooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-                    //Check if player use "Use button" on highlighted menu button
+                    // Check if someone pressed "use" on a highlighted menu button
                     if (contComp.Interact.IsButtonDown())
                         cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Use();
                 }
@@ -103,16 +115,19 @@ namespace GameEngine.Systems
             }
         }
 
+
+        // Initializes the main menu
         private void InitMenu()
         {
             ComponentManager cm = ComponentManager.GetInstance();
             int i = 0;
-            //Set all Main menu buttons to "active" and add all buttons to the buttonList
+            
+            //Set all Main menu buttons to "active" and add them to the buttonList
             foreach (var button in cm.GetComponentsOfType<MenuButtonComponent>())
             {
                 MenuButtonComponent buttonComp = (MenuButtonComponent)button.Value;
 
-                if (buttonComp.Name.Substring(0, 4) == "Main")
+                if (buttonComp.Type == ButtonType.Main)
                 {
                     buttonComp.IsActive = true;
                     ActiveButtonsList[i] = button.Key;
@@ -120,85 +135,77 @@ namespace GameEngine.Systems
                 }
             }
 
-            
             MenuButtonComponent highligtComp = cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[0]);
             highligtComp.Ishighlighted = true;
 
-            //Set Mainmenu background to "active"
+            //Set Main menu background to "active"
             foreach (var background in cm.GetComponentsOfType<MenuBackgroundComponent>())
             {
                 MenuBackgroundComponent backgroundComp = (MenuBackgroundComponent)background.Value;
 
-                if (backgroundComp.Name.Substring(0, 4) == "Main")
-                    backgroundComp.IsActive = true;  
+                if (backgroundComp.Type == MenuType.Main)
+                    backgroundComp.IsActive = true;
             }
             IsInit = true;
         }
 
-        public void FadeEffect(GameTime gameTime)
+        public void MoveEffect(GameTime gameTime, MenuBackgroundComponent backgroundComp)
         {
-            ComponentManager cm = ComponentManager.GetInstance();
+            //Decrement the delay by the number of seconds that have elapsed since
+            //the last time that the Update method was called
+            backgroundComp.mFadeDelayMove -= gameTime.ElapsedGameTime.TotalSeconds;
 
-            foreach (var background in cm.GetComponentsOfType<MenuBackgroundComponent>())
+            if (backgroundComp.mFadeDelayMove <= 0)
             {
-                MenuBackgroundComponent backgroundComp = (MenuBackgroundComponent)background.Value;
+                backgroundComp.mFadeDelayMove = .035;
 
-                if (backgroundComp.IsActive)
+                // Move Right
+                if (backgroundComp.Position.X > -500 && backgroundComp.Position.Y == 0)
                 {
-                    
-                    //Decrement the delay by the number of seconds that have elapsed since
-                    //the last time that the Update method was called
-                    backgroundComp.mFadeDelay -= gameTime.ElapsedGameTime.TotalSeconds;
-                    //backgroundComp.mFadeDelayMove -= gameTime.ElapsedGameTime.TotalSeconds;
-
-                    // Move Right
-                    if(backgroundComp.Position.X > -500 && backgroundComp.Position.Y == 0)
-                    {
-                            backgroundComp.Position -= new Point(1, 0);
-                    }
-                    // Move Down
-                    if (backgroundComp.Position.X == -500 && backgroundComp.Position.Y <= 0)
-                    {
-                        backgroundComp.Position -= new Point(0, 1);
-                    }
-                    // Move Left
-                    if(backgroundComp.Position.X <= 0 && backgroundComp.Position.Y == -500)
-                    {
-                        backgroundComp.Position -= new Point(-1, 0);
-                    }
-                    // Move up
-                    if (backgroundComp.Position.X == 0 && backgroundComp.Position.Y <= 0)
-                    {
-                        backgroundComp.Position -= new Point(0, -1);
-                    }
-
-                    //if (backgroundComp.mFadeDelayMove <= 0)
-                    //{
-                    //    backgroundComp.mFadeDelayMove = .03;
-                    //}
-
-
-                    //If the Fade delays has dropped below zero, then it is time to 
-                    //fade in/fade out the image a little bit more.
-                    if (backgroundComp.mFadeDelay <= 0)
-                    {
-                        //Reset the Fade delay
-                        backgroundComp.mFadeDelay = .1;
-
-                        //Increment/Decrement the fade value for the image
-                        backgroundComp.mAlphaValue += backgroundComp.mFadeIncrement;
-
-                        //If the AlphaValue is equal or above the max Alpha value or
-                        //has dropped below or equal to the min Alpha value, then 
-                        //reverse the fade
-                        if (backgroundComp.mAlphaValue <= 190 || backgroundComp.mAlphaValue >= 255)
-                        {
-                            backgroundComp.mFadeIncrement *= -1;
-                        }
-                    }
+                    backgroundComp.Position -= new Point(1, 0);
+                }
+                // Move Down
+                if (backgroundComp.Position.X == -500 && backgroundComp.Position.Y <= 0)
+                {
+                    backgroundComp.Position -= new Point(0, 1);
+                }
+                // Move Left
+                if (backgroundComp.Position.X <= 0 && backgroundComp.Position.Y == -500)
+                {
+                    backgroundComp.Position -= new Point(-1, 0);
+                }
+                // Move up
+                if (backgroundComp.Position.X == 0 && backgroundComp.Position.Y <= 0)
+                {
+                    backgroundComp.Position -= new Point(0, -1);
                 }
             }
-            
+        }
+
+        public void FadeEffect(GameTime gameTime, MenuBackgroundComponent backgroundComp)
+        {
+            //Decrement the delay by the number of seconds that have elapsed since
+            //the last time that the Update method was called
+            backgroundComp.mFadeDelay -= gameTime.ElapsedGameTime.TotalSeconds;
+
+            //If the Fade delays has dropped below zero, then it is time to 
+            //fade in/fade out the image a little bit more.
+            if (backgroundComp.mFadeDelay <= 0)
+            {
+                //Reset the Fade delay
+                backgroundComp.mFadeDelay = .1;
+
+                //Increment/Decrement the fade value for the image
+                backgroundComp.mAlphaValue += backgroundComp.mFadeIncrement;
+
+                //If the AlphaValue is equal or above the max Alpha value or
+                //has dropped below or equal to the min Alpha value, then 
+                //reverse the fade
+                if (backgroundComp.mAlphaValue <= 210 || backgroundComp.mAlphaValue >= 255)
+                {
+                    backgroundComp.mFadeIncrement *= -1;
+                }
+            }
         }
 
         private void ClearMenu()

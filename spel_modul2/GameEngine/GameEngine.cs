@@ -41,8 +41,8 @@ namespace GameEngine
             sb = new SpriteBatch(gd);
             renderHelper = new RenderHelper(gd, sb);
             stateManager.State = GameState.Menu;
-            graphics.PreferredBackBufferHeight = 1080;
-            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 800;
             graphics.ApplyChanges();
 
             sm.AddSystems(new object[] {
@@ -80,7 +80,7 @@ namespace GameEngine
         {
 
             sb.Begin(SpriteSortMode.FrontToBack);
-            gd.Clear(Color.Green);
+            gd.Clear(Color.White);
 
             //Normal gameplay state
             if (stateManager.State == GameState.Game)
