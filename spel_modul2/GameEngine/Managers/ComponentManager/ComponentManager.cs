@@ -7,7 +7,6 @@ namespace GameEngine.Managers
     public partial class ComponentManager
     {
         private Dictionary<int, Dictionary<Type, IComponent>> entityComponents;
-        private List<int> entities;
         private Dictionary<Type, Dictionary<int, IComponent>> componentGroups;
         private static ComponentManager componentManagerInstance;
         private List<int> removedEntities;
@@ -23,7 +22,6 @@ namespace GameEngine.Managers
             entityComponents = new Dictionary<int, Dictionary<Type, IComponent>>();
             componentGroups = new Dictionary<Type, Dictionary<int, IComponent>>();
             removedEntities = new List<int>();
-            entities = new List<int>();
             removedComponents = new List<Tuple<int, Type>>();
         }
 
@@ -40,11 +38,6 @@ namespace GameEngine.Managers
 
         public delegate void OnEntityRemovedEvent(int entity);
         public event OnEntityRemovedEvent OnEntityRemoved;
-
-        public List<int> GetEntities()
-        {
-            return entities;
-        }
 
         public bool HasEntity(int entity)
         {
@@ -74,13 +67,11 @@ namespace GameEngine.Managers
         {
             int entity = EntityManager.GetEntityId();
             AddComponentsToEntity(entity, components);
-            entities.Add(entity);
         }
 
         public void RemoveEntity(int entity)
         {
             removedEntities.Add(entity);
-            entities.Remove(entity);
         }
 
         internal void Update()
