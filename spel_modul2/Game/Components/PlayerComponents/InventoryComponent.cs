@@ -18,6 +18,7 @@ namespace Game.Components
     {
         public int[] Items { get; set; }
         public List<int> ItemsToAdd = new List<int>();
+        public List<int> ItemsToRemove = new List<int>();
         public Point ColumnsRows { get; set; }
         public Point SlotSize { get; set; }
         public Point PositionOnScreen { get; set; }
@@ -32,9 +33,11 @@ namespace Game.Components
         public int[] NotPickedSkills = new int[12];
         public SpriteFont Font { get; set; }
         public LocationInInventory LocationInInventory;
+        public int AmountOfItems { get; set; }
 
         public InventoryComponent(int columns, int rows, Point position)
         {
+            AmountOfItems = 0;
             HeldItem = 0;
             Items = new int[columns * rows];
             PositionOnScreen = position;

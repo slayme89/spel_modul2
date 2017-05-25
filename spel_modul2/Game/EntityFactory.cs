@@ -53,14 +53,17 @@ namespace Game
             if (cm.TryGetEntityComponents(entity, out h, out i, out a))
             {
                 h.Current = MathHelper.Clamp(h.Current + 40, 0, h.Max);
-                cm.RemoveEntity(i.Items[position]);
-                i.Items[position] = 0;
                 
                 for(int j = 0; j < a.Slots.Length; j++)
                 {
-                    if (a.Slots[j]?.Use == AddHealth)
+                    if (a.Slots[j] == cm.GetComponentForEntity<ItemComponent>(i.Items[position]))
                         a.Slots[j] = null;
                 }
+
+                //remove from inventory
+                i.ItemsToRemove.Add(i.Items[position]);
+                //cm.RemoveEntity(i.Items[position]);
+                //i.Items[position] = 0;
             }
         }
 

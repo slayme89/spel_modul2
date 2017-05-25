@@ -49,16 +49,21 @@ namespace Game.Systems
                             }
                             cm.GetComponentForEntity<TextComponent>(closestInteractable).IsActive = true;
                         }
-
                         //Loot(Give item to looter)
-                        else if (interComp.Type == InteractType.Loot && cm.HasEntityComponent<ItemComponent>(closestInteractable) && !cm.HasEntityComponent<HealthComponent>(closestInteractable))
+                        else if (interComp.Type == InteractType.Loot 
+                            && cm.HasEntityComponent<InventoryComponent>(player.Entity) 
+                            && cm.HasEntityComponent<ItemComponent>(closestInteractable) 
+                            && !cm.HasEntityComponent<HealthComponent>(closestInteractable))
                         {
+                            InventoryComponent invenComp = cm.GetComponentForEntity<InventoryComponent>(player.Entity);
+                            if (invenComp.AmountOfItems >= invenComp.Items.Length)
+                                break;
                             //Remove components
                             cm.RemoveComponentFromEntity<InteractComponent>(closestInteractable);
                             cm.RemoveComponentFromEntity<CollisionComponent>(closestInteractable);
                             cm.RemoveComponentFromEntity<PositionComponent>(closestInteractable);
                             //Give the item to the player
-                            cm.GetComponentForEntity<InventoryComponent>(player.Entity).ItemsToAdd.Add(closestInteractable);
+                            invenComp.ItemsToAdd.Add(closestInteractable);
                         }
                     }
                 }

@@ -20,13 +20,7 @@ namespace Game.Systems
                 if (cm.HasEntityComponent<InventoryComponent>(entity.Key))
                 {
                     InventoryComponent invenComp = cm.GetComponentForEntity<InventoryComponent>(entity.Key);
-                    
-                    //Test to add item press 1 on the keyboard or rt + a on gamepad
-                    //if (playerComp.ActionBar1.IsButtonDown())
-                    //{
-                    //    foreach (var item in cm.GetComponentsOfType<ItemComponent>())
-                    //        invenComp.ItemsToAdd.Add(item.Key);
-                    //}
+
                     if (invenComp.ItemsToAdd.Count > 0)
                     {
                         foreach (int item in invenComp.ItemsToAdd)
@@ -34,6 +28,16 @@ namespace Game.Systems
                             AddItemToInventory(entity.Key, item);
                         }
                         invenComp.ItemsToAdd.Clear();
+                    }
+                    if(invenComp.ItemsToRemove.Count > 0)
+                    {
+                        foreach (int item in invenComp.ItemsToRemove)
+                        {
+                            ItemComponent itemComp = cm.GetComponentForEntity<ItemComponent>(item);
+                            invenComp.Items[itemComp.InventoryPosition] = 0;
+                            invenComp.AmountOfItems--;
+                        }
+                        invenComp.ItemsToRemove.Clear();
                     }
                     if (playerComp.Inventory.IsButtonDown())
                     {
@@ -147,10 +151,12 @@ namespace Game.Systems
                                                 equipToSwap = invenComp.WeaponBodyHead[equipPos];
                                                 cm.GetComponentForEntity<ItemComponent>(equipToSwap).InventoryPosition = heldItemComp.InventoryPosition;
                                                 UnEquipItemVisually(equipToSwap, cm);
+                                                invenComp.AmountOfItems++;
                                             }
                                             invenComp.WeaponBodyHead[equipPos] = invenComp.HeldItem;
                                             invenComp.Items[heldItemComp.InventoryPosition] = equipToSwap;
                                             heldItemComp.InventoryPosition = -equipPos;
+                                            invenComp.AmountOfItems--;
                                         }
                                     }
                                     else if (invenComp.LocationInInventory == LocationInInventory.Bagspace)
@@ -162,7 +168,6 @@ namespace Game.Systems
                                             itemToSwap = invenComp.Items[selectedArraySlot];
                                             invenComp.Items[heldItemComp.InventoryPosition] = itemToSwap;
                                             cm.GetComponentForEntity<ItemComponent>(itemToSwap).InventoryPosition = heldItemComp.InventoryPosition;
-                                            
                                         }
                                         invenComp.Items[selectedArraySlot] = invenComp.HeldItem;
                                         invenComp.Items[heldItemComp.InventoryPosition] = itemToSwap;
@@ -187,12 +192,15 @@ namespace Game.Systems
                                             invenComp.HeldItem = 0;
                                         if (invenComp.WeaponBodyHead[(int)selectedItemComp.Type] == 0)
                                         {
+                                            //Equip the item
                                             invenComp.WeaponBodyHead[(int)selectedItemComp.Type] = invenComp.Items[selectedArraySlot];
                                             selectedItemComp.InventoryPosition = -(int)selectedItemComp.Type - 1;
                                             invenComp.Items[selectedArraySlot] = 0;
+                                            invenComp.AmountOfItems--;
                                         }
                                         else
                                         {
+                                            //The spot is occupied and will be swapped
                                             int itemToMove = invenComp.WeaponBodyHead[(int)selectedItemComp.Type];
                                             invenComp.WeaponBodyHead[(int)selectedItemComp.Type] = invenComp.Items[selectedArraySlot];
                                             invenComp.Items[selectedArraySlot] = itemToMove;
@@ -463,6 +471,7 @@ namespace Game.Systems
                 {
                     invenComp.Items[invSpot] = item;
                     itemComp.InventoryPosition = invSpot;
+                    invenComp.AmountOfItems++;
                     return true;
                 }
             }
