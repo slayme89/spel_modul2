@@ -13,8 +13,6 @@ namespace GameEngine.Systems
         private int SelectedButton;
         private float SelectCooldown = 0.0f;
         private float MaxSelectCooldown = 0.1f;
-        Random random = new Random();
-
 
         public void Update(GameTime gameTime)
         {
@@ -151,9 +149,28 @@ namespace GameEngine.Systems
                     //Decrement the delay by the number of seconds that have elapsed since
                     //the last time that the Update method was called
                     backgroundComp.mFadeDelay -= gameTime.ElapsedGameTime.TotalSeconds;
-
-                    // TODO
                     //backgroundComp.mFadeDelayMove -= gameTime.ElapsedGameTime.TotalSeconds;
+
+                    // Move Right
+                    if(backgroundComp.Position.X > -500 && backgroundComp.Position.Y == 0)
+                    {
+                            backgroundComp.Position -= new Point(1, 0);
+                    }
+                    // Move Down
+                    if (backgroundComp.Position.X == -500 && backgroundComp.Position.Y <= 0)
+                    {
+                        backgroundComp.Position -= new Point(0, 1);
+                    }
+                    // Move Left
+                    if(backgroundComp.Position.X <= 0 && backgroundComp.Position.Y == -500)
+                    {
+                        backgroundComp.Position -= new Point(-1, 0);
+                    }
+                    // Move up
+                    if (backgroundComp.Position.X == 0 && backgroundComp.Position.Y <= 0)
+                    {
+                        backgroundComp.Position -= new Point(0, -1);
+                    }
 
                     //if (backgroundComp.mFadeDelayMove <= 0)
                     //{
@@ -174,7 +191,7 @@ namespace GameEngine.Systems
                         //If the AlphaValue is equal or above the max Alpha value or
                         //has dropped below or equal to the min Alpha value, then 
                         //reverse the fade
-                        if (backgroundComp.mAlphaValue <= 210 || backgroundComp.mAlphaValue >= 255)
+                        if (backgroundComp.mAlphaValue <= 200 || backgroundComp.mAlphaValue >= 255)
                         {
                             backgroundComp.mFadeIncrement *= -1;
                         }

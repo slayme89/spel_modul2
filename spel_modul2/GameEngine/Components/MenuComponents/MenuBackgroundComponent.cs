@@ -17,7 +17,7 @@ namespace GameEngine.Components
         public double mFadeDelay { get; set; }
 
         //Moveing stuff
-        public double mFadeDelayMove { get; set; }
+        //public double mFadeDelayMove { get; set; }
 
         public MenuBackgroundComponent(string name, string texturePath, Point position, RenderLayer layer)
         {
@@ -31,7 +31,7 @@ namespace GameEngine.Components
             mAlphaValue = 210;
             mFadeIncrement = 1;
             mFadeDelay = .1;
-            mFadeDelayMove = .03;
+            //mFadeDelayMove = .03;
     }
 
         public object Clone()

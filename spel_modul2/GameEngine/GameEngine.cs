@@ -80,7 +80,7 @@ namespace GameEngine
         {
 
             sb.Begin(SpriteSortMode.FrontToBack);
-            gd.Clear(Color.Orange);
+            gd.Clear(Color.Green);
 
             //Normal gameplay state
             if (stateManager.State == GameState.Game)
