@@ -546,18 +546,33 @@ namespace Game
             //Background
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new MenuBackgroundComponent("MainMenuBackground", "Menu/forest-menu", new Point(0, 0), RenderLayer.Menubackground)
+                new MenuBackgroundComponent(
+                    "MainMenuBackground",
+                    "Menu/forest-menu",
+                    new Point(0, 0),
+                    RenderLayer.Menubackground)
 
             });
             //Play in main menu
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new MenuButtonComponent("MainPlay", MenuManager.Play, "Menu/PlayNormal", "Menu/PlayHighlight", new Vector2(100, 100), RenderLayer.MenuButton)
+                new MenuButtonComponent("MainPlay",
+                MenuManager.Play,
+                "Menu/PlayNoo",
+                "Menu/PlayHii",
+                new Vector2(Viewport.TitleSafeArea.Width / 2, Viewport.TitleSafeArea.Height / 2),
+                RenderLayer.MenuButton)
             });
             //Quit in main menu
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-               new MenuButtonComponent("MainQuit", MenuManager.Quit, "Menu/QuitNormal", "Menu/QuitHighlight", new Vector2(100, 140), RenderLayer.MenuButton),
+               new MenuButtonComponent(
+                   "MainQuit",
+                   MenuManager.Quit,
+                   "Menu/QuitNoo",
+                   "Menu/QuitHii",
+                   new Vector2(Viewport.TitleSafeArea.Width / 2, Viewport.TitleSafeArea.Height / 2 + 100),
+                   RenderLayer.MenuButton),
             });
             //End of menu entities
 

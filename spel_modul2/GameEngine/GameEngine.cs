@@ -41,8 +41,8 @@ namespace GameEngine
             sb = new SpriteBatch(gd);
             renderHelper = new RenderHelper(gd, sb);
             stateManager.State = GameState.Menu;
-            graphics.PreferredBackBufferHeight = 600;
-            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1920;
             graphics.ApplyChanges();
 
             sm.AddSystems(new object[] {
