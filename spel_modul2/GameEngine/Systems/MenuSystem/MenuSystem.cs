@@ -59,7 +59,7 @@ namespace GameEngine.Systems
                         if (men.HasMovingEffect && men.IsActive)
                             MoveEffect(gameTime, men);
                     }
-                    
+
                     // Makes the menu button selection smooth
                     if (SelectCooldown <= 0.0f)
                     {
@@ -87,7 +87,7 @@ namespace GameEngine.Systems
                 }
 
                 //Enter the menu
-                if (contComp.Menu.IsButtonDown() == true && IsActive == false)
+                if (contComp.Menu.IsButtonDown() == true && !IsActive)
                 {
                     SelectedButton = 0;
                     StateManager.GetInstance().State = GameState.Menu;
@@ -98,7 +98,7 @@ namespace GameEngine.Systems
                 }
 
                 //Exit the menu if menu button is pressed
-                else if (contComp.Menu.IsButtonDown() && IsActive == true)
+                else if (contComp.Menu.IsButtonDown() && IsActive)
                 {
                     ClearMenu();
                     IsActive = false;
@@ -128,7 +128,7 @@ namespace GameEngine.Systems
             {
                 MenuButtonComponent buttonComp = (MenuButtonComponent)button.Value;
 
-                if (buttonComp.Type == ButtonType.Main)
+                if (buttonComp.Type == MenuButtonType.Main)
                 {
                     buttonComp.IsActive = true;
                     ActiveButtonsList[i] = button.Key;
@@ -144,7 +144,7 @@ namespace GameEngine.Systems
             {
                 MenuBackgroundComponent backgroundComp = (MenuBackgroundComponent)background.Value;
 
-                if (backgroundComp.Type == MenuType.Main)
+                if (backgroundComp.Type == MenuBackgroundType.Main)
                     backgroundComp.IsActive = true;
             }
             IsInit = true;

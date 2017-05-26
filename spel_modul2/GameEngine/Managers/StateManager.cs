@@ -1,12 +1,7 @@
 ﻿namespace GameEngine.Managers
 {
-    enum GameState
-    {
-        Main,
-        Menu,
-        Game,
-        Exit,
-    }
+    public enum GameState { Menu, Game, Exit };
+
     class StateManager
     {
         static StateManager instance;
