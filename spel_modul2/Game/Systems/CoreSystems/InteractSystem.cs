@@ -56,14 +56,15 @@ namespace Game.Systems
                             && !cm.HasEntityComponent<HealthComponent>(closestInteractable))
                         {
                             InventoryComponent invenComp = cm.GetComponentForEntity<InventoryComponent>(player.Entity);
-                            if (invenComp.AmountOfItems >= invenComp.Items.Length)
-                                break;
+                            if (invenComp.AmountOfItems <= invenComp.Items.Length)
+                            {
                             //Remove components
                             cm.RemoveComponentFromEntity<InteractComponent>(closestInteractable);
                             cm.RemoveComponentFromEntity<CollisionComponent>(closestInteractable);
                             cm.RemoveComponentFromEntity<PositionComponent>(closestInteractable);
                             //Give the item to the player
                             invenComp.ItemsToAdd.Add(closestInteractable);
+                            }
                         }
                     }
                 }
