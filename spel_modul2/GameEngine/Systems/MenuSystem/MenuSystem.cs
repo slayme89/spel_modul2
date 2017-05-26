@@ -2,6 +2,7 @@
 using GameEngine.Managers;
 using Microsoft.Xna.Framework;
 using System;
+using System.Diagnostics;
 
 namespace GameEngine.Systems
 {
@@ -22,7 +23,7 @@ namespace GameEngine.Systems
             foreach (var contEntity in cm.GetComponentsOfType<PlayerControlComponent>())
             {
                 PlayerControlComponent contComp = (PlayerControlComponent)contEntity.Value;
-
+                
                 //Reset buttonList
                 ActiveButtonsList = null;
                 ActiveButtonsList = new int[10];
@@ -47,7 +48,7 @@ namespace GameEngine.Systems
                         InitMenu();
                     if (!IsActive)
                         IsActive = true;
-
+                    
                     // Apply effects on menu background
                     foreach (var menuBackground in cm.GetComponentsOfType<MenuBackgroundComponent>())
                     {
@@ -74,8 +75,8 @@ namespace GameEngine.Systems
                             if (SelectedButton < 0)
                                 SelectedButton = i - 1;
                             cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Ishighlighted = true;
+                            SelectCooldown = MaxSelectCooldown;
                         }
-                        SelectCooldown = MaxSelectCooldown;
                     }
                     else
                         SelectCooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
