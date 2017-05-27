@@ -42,13 +42,15 @@
         // MAIN OPTIONS MENU //
 
         // 1 PLAYER - TODO
-        //public static void 1PlayerOption()
+        //public static void OnePlayerOption()
         //{
+        //    GetInstance().State = MenuState.MainMenu;
         //}
 
         // 2PLAYERS - TODO
-        //public static void 2PlayersOption()
+        //public static void TwoPlayersOption()
         //{
+        //    GetInstance().State = MenuState.MainMenu;
         //}
 
         // OPTIONS BACK

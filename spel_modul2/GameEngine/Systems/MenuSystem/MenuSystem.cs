@@ -83,6 +83,8 @@ namespace GameEngine.Systems
 
                 if(MenuStateManager.GetInstance().State == MenuState.ExitPauseMenu)
                     MenuStateManager.GetInstance().State = MenuState.None;
+
+
             }
         }
 

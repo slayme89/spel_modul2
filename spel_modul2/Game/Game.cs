@@ -248,15 +248,14 @@ namespace Game
                 new ArmComponent(),
             });
 
+                cm.AddEntityWithComponents(factory.CreatePlayerOne(128, 128));
 
-            //cm.AddEntityWithComponents(factory.CreatePlayerTwo(100, 100));
+                //cm.AddEntityWithComponents(factory.CreatePlayerTwo(100, 100));
 
-
-            //Player1
-            cm.AddEntityWithComponents(factory.CreatePlayerOne(128, 128));
 
             //Enemy
             cm.AddEntityWithComponents(factory.CreateEnemy(350, 600));
+            cm.AddEntityWithComponents(factory.CreateEnemy(310, 600));
 
             //Enemy
             //cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(350, 600), 3, 1000, 100, factory.CreateEnemy(0, 0)));

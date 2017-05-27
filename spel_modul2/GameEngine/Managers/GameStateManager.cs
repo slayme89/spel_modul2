@@ -6,7 +6,6 @@
     {
         static GameStateManager instance;
         public GameState State { get; set; }
-     
 
         static GameStateManager()
         {

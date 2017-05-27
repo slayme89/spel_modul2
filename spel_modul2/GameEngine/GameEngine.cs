@@ -21,6 +21,7 @@ namespace GameEngine
         //MenuStateManager
         MenuStateManager menuManager = MenuStateManager.GetInstance();
 
+
         // Frame rate related stuff
         private float frameCount = 0.0f;
         private float elapsedTime = 0.0f;
