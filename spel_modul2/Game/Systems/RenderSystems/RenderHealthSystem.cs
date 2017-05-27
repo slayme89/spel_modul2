@@ -9,13 +9,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Game.Systems
 {
-    public class RenderHealthSystem : ISystem, IRenderSystem
+    public class RenderHealthSystem : IRenderSystem
     {
         private Texture2D healthTexture;
-
-        public void Update(GameTime gameTime)
-        {
-        }
 
         public void Render(RenderHelper rh)
         {
@@ -38,7 +34,6 @@ namespace Game.Systems
                         //check if its player 1 entity
                         if (playerNumber == 1)
                         {
-                            
                             healthRectangle = new Rectangle(
                                 gd.Viewport.TitleSafeArea.Left + 5,
                                 gd.Viewport.TitleSafeArea.Top + 8,
@@ -49,7 +44,6 @@ namespace Game.Systems
                         //check if its player 2 entity
                         else if (playerNumber == 2)
                         {
-                            
                             healthRectangle = new Rectangle(
                                 gd.Viewport.TitleSafeArea.Right - 105 + 100 - (int)scaledHealth,
                                 gd.Viewport.TitleSafeArea.Top + 8,

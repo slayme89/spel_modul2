@@ -9,7 +9,6 @@ namespace Game.Systems
     {
         public void Update(GameTime gameTime)
         {
-
             ComponentManager cm = ComponentManager.GetInstance();
             foreach (var entity in cm.GetComponentsOfType<CooldownComponent>())
             {

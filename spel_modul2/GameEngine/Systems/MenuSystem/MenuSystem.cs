@@ -8,7 +8,7 @@ namespace GameEngine.Systems
 {
     public class MenuSystem : ISystem
     {
-        private List<int> ActiveButtonsList = new List<int>();
+        private List<int> ActiveButtonsList;
         private int SelectedButton;
         private float SelectCooldown = 0.0f;
         private float MaxSelectCooldown = 0.2f;
@@ -16,14 +16,14 @@ namespace GameEngine.Systems
         public void Update(GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-
             ActivateMenuButtons();
             ActivateMenuBackground();
             ClearMenu();
+
             foreach (var controlEntity in cm.GetComponentsOfType<PlayerControlComponent>())
             {
                 PlayerControlComponent controlComp = (PlayerControlComponent)controlEntity.Value;
-
+                
                 // If we are in some kind of menu state
                 if (GameStateManager.GetInstance().State == GameState.Menu)
                 {
@@ -37,7 +37,7 @@ namespace GameEngine.Systems
                         if (men.HasMovingEffect && men.IsActive)
                             MoveEffect(gameTime, men);
                     }
-                    
+
                     SelectCooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                     // Makes the menu button selection smooth
                     if (SelectCooldown <= 0.0f)
@@ -57,37 +57,39 @@ namespace GameEngine.Systems
                             SelectCooldown = MaxSelectCooldown;
                         }
                     }
-                        
+
                     // Check if highlighted button was pressed "use"
                     if (controlComp.Interact.IsButtonDown())
                         cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Use();
 
                     // Exit the Pausemenu if menu button is pressed from GameState "Menu"
-                    if(controlComp.Menu.IsButtonDown() && 
-                        GameStateManager.GetInstance().State == GameState.Menu && 
+                    if (controlComp.Menu.IsButtonDown() &&
+                        GameStateManager.GetInstance().State == GameState.Menu &&
                         MenuStateManager.GetInstance().State == MenuState.PauseMainMenu)
                     {
                         GameStateManager.GetInstance().State = GameState.Game;
-                        MenuStateManager.GetInstance().State = MenuState.None;
+                        MenuStateManager.GetInstance().State = MenuState.ExitPauseMenu;
                     }
                 }
 
                 // Enter the PauseMenu if menu button is pressed from GameState "Game"
-                if (controlComp.Menu.IsButtonDown() && 
-                    GameStateManager.GetInstance().State == GameState.Game &&
+                if (controlComp.Menu.IsButtonDown() &&
+                    GameStateManager.GetInstance().State == GameState.Game && 
                     MenuStateManager.GetInstance().State == MenuState.None)
                 {
                     GameStateManager.GetInstance().State = GameState.Menu;
                     MenuStateManager.GetInstance().State = MenuState.PauseMainMenu;
                 }
+
+                if(MenuStateManager.GetInstance().State == MenuState.ExitPauseMenu)
+                    MenuStateManager.GetInstance().State = MenuState.None;
             }
         }
-
 
         // Initializes Menu buttons
         private void ActivateMenuButtons()
         {
-            if(GameStateManager.GetInstance().State == GameState.Menu)
+            if (GameStateManager.GetInstance().State != GameState.Game)
             {
                 ComponentManager cm = ComponentManager.GetInstance();
                 ActiveButtonsList = new List<int>();
@@ -117,11 +119,8 @@ namespace GameEngine.Systems
                             else
                                 buttonComp.IsActive = false;
                             break;
-                        case MenuState.PauseOptionsMenu:
-                            if (buttonComp.Type == MenuButtonType.PauseOptionsMenuButton)
-                                buttonComp.IsActive = true;
-                            else
-                                buttonComp.IsActive = false;
+                        case MenuState.ExitPauseMenu:
+                            buttonComp.IsActive = false;
                             break;
                         case MenuState.None:
                             buttonComp.IsActive = false;
@@ -142,10 +141,9 @@ namespace GameEngine.Systems
                 {
                     SelectedButton = 0;
                     cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[0]).Ishighlighted = true;
-                }     
+                }
             }
         }
-
 
         private void ActivateMenuBackground()
         {
@@ -178,37 +176,29 @@ namespace GameEngine.Systems
 
                 // Move Right
                 if (backgroundComp.Position.X > -500 && backgroundComp.Position.Y == 0)
-                {
                     backgroundComp.Position -= new Point(1, 0);
-                }
                 // Move Down
                 if (backgroundComp.Position.X == -500 && backgroundComp.Position.Y <= 0)
-                {
                     backgroundComp.Position -= new Point(0, 1);
-                }
                 // Move Left
                 if (backgroundComp.Position.X <= 0 && backgroundComp.Position.Y == -500)
-                {
                     backgroundComp.Position -= new Point(-1, 0);
-                }
                 // Move up
                 if (backgroundComp.Position.X == 0 && backgroundComp.Position.Y <= 0)
-                {
                     backgroundComp.Position -= new Point(0, -1);
-                }
             }
         }
 
         private void FadeEffect(GameTime gameTime, MenuBackgroundComponent backgroundComp)
         {
             backgroundComp.mFadeDelay -= gameTime.ElapsedGameTime.TotalSeconds;
-            
+
             if (backgroundComp.mFadeDelay <= 0)
             {
                 backgroundComp.mFadeDelay = .1;
-                
+
                 backgroundComp.mAlphaValue += backgroundComp.mFadeIncrement;
-                
+
                 if (backgroundComp.mAlphaValue <= 210 || backgroundComp.mAlphaValue >= 255)
                 {
                     backgroundComp.mFadeIncrement *= -1;
@@ -218,12 +208,12 @@ namespace GameEngine.Systems
 
         private void ClearMenu()
         {
-            if(GameStateManager.GetInstance().State == GameState.Game || MenuStateManager.GetInstance().State == MenuState.None)
+            if (GameStateManager.GetInstance().State == GameState.Game)
             {
                 ComponentManager cm = ComponentManager.GetInstance();
 
                 // Buttons
-                foreach(var button in cm.GetComponentsOfType<MenuButtonComponent>())
+                foreach (var button in cm.GetComponentsOfType<MenuButtonComponent>())
                 {
                     MenuButtonComponent buttonComp = (MenuButtonComponent)button.Value;
                     buttonComp.IsActive = false;

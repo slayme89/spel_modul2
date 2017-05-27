@@ -1,6 +1,6 @@
 ﻿namespace GameEngine.Managers
 {
-    public enum MenuState { MainMenu, PauseMainMenu, MainOptionsMenu, PauseOptionsMenu, None};
+    public enum MenuState { MainMenu, PauseMainMenu, MainOptionsMenu, ExitPauseMenu, None};
     public class MenuStateManager
     {
         static MenuStateManager instance;
@@ -36,7 +36,6 @@
         // QUIT
         public static void MainQuit()
         {
-            GetInstance().State = MenuState.None;
             GameStateManager.GetInstance().State = GameState.Exit;
         }
 
@@ -63,7 +62,7 @@
         // RESUME
         public static void PauseResume()
         {
-            GetInstance().State = MenuState.None;
+            GetInstance().State = MenuState.ExitPauseMenu;
             GameStateManager.GetInstance().State = GameState.Game;
         }
 
