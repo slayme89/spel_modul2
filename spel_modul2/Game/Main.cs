@@ -1,4 +1,5 @@
-﻿namespace Game
+﻿
+namespace Game
 {
     class Test
     {

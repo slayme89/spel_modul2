@@ -2,18 +2,18 @@
 {
     public enum GameState { Menu, Game, Exit };
 
-    class StateManager
+    public class GameStateManager
     {
-        static StateManager instance;
+        static GameStateManager instance;
         public GameState State { get; set; }
      
 
-        static StateManager()
+        static GameStateManager()
         {
-            instance = new StateManager();
+            instance = new GameStateManager();
         }
 
-        public static StateManager GetInstance()
+        public static GameStateManager GetInstance()
         {
             return instance;
         }

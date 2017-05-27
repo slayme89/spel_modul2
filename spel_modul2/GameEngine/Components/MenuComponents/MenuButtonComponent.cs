@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace GameEngine.Components
 {
     public delegate void ButtonAction();
-    public enum MenuButtonType { Main };
+    public enum MenuButtonType { PauseMainMenuButton, PauseOptionsMenuButton, MainMenuButton, MainOptionsMenuButton };
 
     public class MenuButtonComponent : IComponent
     {

@@ -83,10 +83,10 @@
     <Compile Include="GameEngine.cs" />
     <Compile Include="Components\IComponent.cs" />
     <Compile Include="Managers\ComponentManager\TryGetEntityComponent.cs" />
-    <Compile Include="Managers\MenuManager.cs" />
+    <Compile Include="Managers\MenuStateManager.cs" />
     <Compile Include="Managers\ResourceManager.cs" />
     <Compile Include="Managers\EntityManager.cs" />
-    <Compile Include="Managers\StateManager.cs" />
+    <Compile Include="Managers\GameStateManager.cs" />
     <Compile Include="RenderHelper.cs" />
     <Compile Include="Systems\CoreSystems\AnimationGroupSystem.cs" />
     <Compile Include="Systems\CoreSystems\CollisionSystem.cs" />

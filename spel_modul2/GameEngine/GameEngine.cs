@@ -17,7 +17,9 @@ namespace GameEngine
         public Viewport Viewport { get { return graphics.GraphicsDevice.Viewport; } }
 
         //GameState Manager
-        StateManager stateManager = StateManager.GetInstance();
+        GameStateManager stateManager = GameStateManager.GetInstance();
+        //MenuStateManager
+        MenuStateManager menuManager = MenuStateManager.GetInstance();
 
         // Frame rate related stuff
         private float frameCount = 0.0f;
@@ -28,10 +30,8 @@ namespace GameEngine
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             ResourceManager.GetInstance().Content = Content;
-
             IsFixedTimeStep = false;
             IsMouseVisible = true;
-
             graphics.SynchronizeWithVerticalRetrace = true;
         }
 
@@ -41,6 +41,7 @@ namespace GameEngine
             sb = new SpriteBatch(gd);
             renderHelper = new RenderHelper(gd, sb);
             stateManager.State = GameState.Menu;
+            menuManager.State = MenuState.MainMenu;
             graphics.PreferredBackBufferHeight = 600;
             graphics.PreferredBackBufferWidth = 800;
             graphics.ApplyChanges();
@@ -78,7 +79,6 @@ namespace GameEngine
 
         protected override void Draw(GameTime gameTime)
         {
-
             sb.Begin(SpriteSortMode.FrontToBack);
             gd.Clear(Color.White);
 
@@ -94,10 +94,8 @@ namespace GameEngine
                 //Only render the menu (RenderMenuSystem)
                 sm.Render<RenderMenuSystem>(renderHelper);
             }
-
             sb.End();
-
-
+            
             frameCount++;
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime >= 1.0f)
@@ -107,7 +105,6 @@ namespace GameEngine
                 frameCount = 0.0f;
             }
             
-
             base.Draw(gameTime);
         }
 

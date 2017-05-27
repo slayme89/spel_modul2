@@ -543,11 +543,12 @@ namespace Game
 
             //////////////// Menu Entities ///////////////////////////////////
 
-            //Background
+            //////////////// Main Menu ////////////////////////////////////
+
+            // MenuBackground
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new MenuBackgroundComponent(
-                    MenuBackgroundType.Main,
                     "Menu/forest-menu",
                     new Point(0, 0),
                     RenderLayer.Menubackground,
@@ -555,30 +556,106 @@ namespace Game
                     true
                     )
             });
-            //Play in main menu
+            //Main Menu - Play game
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new MenuButtonComponent(
-                    MenuButtonType.Main,
-                    MenuManager.Play,
-                    "Menu/PlayNoo",
-                    "Menu/PlayHii",
-                    new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Center.Y),
+                    MenuButtonType.MainMenuButton,
+                    MenuStateManager.MainPlay,
+                    "Menu/PlayN",
+                    "Menu/PlayH",
+                    new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 100),
                     RenderLayer.MenuButton
                     )
             });
-            //Quit in main menu
+            // Main Menu - Options
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                new MenuButtonComponent(
+                    MenuButtonType.MainMenuButton,
+                    MenuStateManager.MainOptions,
+                    "Menu/OptionsN",
+                    "Menu/OptionsH",
+                    new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 200),
+                    RenderLayer.MenuButton
+                    )
+            });
+            // Main Menu - Quit game
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                new MenuButtonComponent(
-                   MenuButtonType.Main,
-                   MenuManager.Quit,
-                   "Menu/QuitNoo",
-                   "Menu/QuitHii",
-                   new Vector2(Viewport.TitleSafeArea.Center.X -100, Viewport.TitleSafeArea.Center.Y + 100),
+                   MenuButtonType.MainMenuButton,
+                   MenuStateManager.MainQuit,
+                   "Menu/QuitN",
+                   "Menu/QuitH",
+                   new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 300),
                    RenderLayer.MenuButton
                    )
             });
+            // Main Menu Options - 1Player
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+               new MenuButtonComponent(
+                   MenuButtonType.MainOptionsMenuButton,
+                   MenuStateManager.OptionsBack,
+                   "Menu/1PlayerN",
+                   "Menu/1PlayerH",
+                   new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 100),
+                   RenderLayer.MenuButton
+                   )
+            });
+            // Main Menu Options - 2Players
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+               new MenuButtonComponent(
+                   MenuButtonType.MainOptionsMenuButton,
+                   MenuStateManager.OptionsBack,
+                   "Menu/2PlayersN",
+                   "Menu/2PlayersH",
+                   new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 200),
+                   RenderLayer.MenuButton
+                   )
+            });
+            // Main Menu Options - Back
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+               new MenuButtonComponent(
+                   MenuButtonType.MainOptionsMenuButton,
+                   MenuStateManager.OptionsBack,
+                   "Menu/BackN",
+                   "Menu/BackH",
+                   new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 300),
+                   RenderLayer.MenuButton
+                   )
+            });
+
+            // Pause Menu //
+
+            // Pause Menu - Resume
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                new MenuButtonComponent(
+                    MenuButtonType.PauseMainMenuButton,
+                    MenuStateManager.PauseResume,
+                    "Menu/ResumeN",
+                    "Menu/ResumeH",
+                    new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 100),
+                    RenderLayer.MenuButton
+                    )
+            });
+            // Pause Menu - Quit
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                new MenuButtonComponent(
+                    MenuButtonType.PauseMainMenuButton,
+                    MenuStateManager.PauseQuit,
+                    "Menu/QuitN",
+                    "Menu/QuitH",
+                    new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 200),
+                    RenderLayer.MenuButton
+                    )
+            });
+            
             //End of menu entities
 
             //sm.GetSystem<ItemIconLoaderSystem>().Load(Content);

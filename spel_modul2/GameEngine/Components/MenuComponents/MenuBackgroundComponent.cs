@@ -3,12 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameEngine.Components
 {
-    public enum MenuBackgroundType { Main};
-
     public class MenuBackgroundComponent : IComponent
     {
         public bool IsActive { get; set; }
-        public MenuBackgroundType Type { get; set; }
         public string TexturePath { get; set; }
         public Texture2D Texture { get; set; }
         public Point Position { get; set; }
@@ -24,10 +21,9 @@ namespace GameEngine.Components
         public bool HasMovingEffect { get; set; }
         public double mFadeDelayMove { get; set; }
 
-        public MenuBackgroundComponent(MenuBackgroundType type, string texturePath, Point position, RenderLayer layer, bool fadingEffect, bool movingEffect)
+        public MenuBackgroundComponent(string texturePath, Point position, RenderLayer layer, bool fadingEffect, bool movingEffect)
         {
             IsActive = false;
-            Type = type;
             TexturePath = texturePath;
             Position = position;
             Layer = Layer;
@@ -46,7 +42,6 @@ namespace GameEngine.Components
         public object Clone()
         {
             MenuBackgroundComponent o = (MenuBackgroundComponent)MemberwiseClone();
-            o.Type = Type;
             o.TexturePath = string.Copy(TexturePath);
             return o;
         }
