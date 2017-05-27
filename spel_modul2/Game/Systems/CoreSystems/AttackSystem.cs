@@ -36,9 +36,6 @@ namespace Game.Systems
                                     HealthComponent healthComponent = cm.GetComponentForEntity<HealthComponent>(entityID);
                                     if (healthComponent != null)
                                     {
-                                        if(cm.HasEntityComponent<PlayerComponent>(entity.Key))
-                                            Debug.WriteLine(attackComponent.Damage);
-
                                         healthComponent.LastAttacker = entity.Key;
                                         healthComponent.IncomingDamage.Add(attackComponent.Damage + attackComponent.BonusDamage);
                                     }
