@@ -187,7 +187,6 @@ namespace Game.Systems
 
                                     if (selectedItemComp != null && (int)selectedItemComp.Type <= 2)
                                     {
-
                                         if (invenComp.HeldItem != 0)
                                             invenComp.HeldItem = 0;
                                         if (invenComp.WeaponBodyHead[(int)selectedItemComp.Type] == 0)
@@ -209,6 +208,11 @@ namespace Game.Systems
                                             selectedItemComp.InventoryPosition = -(int)selectedItemComp.Type - 1;
                                             UnEquipItemVisually(itemToMove, cm);
                                         }
+                                    }
+                                    else if (selectedItemComp.Type == ItemType.Consumable)
+                                    {
+                                        selectedItemComp.Use(entity.Key, selectedItemComp.InventoryPosition);
+                                        invenComp.AmountOfItems--;
                                     }
                                 }
                                 UpdateActualEquippedItems(ref invenComp, ref cm, entity.Key);

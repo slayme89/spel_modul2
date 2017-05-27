@@ -28,12 +28,14 @@ namespace Game.Components
             Current = Max;
             DeathTimer = deathTimer;
             DamageReduction = new int[2];
-            IncomingDamage = new List<int>();
+            
         }
 
         public object Clone()
         {
-            return MemberwiseClone();
+            HealthComponent o = (HealthComponent)MemberwiseClone();
+            o.IncomingDamage = new List<int>();
+            return o;
         }
     }
 }

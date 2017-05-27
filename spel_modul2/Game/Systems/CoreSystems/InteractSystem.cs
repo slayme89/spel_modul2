@@ -52,9 +52,10 @@ namespace Game.Systems
                         //Loot(Give item to looter)
                         else if (interComp.Type == InteractType.Loot 
                             && cm.HasEntityComponent<InventoryComponent>(player.Entity) 
-                            && cm.HasEntityComponent<ItemComponent>(closestInteractable) 
-                            && !cm.HasEntityComponent<HealthComponent>(closestInteractable))
+                            && cm.HasEntityComponent<ItemComponent>(closestInteractable))
                         {
+                            if (cm.HasEntityComponent<HealthComponent>(closestInteractable) && cm.GetComponentForEntity<HealthComponent>(closestInteractable).IsAlive)
+                                break;
                             InventoryComponent invenComp = cm.GetComponentForEntity<InventoryComponent>(player.Entity);
                             if (invenComp.AmountOfItems <= invenComp.Items.Length)
                             {
