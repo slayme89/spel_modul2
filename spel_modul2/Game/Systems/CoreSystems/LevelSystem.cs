@@ -18,29 +18,13 @@ namespace Game.Systems
                 {
                     StatsComponent statComponent = cm.GetComponentForEntity<StatsComponent>(entity.Key);
                     //See if there is any experience to gain
-                    if (levelComponent.ExperienceLoss.Count > 0)
+                    if (levelComponent.LevelLoss)
                     {
-                        foreach (int xpLoss in levelComponent.ExperienceLoss)
-                        {
-                            levelComponent.Experience += xpLoss;
-                            int oldLevel = levelComponent.CurrentLevel;
-                            int newLevel = LevelCalculator(levelComponent.Experience);
-                            levelComponent.CurrentLevel = newLevel;
-
-                            // See if entity lost level
-                            if (oldLevel > newLevel)
-                            {
-                                int num = oldLevel - newLevel;
-                                statComponent.RemoveStats += 3 * num;
-                            }
-                            // see if level is 0 or less, set it to 0
-                            if (levelComponent.CurrentLevel < 0)
-                                levelComponent.CurrentLevel = 0;
-                        }
-                        levelComponent.ExperienceLoss = new List<int>();
+                        levelComponent.Experience = 0;
+                        levelComponent.CurrentLevel--;
+                        levelComponent.LevelLoss = false;
                     }
 
-                    
                     if (levelComponent.ExperienceGains.Count > 0)
                     {
                         foreach (int entityKilled in levelComponent.ExperienceGains)

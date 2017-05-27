@@ -3,6 +3,7 @@ using GameEngine.Components;
 using GameEngine.Managers;
 using GameEngine.Systems;
 using Microsoft.Xna.Framework;
+using System.Diagnostics;
 
 namespace Game.Systems
 {
@@ -21,26 +22,27 @@ namespace Game.Systems
 
                 // Remove the entity when the deathtimer expires
                 if (healthComponent.DeathTimer <= 0.0f && !healthComponent.IsAlive && cm.HasEntityComponent<AIComponent>(entity.Key))
-                    cm.RemoveEntity(entity.Key);
+                {
+                    if (cm.HasEntityComponent<ItemComponent>(entity.Key))
+                        cm.RemoveComponentFromEntity<HealthComponent>(entity.Key);
+                    else
+                        cm.RemoveEntity(entity.Key);
+                }
 
-                if(healthComponent.IncomingDamage.Count > 0)
+                if (healthComponent.IncomingDamage.Count > 0)
                 {
                     foreach (int damage in healthComponent.IncomingDamage)
                     {
-                        if (entity.Key != damage)
+                        int reduction = (int)(1 + damage / ((healthComponent.DamageReduction[0] + healthComponent.DamageReduction[1]) * 0.03f + 1));
+                        ApplyDamageToEntity(entity.Key, reduction);
+                        cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayDamageSound = true;
+                        if (cm.HasEntityComponent<KnockbackComponent>(entity.Key) && cm.HasEntityComponent<MoveComponent>(entity.Key))
                         {
-                            int reduction = (int)(1 + damage / ((healthComponent.DamageReduction[0] + healthComponent.DamageReduction[1]) * 0.03f + 1));
-                            ApplyDamageToEntity(entity.Key, reduction);
-                            cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayDamageSound = true;
-                            if (cm.HasEntityComponent<KnockbackComponent>(entity.Key) && cm.HasEntityComponent<MoveComponent>(entity.Key))
-                            {
-                                ApplyKnockbackToEntity(entity.Key, healthComponent.LastAttacker, damage, gameTime);
-                            }
+                            ApplyKnockbackToEntity(entity.Key, healthComponent.LastAttacker, damage, gameTime);
                         }
                     }
                     healthComponent.IncomingDamage.Clear();
                 }
-
                 // Check if the entity health is below 0 and it is alive
                 if (healthComponent.Current <= 0 && healthComponent.IsAlive)
                 {
@@ -51,28 +53,28 @@ namespace Game.Systems
                     {
                         // Give experience penalty
                         LevelComponent levelComponent = cm.GetComponentForEntity<LevelComponent>(entity.Key);
-                        switch (levelComponent.CurrentLevel)
-                        {
-                            // if player is level 0, he dies
-                            case 1: levelComponent.ExperienceLoss.Add(-45); break;
-                            case 2: levelComponent.ExperienceLoss.Add(-46); break;
-                            case 3: levelComponent.ExperienceLoss.Add(-61); break;
-                            case 4: levelComponent.ExperienceLoss.Add(-91); break;
-                            case 5: levelComponent.ExperienceLoss.Add(-183); break;
-                            case 6: levelComponent.ExperienceLoss.Add(-183); break;
-                            case 7: levelComponent.ExperienceLoss.Add(-185); break;
-                            case 8: levelComponent.ExperienceLoss.Add(-367); break;
-                            case 9: levelComponent.ExperienceLoss.Add(-400); break;
-                            case 10: levelComponent.ExperienceLoss.Add(-400); break;
-                        }
+                        levelComponent.LevelLoss = true;
 
-                        if (levelComponent.CurrentLevel > 0)
+                        if (levelComponent.CurrentLevel - 1 > 0)
                         {
                             healthComponent.IsAlive = true;
                             healthComponent.Current = healthComponent.Max;
                         }
-                        else 
+                        else
+                        {
+                            if (cm.HasEntityComponent<InventoryComponent>(entity.Key))
+                            {
+                                InventoryComponent invencomp = cm.GetComponentForEntity<InventoryComponent>(entity.Key);
+                                foreach(int i in invencomp.Items)
+                                    cm.RemoveEntity(i);
+                                foreach(int i in invencomp.WeaponBodyHead)
+                                    cm.RemoveEntity(i);
+                            }
                             cm.RemoveEntity(entity.Key);
+                        }
+                            
+
+                        
 
                         // TODO
                         // Move player to graveyard location
@@ -88,7 +90,7 @@ namespace Game.Systems
                     {
                         // Give the last attacker experience points
                         cm.GetComponentForEntity<LevelComponent>(healthComponent.LastAttacker).ExperienceGains.Add(entity.Key);
-                        
+
                         //Set animation to deathAnimation
                         cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key).ActiveAnimation = cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key).Animations.Length - 1;
 
@@ -98,7 +100,7 @@ namespace Game.Systems
                         cm.RemoveComponentFromEntity<MoveComponent>(entity.Key);
                         cm.RemoveComponentFromEntity<KnockbackComponent>(entity.Key);
                         cm.RemoveComponentFromEntity<CollisionComponent>(entity.Key);
-                        cm.RemoveComponentFromEntity<HealthComponent>(entity.Key);
+                        //cm.RemoveComponentFromEntity<HealthComponent>(entity.Key);
                         //cm.RemoveComponentFromEntity<AIComponent>(entity.Key);
                     }
                 }

@@ -63,7 +63,10 @@ namespace Game.Systems
                             cm.RemoveComponentFromEntity<InteractComponent>(closestInteractable);
                             cm.RemoveComponentFromEntity<CollisionComponent>(closestInteractable);
                             cm.RemoveComponentFromEntity<PositionComponent>(closestInteractable);
-                            //Give the item to the player
+                                //Give the item to the player
+                                cm.AddEntityWithComponents(new IComponent[]{
+                                    (ItemComponent)cm.GetComponentForEntity<ItemComponent>(closestInteractable).Clone(),
+                                });
                             invenComp.ItemsToAdd.Add(closestInteractable);
                             }
                         }

@@ -17,11 +17,11 @@ namespace Game.Systems
                 if (cm.HasEntityComponent<MoveComponent>(entity.Key))
                 {
                     MoveComponent moveComp = ComponentManager.GetInstance().GetComponentForEntity<MoveComponent>(entity.Key);
-                    if (((AIComponent)entity.Value).TargetEntity != 0)
+                    PositionComponent posComp = cm.GetComponentForEntity<PositionComponent>(entity.Key);
+                    if (((AIComponent)entity.Value).TargetEntity != 0) //Vector2.Distance(((AIComponent)entity.Value).Destination.ToVector2(), posComp.Position) > 10
                     {
-                        if (cm.HasEntityComponent<PositionComponent>(entity.Key) && moveComp.CanMove)
+                        if (moveComp.CanMove)
                         {
-                            PositionComponent posComp = ComponentManager.GetInstance().GetComponentForEntity<PositionComponent>(entity.Key);
                             Vector2 pointToCompare = posComp.Position + new Vector2(moveComp.Direction.X * 5, moveComp.Direction.Y * 5);
                             Vector2 nextMovement = new Vector2(((AIComponent)entity.Value).Destination.X - pointToCompare.X, ((AIComponent)entity.Value).Destination.Y - pointToCompare.Y);
                             float distance = (float)Math.Sqrt(nextMovement.X * nextMovement.X + nextMovement.Y * nextMovement.Y);
@@ -34,7 +34,7 @@ namespace Game.Systems
                                 {
                                     AnimationGroupComponent animGroupComp = cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key);
                                     int anim = GetAnimationRow(moveComp.Direction) + 4;
-                                    if(animGroupComp.ActiveAnimation != anim)
+                                    if (animGroupComp.ActiveAnimation != anim)
                                         animGroupComp.ActiveAnimation = anim;
                                 }
                             }
@@ -43,11 +43,14 @@ namespace Game.Systems
                                 moveComp.Velocity = new Vector2(0, 0);
                                 cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
                             }
-
                         }
                     }
                     else
                     {
+                        AnimationGroupComponent animGroupComp = cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key);
+                        int anim = GetAnimationRow(moveComp.Direction);
+                        if (animGroupComp.ActiveAnimation != anim)
+                            animGroupComp.ActiveAnimation = anim;
                         moveComp.Velocity = new Vector2(0, 0);
                         cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
                     }

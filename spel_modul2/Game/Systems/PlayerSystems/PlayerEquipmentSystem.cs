@@ -25,6 +25,7 @@ namespace Game.Systems
 
                 for(int i = 0; i < 3; i++)
                 {
+
                     UpdateEquipmentPosition(cm, invenComp.WeaponBodyHead[i], playerPos);
                 }
             }

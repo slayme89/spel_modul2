@@ -22,12 +22,14 @@ namespace Game.Systems
             foreach (var entity in cm.GetComponentsOfType<ArmComponent>())
             {
                 ArmComponent armComp = (ArmComponent)entity.Value;
+                if (armComp.playerID == 0)
+                    armComp.playerID = GetId(cm, armComp);
+                if (!cm.HasEntity(armComp.playerID))
+                    cm.RemoveEntity(entity.Key);
                 if (!cm.HasEntityComponent<PositionComponent>(armComp.playerID))
                     return;
                 PositionComponent posComp = cm.GetComponentForEntity<PositionComponent>(entity.Key);
-
-                if (armComp.playerID == 0)
-                    armComp.playerID = GetId(cm, armComp);
+                
                 Vector2 nextPos = new Vector2(0.0f, 0.0f);
                 if (cm.HasEntityComponent<MoveComponent>(armComp.playerID))
                     nextPos = cm.GetComponentForEntity<PositionComponent>(armComp.playerID).Position;

@@ -4,6 +4,7 @@ using GameEngine.Managers;
 using GameEngine.Systems;
 using Microsoft.Xna.Framework;
 using System;
+using System.Diagnostics;
 
 namespace Game.Systems
 {
@@ -35,9 +36,11 @@ namespace Game.Systems
                                     HealthComponent healthComponent = cm.GetComponentForEntity<HealthComponent>(entityID);
                                     if (healthComponent != null)
                                     {
+                                        if(cm.HasEntityComponent<PlayerComponent>(entity.Key))
+                                            Debug.WriteLine(attackComponent.Damage);
+
                                         healthComponent.LastAttacker = entity.Key;
-                                        healthComponent.IncomingDamage.Add(attackComponent.Damage);
-                                        
+                                        healthComponent.IncomingDamage.Add(attackComponent.Damage + attackComponent.BonusDamage);
                                     }
                                 }
                             }

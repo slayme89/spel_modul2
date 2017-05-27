@@ -185,34 +185,37 @@ namespace Game.Systems
                                     int selectedArraySlot = invenComp.SelectedSlot.Y + (invenComp.ColumnsRows.X) * invenComp.SelectedSlot.X;
                                     ItemComponent selectedItemComp = cm.GetComponentForEntity<ItemComponent>(invenComp.Items[selectedArraySlot]);
 
-                                    if (selectedItemComp != null && (int)selectedItemComp.Type <= 2)
+                                    if (selectedItemComp != null)
                                     {
-                                        if (invenComp.HeldItem != 0)
-                                            invenComp.HeldItem = 0;
-                                        if (invenComp.WeaponBodyHead[(int)selectedItemComp.Type] == 0)
+                                        if((int)selectedItemComp.Type <= 2)
                                         {
-                                            //Equip the item
-                                            invenComp.WeaponBodyHead[(int)selectedItemComp.Type] = invenComp.Items[selectedArraySlot];
-                                            selectedItemComp.InventoryPosition = -(int)selectedItemComp.Type - 1;
-                                            invenComp.Items[selectedArraySlot] = 0;
+                                            if (invenComp.HeldItem != 0)
+                                                invenComp.HeldItem = 0;
+                                            if (invenComp.WeaponBodyHead[(int)selectedItemComp.Type] == 0)
+                                            {
+                                                //Equip the item
+                                                invenComp.WeaponBodyHead[(int)selectedItemComp.Type] = invenComp.Items[selectedArraySlot];
+                                                selectedItemComp.InventoryPosition = -(int)selectedItemComp.Type - 1;
+                                                invenComp.Items[selectedArraySlot] = 0;
+                                                invenComp.AmountOfItems--;
+                                            }
+                                            else
+                                            {
+                                                //The spot is occupied and will be swapped
+                                                int itemToMove = invenComp.WeaponBodyHead[(int)selectedItemComp.Type];
+                                                invenComp.WeaponBodyHead[(int)selectedItemComp.Type] = invenComp.Items[selectedArraySlot];
+                                                invenComp.Items[selectedArraySlot] = itemToMove;
+
+                                                cm.GetComponentForEntity<ItemComponent>(itemToMove).InventoryPosition = selectedItemComp.InventoryPosition;
+                                                selectedItemComp.InventoryPosition = -(int)selectedItemComp.Type - 1;
+                                                UnEquipItemVisually(itemToMove, cm);
+                                            }
+                                        }else if (selectedItemComp.Type == ItemType.Consumable)
+                                        {
+                                            selectedItemComp.Use(entity.Key, selectedItemComp.InventoryPosition);
                                             invenComp.AmountOfItems--;
                                         }
-                                        else
-                                        {
-                                            //The spot is occupied and will be swapped
-                                            int itemToMove = invenComp.WeaponBodyHead[(int)selectedItemComp.Type];
-                                            invenComp.WeaponBodyHead[(int)selectedItemComp.Type] = invenComp.Items[selectedArraySlot];
-                                            invenComp.Items[selectedArraySlot] = itemToMove;
 
-                                            cm.GetComponentForEntity<ItemComponent>(itemToMove).InventoryPosition = selectedItemComp.InventoryPosition;
-                                            selectedItemComp.InventoryPosition = -(int)selectedItemComp.Type - 1;
-                                            UnEquipItemVisually(itemToMove, cm);
-                                        }
-                                    }
-                                    else if (selectedItemComp.Type == ItemType.Consumable)
-                                    {
-                                        selectedItemComp.Use(entity.Key, selectedItemComp.InventoryPosition);
-                                        invenComp.AmountOfItems--;
                                     }
                                 }
                                 UpdateActualEquippedItems(ref invenComp, ref cm, entity.Key);
@@ -294,17 +297,22 @@ namespace Game.Systems
         void UpdateActualEquippedItems(ref InventoryComponent invenComp, ref ComponentManager cm, int entity)
         {
             AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity);
-            if (invenComp.WeaponBodyHead[0] != 0)
+            int weaponID = invenComp.WeaponBodyHead[0];
+            if (weaponID != 0)
             {
-                int weaponID = invenComp.WeaponBodyHead[0];
                 if (cm.HasEntityComponent<SwordComponent>(weaponID))
                 {
                     attackComp.Type = WeaponType.Sword;
-                    attackComp.Damage = cm.GetComponentForEntity<SwordComponent>(weaponID).Damage;
+                    attackComp.BonusDamage = cm.GetComponentForEntity<SwordComponent>(weaponID).Damage;
                 }
             }
             else if (attackComp.Type != WeaponType.None)
+            {
                 attackComp.Type = WeaponType.None;
+                if (cm.HasEntityComponent<SwordComponent>(weaponID))
+                    attackComp.BonusDamage = 0;
+            }
+                
             if (invenComp.WeaponBodyHead[1] != 0)
             {
                 int bodyArmorID = invenComp.WeaponBodyHead[1];

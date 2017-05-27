@@ -20,7 +20,7 @@ namespace Game.Systems
             {
                 for (int i = 0; i < c.MaxEnemies; i++)
                 {
-                    if (!cm.HasEntity(c.EnemyEntities[i]))
+                    if (!cm.HasEntityComponent<HealthComponent>(c.EnemyEntities[i]))
                     {
                         if (c.RespawnCountdown[i] <= 0)
                         {

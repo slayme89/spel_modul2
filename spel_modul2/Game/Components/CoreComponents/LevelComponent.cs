@@ -9,15 +9,14 @@ namespace Game.Components
         public int StartLevel { get; set; } = 1;
         public int CurrentLevel { get; set; }
         public int Experience { get; set; } = 0;
+        public bool LevelLoss { get; set; } = false;
         public List<int> ExperienceGains { get; set; }
-        public List<int> ExperienceLoss { get; set; }
 
         public LevelComponent(int startLevel)
         {
             StartLevel = startLevel;
             CurrentLevel = startLevel;
             ExperienceGains = new List<int>();
-            ExperienceLoss = new List<int>();
         }
 
         public LevelComponent(int startLevel, int startExperience)
@@ -26,14 +25,12 @@ namespace Game.Components
             CurrentLevel = startLevel;
             Experience = startExperience;
             ExperienceGains = new List<int>();
-            ExperienceLoss = new List<int>();
         }
 
         public object Clone()
         {
             LevelComponent o = (LevelComponent)MemberwiseClone();
             o.ExperienceGains = new List<int>(ExperienceGains);
-            o.ExperienceLoss = new List<int>(ExperienceLoss);
             return o;
         }
     }

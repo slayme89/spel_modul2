@@ -9,6 +9,7 @@ namespace Game.Components
     public class AttackComponent : IComponent
     {
         public int Damage { get; set; }
+        public int BonusDamage { get; set; }
         public float RateOfFire { get; set; }
         public float AttackCooldown { get; set; }
         public float AttackChargeUp { get; set; }
@@ -20,6 +21,7 @@ namespace Game.Components
 
         public AttackComponent(int damage, float rateOfFire, float attackDelay, WeaponType weaponType)
         {
+            BonusDamage = 0;
             Damage = damage;
             RateOfFire = rateOfFire;
             Type = weaponType;

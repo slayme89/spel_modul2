@@ -100,6 +100,7 @@ namespace Game.Systems
             {
                 StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity);
                 AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity);
+                Debug.WriteLine(attackComp.Damage);
                 HealthComponent healthComp = cm.GetComponentForEntity<HealthComponent>(entity);
                 attackComp.Damage = attackComp.Damage + (2 * statComp.AddStr);
                 healthComp.Max = healthComp.Max + (1 * statComp.AddStr);
@@ -108,7 +109,8 @@ namespace Game.Systems
                     statComp.StatHistory += "str";
 
                 statComp.Strength += statComp.AddStr;
-                statComp.AddStr = 0;  
+                statComp.AddStr = 0;
+                Debug.WriteLine(attackComp.Damage);
             }
         }
         //Add Agillity
