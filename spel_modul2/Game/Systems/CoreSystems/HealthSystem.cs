@@ -23,22 +23,23 @@ namespace Game.Systems
                 if (healthComponent.DeathTimer <= 0.0f && !healthComponent.IsAlive && cm.HasEntityComponent<AIComponent>(entity.Key))
                     cm.RemoveEntity(entity.Key);
 
-                foreach (int damage in healthComponent.IncomingDamage)
+                if(healthComponent.IncomingDamage.Count > 0)
                 {
-                    if (entity.Key != damage)
+                    foreach (int damage in healthComponent.IncomingDamage)
                     {
-                        int reduction = (int)(1 + damage / ((healthComponent.DamageReduction[0] + healthComponent.DamageReduction[1]) * 0.03f + 1));
-                        ApplyDamageToEntity(entity.Key, reduction);
-                        cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayDamageSound = true;
-                        if (cm.HasEntityComponent<KnockbackComponent>(entity.Key) && cm.HasEntityComponent<MoveComponent>(entity.Key))
+                        if (entity.Key != damage)
                         {
-                            ApplyKnockbackToEntity(entity.Key, healthComponent.LastAttacker, damage, gameTime);
+                            int reduction = (int)(1 + damage / ((healthComponent.DamageReduction[0] + healthComponent.DamageReduction[1]) * 0.03f + 1));
+                            ApplyDamageToEntity(entity.Key, reduction);
+                            cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayDamageSound = true;
+                            if (cm.HasEntityComponent<KnockbackComponent>(entity.Key) && cm.HasEntityComponent<MoveComponent>(entity.Key))
+                            {
+                                ApplyKnockbackToEntity(entity.Key, healthComponent.LastAttacker, damage, gameTime);
+                            }
                         }
                     }
-                }
-                if (healthComponent.IncomingDamage.Count > 0)
                     healthComponent.IncomingDamage.Clear();
-
+                }
 
                 // Check if the entity health is below 0 and it is alive
                 if (healthComponent.Current <= 0 && healthComponent.IsAlive)
