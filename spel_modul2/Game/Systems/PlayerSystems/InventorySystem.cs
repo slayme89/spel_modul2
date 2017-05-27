@@ -362,7 +362,7 @@ namespace Game.Systems
                 //inside stat
                 invenComp.LocationInInventory = LocationInInventory.Stats;
             }
-            else if ((nextSlot.Y == 3 && nextSlot.X >= -6)
+            else if ((nextSlot.Y == 3 && nextSlot.X >= -6 && nextSlot.X <= -1)
                || nextSlot.X <= -1
                 && nextSlot.X >= -3
                 && nextSlot.Y <= 4
