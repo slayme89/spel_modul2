@@ -27,23 +27,6 @@ namespace GameEngine.Systems
                 // If we are in some kind of menu state
                 if (GameStateManager.GetInstance().State == GameState.Menu)
                 {
-                    MenuButtonComponent buttonComp = (MenuButtonComponent)button.Value;
-
-                    if (buttonComp.IsActive)
-                    {
-                        ActiveButtonsList[i] = button.Key;
-                        i++;
-                    }
-                }
-
-                // Check if its time to initialize the menu
-                if (StateManager.GetInstance().State == GameState.Menu)
-                {
-                    if (!IsInit)
-                        InitMenu();
-                    if (!IsActive)
-                        IsActive = true;
-
                     // Apply effects on menu background
                     foreach (var menuBackground in cm.GetComponentsOfType<MenuBackgroundComponent>())
                     {
@@ -54,8 +37,7 @@ namespace GameEngine.Systems
                         if (men.HasMovingEffect && men.IsActive)
                             MoveEffect(gameTime, men);
                     }
-
-
+                    
                     SelectCooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                     // Makes the menu button selection smooth
                     if (SelectCooldown <= 0.0f)
