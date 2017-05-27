@@ -34,8 +34,6 @@ namespace Game.Systems
                     int lastExperience = ExperienceCalculator(levelComponent.CurrentLevel - 1);
                     int maxExperience = ExperienceCalculator(levelComponent.CurrentLevel);
 
-                    
-                    Debug.WriteLine(maxExperience - lastExperience + "    " + experience);
                     float scaledExperience = ((float)experience / (maxExperience - lastExperience)) * 100f;
 
                     //check if its player 1 entity
