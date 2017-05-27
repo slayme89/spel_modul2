@@ -32,11 +32,12 @@ namespace Game.Systems
                                 {
                                     if (entityID == entity.Key || cm.HasEntityComponent<AIComponent>(entity.Key) && cm.HasEntityComponent<AIComponent>(entityID))
                                         continue;
-                                    HealthComponent damageComponent = cm.GetComponentForEntity<HealthComponent>(entityID);
-                                    if (damageComponent != null)
+                                    HealthComponent healthComponent = cm.GetComponentForEntity<HealthComponent>(entityID);
+                                    if (healthComponent != null)
                                     {
-                                        damageComponent.IncomingDamage.Add(attackComponent.Damage);
-                                        damageComponent.LastAttacker = entity.Key;
+                                        healthComponent.LastAttacker = entity.Key;
+                                        healthComponent.IncomingDamage.Add(attackComponent.Damage);
+                                        
                                     }
                                 }
                             }

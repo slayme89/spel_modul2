@@ -40,7 +40,6 @@ namespace Game
                 new PlayerMovementSystem(),
                 new SkillSystem(),
                 new PlayerSpriteTurnSystem(),
-                new DamageSystem(),
                 new KnockbackSystem(),
                 new CooldownSystem(),
                 new GUISystem(),
@@ -202,10 +201,6 @@ namespace Game
                     new PositionComponent(228, 228)
             });
 
-
-
-
-
             //Enemy spawnsystem
             //cm.AddEntityWithComponents(new IComponent[]
             //{
@@ -261,10 +256,13 @@ namespace Game
             cm.AddEntityWithComponents(factory.CreatePlayerOne(128, 128));
 
             //Enemy
-            cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(350, 600), 3, 10, 100, factory.CreateEnemy(0, 0)));
+            cm.AddEntityWithComponents(factory.CreateEnemy(350, 600));
 
             //Enemy
-            cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(750, 700), 5, 10, 100, factory.CreateEnemy(0, 0)));
+            //cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(350, 600), 3, 1000, 100, factory.CreateEnemy(0, 0)));
+
+            ////Enemy
+            //cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(750, 700), 5, 100, 100, factory.CreateEnemy(0, 0)));
 
 
             ////////////////////////// GUI /////////////////////////////
@@ -309,7 +307,7 @@ namespace Game
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                new SkillComponent(SkillManager.HeavyAttack, 10, "HeavyAttack"),
+                new SkillComponent(SkillManager.HeavyAttack, 3, "HeavyAttack"),
                 new CooldownComponent(3),
             });
 
@@ -337,7 +335,7 @@ namespace Game
                     new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
                     new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
                 }),
-                new SwordComponent(10),
+                new SwordComponent(1),
             });
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
@@ -392,7 +390,7 @@ namespace Game
                     new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
                     new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
                 }),
-                new SwordComponent(10),
+                new SwordComponent(1),
              });
             //Item sword in world
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
@@ -412,7 +410,7 @@ namespace Game
                     new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
                     new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
                 }),
-                new SwordComponent(10),
+                new SwordComponent(1),
              });
 
             //Item head armor in world

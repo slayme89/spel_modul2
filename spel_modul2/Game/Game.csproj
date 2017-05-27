@@ -69,7 +69,6 @@
     <Compile Include="Systems\AISystems\AIMovementSystem.cs" />
     <Compile Include="Systems\CoreSystems\AttackSystem.cs" />
     <Compile Include="Systems\CoreSystems\CooldownSystem.cs" />
-    <Compile Include="Systems\CoreSystems\DamageSystem.cs" />
     <Compile Include="Systems\CoreSystems\EnemySpawnSystem.cs" />
     <Compile Include="Systems\CoreSystems\EnergySystem.cs" />
     <Compile Include="Systems\CoreSystems\GUISystem.cs" />
