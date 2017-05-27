@@ -20,7 +20,7 @@ namespace Game.Systems
                     //See if there is any experience to gain
                     if (levelComponent.LevelLoss)
                     {
-                        levelComponent.Experience = 0;
+                        levelComponent.TotalExperience = 0;
                         levelComponent.CurrentLevel--;
                         levelComponent.LevelLoss = false;
                     }
@@ -30,10 +30,11 @@ namespace Game.Systems
                         foreach (int entityKilled in levelComponent.ExperienceGains)
                         {
                             int xpGained = CalculateKillExperience(entity.Key, entityKilled);
-                            levelComponent.Experience += xpGained;
+                            levelComponent.TotalExperience += xpGained;
                             int oldLevel = levelComponent.CurrentLevel;
-                            int newLevel = LevelCalculator(levelComponent.Experience);
+                            int newLevel = LevelCalculator(levelComponent.TotalExperience);
                             levelComponent.CurrentLevel = newLevel;
+                            
 
                             // See if entity leveled up
                             if (oldLevel < newLevel)
@@ -41,6 +42,7 @@ namespace Game.Systems
                                 int num = newLevel - oldLevel;
                                 statComponent.SpendableStats += 3 * num;
                             }
+                            levelComponent.Experience = levelComponent.TotalExperience - ExperienceCalculator(newLevel - 1);
                         }
                         levelComponent.ExperienceGains = new List<int>();
                     }
@@ -54,7 +56,7 @@ namespace Game.Systems
             LevelComponent entityToGainExpComponent = cm.GetComponentForEntity<LevelComponent>(entity);
             int entityKilledLvl = cm.GetComponentForEntity<LevelComponent>(entityKilled).CurrentLevel;
             int entitylvl = entityToGainExpComponent.CurrentLevel;
-            int xpGained = 22 * (entityKilledLvl - entitylvl + 1);
+            int xpGained = 22 * (entityKilledLvl);
             if (xpGained <= 0)
                 xpGained = 2;
 
@@ -73,6 +75,21 @@ namespace Game.Systems
             else if (experience <= 1306) return 7;
             else if (experience <= 1673) return 8;
             else if (experience <= 2407) return 9;
+            else return 10;
+        }
+
+        private int ExperienceCalculator(int level)
+        {
+            if (level <= 0) return 0;
+            else if (level <= 1) return 83;
+            else if (level <= 2) return 174;
+            else if (level <= 3) return 266;
+            else if (level <= 4) return 389;
+            else if (level <= 5) return 572;
+            else if (level <= 6) return 939;
+            else if (level <= 7) return 1306;
+            else if (level <= 8) return 1673;
+            else if (level <= 9) return 2407;
             else return 10;
         }
     }

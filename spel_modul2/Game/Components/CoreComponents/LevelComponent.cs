@@ -8,6 +8,7 @@ namespace Game.Components
     {
         public int StartLevel { get; set; } = 1;
         public int CurrentLevel { get; set; }
+        public int TotalExperience { get; set; } = 0;
         public int Experience { get; set; } = 0;
         public bool LevelLoss { get; set; } = false;
         public List<int> ExperienceGains { get; set; }
@@ -23,7 +24,7 @@ namespace Game.Components
         {
             StartLevel = startLevel;
             CurrentLevel = startLevel;
-            Experience = startExperience;
+            TotalExperience = startExperience;
             ExperienceGains = new List<int>();
         }
 
