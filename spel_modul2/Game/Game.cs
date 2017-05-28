@@ -561,7 +561,7 @@ namespace Game
                     MenuStateManager.MainPlay,
                     "Menu/PlayN",
                     "Menu/PlayH",
-                    new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 100),
+                    new Vector2(Viewport.TitleSafeArea.Center.X - 300, Viewport.TitleSafeArea.Top + 100),
                     RenderLayer.MenuButton
                     )
             });
@@ -573,7 +573,7 @@ namespace Game
                     MenuStateManager.MainOptions,
                     "Menu/OptionsN",
                     "Menu/OptionsH",
-                    new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 200),
+                    new Vector2(Viewport.TitleSafeArea.Center.X - 300, Viewport.TitleSafeArea.Top + 250),
                     RenderLayer.MenuButton
                     )
             });
@@ -585,7 +585,7 @@ namespace Game
                    MenuStateManager.MainQuit,
                    "Menu/QuitN",
                    "Menu/QuitH",
-                   new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 300),
+                   new Vector2(Viewport.TitleSafeArea.Center.X - 300, Viewport.TitleSafeArea.Top + 400),
                    RenderLayer.MenuButton
                    )
             });
@@ -597,7 +597,7 @@ namespace Game
                    MenuStateManager.OptionsBack,
                    "Menu/1PlayerN",
                    "Menu/1PlayerH",
-                   new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 100),
+                   new Vector2(Viewport.TitleSafeArea.Center.X - 300, Viewport.TitleSafeArea.Top + 100),
                    RenderLayer.MenuButton
                    )
             });
@@ -609,7 +609,7 @@ namespace Game
                    MenuStateManager.OptionsBack,
                    "Menu/2PlayersN",
                    "Menu/2PlayersH",
-                   new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 200),
+                   new Vector2(Viewport.TitleSafeArea.Center.X - 300, Viewport.TitleSafeArea.Top + 250),
                    RenderLayer.MenuButton
                    )
             });
@@ -621,7 +621,7 @@ namespace Game
                    MenuStateManager.OptionsBack,
                    "Menu/BackN",
                    "Menu/BackH",
-                   new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 300),
+                   new Vector2(Viewport.TitleSafeArea.Center.X - 300, Viewport.TitleSafeArea.Top + 400),
                    RenderLayer.MenuButton
                    )
             });
@@ -636,7 +636,7 @@ namespace Game
                     MenuStateManager.PauseResume,
                     "Menu/ResumeN",
                     "Menu/ResumeH",
-                    new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 100),
+                    new Vector2(Viewport.TitleSafeArea.Center.X - 300, Viewport.TitleSafeArea.Top + 100),
                     RenderLayer.MenuButton
                     )
             });
@@ -648,7 +648,7 @@ namespace Game
                     MenuStateManager.PauseQuit,
                     "Menu/QuitN",
                     "Menu/QuitH",
-                    new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 200),
+                    new Vector2(Viewport.TitleSafeArea.Center.X - 300, Viewport.TitleSafeArea.Top + 250),
                     RenderLayer.MenuButton
                     )
             });
