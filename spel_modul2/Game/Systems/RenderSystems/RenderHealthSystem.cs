@@ -26,7 +26,7 @@ namespace Game.Systems
                     int currHealth = healthComponent.Current;
                     Rectangle healthRectangle = new Rectangle();
                     Viewport viewport = Extensions.GetCurrentViewport(gd);
-
+                   
                     if (cm.HasEntityComponent<PlayerComponent>(entity.Key))
                     {
                         int playerNumber = cm.GetComponentForEntity<PlayerComponent>(entity.Key).Number;
@@ -45,7 +45,7 @@ namespace Game.Systems
                         else if (playerNumber == 2)
                         {
                             healthRectangle = new Rectangle(
-                                gd.Viewport.TitleSafeArea.Right - 105 + 100 - (int)scaledHealth,
+                                gd.Viewport.TitleSafeArea.Right - 205 - (int)scaledHealth,
                                 gd.Viewport.TitleSafeArea.Top + 8,
                                 (int)scaledHealth,
                                 12
@@ -55,9 +55,11 @@ namespace Game.Systems
                     //else its an AI
                     else if (cm.HasEntityComponent<AIComponent>(entity.Key))
                     {
+                        
                         CollisionComponent aiCollisionBox = cm.GetComponentForEntity<CollisionComponent>(entity.Key);
                         PositionComponent p;
                         CollisionComponent c;
+                        float scaledHealth = (float)currHealth / healthComponent.Max;
                         if (cm.TryGetEntityComponents(entity.Key, out p, out c))
                         {
                             /*healthRectangle = new Rectangle(
@@ -66,7 +68,7 @@ namespace Game.Systems
                                 currHealth / 2,
                                 10).WorldToScreen(ref viewport);*/
 
-                            healthRectangle = new Rectangle((int)p.Position.X, (int)p.Position.Y, currHealth / 2, 10).WorldToScreen(ref viewport);
+                            healthRectangle = new Rectangle((int)p.Position.X, (int)p.Position.Y, (int)scaledHealth * c.CollisionBox.Width, 10).WorldToScreen(ref viewport);
                             healthRectangle.Offset(-c.CollisionBox.Width / 2, -c.CollisionBox.Height / 2 - 10);
                         }
                     }
