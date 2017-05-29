@@ -3,7 +3,6 @@ using GameEngine.Components;
 using GameEngine.Managers;
 using GameEngine.Systems;
 using Microsoft.Xna.Framework;
-using System.Diagnostics;
 
 namespace Game.Systems
 {
@@ -73,9 +72,6 @@ namespace Game.Systems
                             cm.RemoveEntity(entity.Key);
                         }
                             
-
-                        
-
                         // TODO
                         // Move player to graveyard location
                         //cm.GetComponentForEntity<PositionComponent>(entity.Key).position = GraveYardPos;

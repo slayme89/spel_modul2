@@ -36,60 +36,73 @@ namespace Game.Systems
         {
             ComponentManager cm = ComponentManager.GetInstance();
             StatsComponent comp = cm.GetComponentForEntity<StatsComponent>(entity);
+            LevelComponent lvlComp = cm.GetComponentForEntity<LevelComponent>(entity);
 
-            if (comp.StatHistory.Length >= 3)
-            {  
-                while(comp.RemoveStats > 0)
-                {
-                    int start = comp.StatHistory.Length - 3;
-                    string stat = comp.StatHistory.Substring(start);
-                    switch (stat)
+            while(comp.RemoveStats > 0)
+            {
+                if (lvlComp.CurrentLevel <= 0)
+                    break;
+               
+                    if (comp.SpendableStats > 0)
                     {
-                        case "str":
-                            if (cm.HasEntityComponent<AttackComponent>(entity) && cm.HasEntityComponent<HealthComponent>(entity))
-                            {
-                                AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity);
-                                HealthComponent healthComp = cm.GetComponentForEntity<HealthComponent>(entity);
-                                attackComp.Damage = attackComp.Damage - 2;
-                                healthComp.Max = healthComp.Max - 1;
-                                comp.Strength -= 1;
-                            }
-                            break;
-
-                        case "agi":
-                            if (cm.HasEntityComponent<MoveComponent>(entity) && cm.HasEntityComponent<AttackComponent>(entity))
-                            {
-                                MoveComponent moveComp = cm.GetComponentForEntity<MoveComponent>(entity);
-                                AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity);
-                                attackComp.RateOfFire = attackComp.RateOfFire - 0.05f;
-                                moveComp.Speed = moveComp.Speed - 0.03f;
-                                comp.Agility -= 1;
-                            }
-                            break;
-
-                        case "sta":
-                            if (cm.HasEntityComponent<HealthComponent>(entity))
-                            {
-                                HealthComponent healthComp = cm.GetComponentForEntity<HealthComponent>(entity);
-                                healthComp.Max = healthComp.Max - 2;
-                                comp.Stamina -= 1;
-                            }
-                            break;
-
-                        case "int":
-                            if (cm.HasEntityComponent<EnergyComponent>(entity))
-                            {
-                                EnergyComponent energyComp = cm.GetComponentForEntity<EnergyComponent>(entity);
-                                energyComp.Max = energyComp.Max - 2;
-                                comp.Intellect -= 1;
-                            }
-                            break;
+                        comp.SpendableStats -= 1;
+                        comp.RemoveStats -= 1;
                     }
+                    else
+                    {
+                        if (comp.StatHistory.Length >= 3)
+                        {
+                            int start = comp.StatHistory.Length - 3;
+                            string stat = comp.StatHistory.Substring(start);
+                            switch (stat)
+                            {
+                                case "str":
+                                    if (cm.HasEntityComponent<AttackComponent>(entity) && cm.HasEntityComponent<HealthComponent>(entity))
+                                    {
+                                        AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity);
+                                        HealthComponent healthComp = cm.GetComponentForEntity<HealthComponent>(entity);
+                                        attackComp.Damage = attackComp.Damage - 2;
+                                        healthComp.Max = healthComp.Max - 1;
+                                        comp.Strength -= 1;
+                                    }
+                                    break;
 
-                    comp.StatHistory = comp.StatHistory.Substring(0, comp.StatHistory.Length - 3);
-                    comp.RemoveStats -= 1;
-                }
+                                case "agi":
+                                    if (cm.HasEntityComponent<MoveComponent>(entity) && cm.HasEntityComponent<AttackComponent>(entity))
+                                    {
+                                        MoveComponent moveComp = cm.GetComponentForEntity<MoveComponent>(entity);
+                                        AttackComponent attackComp = cm.GetComponentForEntity<AttackComponent>(entity);
+                                        attackComp.RateOfFire = attackComp.RateOfFire - 0.05f;
+                                        moveComp.Speed = moveComp.Speed - 0.03f;
+                                        comp.Agility -= 1;
+                                    }
+                                    break;
+
+                                case "sta":
+                                    if (cm.HasEntityComponent<HealthComponent>(entity))
+                                    {
+                                        HealthComponent healthComp = cm.GetComponentForEntity<HealthComponent>(entity);
+                                        healthComp.Max = healthComp.Max - 2;
+                                        comp.Stamina -= 1;
+                                    }
+                                    break;
+
+                                case "int":
+                                    if (cm.HasEntityComponent<EnergyComponent>(entity))
+                                    {
+                                        EnergyComponent energyComp = cm.GetComponentForEntity<EnergyComponent>(entity);
+                                        energyComp.Max = energyComp.Max - 2;
+                                        comp.Intellect -= 1;
+                                    }
+                                    break;
+                            }
+                            comp.StatHistory = comp.StatHistory.Substring(0, comp.StatHistory.Length - 3);
+                            comp.RemoveStats -= 1;
+                        }
+                    }
+                
             }
+            
         }
 
         //Add Strength
@@ -104,7 +117,7 @@ namespace Game.Systems
                 attackComp.Damage = attackComp.Damage + (2 * statComp.AddStr);
                 healthComp.Max = healthComp.Max + (1 * statComp.AddStr);
 
-                for(int i = 0; i<=statComp.AddStr - 1; i++)
+                for (int i = 0; i <= statComp.AddStr - 1; i++)
                     statComp.StatHistory += "str";
 
                 statComp.Strength += statComp.AddStr;

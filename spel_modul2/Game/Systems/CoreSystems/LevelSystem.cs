@@ -23,6 +23,7 @@ namespace Game.Systems
                         levelComponent.TotalExperience = 0;
                         levelComponent.CurrentLevel--;
                         levelComponent.LevelLoss = false;
+                        statComponent.RemoveStats += 3;
                     }
 
                     if (levelComponent.ExperienceGains.Count > 0)
@@ -56,9 +57,9 @@ namespace Game.Systems
             LevelComponent entityToGainExpComponent = cm.GetComponentForEntity<LevelComponent>(entity);
             int entityKilledLvl = cm.GetComponentForEntity<LevelComponent>(entityKilled).CurrentLevel;
             int entitylvl = entityToGainExpComponent.CurrentLevel;
-            int xpGained = 22 * (entityKilledLvl);
+            int xpGained = 4 * (entityKilledLvl);
             if (xpGained <= 0)
-                xpGained = 2;
+                xpGained = 0;
 
             return xpGained;
         }
