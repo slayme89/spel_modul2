@@ -6,14 +6,29 @@ using Game.Systems;
 using System;
 using Game.Managers;
 using Game.Systems.CoreSystems;
+using Microsoft.Xna.Framework.Graphics;
+using GameEngine.Systems;
 
 namespace Game
 {
     class RPGGame : GameEngine.GameEngine
     {
+
+        GraphicsDevice gd;
+        MenuStateManager menuStateManager = MenuStateManager.GetInstance();
+        GameStateManager gameStateManager = GameStateManager.GetInstance();
+        SystemManager sm = SystemManager.GetInstance();
+        SpriteBatch sb;
+        ComponentManager cm = ComponentManager.GetInstance();
+
+        private RenderHelper renderHelper;
+
+
         protected override void Initialize()
         {
-            SystemManager sm = SystemManager.GetInstance();
+            gd = graphics.GraphicsDevice;
+            sb = new SpriteBatch(gd);
+            renderHelper = new RenderHelper(gd, sb);
             sm.AddSystems(new object[] {
                 new RenderHealthSystem(),
                 new RenderInventorySystem(),
@@ -43,6 +58,9 @@ namespace Game
                 new KnockbackSystem(),
                 new CooldownSystem(),
                 new GUISystem(),
+                new MenuSystem(),
+                new RenderMenuSystem(),
+                new InputSystem()
             });
 
             base.Initialize();
@@ -60,7 +78,8 @@ namespace Game
 
             ComponentManager cm = ComponentManager.GetInstance();
             EntityFactory factory = new EntityFactory();
-
+            gameStateManager.State = GameState.Menu;
+            menuStateManager.State = MenuState.MainMenu;
             // Left oob
             for (int i = 0; i <= 5; i++)
             {
@@ -248,7 +267,7 @@ namespace Game
                 new ArmComponent(),
             });
 
-                cm.AddEntityWithComponents(factory.CreatePlayerOne(128, 128));
+                //cm.AddEntityWithComponents(factory.CreatePlayerOne(128, 128));
 
                 //cm.AddEntityWithComponents(factory.CreatePlayerTwo(100, 100));
 
@@ -553,27 +572,27 @@ namespace Game
                     true
                     )
             });
-            //Main Menu - Play game
+            //Main Menu - 1 Player
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new MenuButtonComponent(
                     MenuButtonType.MainMenuButton,
-                    MenuStateManager.MainPlay,
-                    "Menu/PlayN",
-                    "Menu/PlayH",
-                    new Vector2(Viewport.TitleSafeArea.Center.X - 300, Viewport.TitleSafeArea.Top + 100),
+                    MenuStateManager.MainPlayOnePlayer,
+                    "Menu/1PlayerN",
+                    "Menu/1PlayerH",
+                    new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 100),
                     RenderLayer.MenuButton
                     )
             });
-            // Main Menu - Options
+            // Main Menu - 2 Players
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new MenuButtonComponent(
                     MenuButtonType.MainMenuButton,
-                    MenuStateManager.MainOptions,
-                    "Menu/OptionsN",
-                    "Menu/OptionsH",
-                    new Vector2(Viewport.TitleSafeArea.Center.X - 300, Viewport.TitleSafeArea.Top + 250),
+                    MenuStateManager.MainPlayTwoPlayer,
+                    "Menu/2PlayersN",
+                    "Menu/2PlayersH",
+                    new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 200),
                     RenderLayer.MenuButton
                     )
             });
@@ -585,47 +604,10 @@ namespace Game
                    MenuStateManager.MainQuit,
                    "Menu/QuitN",
                    "Menu/QuitH",
-                   new Vector2(Viewport.TitleSafeArea.Center.X - 300, Viewport.TitleSafeArea.Top + 400),
+                   new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 300),
                    RenderLayer.MenuButton
                    )
-            });
-            // Main Menu Options - 1Player
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-               new MenuButtonComponent(
-                   MenuButtonType.MainOptionsMenuButton,
-                   MenuStateManager.OptionsBack,
-                   "Menu/1PlayerN",
-                   "Menu/1PlayerH",
-                   new Vector2(Viewport.TitleSafeArea.Center.X - 300, Viewport.TitleSafeArea.Top + 100),
-                   RenderLayer.MenuButton
-                   )
-            });
-            // Main Menu Options - 2Players
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-               new MenuButtonComponent(
-                   MenuButtonType.MainOptionsMenuButton,
-                   MenuStateManager.OptionsBack,
-                   "Menu/2PlayersN",
-                   "Menu/2PlayersH",
-                   new Vector2(Viewport.TitleSafeArea.Center.X - 300, Viewport.TitleSafeArea.Top + 250),
-                   RenderLayer.MenuButton
-                   )
-            });
-            // Main Menu Options - Back
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-               new MenuButtonComponent(
-                   MenuButtonType.MainOptionsMenuButton,
-                   MenuStateManager.OptionsBack,
-                   "Menu/BackN",
-                   "Menu/BackH",
-                   new Vector2(Viewport.TitleSafeArea.Center.X - 300, Viewport.TitleSafeArea.Top + 400),
-                   RenderLayer.MenuButton
-                   )
-            });
-
+            }); 
             // Pause Menu //
 
             // Pause Menu - Resume
@@ -636,7 +618,7 @@ namespace Game
                     MenuStateManager.PauseResume,
                     "Menu/ResumeN",
                     "Menu/ResumeH",
-                    new Vector2(Viewport.TitleSafeArea.Center.X - 300, Viewport.TitleSafeArea.Top + 100),
+                    new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 100),
                     RenderLayer.MenuButton
                     )
             });
@@ -648,12 +630,16 @@ namespace Game
                     MenuStateManager.PauseQuit,
                     "Menu/QuitN",
                     "Menu/QuitH",
-                    new Vector2(Viewport.TitleSafeArea.Center.X - 300, Viewport.TitleSafeArea.Top + 250),
+                    new Vector2(Viewport.TitleSafeArea.Center.X - 100, Viewport.TitleSafeArea.Top + 200),
                     RenderLayer.MenuButton
                     )
             });
-            
+
             //End of menu entities
+
+
+            //player ONE
+            cm.AddEntityWithComponents(factory.CreatePlayerOne(128, 128));
 
             //sm.GetSystem<ItemIconLoaderSystem>().Load(Content);
             sm.GetSystem<InventoryLoaderSystem>().Load(Content);
@@ -661,8 +647,38 @@ namespace Game
             sm.GetSystem<RenderEnergySystem>().Load(Content);
             sm.GetSystem<RenderHealthSystem>().Load(Content);
             sm.GetSystem<RenderExperienceSystem>().Load(Content);
+            sm.GetSystem<RenderMenuSystem>().Load(Content);
 
             base.LoadContent();
+        }
+
+        protected override void Update(GameTime gameTime)
+        {
+            //Menu state
+            if (GameStateManager.GetInstance().State == GameState.Menu)
+            {
+                SystemManager.GetInstance().Update<InputSystem>(gameTime);
+                SystemManager.GetInstance().Update<MenuSystem>(gameTime);
+            }
+
+            base.Update(gameTime);
+        }
+
+        protected override void Draw(GameTime gameTime)
+        {
+
+            sb.Begin(SpriteSortMode.FrontToBack);
+            
+
+            //Menu state
+            if (GameStateManager.GetInstance().State == GameState.Menu)
+            {
+                gd.Clear(Color.White);
+                //Only render the menu (RenderMenuSystem)
+                sm.Render<RenderMenuSystem>(renderHelper);
+            }
+            sb.End();
+            base.Draw(gameTime);
         }
     }
 }

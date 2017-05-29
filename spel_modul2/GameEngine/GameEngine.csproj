@@ -63,8 +63,6 @@
     <Compile Include="Components\CoreComponents\AnimationGroupComponent.cs" />
     <Compile Include="Components\CoreComponents\CollisionComponent.cs" />
     <Compile Include="Components\VisualComponents\TextComponent.cs" />
-    <Compile Include="Components\MenuComponents\MenuBackgroundComponent.cs" />
-    <Compile Include="Components\MenuComponents\MenuButtonComponent.cs" />
     <Compile Include="Components\Stick.cs" />
     <Compile Include="Components\VisualComponents\GUIComponent.cs" />
     <Compile Include="Components\CoreComponents\MoveComponent.cs" />
@@ -83,7 +81,6 @@
     <Compile Include="GameEngine.cs" />
     <Compile Include="Components\IComponent.cs" />
     <Compile Include="Managers\ComponentManager\TryGetEntityComponent.cs" />
-    <Compile Include="Managers\MenuStateManager.cs" />
     <Compile Include="Managers\ResourceManager.cs" />
     <Compile Include="Managers\EntityManager.cs" />
     <Compile Include="Managers\GameStateManager.cs" />
@@ -92,7 +89,6 @@
     <Compile Include="Systems\CoreSystems\CollisionSystem.cs" />
     <Compile Include="Systems\CoreSystems\TextDurationSystem.cs" />
     <Compile Include="Systems\CoreSystems\WorldSystem.cs" />
-    <Compile Include="Systems\MenuSystem\MenuSystem.cs" />
     <Compile Include="Systems\RenderSystems\IRenderSystem.cs" />
     <Compile Include="Systems\PlayerSystems\InputSystem.cs" />
     <Compile Include="Systems\ISystem.cs" />
@@ -102,7 +98,6 @@
     <Compile Include="Systems\RenderSystems\RenderCollisionBoxSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderGUISystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderTextSystem.cs" />
-    <Compile Include="Systems\RenderSystems\RenderMenuSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderSystem.cs" />
     <Compile Include="Systems\CoreSystems\SoundSystem.cs" />
     <Compile Include="Systems\CoreSystems\MoveSystem.cs" />

@@ -50,6 +50,8 @@
     <Compile Include="Components\CoreComponents\LevelComponent.cs" />
     <Compile Include="Components\CoreComponents\SkillComponent.cs" />
     <Compile Include="Components\CoreComponents\EnemySpawnComponent.cs" />
+    <Compile Include="Components\MenuComponents\MenuBackgroundComponent.cs" />
+    <Compile Include="Components\MenuComponents\MenuButtonComponent.cs" />
     <Compile Include="Components\PlayerComponents\ActionBarComponent.cs" />
     <Compile Include="Components\PlayerComponents\ActionBarSlotComponent.cs" />
     <Compile Include="Components\PlayerComponents\ArmComponent.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="EntityFactory.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameManagers\ItemManager.cs" />
+    <Compile Include="GameManagers\MenuStateManager.cs" />
     <Compile Include="GameManagers\SkillManager.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,6 +82,7 @@
     <Compile Include="Systems\LoaderSystems\InventoryLoaderSystem.cs" />
     <Compile Include="Systems\LoaderSystems\ItemIconLoaderSystem.cs" />
     <Compile Include="Systems\LoaderSystems\SkillLoaderSystem.cs" />
+    <Compile Include="Systems\MenuSystem\MenuSystem.cs" />
     <Compile Include="Systems\PlayerSystems\ActionbarSystem.cs" />
     <Compile Include="Systems\PlayerSystems\InventorySystem.cs" />
     <Compile Include="Systems\PlayerSystems\PlayerArmSystem.cs" />
@@ -88,6 +92,7 @@
     <Compile Include="Systems\PlayerSystems\PlayerSpriteTurnSystem.cs" />
     <Compile Include="Systems\PlayerSystems\SkillSystem.cs" />
     <Compile Include="Systems\PlayerSystems\StatsSystem.cs" />
+    <Compile Include="Systems\RenderSystems\RenderMenuSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderActionbarSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderAttackingCollisionBoxSystem.cs" />
     <Compile Include="Systems\RenderSystems\RenderEnergySystem.cs" />

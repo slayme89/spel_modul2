@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using GameEngine.Components;
 
-namespace GameEngine.Components
+namespace Game.Components
 {
     public class MenuBackgroundComponent : IComponent
     {

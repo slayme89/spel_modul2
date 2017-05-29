@@ -3,8 +3,12 @@ using GameEngine.Managers;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using GameEngine.Systems;
+using Game.Components;
+using Game.Managers;
 
-namespace GameEngine.Systems
+
+namespace Game.Systems
 {
     public class MenuSystem : ISystem
     {
@@ -12,6 +16,7 @@ namespace GameEngine.Systems
         private int SelectedButton;
         private float SelectCooldown = 0.0f;
         private float MaxSelectCooldown = 0.2f;
+        EntityFactory factory = new EntityFactory();
 
         public void Update(GameTime gameTime)
         {
@@ -19,7 +24,7 @@ namespace GameEngine.Systems
             ActivateMenuButtons();
             ActivateMenuBackground();
             ClearMenu();
-
+            
             foreach (var controlEntity in cm.GetComponentsOfType<PlayerControlComponent>())
             {
                 PlayerControlComponent controlComp = (PlayerControlComponent)controlEntity.Value;
@@ -27,6 +32,7 @@ namespace GameEngine.Systems
                 // If we are in some kind of menu state
                 if (GameStateManager.GetInstance().State == GameState.Menu)
                 {
+                    
                     // Apply effects on menu background
                     foreach (var menuBackground in cm.GetComponentsOfType<MenuBackgroundComponent>())
                     {
@@ -61,6 +67,14 @@ namespace GameEngine.Systems
                     // Check if highlighted button was pressed "use"
                     if (controlComp.Interact.IsButtonDown())
                         cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Use();
+
+                    if (GameStateManager.GetInstance().State == GameState.TwoPlayerGame)
+                    {
+                        cm.AddEntityWithComponents(factory.CreatePlayerTwo(256, 128));
+                        MenuStateManager.GetInstance().State = MenuState.None;
+                        GameStateManager.GetInstance().State = GameState.Game;
+                        break;
+                    }
 
                     // Exit the Pausemenu if menu button is pressed from GameState "Menu"
                     if (controlComp.Menu.IsButtonDown() &&
@@ -100,17 +114,11 @@ namespace GameEngine.Systems
                 foreach (var button in cm.GetComponentsOfType<MenuButtonComponent>())
                 {
                     MenuButtonComponent buttonComp = (MenuButtonComponent)button.Value;
-
+                   
                     switch (MenuStateManager.GetInstance().State)
                     {
                         case MenuState.MainMenu:
                             if (buttonComp.Type == MenuButtonType.MainMenuButton)
-                                buttonComp.IsActive = true;
-                            else
-                                buttonComp.IsActive = false;
-                            break;
-                        case MenuState.MainOptionsMenu:
-                            if (buttonComp.Type == MenuButtonType.MainOptionsMenuButton)
                                 buttonComp.IsActive = true;
                             else
                                 buttonComp.IsActive = false;
@@ -128,6 +136,7 @@ namespace GameEngine.Systems
                             buttonComp.IsActive = false;
                             break;
                     }
+                    
                     if (buttonComp.IsActive)
                     {
                         ActiveButtonsList.Add(button.Key);
@@ -146,7 +155,7 @@ namespace GameEngine.Systems
                 }
             }
         }
-
+        
         private void ActivateMenuBackground()
         {
             ComponentManager cm = ComponentManager.GetInstance();

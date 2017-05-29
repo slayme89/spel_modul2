@@ -1,4 +1,6 @@
-﻿namespace GameEngine.Managers
+﻿using GameEngine.Managers;
+
+namespace Game.Managers
 {
     public enum MenuState { MainMenu, PauseMainMenu, MainOptionsMenu, ExitPauseMenu, None};
     public class MenuStateManager
@@ -19,18 +21,16 @@
         
         // MAIN MENU //
 
-        // PLAY
-        public static void MainPlay()
+        // PLAY 1 player
+        public static void MainPlayOnePlayer()
         {
-            GetInstance().State = MenuState.None;
             GameStateManager.GetInstance().State = GameState.Game;
         }
         
-        // OPTIONS
-        public static void MainOptions()
+        // PLAY 2 players
+        public static void MainPlayTwoPlayer()
         {
-            GetInstance().State = MenuState.MainOptionsMenu;
-            GameStateManager.GetInstance().State = GameState.Menu;
+            GameStateManager.GetInstance().State = GameState.TwoPlayerGame;
         }
 
         // QUIT
@@ -38,34 +38,14 @@
         {
             GameStateManager.GetInstance().State = GameState.Exit;
         }
-
-        // MAIN OPTIONS MENU //
-
-        // 1 PLAYER - TODO
-        //public static void OnePlayerOption()
-        //{
-        //    GetInstance().State = MenuState.MainMenu;
-        //}
-
-        // 2PLAYERS - TODO
-        //public static void TwoPlayersOption()
-        //{
-        //    GetInstance().State = MenuState.MainMenu;
-        //}
-
-        // OPTIONS BACK
-        public static void OptionsBack()
-        {
-            GetInstance().State = MenuState.MainMenu;
-        }
-
+ 
         // PAUSE MENU //
 
         // RESUME
         public static void PauseResume()
         {
             GetInstance().State = MenuState.ExitPauseMenu;
-            GameStateManager.GetInstance().State = GameState.Game;
+            GameStateManager.GetInstance().State = GameState.OnePlayerGame;
         }
 
         // PAUSE QUIT - TODO

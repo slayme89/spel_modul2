@@ -1,10 +1,12 @@
-﻿using GameEngine.Components;
+﻿using Game.Components;
+using GameEngine.Components;
 using GameEngine.Managers;
+using GameEngine.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GameEngine.Systems
+namespace Game.Systems
 {
     public class RenderMenuSystem : IRenderSystem
     {

@@ -7,19 +7,16 @@ namespace GameEngine
 {
     public class GameEngine : Game
     {
-        private GraphicsDeviceManager graphics;
+        public GraphicsDeviceManager graphics;
         ComponentManager cm = ComponentManager.GetInstance();
         SystemManager sm = SystemManager.GetInstance();
         GraphicsDevice gd;
         SpriteBatch sb;
         public static GraphicsDevice graphicsDevice;
-        private RenderHelper renderHelper;
+        RenderHelper renderHelper;
         public Viewport Viewport { get { return graphics.GraphicsDevice.Viewport; } }
 
-        //GameState Manager
-        GameStateManager stateManager = GameStateManager.GetInstance();
-        //MenuStateManager
-        MenuStateManager menuManager = MenuStateManager.GetInstance();
+        GameStateManager gameStateManager = GameStateManager.GetInstance();
 
 
         // Frame rate related stuff
@@ -41,8 +38,7 @@ namespace GameEngine
             gd = graphics.GraphicsDevice;
             sb = new SpriteBatch(gd);
             renderHelper = new RenderHelper(gd, sb);
-            stateManager.State = GameState.Menu;
-            menuManager.State = MenuState.MainMenu;
+            gameStateManager.State = GameState.Menu;
             graphics.PreferredBackBufferHeight = 600;
             graphics.PreferredBackBufferWidth = 800;
             graphics.ApplyChanges();
@@ -53,14 +49,12 @@ namespace GameEngine
                 new CollisionSystem(),
                 new RenderSystem(),
                 new RenderCollisionBoxSystem(),
-                new InputSystem(),
+                //new InputSystem(),
                 new WorldSystem(),
                 new SoundSystem(),
                 new RenderGUISystem(),
                 new AnimationGroupSystem(),
                 new RenderAnimationGroupSystem(),
-                new MenuSystem(),
-                new RenderMenuSystem(),
                 new RenderTextSystem(),
                 new TextDurationSystem(),
             });
@@ -72,7 +66,6 @@ namespace GameEngine
         {
             sm.GetSystem<WorldSystem>().Load(Content);
             sm.GetSystem<RenderGUISystem>().Load(Content);
-            sm.GetSystem<RenderMenuSystem>().Load(Content);
             sm.GetSystem<RenderTextSystem>().Load(Content);
             
             base.LoadContent();
@@ -81,20 +74,15 @@ namespace GameEngine
         protected override void Draw(GameTime gameTime)
         {
             sb.Begin(SpriteSortMode.FrontToBack);
-            gd.Clear(Color.White);
+            //gd.Clear(Color.White);
 
             //Normal gameplay state
-            if (stateManager.State == GameState.Game)
+            if (gameStateManager.State == GameState.Game)
             {
+                gd.Clear(Color.White);
                 sm.RenderAllSystems(renderHelper);
-            }
-
-            //Menu state
-            if (stateManager.State == GameState.Menu)
-            {
-                //Only render the menu (RenderMenuSystem)
-                sm.Render<RenderMenuSystem>(renderHelper);
-            }
+            } 
+            
             sb.End();
             
             frameCount++;
@@ -111,21 +99,15 @@ namespace GameEngine
 
         protected override void Update(GameTime gameTime)
         {
+            
             //Normal gameplay state
-            if (stateManager.State == GameState.Game)
+            if (GameStateManager.GetInstance().State == GameState.Game)
             {
                 ComponentManager.GetInstance().Update();
                 SystemManager.GetInstance().UpdateAllSystems(gameTime);
             }
-
-            //Menu state
-            if (stateManager.State == GameState.Menu)
-            {
-                SystemManager.GetInstance().Update<InputSystem>(gameTime);
-                SystemManager.GetInstance().Update<MenuSystem>(gameTime);
-            }
-
-            if (stateManager.State == GameState.Exit)
+            
+            if (gameStateManager.State == GameState.Exit)
                 Exit();
 
             base.Update(gameTime);
