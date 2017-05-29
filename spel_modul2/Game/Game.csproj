@@ -52,6 +52,7 @@
     <Compile Include="Components\CoreComponents\EnemySpawnComponent.cs" />
     <Compile Include="Components\MenuComponents\MenuBackgroundComponent.cs" />
     <Compile Include="Components\MenuComponents\MenuButtonComponent.cs" />
+    <Compile Include="Components\MenuComponents\MenuTitleComponent.cs" />
     <Compile Include="Components\PlayerComponents\ActionBarComponent.cs" />
     <Compile Include="Components\PlayerComponents\ActionBarSlotComponent.cs" />
     <Compile Include="Components\PlayerComponents\ArmComponent.cs" />
