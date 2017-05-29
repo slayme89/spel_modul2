@@ -1,55 +1,66 @@
-﻿using Microsoft.Xna.Framework.Audio;
-using GameEngine.Managers;
+﻿using GameEngine.Managers;
+using Microsoft.Xna.Framework.Audio;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace GameEngine.Components
 {
+    public enum SoundAction
+    {
+        Play,
+        Pause,
+        Stop,
+        None
+    }
+
     public class SoundComponent : IComponent
     {
-        public SoundEffectInstance WalkSound { get; set; }
-        public string WalkFile { get; set; }
-        public bool PlayWalkSound { get; set; }
-        public SoundEffectInstance AttackSound { get; set; }
-        public string AttackFile { get; set; }
-        public bool PlayAttackSound { get; set; }
-        public SoundEffectInstance DamageSound { get; set; }
-        public string DamageFile { get; set; }
-        public bool PlayDamageSound { get; set; }
+        public Dictionary<string, MappedValue> Sounds { get; set; }
 
-        public SoundComponent(string walkfile, string attackFile, string damageFile)
+        public SoundComponent(string[] typeOfSound, string[] filePathName)
         {
             ResourceManager rm = ResourceManager.GetInstance();
+            Sounds = new Dictionary<string, MappedValue>();
 
-            AttackFile = attackFile;
-            WalkFile = walkfile;
-            DamageFile = damageFile;
-            PlayWalkSound = false;
-            PlayAttackSound = false;
-            PlayDamageSound = false;
+            if (typeOfSound.Length != filePathName.Length)
+                throw new Exception("Need to have matching filename to type of sound, check so that both arrays are of the same size");
 
-            WalkSound = rm.GetResource<SoundEffect>(walkfile).CreateInstance();
-            WalkSound.IsLooped = true;
-            AttackSound = rm.GetResource<SoundEffect>(attackFile).CreateInstance();
-            DamageSound = rm.GetResource<SoundEffect>(damageFile).CreateInstance();
-            WalkSound.Volume *= 0.3f;
-            AttackSound.Volume *= 0.3f;
-            DamageSound.Volume *= 0.3f;
+            for (int i = 0; i < filePathName.Length; i++)
+                Sounds.Add(typeOfSound[i], new MappedValue(rm.GetResource<SoundEffect>(filePathName[i]).CreateInstance(), false));
+        }
+
+        public SoundComponent(string[] typeOfSound ,string[] filePathName, bool[] isLooping)
+        {
+            ResourceManager rm = ResourceManager.GetInstance();
+            Sounds = new Dictionary<string, MappedValue>();
+
+            if (typeOfSound.Length != filePathName.Length || isLooping.Length != filePathName.Length)
+                throw new Exception("Need to have matching filename to type of sound and islooping bool, check so that all arrays are of the same size");
+
+            for (int i = 0; i < filePathName.Length; i++)
+                Sounds.Add(typeOfSound[i], new MappedValue(rm.GetResource<SoundEffect>(filePathName[i]).CreateInstance(), isLooping[i]));
         }
 
         public object Clone()
         {
-            ResourceManager rm = ResourceManager.GetInstance();
             SoundComponent o = (SoundComponent)MemberwiseClone();
-            o.WalkSound = rm.GetResource<SoundEffect>(WalkFile).CreateInstance();
-            o.WalkFile = string.Copy(WalkFile);
-            o.AttackSound = rm.GetResource<SoundEffect>(AttackFile).CreateInstance();
-            o.AttackFile = string.Copy(AttackFile);
-            o.DamageSound = rm.GetResource<SoundEffect>(DamageFile).CreateInstance();
-            o.DamageFile = string.Copy(DamageFile);
-            o.WalkSound.Volume *= 0.3f;
-            o.AttackSound.Volume *= 0.3f;
-            o.DamageSound.Volume *= 0.3f;
             return o;
+        }
+    }
+
+    public class MappedValue
+    {
+        public SoundEffectInstance Sound { get; set; }
+        public bool Loop { get; set; } = false;
+        public SoundAction Action { get; set; } = SoundAction.None;
+
+        public MappedValue(SoundEffectInstance sound, bool isLooping)
+        {
+            Sound = sound;
+            Loop = isLooping;
         }
     }
 }

@@ -21,9 +21,7 @@ namespace Game.Systems
                     moveComponent.Velocity = knockbackComponent.KnockbackDir;
                     knockbackComponent.Cooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                     if (cm.HasEntityComponent<SoundComponent>(entity.Key))
-                    {
-                        cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
-                    }
+                        cm.GetComponentForEntity<SoundComponent>(entity.Key).Sounds["Walk"].Action = SoundAction.Pause;
                     if(knockbackComponent.Cooldown <= 0.0f)
                     {
                         knockbackComponent.KnockbackActive = false;

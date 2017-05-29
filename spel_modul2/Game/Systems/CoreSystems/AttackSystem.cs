@@ -23,7 +23,7 @@ namespace Game.Systems
                         if (attackComponent.CanAttack && attackComponent.IsAttacking)
                         {
                             cm.GetComponentForEntity<MoveComponent>(entity.Key).Velocity = new Vector2(0.0f, 0.0f);
-                            cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
+                            cm.GetComponentForEntity<SoundComponent>(entity.Key).Sounds["Walk"].Action = SoundAction.Pause;
                             if (attackComponent.AttackChargeUp <= 0.0f)
                             {
                                 attackComponent.IsAttacking = false;

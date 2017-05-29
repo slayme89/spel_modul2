@@ -71,7 +71,7 @@ namespace Game.Systems
                             moveComp.CanMove = false;
                             attackComponent.AttackCooldown = attackComponent.RateOfFire;
                             attackComponent.IsAttacking = true;
-                            cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayAttackSound = true;
+                            cm.GetComponentForEntity<SoundComponent>(entity.Key).Sounds["Attack"].Action = SoundAction.Play;
                             if (cm.HasEntityComponent<AnimationGroupComponent>(entity.Key))
                             {
                                 AnimationGroupComponent animGroupComp = cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key);

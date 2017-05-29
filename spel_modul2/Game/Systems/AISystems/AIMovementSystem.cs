@@ -29,7 +29,7 @@ namespace Game.Systems
                             if (distance > 2f)
                             {
                                 moveComp.Velocity = new Vector2(nextMovement.X / distance, nextMovement.Y / distance) * moveComp.Speed;
-                                cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = true;
+                                cm.GetComponentForEntity<SoundComponent>(entity.Key).Sounds["Walk"].Action = SoundAction.Play;
                                 if (cm.HasEntityComponent<AnimationGroupComponent>(entity.Key))
                                 {
                                     AnimationGroupComponent animGroupComp = cm.GetComponentForEntity<AnimationGroupComponent>(entity.Key);
@@ -41,7 +41,7 @@ namespace Game.Systems
                             else
                             {
                                 moveComp.Velocity = new Vector2(0, 0);
-                                cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
+                                cm.GetComponentForEntity<SoundComponent>(entity.Key).Sounds["Walk"].Action = SoundAction.Pause;
                             }
                         }
                     }
@@ -52,7 +52,7 @@ namespace Game.Systems
                         if (animGroupComp.ActiveAnimation != anim)
                             animGroupComp.ActiveAnimation = anim;
                         moveComp.Velocity = new Vector2(0, 0);
-                        cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
+                        cm.GetComponentForEntity<SoundComponent>(entity.Key).Sounds["Walk"].Action = SoundAction.Pause;
                     }
                 }
             }

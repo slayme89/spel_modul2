@@ -25,14 +25,14 @@ namespace Game.Systems
                         } 
                         if (cm.HasEntityComponent<SoundComponent>(entity.Key))
                         {
-                            cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = true;
+                            cm.GetComponentForEntity<SoundComponent>(entity.Key).Sounds["Walk"].Action = SoundAction.Play;
                         }
                     }
                     else
-                        cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
+                        cm.GetComponentForEntity<SoundComponent>(entity.Key).Sounds["Walk"].Action = SoundAction.Pause;
                 }
                 else
-                    cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayWalkSound = false;
+                    cm.GetComponentForEntity<SoundComponent>(entity.Key).Sounds["Walk"].Action = SoundAction.Pause;
             }
         }
     }

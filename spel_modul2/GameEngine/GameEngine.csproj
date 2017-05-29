@@ -62,6 +62,7 @@
     <Compile Include="Components\Button.cs" />
     <Compile Include="Components\CoreComponents\AnimationGroupComponent.cs" />
     <Compile Include="Components\CoreComponents\CollisionComponent.cs" />
+    <Compile Include="Components\SoundComponents\SoundComponent.cs" />
     <Compile Include="Components\VisualComponents\TextComponent.cs" />
     <Compile Include="Components\Stick.cs" />
     <Compile Include="Components\VisualComponents\GUIComponent.cs" />
@@ -69,8 +70,6 @@
     <Compile Include="Components\PlayerComponents\PlayerComponent.cs" />
     <Compile Include="Components\PlayerComponents\PlayerControlComponent.cs" />
     <Compile Include="Components\CoreComponents\PositionComponent.cs" />
-    <Compile Include="Components\SoundComponents\SoundComponent.cs" />
-    <Compile Include="Components\SoundComponents\SoundThemeComponent.cs" />
     <Compile Include="Components\VisualComponents\TextureComponent.cs" />
     <Compile Include="Components\VisualComponents\WorldComponent.cs" />
     <Compile Include="EntityTuple.cs" />

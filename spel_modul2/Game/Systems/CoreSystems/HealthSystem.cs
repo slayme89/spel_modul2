@@ -34,7 +34,7 @@ namespace Game.Systems
                     {
                         int reduction = (int)(1 + damage / ((healthComponent.DamageReduction[0] + healthComponent.DamageReduction[1]) * 0.03f + 1));
                         ApplyDamageToEntity(entity.Key, reduction);
-                        cm.GetComponentForEntity<SoundComponent>(entity.Key).PlayDamageSound = true;
+                        cm.GetComponentForEntity<SoundComponent>(entity.Key).Sounds["Hurt"].Action = SoundAction.Play;
                         if (cm.HasEntityComponent<KnockbackComponent>(entity.Key) && cm.HasEntityComponent<MoveComponent>(entity.Key))
                         {
                             ApplyKnockbackToEntity(entity.Key, healthComponent.LastAttacker, damage, gameTime);

@@ -61,6 +61,7 @@ namespace Game
                 new MenuSystem(),
                 new RenderMenuSystem(),
                 new InputSystem()
+                new MusicSystem(),
             });
 
             base.Initialize();
@@ -332,7 +333,7 @@ namespace Game
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new WorldComponent(),
-                new SoundThemeComponent("Sound/theme"),
+                new SoundComponent(new string[]{"Forest_Theme"}, new string[]{ "Sound/theme" }, new bool[] { true }),
             });
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]

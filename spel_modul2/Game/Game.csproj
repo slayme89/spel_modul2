@@ -79,6 +79,7 @@
     <Compile Include="Systems\CoreSystems\InteractSystem.cs" />
     <Compile Include="Systems\CoreSystems\KnockbackSystem.cs" />
     <Compile Include="Systems\CoreSystems\LevelSystem.cs" />
+    <Compile Include="Systems\CoreSystems\MusicSystem.cs" />
     <Compile Include="Systems\LoaderSystems\InventoryLoaderSystem.cs" />
     <Compile Include="Systems\LoaderSystems\ItemIconLoaderSystem.cs" />
     <Compile Include="Systems\LoaderSystems\SkillLoaderSystem.cs" />
