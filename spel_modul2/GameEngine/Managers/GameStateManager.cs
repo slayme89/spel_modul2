@@ -1,6 +1,6 @@
 ﻿namespace GameEngine.Managers
 {
-    public enum GameState { Menu, Game, OnePlayerGame, TwoPlayerGame, Restart, Exit };
+    public enum GameState { Menu, Game, TwoPlayerGame, Restart, Exit };
 
     public class GameStateManager
     {

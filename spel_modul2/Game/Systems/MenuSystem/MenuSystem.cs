@@ -68,6 +68,7 @@ namespace Game.Systems
                     if (controlComp.Interact.IsButtonDown())
                         cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Use();
 
+                    // 2 Players
                     if (GameStateManager.GetInstance().State == GameState.TwoPlayerGame)
                     {
                         cm.AddEntityWithComponents(factory.CreatePlayerTwo(256, 128));
@@ -76,29 +77,22 @@ namespace Game.Systems
                         break;
                     }
 
-                    // Exit the Pausemenu if menu button is pressed from GameState "Menu"
-                    if (controlComp.Menu.IsButtonDown() &&
-                        GameStateManager.GetInstance().State == GameState.Menu &&
-                        MenuStateManager.GetInstance().State == MenuState.PauseMainMenu)
-                    {
-                        GameStateManager.GetInstance().State = GameState.Game;
-                        MenuStateManager.GetInstance().State = MenuState.ExitPauseMenu;
-                    }
+                    //// Exit the Pausemenu if menu button is pressed from GameState "Menu"
+                    //if (controlComp.Menu.IsButtonDown() && MenuStateManager.GetInstance().State == MenuState.PauseMainMenu)
+                    //{
+                    //    GameStateManager.GetInstance().State = GameState.Game;
+                    //    MenuStateManager.GetInstance().State = MenuState.None;
+                    //    //break;
+                    //}
                 }
 
                 // Enter the PauseMenu if menu button is pressed from GameState "Game"
-                if (controlComp.Menu.IsButtonDown() &&
-                    GameStateManager.GetInstance().State == GameState.Game && 
-                    MenuStateManager.GetInstance().State == MenuState.None)
+                if (controlComp.Menu.IsButtonDown() && GameStateManager.GetInstance().State == GameState.Game)
                 {
                     GameStateManager.GetInstance().State = GameState.Menu;
                     MenuStateManager.GetInstance().State = MenuState.PauseMainMenu;
+                    break;
                 }
-
-                if(MenuStateManager.GetInstance().State == MenuState.ExitPauseMenu)
-                    MenuStateManager.GetInstance().State = MenuState.None;
-
-
             }
         }
 
@@ -128,9 +122,6 @@ namespace Game.Systems
                                 buttonComp.IsActive = true;
                             else
                                 buttonComp.IsActive = false;
-                            break;
-                        case MenuState.ExitPauseMenu:
-                            buttonComp.IsActive = false;
                             break;
                         case MenuState.None:
                             buttonComp.IsActive = false;

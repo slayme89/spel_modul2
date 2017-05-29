@@ -45,7 +45,7 @@ namespace Game.Systems
                         else if (playerNumber == 2)
                         {
                             healthRectangle = new Rectangle(
-                                gd.Viewport.TitleSafeArea.Right - 205 - (int)scaledHealth,
+                                gd.Viewport.TitleSafeArea.Right - 5 - (int)scaledHealth,
                                 gd.Viewport.TitleSafeArea.Top + 8,
                                 (int)scaledHealth,
                                 12
@@ -62,12 +62,6 @@ namespace Game.Systems
                         float scaledHealth = (float)currHealth / healthComponent.Max;
                         if (cm.TryGetEntityComponents(entity.Key, out p, out c))
                         {
-                            /*healthRectangle = new Rectangle(
-                                aiCollisionBox.collisionBox.Location.X,
-                                aiCollisionBox.collisionBox.Location.Y - (aiCollisionBox.collisionBox.Height / 2),
-                                currHealth / 2,
-                                10).WorldToScreen(ref viewport);*/
-
                             healthRectangle = new Rectangle((int)p.Position.X, (int)p.Position.Y, (int)scaledHealth * c.CollisionBox.Width, 10).WorldToScreen(ref viewport);
                             healthRectangle.Offset(-c.CollisionBox.Width / 2, -c.CollisionBox.Height / 2 - 10);
                         }

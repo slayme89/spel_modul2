@@ -5,16 +5,12 @@ using GameEngine.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System.Diagnostics;
 
 namespace Game.Systems
 {
-    public class RenderExperienceSystem : ISystem, IRenderSystem
+    public class RenderExperienceSystem : IRenderSystem
     {
         private Texture2D ExperienceTexture;
-        public void Update(GameTime gameTime)
-        {
-        }
 
         public void Render(RenderHelper rh)
         {
@@ -46,11 +42,11 @@ namespace Game.Systems
                             5
                             );
                     }
-                    //check if its player 2 entity - FIXXXXAAA
+                    //check if its player 2 entity
                     else if (playerNumber == 2)
                     {
                         experienceRectangle = new Rectangle(
-                            gd.Viewport.TitleSafeArea.Right - 105 + 100 - (int)scaledExperience,
+                            gd.Viewport.TitleSafeArea.Right - 5 - (int)scaledExperience,
                             gd.Viewport.TitleSafeArea.Top + 48,
                             (int)scaledExperience,
                             5

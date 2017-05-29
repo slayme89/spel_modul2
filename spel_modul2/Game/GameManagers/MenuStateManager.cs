@@ -2,7 +2,7 @@
 
 namespace Game.Managers
 {
-    public enum MenuState { MainMenu, PauseMainMenu, MainOptionsMenu, ExitPauseMenu, None};
+    public enum MenuState { MainMenu, PauseMainMenu, MainOptionsMenu, None};
     public class MenuStateManager
     {
         static MenuStateManager instance;
@@ -44,14 +44,14 @@ namespace Game.Managers
         // RESUME
         public static void PauseResume()
         {
-            GetInstance().State = MenuState.ExitPauseMenu;
-            GameStateManager.GetInstance().State = GameState.OnePlayerGame;
+            GetInstance().State = MenuState.None;
+            GameStateManager.GetInstance().State = GameState.Game;
         }
 
         // PAUSE QUIT - TODO
         public static void PauseQuit()
         {
-            GetInstance().State = MenuState.MainMenu;
+            GameStateManager.GetInstance().State = GameState.Exit;
         }
 
     }
