@@ -427,7 +427,7 @@
   <Tile x="14"  y="10" texture="tile1"/>
   <Tile x="15"  y="10" texture="tile1"/>
   <Tile x="16"  y="10" texture="watergrass-left"/>
-  <Tile x="17"  y="10" texture="water"/>
+  <Tile x="17"  y="10" texture="water-stone"/>
   <Tile x="18"  y="10" texture="water"/>
   <Tile x="19"  y="10" texture="watergrass-right"/>
   <Tile x="20"  y="10" texture="tile1"/>
@@ -509,7 +509,7 @@
   <Tile x="14"  y="12" texture="tile1"/>
   <Tile x="15"  y="12" texture="tile1"/>
   <Tile x="16"  y="12" texture="watergrass-left"/>
-  <Tile x="17"  y="12" texture="water"/>
+  <Tile x="17"  y="12" texture="water-stone1"/>
   <Tile x="18"  y="12" texture="water"/>
   <Tile x="19"  y="12" texture="watergrass-right"/>
   <Tile x="20"  y="12" texture="tile1"/>
