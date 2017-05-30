@@ -69,7 +69,8 @@ namespace Game
             }
         }
 
-        public void AddTree(int x, int y)
+        // One tree
+        public void AddOneTree(int x, int y)
         {
             ComponentManager cm = ComponentManager.GetInstance();
 
@@ -77,6 +78,31 @@ namespace Game
             cm.AddEntityWithComponents(new TextureComponent("tree1_layer2", RenderLayer.Background3), new PositionComponent(x, y));
             cm.AddEntityWithComponents(new TextureComponent("tree1_layer3", RenderLayer.Layer5), new PositionComponent(x, y));
             cm.AddEntityWithComponents(new CollisionComponent(23, 19), new PositionComponent(x + 1, y + 22));
+        }
+        // Five trees
+        public void AddTreeChunk(int x, int y)
+        {
+            ComponentManager cm = ComponentManager.GetInstance();
+            //top trees
+            cm.AddEntityWithComponents(new TextureComponent("GameWorld/trees5top", RenderLayer.Layer5), new PositionComponent(x, y));
+            //bot tree right
+            cm.AddEntityWithComponents(new TextureComponent("tree1_layer1", RenderLayer.Background2), new PositionComponent(x + 36, y + 45));
+            cm.AddEntityWithComponents(new TextureComponent("tree1_layer2", RenderLayer.Background3), new PositionComponent(x + 36, y + 45));
+            cm.AddEntityWithComponents(new TextureComponent("tree1_layer3", RenderLayer.Foreground1), new PositionComponent(x + 36, y + 45));
+            //bot tree left
+            cm.AddEntityWithComponents(new TextureComponent("tree1_layer1", RenderLayer.Background2), new PositionComponent(x - 36, y + 45));
+            cm.AddEntityWithComponents(new TextureComponent("tree1_layer2", RenderLayer.Background3), new PositionComponent(x - 36, y + 45));
+            cm.AddEntityWithComponents(new TextureComponent("tree1_layer3", RenderLayer.Foreground1), new PositionComponent(x - 36, y + 45));
+            //top trees collisions
+            cm.AddEntityWithComponents(new CollisionComponent(155, 19), new PositionComponent(x, y + 15));
+            cm.AddEntityWithComponents(new CollisionComponent(155, 19), new PositionComponent(x, y - 20));
+            cm.AddEntityWithComponents(new CollisionComponent(110, 80), new PositionComponent(x, y - 55));
+            //bot left collision
+            cm.AddEntityWithComponents(new CollisionComponent(23, 30), new PositionComponent(x - 34, y + 47));
+            //bot mid collision
+            cm.AddEntityWithComponents(new CollisionComponent(23, 30), new PositionComponent(x, y + 32));
+            //bot right collision
+            cm.AddEntityWithComponents(new CollisionComponent(23, 30), new PositionComponent(x + 35, y + 47));
         }
 
         public IComponent[] CreatePlayerOne(int x, int y)

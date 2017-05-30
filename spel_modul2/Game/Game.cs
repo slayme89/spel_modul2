@@ -129,20 +129,13 @@ namespace Game
                     new TextureComponent("GameWorld/treeNoGrass", RenderLayer.Foreground2),
                     new PositionComponent(128 * 17 + 250, 128 * 13 + 90)
             });
-            factory.AddTree(128 * 17 - 4, 128 * 13 + 55);
-            factory.AddTree(128 * 17 + 250, 128 * 13 + 55);
+            factory.AddOneTree(128 * 17 - 4, 128 * 13 + 55);
+            factory.AddOneTree(128 * 17 + 250, 128 * 13 + 55);
 
 
             // Other trees
-            //for (int i = 0; i < 11; i++)
-            //    factory.AddTree(256, i * 100 + 40);
-            //for (int i = 0; i < 10; i++)
-            //    factory.AddTree(340, i * 100 + 95);
-
-            //for (int i = 0; i < 40; i++)
-            //    factory.AddTree(i * 100 + 400, 300);
-            //for (int i = 0; i < 40; i++)
-            //    factory.AddTree(i * 100 + 450, 370);
+            factory.AddTreeChunk(128 * 2, 128 * 2);
+            factory.AddTreeChunk(128 * 3 + 100, 128 * 2);
 
 
             //####################### STONES ####################################
@@ -213,7 +206,7 @@ namespace Game
             //################### WORLD ITEMS ########################
 
             // Sign post
-            cm.AddEntityWithComponents(factory.CreateSignPost(20, 20, "Be Aware Of The Skeletons Lurking In These Woods! \nIt Might Be A Good Idea To Investigate The Bleeding Stone By The Bridge."));
+            cm.AddEntityWithComponents(factory.CreateSignPost(20, 20, "Be Aware Of The Skeletons Lurking In These Woods! \nIt Might Be A Good Idea To Investigate The Stone By The Bridge."));
 
             //Bleeding stone with loot
             cm.AddEntityWithComponents(factory.CreateNormalSword(128 * 6, 128 * 8));
