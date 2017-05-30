@@ -3,17 +3,19 @@ using Game.Components;
 using Microsoft.Xna.Framework;
 using System;
 using GameEngine.Managers;
-using System.Diagnostics;
+using Game.Managers;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Game
 {
     public class EntityFactory
     {
+        
         public IComponent[] CreateEnemy(int x, int y)
         {
             return new IComponent[]
             {
-                new AnimationGroupComponent("SkeletonSpritesheet", new Point(4, 9), 150, 
+                new AnimationGroupComponent("SkeletonSpritesheet", new Point(4, 9), 150,
                 new[] {
                     new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
                     new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
@@ -53,8 +55,8 @@ namespace Game
             if (cm.TryGetEntityComponents(entity, out h, out i, out a))
             {
                 h.Current = MathHelper.Clamp(h.Current + 40, 0, h.Max);
-                
-                for(int j = 0; j < a.Slots.Length; j++)
+
+                for (int j = 0; j < a.Slots.Length; j++)
                 {
                     if (a.Slots[j] == cm.GetComponentForEntity<ItemComponent>(i.Items[position]))
                         a.Slots[j] = null;
@@ -138,6 +140,183 @@ namespace Game
                 new EnergyComponent(1),
                 new StatsComponent(0, 0, 0, 0),
                 new KnockbackComponent(),
+            };
+        }
+
+
+        public IComponent[] CreateKnightHeadArmor(int x, int y)
+        {
+            return new IComponent[]
+            {
+                new PositionComponent(x, y),
+                new CollisionComponent(20, 20),
+                new InteractComponent(InteractType.Loot),
+                new ItemComponent(ItemManager.exampleUseItem, "KnightHelmetHead", ItemType.Head),
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/KnightArmorHeadSpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                }),
+                new ArmorComponent(5),
+            };
+        }
+
+        public IComponent[] CreateKnightBodyArmor(int x, int y)
+        {
+            return new IComponent[]
+            {
+             new PositionComponent(x, y),
+                new CollisionComponent(20, 20),
+                new InteractComponent(InteractType.Loot),
+                new ItemComponent(ItemManager.exampleUseItem, "KnightArmorBody", ItemType.Body),
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/KnightArmorBodySpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                }),
+                new ArmorComponent(10),
+            };
+        }
+
+        public IComponent[] CreateArcherHeadArmor(int x, int y)
+        {
+            return new IComponent[]
+            {
+                new PositionComponent(x, y),
+                new CollisionComponent(20, 20),
+                new InteractComponent(InteractType.Loot),
+                new ItemComponent(ItemManager.exampleUseItem, "ArcherHatHead", ItemType.Head),
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/ArcherArmorHeadSpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                }),
+                new ArmorComponent(3),
+            };
+        }
+
+        public IComponent[] CreateArcherBodyArmor(int x, int y)
+        {
+            return new IComponent[]
+            {
+                 new PositionComponent(x, y),
+                new CollisionComponent(20, 20),
+                new InteractComponent(InteractType.Loot),
+                new ItemComponent(ItemManager.exampleUseItem, "ArcherArmorBody", ItemType.Body),
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/ArcherArmorBodySpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                }),
+                new ArmorComponent(6),
+            };
+        }
+
+        public IComponent[] CreateMageHeadArmor(int x, int y)
+        {
+            return new IComponent[]
+            {
+                new PositionComponent(x, y),
+                new CollisionComponent(20, 20),
+                new InteractComponent(InteractType.Loot),
+                new ItemComponent(ItemManager.exampleUseItem, "MageCowlHead", ItemType.Head),
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/MageArmorHeadSpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                }),
+                new ArmorComponent(1),
+            };
+        }
+
+        public IComponent[] CreateMageBodyArmor(int x, int y)
+        {
+            return new IComponent[]
+            {
+                new PositionComponent(420, 60),
+                new CollisionComponent(20, 20),
+                new InteractComponent(InteractType.Loot),
+                new ItemComponent(ItemManager.exampleUseItem, "MageArmorBody", ItemType.Body),
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/MageArmorBodySpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                }),
+                new ArmorComponent(3),
+            };
+        }
+
+        public IComponent[] CreateNormalSword(int x, int y)
+        {
+            return new IComponent[]
+            {
+                new PositionComponent(x, y),
+                new CollisionComponent(20, 20),
+                new InteractComponent(InteractType.Loot),
+                new ItemComponent(ItemManager.exampleUseItem, "Sword", ItemType.Weapon),
+                new AnimationGroupComponent("PlayerAnimation/MEDIUM/SwordSpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer4,
+                new[] {
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(1, 1)),
+                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
+                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
+                }),
+                new SwordComponent(1),
+            };
+        }
+
+        public IComponent[] CreateSignPost(int x, int y, string text)
+        {
+            return new IComponent[]
+            {
+                new InteractComponent(InteractType.Talk),
+                    new TextComponent(
+                    "NewSpriteFont",
+                    text,
+                    Color.Black,
+                    TextType.DialogBox),
+                    new TextureComponent("GameWorld/signpost"),
+                    new PositionComponent(x, y)
             };
         }
     }

@@ -1,5 +1,6 @@
 ﻿using GameEngine.Components;
 using GameEngine.Managers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -15,8 +16,19 @@ namespace GameEngine.Systems
             {
                 TextComponent text = (TextComponent)textEntity.Value;
 
+                //If textType is DIalogBox, render it in the dialogbox
+                if(text.IsActive && text.Type == TextType.DialogBox)
+                    renderHelper.DrawString(text.SpriteFont,
+                        text.Text,
+                        new Vector2(
+                            renderHelper.graphicsDevice.Viewport.TitleSafeArea.Center.X - 240,
+                            renderHelper.graphicsDevice.Viewport.TitleSafeArea.Bottom - 75
+                            ),
+                        text.Color,
+                        RenderLayer.GUI3);
+
                 //If a text is active, display it
-                if (text.IsActive)
+                else if (text.IsActive)
                     renderHelper.DrawString(text.SpriteFont, text.Text, text.Position, text.Color, RenderLayer.GUI3);
             }
         }
