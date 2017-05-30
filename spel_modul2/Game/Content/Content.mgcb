@@ -1106,3 +1106,27 @@
 /processorParam:TextureFormat=Color
 /build:GameWorld/BloodStone1.png
 
+#begin Sound/1PlayerSelected.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/1PlayerSelected.wav
+
+#begin Sound/StartGamePressed.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/StartGamePressed.wav
+
+#begin Sound/2PlayerSelected.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/2PlayerSelected.wav
+
+#begin Sound/MenuTheme.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/MenuTheme.wav
+

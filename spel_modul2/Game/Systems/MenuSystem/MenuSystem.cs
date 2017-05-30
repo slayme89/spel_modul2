@@ -56,22 +56,36 @@ namespace Game.Systems
                             Point direction = MoveSystem.CalcDirection(stickDir.X, stickDir.Y);
 
                             cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Ishighlighted = false;
+                            //stop sound for last button
+                            if (cm.HasEntityComponent<SoundComponent>(ActiveButtonsList[SelectedButton]))
+                                cm.GetComponentForEntity<SoundComponent>(ActiveButtonsList[SelectedButton]).Sounds["Selected"].Action = SoundAction.Stop;
                             SelectedButton = (SelectedButton + direction.Y) % ActiveButtonsList.Count;
                             if (SelectedButton < 0)
                                 SelectedButton = ActiveButtonsList.Count - 1;
                             cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Ishighlighted = true;
+                            //start sound for new button selected
+                            if(cm.HasEntityComponent<SoundComponent>(ActiveButtonsList[SelectedButton]))
+                                cm.GetComponentForEntity<SoundComponent>(ActiveButtonsList[SelectedButton]).Sounds["Selected"].Action = SoundAction.Play;
                             SelectCooldown = MaxSelectCooldown;
                         }
                     }
 
                     // Check if highlighted button was pressed "use"
                     if (controlComp.Interact.IsButtonDown())
+                    {
+                        if (cm.HasEntityComponent<SoundComponent>(ActiveButtonsList[SelectedButton]))
+                            cm.GetComponentForEntity<SoundComponent>(ActiveButtonsList[SelectedButton]).Sounds["Pressed"].Action = SoundAction.Play;
                         cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Use();
+                    }
+                        
 
                     // 2 Players
                     if (GameStateManager.GetInstance().State == GameState.TwoPlayerGame)
                     {
-                        cm.AddEntityWithComponents(factory.CreatePlayerTwo(100, 160));
+                        cm.AddEntityWithComponents(factory.CreatePlayerTwo(256, 128));
+                        SystemManager sm = SystemManager.GetInstance();
+                        ResourceManager rm = ResourceManager.GetInstance();
+                        sm.GetSystem<InventoryLoaderSystem>().Load(rm.Content);
                         MenuStateManager.GetInstance().State = MenuState.None;
                         GameStateManager.GetInstance().State = GameState.Game;
                         break;
@@ -93,6 +107,7 @@ namespace Game.Systems
                     MenuStateManager.GetInstance().State = MenuState.PauseMainMenu;
                     break;
                 }
+
             }
         }
 

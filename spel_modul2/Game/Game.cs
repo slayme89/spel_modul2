@@ -405,6 +405,7 @@ namespace Game
             // MenuTitle
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
+                new SoundComponent(new string[]{"Menu_Theme"}, new string[]{ "Sound/MenuTheme"}),
                 new MenuTitleComponent(
                     "Menu/VARJTitle", 
                     RenderLayer.MenuButton, 
@@ -414,6 +415,7 @@ namespace Game
             //Main Menu - 1 Player
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
+                new SoundComponent(new string[]{"Selected", "Pressed"}, new string[]{ "Sound/1PlayerSelected", "Sound/StartGamePressed"}),
                 new MenuButtonComponent(
                     MenuButtonType.MainMenuButton,
                     MenuStateManager.MainPlayOnePlayer,
@@ -426,6 +428,7 @@ namespace Game
             // Main Menu - 2 Players
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
+                new SoundComponent(new string[]{"Selected", "Pressed"}, new string[]{ "Sound/1PlayerSelected", "Sound/StartGamePressed"}),
                 new MenuButtonComponent(
                     MenuButtonType.MainMenuButton,
                     MenuStateManager.MainPlayTwoPlayer,
@@ -438,6 +441,7 @@ namespace Game
             // Main Menu - Quit game
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
+                new SoundComponent(new string[]{"Selected", "Pressed"}, new string[]{ "Sound/1PlayerSelected", "Sound/StartGamePressed"}),
                new MenuButtonComponent(
                    MenuButtonType.MainMenuButton,
                    MenuStateManager.MainQuit,
@@ -452,6 +456,7 @@ namespace Game
             // Pause Menu - Resume
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
+                new SoundComponent(new string[]{"Selected", "Pressed"}, new string[]{ "Sound/1PlayerSelected", "Sound/StartGamePressed"}),
                 new MenuButtonComponent(
                     MenuButtonType.PauseMainMenuButton,
                     MenuStateManager.PauseResume,
@@ -464,6 +469,7 @@ namespace Game
             // Pause Menu - Quit
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
+                new SoundComponent(new string[]{"Selected", "Pressed"}, new string[]{ "Sound/1PlayerSelected", "Sound/StartGamePressed"}),
                 new MenuButtonComponent(
                     MenuButtonType.PauseMainMenuButton,
                     MenuStateManager.PauseQuit,
@@ -495,6 +501,8 @@ namespace Game
             {
                 SystemManager.GetInstance().Update<InputSystem>(gameTime);
                 SystemManager.GetInstance().Update<MenuSystem>(gameTime);
+                SystemManager.GetInstance().Update<SoundSystem>(gameTime);
+                SystemManager.GetInstance().Update<MusicSystem>(gameTime);
             }
             base.Update(gameTime);
         }
@@ -505,7 +513,8 @@ namespace Game
             
             if (GameStateManager.GetInstance().State == GameState.Menu)
             {
-                gd.Clear(Color.White);
+                //gd.Clear(Color.White);
+                //Only render the menu (RenderMenuSystem)
                 sm.Render<RenderMenuSystem>(renderHelper);
             }
             sb.End();
