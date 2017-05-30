@@ -328,7 +328,7 @@
   <Tile x="38"  y="7" texture="tile1"/>
   <Tile x="39"  y="7" texture="tile1"/>
 
-  <Tile x="0"   y="8" texture="watergrass-top"/>
+  <Tile x="0"   y="8" texture="watergrass-topleft"/>
   <Tile x="1"   y="8" texture="watergrass-top"/>
   <Tile x="2"   y="8" texture="watergrass-top"/>
   <Tile x="3"   y="8" texture="watergrass-top"/>
@@ -369,7 +369,7 @@
   <Tile x="38"  y="8" texture="tile1"/>
   <Tile x="39"  y="8" texture="tile1"/>
 
-  <Tile x="0"   y="9" texture="watergrass-bot"/>
+  <Tile x="0"   y="9" texture="watergrass-botleft"/>
   <Tile x="1"   y="9" texture="watergrass-bot"/>
   <Tile x="2"   y="9" texture="watergrass-bot"/>
   <Tile x="3"   y="9" texture="watergrass-bot"/>
@@ -549,10 +549,10 @@
   <Tile x="13"  y="13" texture="tile1"/>
   <Tile x="14"  y="13" texture="tile1"/>
   <Tile x="15"  y="13" texture="tile1"/>
-  <Tile x="16"  y="13" texture="watergrass-left"/>
-  <Tile x="17"  y="13" texture="water"/>
-  <Tile x="18"  y="13" texture="water"/>
-  <Tile x="19"  y="13" texture="watergrass-right"/>
+  <Tile x="16"  y="13" texture="watergrass-botleft"/>
+  <Tile x="17"  y="13" texture="watergrass-bot"/>
+  <Tile x="18"  y="13" texture="watergrass-bot"/>
+  <Tile x="19"  y="13" texture="watergrass-botright"/>
   <Tile x="20"  y="13" texture="tile1"/>
   <Tile x="21"  y="13" texture="tile1"/>
   <Tile x="22"  y="13" texture="tile1"/>

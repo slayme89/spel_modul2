@@ -123,56 +123,47 @@ namespace Game
 
             //########################## TREES ####################################
 
-            //Water tree left
+            //Trees by the water - bot
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
-                    new TextureComponent("tree1", RenderLayer.Background2),
-                    new PositionComponent(0, 128*9)
+                    new TextureComponent("GameWorld/treeNoGrass", RenderLayer.Foreground2),
+                    new PositionComponent(128 * 17 + 250, 128 * 13 + 90)
             });
+            factory.AddTree(128 * 17 - 4, 128 * 13 + 55);
+            factory.AddTree(128 * 17 + 250, 128 * 13 + 55);
 
-            //Water tree bot
+
+            // Other trees
+            //for (int i = 0; i < 11; i++)
+            //    factory.AddTree(256, i * 100 + 40);
+            //for (int i = 0; i < 10; i++)
+            //    factory.AddTree(340, i * 100 + 95);
+
+            //for (int i = 0; i < 40; i++)
+            //    factory.AddTree(i * 100 + 400, 300);
+            //for (int i = 0; i < 40; i++)
+            //    factory.AddTree(i * 100 + 450, 370);
+
+
+            //####################### STONES ####################################
+
+            //Stones by the water - left
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                    new TextureComponent("GameWorld/stone3", RenderLayer.Background1),
+                    new PositionComponent(50, 128 * 9)
+            });
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                    new TextureComponent("GameWorld/stone3", RenderLayer.Background1),
+                    new PositionComponent(85, 128 * 9)
+            });
+            //Stone by the water - bot
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                     new TextureComponent("stone1", RenderLayer.Foreground1),
                     new PositionComponent(128 * 17 - 4, 128 * 14 - 5)
             });
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-                    new TextureComponent("tree1", RenderLayer.Foreground2),
-                    new PositionComponent(128 * 17 +50, 128 * 13 + 90)
-            });
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-                    new TextureComponent("tree1", RenderLayer.Foreground1),
-                    new PositionComponent(128 * 17 + 100, 128 * 13 + 90)
-            });
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-                    new TextureComponent("tree1", RenderLayer.Foreground2),
-                    new PositionComponent(128 * 17 + 150, 128 * 13 + 90)
-            });
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-                    new TextureComponent("tree1", RenderLayer.Foreground1),
-                    new PositionComponent(128 * 17 + 200, 128 * 13 + 90)
-            });
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-                    new TextureComponent("tree1", RenderLayer.Foreground2),
-                    new PositionComponent(128 * 17 + 250, 128 * 13 + 90)
-            });
-
-            // Other trees
-            for (int i = 0; i < 11; i++)
-                factory.AddTree(256, i * 100 + 40);
-            for (int i = 0; i < 10; i++)
-                factory.AddTree(340, i * 100 + 95);
-
-            for (int i = 0; i < 40; i++)
-                factory.AddTree(i * 100 + 400, 300);
-            for (int i = 0; i < 40; i++)
-                factory.AddTree(i * 100 + 450, 370);
-
 
             //################## Map bounds (Collisions) ###############################
 
@@ -219,7 +210,7 @@ namespace Game
                     new PositionComponent(128 * 18 - 3, 128 * 11 + 54)
             });
 
-            //################### WORDL ITEMS ########################
+            //################### WORLD ITEMS ########################
 
             // Sign post
             cm.AddEntityWithComponents(factory.CreateSignPost(20, 20, "Be Aware Of The Skeletons Lurking In These Woods! \nIt Might Be A Good Idea To Investigate The Bleeding Stone By The Bridge."));
@@ -228,9 +219,9 @@ namespace Game
             cm.AddEntityWithComponents(factory.CreateNormalSword(128 * 6, 128 * 8));
             cm.AddEntityWithComponents(new IComponent[]
             {
-                 new TextureComponent("GameWorld/BloodStone", RenderLayer.Foreground1),
+                 new TextureComponent("GameWorld/BloodStone1", RenderLayer.Foreground1),
                  new PositionComponent(128*6 - 10, 128*8),
-                 new CollisionComponent(45, 30)
+                 new CollisionComponent(40, 30)
 
             });
 
