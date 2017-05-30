@@ -110,7 +110,7 @@ namespace GameEngine.Systems
             //Right Wall
             if(r1.Left <= r2.Right && r1.Right > r2.Right && r3.Height > r3.Width)
                 return new Point(1, 0);
-            return new Point(1, 1);
+            return new Point(0, 0);
         }
     }
 }

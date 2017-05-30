@@ -30,7 +30,7 @@ namespace GameEngine
             ResourceManager.GetInstance().Content = Content;
             IsFixedTimeStep = false;
             IsMouseVisible = true;
-            graphics.SynchronizeWithVerticalRetrace = true;
+            graphics.SynchronizeWithVerticalRetrace = false;
         }
 
         protected override void Initialize()
