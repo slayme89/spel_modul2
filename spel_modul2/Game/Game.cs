@@ -13,17 +13,14 @@ namespace Game
 {
     class RPGGame : GameEngine.GameEngine
     {
-
-        GraphicsDevice gd;
-        MenuStateManager menuStateManager = MenuStateManager.GetInstance();
-        GameStateManager gameStateManager = GameStateManager.GetInstance();
-        SystemManager sm = SystemManager.GetInstance();
-        SpriteBatch sb;
-        ComponentManager cm = ComponentManager.GetInstance();
-
+        private GraphicsDevice gd;
+        private MenuStateManager menuStateManager = MenuStateManager.GetInstance();
+        private GameStateManager gameStateManager = GameStateManager.GetInstance();
+        private SystemManager sm = SystemManager.GetInstance();
+        private SpriteBatch sb;
+        private ComponentManager cm = ComponentManager.GetInstance();
         private RenderHelper renderHelper;
-
-
+        
         protected override void Initialize()
         {
             gd = graphics.GraphicsDevice;
@@ -76,7 +73,6 @@ namespace Game
         protected override void LoadContent()
         {
             SystemManager sm = SystemManager.GetInstance();
-
             ComponentManager cm = ComponentManager.GetInstance();
             EntityFactory factory = new EntityFactory();
             gameStateManager.State = GameState.Menu;
@@ -219,12 +215,12 @@ namespace Game
             // Sign post
             cm.AddEntityWithComponents(factory.CreateSignPost(20, 20, "Be Aware Of The Skeletons Lurking In These Woods! \nIt Might Be A Good Idea To Investigate The Stone By The Bridge."));
 
-            //Bleeding stone with loot
-            cm.AddEntityWithComponents(factory.CreateNormalSword(128 * 6, 128 * 8));
+            //Blood stone with loot
+            cm.AddEntityWithComponents(factory.CreateNormalSword(128 * 6, 128 * 10));
             cm.AddEntityWithComponents(new IComponent[]
             {
                  new TextureComponent("GameWorld/BloodStone1", RenderLayer.Foreground1),
-                 new PositionComponent(128*6 - 10, 128*8),
+                 new PositionComponent(128*6 - 10, 128*10),
                  new CollisionComponent(40, 30)
 
             });
@@ -514,8 +510,6 @@ namespace Game
             
             if (GameStateManager.GetInstance().State == GameState.Menu)
             {
-                //gd.Clear(Color.White);
-                //Only render the menu (RenderMenuSystem)
                 sm.Render<RenderMenuSystem>(renderHelper);
             }
             sb.End();
