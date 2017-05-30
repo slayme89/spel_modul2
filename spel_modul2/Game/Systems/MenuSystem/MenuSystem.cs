@@ -71,7 +71,7 @@ namespace Game.Systems
                     // 2 Players
                     if (GameStateManager.GetInstance().State == GameState.TwoPlayerGame)
                     {
-                        cm.AddEntityWithComponents(factory.CreatePlayerTwo(256, 128));
+                        cm.AddEntityWithComponents(factory.CreatePlayerTwo(100, 160));
                         MenuStateManager.GetInstance().State = MenuState.None;
                         GameStateManager.GetInstance().State = GameState.Game;
                         break;

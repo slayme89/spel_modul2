@@ -81,6 +81,9 @@ namespace Game
             EntityFactory factory = new EntityFactory();
             gameStateManager.State = GameState.Menu;
             menuStateManager.State = MenuState.MainMenu;
+            
+            //################# OUTSIDE MAP FOREST ###############################
+            
             // Left oob
             for (int i = 0; i <= 5; i++)
             {
@@ -118,7 +121,9 @@ namespace Game
                 });
             }
 
-            //Water tree
+            //########################## TREES ####################################
+
+            //Water tree left
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                     new TextureComponent("tree1", RenderLayer.Background2),
@@ -157,8 +162,19 @@ namespace Game
                     new PositionComponent(128 * 17 + 250, 128 * 13 + 90)
             });
 
+            // Other trees
+            for (int i = 0; i < 11; i++)
+                factory.AddTree(256, i * 100 + 40);
+            for (int i = 0; i < 10; i++)
+                factory.AddTree(340, i * 100 + 95);
 
-            ////////////// Map bounds ///////////////////////////////
+            for (int i = 0; i < 40; i++)
+                factory.AddTree(i * 100 + 400, 300);
+            for (int i = 0; i < 40; i++)
+                factory.AddTree(i * 100 + 450, 370);
+
+
+            //################## Map bounds (Collisions) ###############################
 
             //Left
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
@@ -184,13 +200,13 @@ namespace Game
                     new CollisionComponent(128 * 40, 40),
                     new PositionComponent(128 * 40 / 2, 128 * 14)
             });
-            //Water bridge - left
+            //Water at bridge - left
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                     new CollisionComponent(128 * 6 + 10, 20),
                     new PositionComponent(128 * 3 + 20, 128 * 9 - 12)
             });
-            //Water bridge - right
+            //Water at bridge - right
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                     new CollisionComponent(128 * 12 + 30, 20),
@@ -204,34 +220,23 @@ namespace Game
             });
 
 
-            //Test Talk
+            // Sign post
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                     new InteractComponent(InteractType.Talk),
 
                     new TextComponent(
                     "NewSpriteFont",
-                    "Hej hej hej hej hej hej hej...",
+                    "Be Aware Of The Skeletons Lurking In These Woods... \nIt Might Be A Good Idea To Investigate The Stone By The Bridge.",
                     new Vector2(Viewport.TitleSafeArea.Center.X - 240,
                     Viewport.TitleSafeArea.Bottom - 75),
                     Color.Black,
                     false),
 
                     new TextureComponent("GameWorld/signpost"),
-                    new PositionComponent(228, 228)
+                    new PositionComponent(20, 40)
             });
 
-            //Enemy spawnsystem
-            //cm.AddEntityWithComponents(new IComponent[]
-            //{
-            //    new EnemySpawnComponent(new Point(200, 200), 3, 10000, 200, factory.CreateEnemy(0, 0)),
-            //});
-
-            //cm.AddEntityWithComponents(new IComponent[]
-            //{
-            //    new TextureComponent("stone1"),
-            //    new PositionComponent(250, 100),
-            //});
 
             //Player arms!
             cm.AddEntityWithComponents(new IComponent[]
@@ -268,10 +273,7 @@ namespace Game
                 new ArmComponent(),
             });
 
-                //cm.AddEntityWithComponents(factory.CreatePlayerOne(128, 128));
-
-                //cm.AddEntityWithComponents(factory.CreatePlayerTwo(100, 100));
-
+            //################ ENEMIES #########################
 
             //Enemy
             cm.AddEntityWithComponents(factory.CreateEnemy(350, 600));
@@ -284,7 +286,7 @@ namespace Game
             cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(750, 700), 5, 100, 100, factory.CreateEnemy(0, 0)));
 
 
-            ////////////////////////// GUI /////////////////////////////
+            //################## GUI ######################
 
             // Dialog window
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
@@ -322,7 +324,16 @@ namespace Game
                    new Point(Viewport.TitleSafeArea.Left, Viewport.TitleSafeArea.Bottom - 40),
                    RenderLayer.GUI2),
             });
-            //////////////////////////// End GUI ///////////////////
+            // P2 Ationbar
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+               new GUIComponent(
+                   GUIType.Player2,
+                   "UI/ActionBar",
+                   new Point(Viewport.TitleSafeArea.Right - 147, Viewport.TitleSafeArea.Bottom - 40),
+                   RenderLayer.GUI2),
+            });
+           
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
@@ -387,9 +398,6 @@ namespace Game
                     new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
                 }),
             });
-
-            //tree
-            factory.AddTree(300, 300);
 
             //Item sword in world
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
@@ -558,11 +566,9 @@ namespace Game
                 new ArmorComponent(3),
              });
 
-            //////////////// Menu Entities ///////////////////////////////////
+            //######################## Menu Entities ##################################
 
-            //////////////// Main Menu ////////////////////////////////////
-
-            // MenuBackground
+            // Background
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                 new MenuBackgroundComponent(
@@ -645,11 +651,9 @@ namespace Game
                     )
             });
 
-            //End of menu entities
 
-
-            //player ONE
-            cm.AddEntityWithComponents(factory.CreatePlayerOne(128, 128));
+            //player one
+            cm.AddEntityWithComponents(factory.CreatePlayerOne(100, 128));
 
             //sm.GetSystem<ItemIconLoaderSystem>().Load(Content);
             sm.GetSystem<InventoryLoaderSystem>().Load(Content);
@@ -664,27 +668,21 @@ namespace Game
 
         protected override void Update(GameTime gameTime)
         {
-            //Menu state
             if (GameStateManager.GetInstance().State == GameState.Menu)
             {
                 SystemManager.GetInstance().Update<InputSystem>(gameTime);
                 SystemManager.GetInstance().Update<MenuSystem>(gameTime);
             }
-
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-
             sb.Begin(SpriteSortMode.FrontToBack);
             
-
-            //Menu state
             if (GameStateManager.GetInstance().State == GameState.Menu)
             {
                 gd.Clear(Color.White);
-                //Only render the menu (RenderMenuSystem)
                 sm.Render<RenderMenuSystem>(renderHelper);
             }
             sb.End();

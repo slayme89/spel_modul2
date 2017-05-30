@@ -21,7 +21,7 @@ namespace GameEngine.Systems
                         textComp.Duration -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                 }
                 else
-                    textComp.Duration = 4.0f;  
+                    textComp.Duration = 10.0f;  
             }
         }
     }
