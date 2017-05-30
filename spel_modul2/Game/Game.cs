@@ -61,7 +61,7 @@ namespace Game
                 new MenuSystem(),
                 new RenderMenuSystem(),
                 new InputSystem(),
-                new MusicSystem(),
+                //new MusicSystem(),
             });
 
             base.Initialize();
@@ -136,6 +136,11 @@ namespace Game
             // Other trees
             factory.AddTreeChunk(128 * 2, 128 * 2);
             factory.AddTreeChunk(128 * 3 + 100, 128 * 2);
+            factory.AddTreeChunk(128 * 7 + 100, 128 * 2);
+            factory.AddTreeChunk(128 * 10 + 100, 128 * 2);
+            factory.AddTreeChunk(128 * 15 + 100, 128 * 2);
+            factory.AddTreeChunk(128 * 20 + 100, 128 * 2);
+            factory.AddTreeChunk(128 * 25 + 100, 128 * 2);
 
 
             //####################### STONES ####################################
@@ -202,6 +207,12 @@ namespace Game
                     new CollisionComponent(128 + 164, 128 * 5),
                     new PositionComponent(128 * 18 - 3, 128 * 11 + 54)
             });
+            // water small lake
+            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
+            {
+                    new CollisionComponent(158, 150),
+                    new PositionComponent(128 * 33 + 62, 128 * 5 - 75)
+            });
 
             //################### WORLD ITEMS ########################
 
@@ -217,8 +228,7 @@ namespace Game
                  new CollisionComponent(40, 30)
 
             });
-
-
+            
             //Player arms!
             cm.AddEntityWithComponents(new IComponent[]
             {
@@ -379,9 +389,7 @@ namespace Game
                     new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
                 }),
             });
-
             
-
             //######################## Menu Entities ##################################
 
             // Background
