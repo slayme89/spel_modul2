@@ -119,7 +119,7 @@ namespace Game
 
             //########################## TREES ####################################
 
-            //Trees by the water - bot
+            //---------Trees by the water - bot -----------------
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
                     new TextureComponent("GameWorld/treeNoGrass", RenderLayer.Foreground2),
@@ -128,16 +128,29 @@ namespace Game
             factory.AddOneTree(128 * 17 - 4, 128 * 13 + 55);
             factory.AddOneTree(128 * 17 + 250, 128 * 13 + 55);
 
-            factory.AddOneStone(128, 128);
+            // ---------------Tree chunks------------------------
+            for(int i = 1; i<= 8; i++)
+                factory.AddTreeChunk(128 + 600 * i , 128 * 2);
+            factory.AddTreeChunk(228, 128 * 3);
+            for (int i = 1; i <= 4; i++)
+                factory.AddTreeChunk(128 + 950 * i, 128 * 4);
+            factory.AddTreeChunk(128 * 37, 128 * 4);
+            for (int i = 1; i <= 9; i++)
+                factory.AddTreeChunk(128 + 500 * i, 140 * 6);
+            factory.AddTreeChunk(128 * 21, 128 * 10);
+            factory.AddTreeChunk(128 * 24, 128 * 10);
+            factory.AddTreeChunk(128 * 27, 128 * 10);
+            factory.AddTreeChunk(128 * 30, 128 * 10);
+            factory.AddTreeChunk(128 * 33, 128 * 10);
+            factory.AddTreeChunk(128 * 36, 128 * 10);
+            factory.AddTreeChunk(128 * 39, 128 * 10);
+            factory.AddTreeChunk(128 * 22, 128 * 12);
+            factory.AddTreeChunk(128 * 25, 128 * 12);
+            factory.AddTreeChunk(128 * 28, 128 * 12);
+            factory.AddTreeChunk(128 * 31, 128 * 12);
+            factory.AddTreeChunk(128 * 34, 128 * 12);
+            factory.AddTreeChunk(128 * 38, 128 * 12);
 
-            // Other trees
-            //factory.AddTreeChunk(128 * 2, 128 * 2);
-            //factory.AddTreeChunk(128 * 3 + 100, 128 * 2);
-            //factory.AddTreeChunk(128 * 7 + 100, 128 * 2);
-            //factory.AddTreeChunk(128 * 10 + 100, 128 * 2);
-            //factory.AddTreeChunk(128 * 15 + 100, 128 * 2);
-            //factory.AddTreeChunk(128 * 20 + 100, 128 * 2);
-            //factory.AddTreeChunk(128 * 25 + 100, 128 * 2);
 
 
             //####################### STONES ####################################
@@ -264,14 +277,14 @@ namespace Game
             //################ ENEMIES #########################
 
             //Enemy
-            cm.AddEntityWithComponents(factory.CreateEnemy(350, 600));
-            cm.AddEntityWithComponents(factory.CreateEnemy(310, 600));
+            //cm.AddEntityWithComponents(factory.CreateEnemy(350, 600));
+            //cm.AddEntityWithComponents(factory.CreateEnemy(310, 600));
 
-            //Enemy
-            cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(350, 600), 3, 1000, 100, factory.CreateEnemy(0, 0)));
+            ////Enemy
+            //cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(350, 600), 3, 1000, 100, factory.CreateEnemy(0, 0)));
 
-            //Enemy
-            cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(750, 700), 5, 100, 100, factory.CreateEnemy(0, 0)));
+            ////Enemy
+            //cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(750, 700), 5, 100, 100, factory.CreateEnemy(0, 0)));
 
 
             //################## GUI ######################

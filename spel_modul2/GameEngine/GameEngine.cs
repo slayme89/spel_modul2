@@ -15,9 +15,7 @@ namespace GameEngine
         public static GraphicsDevice graphicsDevice;
         RenderHelper renderHelper;
         public Viewport Viewport { get { return graphics.GraphicsDevice.Viewport; } }
-
         GameStateManager gameStateManager = GameStateManager.GetInstance();
-
 
         // Frame rate related stuff
         private float frameCount = 0.0f;
@@ -74,17 +72,13 @@ namespace GameEngine
         protected override void Draw(GameTime gameTime)
         {
             sb.Begin(SpriteSortMode.FrontToBack);
-            //gd.Clear(Color.White);
 
-            //Normal gameplay state
             if (gameStateManager.State == GameState.Game)
             {
                 gd.Clear(Color.White);
                 sm.RenderAllSystems(renderHelper);
             } 
-            
             sb.End();
-            
             frameCount++;
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime >= 1.0f)
@@ -99,8 +93,6 @@ namespace GameEngine
 
         protected override void Update(GameTime gameTime)
         {
-            
-            //Normal gameplay state
             if (GameStateManager.GetInstance().State == GameState.Game)
             {
                 ComponentManager.GetInstance().Update();

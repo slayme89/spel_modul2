@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using System;
 using GameEngine.Managers;
 using Game.Managers;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Game
 {
