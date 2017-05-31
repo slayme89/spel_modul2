@@ -216,7 +216,6 @@ namespace Game.Systems
                                             selectedItemComp.Use(entity.Key, selectedItemComp.InventoryPosition);
                                             invenComp.AmountOfItems--;
                                         }
-
                                     }
                                 }
                                 UpdateActualEquippedItems(ref invenComp, ref cm, entity.Key);

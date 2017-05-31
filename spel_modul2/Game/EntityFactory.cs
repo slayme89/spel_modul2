@@ -9,7 +9,7 @@ namespace Game
 {
     public class EntityFactory
     {
-        
+
         public IComponent[] CreateEnemy(int x, int y)
         {
             return new IComponent[]
@@ -296,7 +296,7 @@ namespace Game
         {
             return new IComponent[]
             {
-                new PositionComponent(420, 60),
+                new PositionComponent(x, y),
                 new CollisionComponent(20, 20),
                 new InteractComponent(InteractType.Loot),
                 new ItemComponent(ItemManager.exampleUseItem, "MageArmorBody", ItemType.Body),
@@ -350,6 +350,14 @@ namespace Game
                     TextType.DialogBox),
                     new TextureComponent("GameWorld/signpost"),
                     new PositionComponent(x, y)
+            };
+        }
+
+        public IComponent[] CreateMenuController(ControllerType ControlType)
+        {
+            return new IComponent[]
+            {
+                new PlayerControlComponent(ControlType),
             };
         }
     }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using GameEngine.Systems;
 using Game.Components;
 using Game.Managers;
-
+using System.Diagnostics;
 
 namespace Game.Systems
 {
@@ -16,6 +16,7 @@ namespace Game.Systems
         private int SelectedButton;
         private float SelectCooldown = 0.0f;
         private float MaxSelectCooldown = 0.2f;
+        private bool DecrementSelectCooldown = true;
         EntityFactory factory = new EntityFactory();
 
         public void Update(GameTime gameTime)
@@ -24,7 +25,8 @@ namespace Game.Systems
             ActivateMenuButtons();
             ActivateMenuBackground();
             ClearMenu();
-            
+            DecrementSelectCooldown = true;
+
             foreach (var controlEntity in cm.GetComponentsOfType<PlayerControlComponent>())
             {
                 PlayerControlComponent controlComp = (PlayerControlComponent)controlEntity.Value;
@@ -43,8 +45,12 @@ namespace Game.Systems
                         if (men.HasMovingEffect && men.IsActive)
                             MoveEffect(gameTime, men);
                     }
-
-                    SelectCooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    if (DecrementSelectCooldown)
+                    {
+                        SelectCooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                        DecrementSelectCooldown = false;
+                    }
+                        
                     // Makes the menu button selection smooth
                     if (SelectCooldown <= 0.0f)
                     {
@@ -77,11 +83,26 @@ namespace Game.Systems
                             cm.GetComponentForEntity<SoundComponent>(ActiveButtonsList[SelectedButton]).Sounds["Pressed"].Action = SoundAction.Play;
                         cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Use();
                     }
-                        
 
-                    // 2 Players
-                    if (GameStateManager.GetInstance().State == GameState.TwoPlayerGame)
+                    // 1 Player
+                    if (GameStateManager.GetInstance().State == GameState.OnePlayerGame)
                     {
+                        //remove the temporary menu controller
+                        cm.RemoveEntity(controlEntity.Key);
+                        cm.AddEntityWithComponents(factory.CreatePlayerOne(100, 128));
+                        SystemManager sm = SystemManager.GetInstance();
+                        ResourceManager rm = ResourceManager.GetInstance();
+                        sm.GetSystem<InventoryLoaderSystem>().Load(rm.Content);
+                        MenuStateManager.GetInstance().State = MenuState.None;
+                        GameStateManager.GetInstance().State = GameState.Game;
+                        break;
+                    }
+                        // 2 Players
+                        if (GameStateManager.GetInstance().State == GameState.TwoPlayerGame)
+                    {
+                        //remove the temporary menu controller
+                        cm.RemoveEntity(controlEntity.Key);
+                        cm.AddEntityWithComponents(factory.CreatePlayerOne(100, 128));
                         cm.AddEntityWithComponents(factory.CreatePlayerTwo(256, 128));
                         SystemManager sm = SystemManager.GetInstance();
                         ResourceManager rm = ResourceManager.GetInstance();
@@ -101,7 +122,7 @@ namespace Game.Systems
                 }
 
                 // Enter the PauseMenu if menu button is pressed from GameState "Game"
-                if (controlComp.Menu.IsButtonDown() && GameStateManager.GetInstance().State == GameState.Game)
+                if (controlComp.Menu.IsButtonDown() && (GameStateManager.GetInstance().State == GameState.Game || GameStateManager.GetInstance().State == GameState.GameOver))
                 {
                     GameStateManager.GetInstance().State = GameState.Menu;
                     MenuStateManager.GetInstance().State = MenuState.PauseMainMenu;
@@ -114,7 +135,7 @@ namespace Game.Systems
         // Initializes Menu buttons
         private void ActivateMenuButtons()
         {
-            if (GameStateManager.GetInstance().State != GameState.Game)
+            if (GameStateManager.GetInstance().State == GameState.Menu)
             {
                 ComponentManager cm = ComponentManager.GetInstance();
                 ActiveButtonsList = new List<int>();
@@ -225,7 +246,7 @@ namespace Game.Systems
 
         private void ClearMenu()
         {
-            if (GameStateManager.GetInstance().State == GameState.Game)
+            if (GameStateManager.GetInstance().State != GameState.Menu)
             {
                 ComponentManager cm = ComponentManager.GetInstance();
 

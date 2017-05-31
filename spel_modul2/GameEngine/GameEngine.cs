@@ -36,7 +36,6 @@ namespace GameEngine
             gd = graphics.GraphicsDevice;
             sb = new SpriteBatch(gd);
             renderHelper = new RenderHelper(gd, sb);
-            gameStateManager.State = GameState.Menu;
             graphics.PreferredBackBufferHeight = 600;
             graphics.PreferredBackBufferWidth = 800;
             graphics.ApplyChanges();
@@ -65,19 +64,15 @@ namespace GameEngine
             sm.GetSystem<WorldSystem>().Load(Content);
             sm.GetSystem<RenderGUISystem>().Load(Content);
             sm.GetSystem<RenderTextSystem>().Load(Content);
-            
+
             base.LoadContent();
         }
 
         protected override void Draw(GameTime gameTime)
         {
             sb.Begin(SpriteSortMode.FrontToBack);
-
-            if (gameStateManager.State == GameState.Game)
-            {
-                gd.Clear(Color.White);
-                sm.RenderAllSystems(renderHelper);
-            } 
+            gd.Clear(Color.White);
+            sm.RenderAllSystems(renderHelper);
             sb.End();
             frameCount++;
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -87,20 +82,14 @@ namespace GameEngine
                 Window.Title = frameCount.ToString();
                 frameCount = 0.0f;
             }
-            
+
             base.Draw(gameTime);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GameStateManager.GetInstance().State == GameState.Game)
-            {
-                ComponentManager.GetInstance().Update();
-                SystemManager.GetInstance().UpdateAllSystems(gameTime);
-            }
-            
-            if (gameStateManager.State == GameState.Exit)
-                Exit();
+            ComponentManager.GetInstance().Update();
+            SystemManager.GetInstance().UpdateAllSystems(gameTime);
 
             base.Update(gameTime);
         }

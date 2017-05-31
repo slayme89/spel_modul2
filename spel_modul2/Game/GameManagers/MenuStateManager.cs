@@ -24,7 +24,7 @@ namespace Game.Managers
         // PLAY 1 player
         public static void MainPlayOnePlayer()
         {
-            GameStateManager.GetInstance().State = GameState.Game;
+            GameStateManager.GetInstance().State = GameState.OnePlayerGame;
         }
         
         // PLAY 2 players
@@ -44,8 +44,9 @@ namespace Game.Managers
         // RESUME
         public static void PauseResume()
         {
+            GameStateManager gm = GameStateManager.GetInstance();
             GetInstance().State = MenuState.None;
-            GameStateManager.GetInstance().State = GameState.Game;
+            gm.State = gm.LastState;
         }
 
         // PAUSE QUIT - TODO

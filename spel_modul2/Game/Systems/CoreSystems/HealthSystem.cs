@@ -71,7 +71,7 @@ namespace Game.Systems
                             }
                             cm.RemoveEntity(entity.Key);
                         }
-                            
+
                         // TODO
                         // Move player to graveyard location
                         //cm.GetComponentForEntity<PositionComponent>(entity.Key).position = GraveYardPos;
@@ -79,6 +79,21 @@ namespace Game.Systems
                         //TODO
                         // show some information to the player
                         // write something in a dialogbox that he died etc..
+                        bool gameOver = false;
+                        foreach (var player in cm.GetComponentsOfType<PlayerControlComponent>())
+                        {
+                            HealthComponent playerHealthComp = cm.GetComponentForEntity<HealthComponent>(player.Key);
+                            if (playerHealthComp.IsAlive)
+                            {
+                                gameOver = false;
+                                break;
+                            }
+                            gameOver = true;   
+                        }
+                        if (gameOver)
+                        {
+                            GameStateManager.GetInstance().State = GameState.GameOver;
+                        }
                     }
 
                     //If the entity is a NPC

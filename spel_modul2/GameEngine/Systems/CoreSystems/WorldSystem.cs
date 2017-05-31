@@ -14,7 +14,7 @@ namespace GameEngine.Systems
         {
             ComponentManager cm = ComponentManager.GetInstance();
 
-            var players = (from i in cm.GetComponentsOfType<PlayerControlComponent>().Keys select i).ToList();
+            var players = (from i in cm.GetComponentsOfType<PlayerComponent>().Keys select i).ToList();
             var world = (from w in cm.GetComponentsOfType<WorldComponent>().Values select w).First() as WorldComponent;
 
             if (players.Count == 1)

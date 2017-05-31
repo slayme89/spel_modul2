@@ -8,6 +8,7 @@ using Game.Managers;
 using Game.Systems.CoreSystems;
 using Microsoft.Xna.Framework.Graphics;
 using GameEngine.Systems;
+using System.Diagnostics;
 
 namespace Game
 {
@@ -58,8 +59,9 @@ namespace Game
                 new MenuSystem(),
                 new RenderMenuSystem(),
                 new InputSystem(),
-                new DayNightSystem(),
                 new MusicSystem(),
+                new GameOverSystem(),
+                new DayNightSystem(),
             });
 
             base.Initialize();
@@ -406,8 +408,11 @@ namespace Game
                     new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
                 }),
             });
-            
+
             //######################## Menu Entities ##################################
+
+            //Menu controller
+            cm.AddEntityWithComponents(factory.CreateMenuController(ControllerType.Keyboard));
 
             // Background
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
@@ -500,7 +505,7 @@ namespace Game
 
 
             //player one
-            cm.AddEntityWithComponents(factory.CreatePlayerOne(100, 128));
+            //cm.AddEntityWithComponents(factory.CreatePlayerOne(100, 128));
 
   
 
@@ -511,32 +516,59 @@ namespace Game
             sm.GetSystem<RenderHealthSystem>().Load(Content);
             sm.GetSystem<RenderExperienceSystem>().Load(Content);
             sm.GetSystem<RenderMenuSystem>().Load(Content);
+            sm.GetSystem<GameOverSystem>().Load(Content);
 
             base.LoadContent();
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GameStateManager.GetInstance().State == GameState.Menu)
+            if (gameStateManager.State == GameState.Menu)
             {
                 SystemManager.GetInstance().Update<InputSystem>(gameTime);
                 SystemManager.GetInstance().Update<MenuSystem>(gameTime);
                 SystemManager.GetInstance().Update<SoundSystem>(gameTime);
                 SystemManager.GetInstance().Update<MusicSystem>(gameTime);
+                Debug.WriteLine("In menu");
             }
-            base.Update(gameTime);
+            else if (gameStateManager.State == GameState.GameOver)
+            {
+                SystemManager.GetInstance().Update<InputSystem>(gameTime);
+                SystemManager.GetInstance().Update<MenuSystem>(gameTime);
+                SystemManager.GetInstance().Update<SoundSystem>(gameTime);
+                SystemManager.GetInstance().Update<MusicSystem>(gameTime);
+                SystemManager.GetInstance().Update<GameOverSystem>(gameTime);
+                if(gameStateManager.State == GameState.Menu)
+                    Debug.WriteLine("In gameover");
+            }
+            else if (gameStateManager.State == GameState.Game)
+            {
+                base.Update(gameTime);
+            }
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            sb.Begin(SpriteSortMode.FrontToBack);
-            
+            //gd.Clear(Color.White);
             if (GameStateManager.GetInstance().State == GameState.Menu)
             {
+                sb.Begin(SpriteSortMode.FrontToBack);
                 sm.Render<RenderMenuSystem>(renderHelper);
+                sb.End();
             }
-            sb.End();
-            base.Draw(gameTime);
+            else if (GameStateManager.GetInstance().State == GameState.GameOver)
+            {
+                //sm.Render<GameOverSystem>(renderHelper);
+                base.Draw(gameTime);
+
+            }
+            else if (GameStateManager.GetInstance().State == GameState.Game)
+            {
+                base.Draw(gameTime);
+            }
+
+            if (gameStateManager.State == GameState.Exit)
+                Exit();
         }
     }
 }
