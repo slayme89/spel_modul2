@@ -8,7 +8,6 @@ using Game.Managers;
 using Game.Systems.CoreSystems;
 using Microsoft.Xna.Framework.Graphics;
 using GameEngine.Systems;
-using System.Diagnostics;
 
 namespace Game
 {
@@ -353,18 +352,10 @@ namespace Game
 
             //################ ENEMIES #########################
 
-            //Enemy
-            //cm.AddEntityWithComponents(factory.CreateEnemy(350, 600));
-            //cm.AddEntityWithComponents(factory.CreateEnemy(310, 600));
-
-            ////Enemy
+            // Skeletons
             cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(11 * 128, 6 * 128), 3, 1000, 100, factory.CreateEnemy(0, 0)));
-
-            ////Enemy
             cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(2 * 128, 13 * 128), 5, 100, 100, factory.CreateEnemy(0, 0)));
-
             cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(10 * 128, 13 * 128), 5, 100, 100, factory.CreateEnemy(0, 0)));
-
             cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(15 * 128, 13 * 128), 5, 100, 100, factory.CreateEnemy(0, 0)));
 
             //################## GUI ######################

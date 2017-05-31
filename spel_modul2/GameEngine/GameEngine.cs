@@ -15,7 +15,6 @@ namespace GameEngine
         public static GraphicsDevice graphicsDevice;
         RenderHelper renderHelper;
         public Viewport Viewport { get { return graphics.GraphicsDevice.Viewport; } }
-        GameStateManager gameStateManager = GameStateManager.GetInstance();
 
         // Frame rate related stuff
         private float frameCount = 0.0f;

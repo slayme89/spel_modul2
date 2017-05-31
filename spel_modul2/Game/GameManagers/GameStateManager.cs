@@ -1,11 +1,11 @@
-﻿namespace GameEngine.Managers
+﻿namespace Game.Managers
 {
-    public enum GameState { Menu, Game, OnePlayerGame, TwoPlayerGame, GameOver, Restart, Exit };
-
+    public enum GameState {Splashscreen, Menu, Game, OnePlayerGame, TwoPlayerGame, GameOver, Restart, Exit };
     public class GameStateManager
     {
         static GameStateManager instance;
         public GameState m_State;
+        public GameState LastState { get; set; }
         public GameState State
         {
             get { return m_State; }
@@ -15,8 +15,6 @@
                 m_State = value;
             }
         }
-
-        public GameState LastState { get; set; }
 
         static GameStateManager()
         {

@@ -27,9 +27,6 @@ namespace GameEngine.Systems
                 var player1 = cm.GetComponentForEntity<PositionComponent>(players[0]);
                 var player2 = cm.GetComponentForEntity<PositionComponent>(players[1]);
 
-                /*var player1MoveComponent = cm.GetComponentForEntity<MoveComponent>(players[0]);
-                var player2MoveComponent = cm.GetComponentForEntity<MoveComponent>(players[1]);*/
-
                 world.Center = Vector2.Lerp(player1.Position, player2.Position, 0.5f).ToPoint();
             }
         }
@@ -44,7 +41,7 @@ namespace GameEngine.Systems
             world = (WorldComponent)e.Current.Value;
 
             XmlDocument doc = new XmlDocument();
-            doc.Load("map.xml");
+            doc.Load("Content/map.xml");
 
             foreach(XmlNode node in doc.DocumentElement.ChildNodes)
             {

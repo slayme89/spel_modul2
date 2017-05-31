@@ -9,7 +9,6 @@ namespace Game
 {
     public class EntityFactory
     {
-
         public IComponent[] CreateEnemy(int x, int y)
         {
             return new IComponent[]

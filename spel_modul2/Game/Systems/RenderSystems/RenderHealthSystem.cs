@@ -20,7 +20,6 @@ namespace Game.Systems
             foreach (var entity in cm.GetComponentsOfType<HealthComponent>())
             {
                 HealthComponent healthComponent = (HealthComponent)entity.Value;
-
                 int currHealth = healthComponent.Current;
                 Rectangle healthRectangle = new Rectangle();
                 Viewport viewport = Extensions.GetCurrentViewport(gd);
@@ -49,6 +48,7 @@ namespace Game.Systems
                             12
                             );
                     }
+                    rh.Draw(healthTexture, healthRectangle, Color.White, RenderLayer.GUI1);
                 }
                 //else its an AI
                 else if (cm.HasEntityComponent<AIComponent>(entity.Key))
@@ -63,8 +63,8 @@ namespace Game.Systems
                         healthRectangle = new Rectangle((int)p.Position.X, (int)p.Position.Y, (int)scaledHealth * c.CollisionBox.Width, 10).WorldToScreen(ref viewport);
                         healthRectangle.Offset(-c.CollisionBox.Width / 2, -c.CollisionBox.Height / 2 - 10);
                     }
-                }
-                rh.Draw(healthTexture, healthRectangle, Color.White, RenderLayer.GUI1);
+                    rh.Draw(healthTexture, healthRectangle, Color.White, RenderLayer.Layer4);
+                }  
             }
         }
 
