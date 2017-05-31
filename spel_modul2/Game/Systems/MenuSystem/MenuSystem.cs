@@ -30,11 +30,11 @@ namespace Game.Systems
             foreach (var controlEntity in cm.GetComponentsOfType<PlayerControlComponent>())
             {
                 PlayerControlComponent controlComp = (PlayerControlComponent)controlEntity.Value;
-                
+
                 // If we are in some kind of menu state
                 if (GameStateManager.GetInstance().State == GameState.Menu)
                 {
-                    
+
                     // Apply effects on menu background
                     foreach (var menuBackground in cm.GetComponentsOfType<MenuBackgroundComponent>())
                     {
@@ -50,7 +50,7 @@ namespace Game.Systems
                         SelectCooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                         DecrementSelectCooldown = false;
                     }
-                        
+
                     // Makes the menu button selection smooth
                     if (SelectCooldown <= 0.0f)
                     {
@@ -70,7 +70,7 @@ namespace Game.Systems
                                 SelectedButton = ActiveButtonsList.Count - 1;
                             cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Ishighlighted = true;
                             //start sound for new button selected
-                            if(cm.HasEntityComponent<SoundComponent>(ActiveButtonsList[SelectedButton]))
+                            if (cm.HasEntityComponent<SoundComponent>(ActiveButtonsList[SelectedButton]))
                                 cm.GetComponentForEntity<SoundComponent>(ActiveButtonsList[SelectedButton]).Sounds["Selected"].Action = SoundAction.Play;
                             SelectCooldown = MaxSelectCooldown;
                         }
@@ -90,28 +90,21 @@ namespace Game.Systems
                         //remove the temporary menu controller
                         cm.RemoveEntity(controlEntity.Key);
                         cm.AddEntityWithComponents(factory.CreatePlayerOne(100, 128));
-                        SystemManager sm = SystemManager.GetInstance();
-                        ResourceManager rm = ResourceManager.GetInstance();
-                        sm.GetSystem<InventoryLoaderSystem>().Load(rm.Content);
                         MenuStateManager.GetInstance().State = MenuState.None;
-                        GameStateManager.GetInstance().State = GameState.Game;
+                        GameStateManager.GetInstance().State = GameState.Restart;
                         break;
                     }
-                        // 2 Players
-                        if (GameStateManager.GetInstance().State == GameState.TwoPlayerGame)
+                    // 2 Players
+                    if (GameStateManager.GetInstance().State == GameState.TwoPlayerGame)
                     {
                         //remove the temporary menu controller
                         cm.RemoveEntity(controlEntity.Key);
                         cm.AddEntityWithComponents(factory.CreatePlayerOne(100, 128));
                         cm.AddEntityWithComponents(factory.CreatePlayerTwo(256, 128));
-                        SystemManager sm = SystemManager.GetInstance();
-                        ResourceManager rm = ResourceManager.GetInstance();
-                        sm.GetSystem<InventoryLoaderSystem>().Load(rm.Content);
                         MenuStateManager.GetInstance().State = MenuState.None;
-                        GameStateManager.GetInstance().State = GameState.Game;
+                        GameStateManager.GetInstance().State = GameState.Restart;
                         break;
                     }
-
                     //// Exit the Pausemenu if menu button is pressed from GameState "Menu"
                     //if (controlComp.Menu.IsButtonDown() && MenuStateManager.GetInstance().State == MenuState.PauseMainMenu)
                     //{
@@ -144,7 +137,7 @@ namespace Game.Systems
                 foreach (var button in cm.GetComponentsOfType<MenuButtonComponent>())
                 {
                     MenuButtonComponent buttonComp = (MenuButtonComponent)button.Value;
-                   
+
                     switch (MenuStateManager.GetInstance().State)
                     {
                         case MenuState.MainMenu:
@@ -163,7 +156,7 @@ namespace Game.Systems
                             buttonComp.IsActive = false;
                             break;
                     }
-                    
+
                     if (buttonComp.IsActive)
                     {
                         ActiveButtonsList.Add(button.Key);
@@ -182,7 +175,7 @@ namespace Game.Systems
                 }
             }
         }
-        
+
         private void ActivateMenuBackground()
         {
             ComponentManager cm = ComponentManager.GetInstance();

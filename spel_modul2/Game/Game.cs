@@ -21,7 +21,8 @@ namespace Game
         private SpriteBatch sb;
         private ComponentManager cm = ComponentManager.GetInstance();
         private RenderHelper renderHelper;
-        
+        private EntityFactory factory = new EntityFactory();
+
         protected override void Initialize()
         {
             gd = graphics.GraphicsDevice;
@@ -66,6 +67,8 @@ namespace Game
 
             base.Initialize();
 
+            //LATE STUFF
+
             //Late Update
             sm.AddSystems(new object[] {
                 new PlayerArmSystem(),
@@ -77,12 +80,80 @@ namespace Game
         {
             SystemManager sm = SystemManager.GetInstance();
             ComponentManager cm = ComponentManager.GetInstance();
-            EntityFactory factory = new EntityFactory();
+            
             gameStateManager.State = GameState.Menu;
             menuStateManager.State = MenuState.MainMenu;
+            //SetUpGameEntities();
+            SetUpMenuEntities();
+
+            //LoadGameEntities();
+            LoadMenuEntities();
+            //sm.GetSystem<ItemIconLoaderSystem>().Load(Content);
             
+            
+            //base.LoadContent();
+        }
+
+        protected override void Update(GameTime gameTime)
+        {
+            if (gameStateManager.State == GameState.Menu)
+            {
+                SystemManager.GetInstance().Update<InputSystem>(gameTime);
+                SystemManager.GetInstance().Update<MenuSystem>(gameTime);
+                SystemManager.GetInstance().Update<SoundSystem>(gameTime);
+                SystemManager.GetInstance().Update<MusicSystem>(gameTime);
+            }
+            else if (gameStateManager.State == GameState.GameOver)
+            {
+                SystemManager.GetInstance().Update<InputSystem>(gameTime);
+                SystemManager.GetInstance().Update<MenuSystem>(gameTime);
+                SystemManager.GetInstance().Update<SoundSystem>(gameTime);
+                SystemManager.GetInstance().Update<MusicSystem>(gameTime);
+                SystemManager.GetInstance().Update<GameOverSystem>(gameTime);
+            }
+            else if (gameStateManager.State == GameState.Game)
+            {
+                base.Update(gameTime);
+            }
+        }
+
+        protected override void Draw(GameTime gameTime)
+        {
+            //gd.Clear(Color.White);
+            if (gameStateManager.State == GameState.Menu)
+            {
+                sb.Begin(SpriteSortMode.FrontToBack);
+                sm.Render<RenderMenuSystem>(renderHelper);
+                sb.End();
+            }
+            else if (gameStateManager.State == GameState.GameOver)
+            {
+                //sm.Render<GameOverSystem>(renderHelper);
+                base.Draw(gameTime);
+
+            }
+            else if (gameStateManager.State == GameState.Game)
+            {
+                base.Draw(gameTime);
+            }
+            else if (gameStateManager.State == GameState.Restart)
+            {
+                SetUpGameEntities();
+                LoadGameEntities();
+                base.LoadContent();
+                gameStateManager.State = GameState.Game;
+            }
+            if (gameStateManager.State == GameState.Exit)
+                Exit();
+        }
+
+        //Game entities stuff
+        void SetUpGameEntities()
+        {
+            
+
             //################# OUTSIDE MAP FOREST ###############################
-            
+
             // Left oob
             for (int i = 0; i <= 5; i++)
             {
@@ -132,8 +203,8 @@ namespace Game
             factory.AddOneTree(128 * 17 + 250, 128 * 13 + 55);
 
             // ---------------Tree chunks------------------------
-            for(int i = 1; i<= 8; i++)
-                factory.AddTreeChunk(128 + 600 * i , 128 * 2);
+            for (int i = 1; i <= 8; i++)
+                factory.AddTreeChunk(128 + 600 * i, 128 * 2);
             factory.AddTreeChunk(228, 128 * 3);
             for (int i = 1; i <= 4; i++)
                 factory.AddTreeChunk(128 + 950 * i, 128 * 4);
@@ -153,11 +224,11 @@ namespace Game
             factory.AddTreeChunk(128 * 31, 128 * 12);
             factory.AddTreeChunk(128 * 34, 128 * 12);
             factory.AddTreeChunk(128 * 38, 128 * 12);
-            for(int i= 1; i <= 4; i++)
+            for (int i = 1; i <= 4; i++)
                 factory.AddTreeChunk(128 + 350 * i, 128 * 11);
 
             // ----------- Single trees ------------- - TODO
-           
+
 
 
             //####################### STONES ####################################
@@ -244,7 +315,7 @@ namespace Game
                  new PositionComponent(128 * 6 - 10, 128 * 10 - 50),
                  new CollisionComponent(40, 30)
             });
-            
+
             //Player arms!
             cm.AddEntityWithComponents(new IComponent[]
             {
@@ -343,7 +414,7 @@ namespace Game
                    new Point(Viewport.TitleSafeArea.Right - 147, Viewport.TitleSafeArea.Bottom - 40),
                    RenderLayer.GUI2),
             });
-           
+
 
             cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
             {
@@ -408,6 +479,23 @@ namespace Game
                     new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
                 }),
             });
+        }
+
+        void LoadGameEntities()
+        {
+            sm.GetSystem<InventoryLoaderSystem>().Load(Content);
+            sm.GetSystem<SkillLoaderSystem>().Load(Content);
+            sm.GetSystem<RenderEnergySystem>().Load(Content);
+            sm.GetSystem<RenderHealthSystem>().Load(Content);
+            sm.GetSystem<RenderExperienceSystem>().Load(Content);
+            sm.GetSystem<GameOverSystem>().Load(Content);
+            
+        }
+
+        //Menu entities stuff
+        void SetUpMenuEntities()
+        {
+            
 
             //######################## Menu Entities ##################################
 
@@ -430,8 +518,8 @@ namespace Game
             {
                 new SoundComponent(new string[]{"Menu_Theme"}, new string[]{ "Sound/MenuTheme"}),
                 new MenuTitleComponent(
-                    "Menu/VARJTitle", 
-                    RenderLayer.MenuButton, 
+                    "Menu/VARJTitle",
+                    RenderLayer.MenuButton,
                     new Vector2(Viewport.TitleSafeArea.Center.X - 200, Viewport.TitleSafeArea.Top + 50)
                     )
             });
@@ -473,7 +561,7 @@ namespace Game
                    new Vector2(Viewport.TitleSafeArea.Center.X - 200, Viewport.TitleSafeArea.Top + 460),
                    RenderLayer.MenuButton
                    )
-            }); 
+            });
             // Pause Menu //
 
             // Pause Menu - Resume
@@ -502,70 +590,13 @@ namespace Game
                     RenderLayer.MenuButton
                     )
             });
+        }
 
-
-            //player one
-            //cm.AddEntityWithComponents(factory.CreatePlayerOne(100, 128));
-
-  
-
-            //sm.GetSystem<ItemIconLoaderSystem>().Load(Content);
-            sm.GetSystem<InventoryLoaderSystem>().Load(Content);
-            sm.GetSystem<SkillLoaderSystem>().Load(Content);
-            sm.GetSystem<RenderEnergySystem>().Load(Content);
-            sm.GetSystem<RenderHealthSystem>().Load(Content);
-            sm.GetSystem<RenderExperienceSystem>().Load(Content);
+        void LoadMenuEntities()
+        {
             sm.GetSystem<RenderMenuSystem>().Load(Content);
-            sm.GetSystem<GameOverSystem>().Load(Content);
-
-            base.LoadContent();
         }
 
-        protected override void Update(GameTime gameTime)
-        {
-            if (gameStateManager.State == GameState.Menu)
-            {
-                SystemManager.GetInstance().Update<InputSystem>(gameTime);
-                SystemManager.GetInstance().Update<MenuSystem>(gameTime);
-                SystemManager.GetInstance().Update<SoundSystem>(gameTime);
-                SystemManager.GetInstance().Update<MusicSystem>(gameTime);
-            }
-            else if (gameStateManager.State == GameState.GameOver)
-            {
-                SystemManager.GetInstance().Update<InputSystem>(gameTime);
-                SystemManager.GetInstance().Update<MenuSystem>(gameTime);
-                SystemManager.GetInstance().Update<SoundSystem>(gameTime);
-                SystemManager.GetInstance().Update<MusicSystem>(gameTime);
-                SystemManager.GetInstance().Update<GameOverSystem>(gameTime);
-            }
-            else if (gameStateManager.State == GameState.Game)
-            {
-                base.Update(gameTime);
-            }
-        }
 
-        protected override void Draw(GameTime gameTime)
-        {
-            //gd.Clear(Color.White);
-            if (GameStateManager.GetInstance().State == GameState.Menu)
-            {
-                sb.Begin(SpriteSortMode.FrontToBack);
-                sm.Render<RenderMenuSystem>(renderHelper);
-                sb.End();
-            }
-            else if (GameStateManager.GetInstance().State == GameState.GameOver)
-            {
-                //sm.Render<GameOverSystem>(renderHelper);
-                base.Draw(gameTime);
-
-            }
-            else if (GameStateManager.GetInstance().State == GameState.Game)
-            {
-                base.Draw(gameTime);
-            }
-
-            if (gameStateManager.State == GameState.Exit)
-                Exit();
-        }
     }
 }
