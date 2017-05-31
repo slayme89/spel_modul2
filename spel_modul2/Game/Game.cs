@@ -529,7 +529,6 @@ namespace Game
                 SystemManager.GetInstance().Update<MenuSystem>(gameTime);
                 SystemManager.GetInstance().Update<SoundSystem>(gameTime);
                 SystemManager.GetInstance().Update<MusicSystem>(gameTime);
-                Debug.WriteLine("In menu");
             }
             else if (gameStateManager.State == GameState.GameOver)
             {
@@ -538,8 +537,6 @@ namespace Game
                 SystemManager.GetInstance().Update<SoundSystem>(gameTime);
                 SystemManager.GetInstance().Update<MusicSystem>(gameTime);
                 SystemManager.GetInstance().Update<GameOverSystem>(gameTime);
-                if(gameStateManager.State == GameState.Menu)
-                    Debug.WriteLine("In gameover");
             }
             else if (gameStateManager.State == GameState.Game)
             {
