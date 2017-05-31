@@ -150,7 +150,11 @@ namespace Game
             factory.AddTreeChunk(128 * 31, 128 * 12);
             factory.AddTreeChunk(128 * 34, 128 * 12);
             factory.AddTreeChunk(128 * 38, 128 * 12);
+            for(int i= 1; i <= 4; i++)
+                factory.AddTreeChunk(128 + 350 * i, 128 * 11);
 
+            // ----------- Single trees ------------- - TODO
+           
 
 
             //####################### STONES ####################################
@@ -230,13 +234,12 @@ namespace Game
             cm.AddEntityWithComponents(factory.CreateSignPost(20, 20, "Be Aware Of The Skeletons Lurking In These Woods! \nIt Might Be A Good Idea To Investigate The Stone By The Bridge."));
 
             //Blood stone with loot
-            cm.AddEntityWithComponents(factory.CreateNormalSword(128 * 6, 128 * 10));
+            cm.AddEntityWithComponents(factory.CreateNormalSword(128 * 6, 128 * 10 - 50));
             cm.AddEntityWithComponents(new IComponent[]
             {
                  new TextureComponent("GameWorld/BloodStone1", RenderLayer.Foreground1),
-                 new PositionComponent(128*6 - 10, 128*10),
+                 new PositionComponent(128 * 6 - 10, 128 * 10 - 50),
                  new CollisionComponent(40, 30)
-
             });
             
             //Player arms!
