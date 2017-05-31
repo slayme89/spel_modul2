@@ -60,7 +60,6 @@ namespace Game.Systems
                         {
                             //if the stick has been pushed in a direction
                             Point direction = MoveSystem.CalcDirection(stickDir.X, stickDir.Y);
-                            Debug.WriteLine(direction + "   " + cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[0]).HighlightTexturePath);
                             cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Ishighlighted = false;
                             //stop sound for last button
                             if (cm.HasEntityComponent<SoundComponent>(ActiveButtonsList[SelectedButton]))
