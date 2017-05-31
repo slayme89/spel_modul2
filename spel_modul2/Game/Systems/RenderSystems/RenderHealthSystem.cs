@@ -21,53 +21,50 @@ namespace Game.Systems
             {
                 HealthComponent healthComponent = (HealthComponent)entity.Value;
 
-                if (healthComponent != null && healthComponent.IsAlive == true)
+                int currHealth = healthComponent.Current;
+                Rectangle healthRectangle = new Rectangle();
+                Viewport viewport = Extensions.GetCurrentViewport(gd);
+
+                if (cm.HasEntityComponent<PlayerComponent>(entity.Key))
                 {
-                    int currHealth = healthComponent.Current;
-                    Rectangle healthRectangle = new Rectangle();
-                    Viewport viewport = Extensions.GetCurrentViewport(gd);
-                   
-                    if (cm.HasEntityComponent<PlayerComponent>(entity.Key))
+                    int playerNumber = cm.GetComponentForEntity<PlayerComponent>(entity.Key).Number;
+                    float scaledHealth = (float)currHealth / healthComponent.Max * 100f;
+                    //check if its player 1 entity
+                    if (playerNumber == 1)
                     {
-                        int playerNumber = cm.GetComponentForEntity<PlayerComponent>(entity.Key).Number;
-                        float scaledHealth = (float)currHealth / healthComponent.Max * 100f;
-                        //check if its player 1 entity
-                        if (playerNumber == 1)
-                        {
-                            healthRectangle = new Rectangle(
-                                gd.Viewport.TitleSafeArea.Left + 5,
-                                gd.Viewport.TitleSafeArea.Top + 8,
-                                (int)scaledHealth,
-                                12
-                                );
-                        }
-                        //check if its player 2 entity
-                        else if (playerNumber == 2)
-                        {
-                            healthRectangle = new Rectangle(
-                                gd.Viewport.TitleSafeArea.Right - 5 - (int)scaledHealth,
-                                gd.Viewport.TitleSafeArea.Top + 8,
-                                (int)scaledHealth,
-                                12
-                                );
-                        }
+                        healthRectangle = new Rectangle(
+                            gd.Viewport.TitleSafeArea.Left + 5,
+                            gd.Viewport.TitleSafeArea.Top + 8,
+                            (int)scaledHealth,
+                            12
+                            );
                     }
-                    //else its an AI
-                    else if (cm.HasEntityComponent<AIComponent>(entity.Key))
+                    //check if its player 2 entity
+                    else if (playerNumber == 2)
                     {
-                        
-                        CollisionComponent aiCollisionBox = cm.GetComponentForEntity<CollisionComponent>(entity.Key);
-                        PositionComponent p;
-                        CollisionComponent c;
-                        float scaledHealth = (float)currHealth / healthComponent.Max;
-                        if (cm.TryGetEntityComponents(entity.Key, out p, out c))
-                        {
-                            healthRectangle = new Rectangle((int)p.Position.X, (int)p.Position.Y, (int)scaledHealth * c.CollisionBox.Width, 10).WorldToScreen(ref viewport);
-                            healthRectangle.Offset(-c.CollisionBox.Width / 2, -c.CollisionBox.Height / 2 - 10);
-                        }
+                        healthRectangle = new Rectangle(
+                            gd.Viewport.TitleSafeArea.Right - 5 - (int)scaledHealth,
+                            gd.Viewport.TitleSafeArea.Top + 8,
+                            (int)scaledHealth,
+                            12
+                            );
                     }
-                    rh.Draw(healthTexture, healthRectangle, Color.White, RenderLayer.GUI1);
                 }
+                //else its an AI
+                else if (cm.HasEntityComponent<AIComponent>(entity.Key))
+                {
+
+                    CollisionComponent aiCollisionBox = cm.GetComponentForEntity<CollisionComponent>(entity.Key);
+                    PositionComponent p;
+                    CollisionComponent c;
+                    float scaledHealth = (float)currHealth / healthComponent.Max;
+                    if (cm.TryGetEntityComponents(entity.Key, out p, out c))
+                    {
+                        healthRectangle = new Rectangle((int)p.Position.X, (int)p.Position.Y, (int)scaledHealth * c.CollisionBox.Width, 10).WorldToScreen(ref viewport);
+                        healthRectangle.Offset(-c.CollisionBox.Width / 2, -c.CollisionBox.Height / 2 - 10);
+                    }
+                }
+                rh.Draw(healthTexture, healthRectangle, Color.White, RenderLayer.GUI1);
             }
         }
 

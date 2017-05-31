@@ -63,6 +63,7 @@ namespace Game.Systems
                                         HealthComponent healthComp = cm.GetComponentForEntity<HealthComponent>(entity);
                                         attackComp.Damage = attackComp.Damage - 2;
                                         healthComp.Max = healthComp.Max - 1;
+                                        healthComp.Current = healthComp.Current - 1;
                                         comp.Strength -= 1;
                                     }
                                     break;
@@ -83,6 +84,7 @@ namespace Game.Systems
                                     {
                                         HealthComponent healthComp = cm.GetComponentForEntity<HealthComponent>(entity);
                                         healthComp.Max = healthComp.Max - 2;
+                                        healthComp.Current = healthComp.Current - 2;
                                         comp.Stamina -= 1;
                                     }
                                     break;
