@@ -358,6 +358,8 @@ namespace Game
             cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(10 * 128, 13 * 128), 5, 100, 100, factory.CreateEnemy(0, 0)));
             cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(15 * 128, 13 * 128), 5, 100, 100, factory.CreateEnemy(0, 0)));
 
+            cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(35 * 128, 7 * 128), 15, 700, 100, factory.CreateEnemy(0, 0)));
+
             //################## GUI ######################
 
             // Dialog window
