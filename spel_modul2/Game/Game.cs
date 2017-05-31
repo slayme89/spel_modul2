@@ -285,11 +285,14 @@ namespace Game
             //cm.AddEntityWithComponents(factory.CreateEnemy(310, 600));
 
             ////Enemy
-            //cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(350, 600), 3, 1000, 100, factory.CreateEnemy(0, 0)));
+            cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(11 * 128, 6 * 128), 3, 1000, 100, factory.CreateEnemy(0, 0)));
 
             ////Enemy
-            //cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(750, 700), 5, 100, 100, factory.CreateEnemy(0, 0)));
+            cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(2 * 128, 13 * 128), 5, 100, 100, factory.CreateEnemy(0, 0)));
 
+            cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(10 * 128, 13 * 128), 5, 100, 100, factory.CreateEnemy(0, 0)));
+
+            cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(15 * 128, 13 * 128), 5, 100, 100, factory.CreateEnemy(0, 0)));
 
             //################## GUI ######################
 
