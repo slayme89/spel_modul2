@@ -8,13 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Game.Systems
 {
-    public class RenderEnergySystem : ISystem, IRenderSystem
+    public class RenderEnergySystem : IRenderSystem
     {
         private Texture2D energyTexture;
-
-        public void Update(GameTime gameTime)
-        {
-        }
 
         public void Render(RenderHelper rh)
         {
@@ -51,7 +47,7 @@ namespace Game.Systems
                             12
                             );
                     }
-                    rh.Draw(energyTexture, energyRectangle, Color.White, RenderLayer.Foreground1);
+                    rh.Draw(energyTexture, energyRectangle, Color.White, RenderLayer.GUI1);
                 }
             }
         }

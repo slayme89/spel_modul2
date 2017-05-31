@@ -58,7 +58,8 @@ namespace Game
                 new MenuSystem(),
                 new RenderMenuSystem(),
                 new InputSystem(),
-                //new MusicSystem(),
+                new DayNightSystem(),
+                new MusicSystem(),
             });
 
             base.Initialize();
@@ -497,6 +498,8 @@ namespace Game
 
             //player one
             cm.AddEntityWithComponents(factory.CreatePlayerOne(100, 128));
+
+  
 
             //sm.GetSystem<ItemIconLoaderSystem>().Load(Content);
             sm.GetSystem<InventoryLoaderSystem>().Load(Content);

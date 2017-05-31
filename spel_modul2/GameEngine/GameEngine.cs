@@ -49,7 +49,7 @@ namespace GameEngine
                 new RenderCollisionBoxSystem(),
                 //new InputSystem(),
                 new WorldSystem(),
-                //new SoundSystem(),
+                new SoundSystem(),
                 new RenderGUISystem(),
                 new AnimationGroupSystem(),
                 new RenderAnimationGroupSystem(),
