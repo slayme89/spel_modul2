@@ -46,6 +46,7 @@ namespace Game.Systems
             else if (gm.State == GameState.GameOver && gm.LastState == GameState.Game)
             {
                 //ComponentManager.GetInstance().AddEntityWithComponents(factory.CreateMenuController(ControllerType.Keyboard));
+                AlphaVal = 0;
                 gm.LastState = GameState.GameOver;
             }
         }

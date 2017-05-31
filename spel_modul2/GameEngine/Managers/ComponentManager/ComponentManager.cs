@@ -86,6 +86,7 @@ namespace GameEngine.Managers
                         Dictionary<int, IComponent> group;
                         componentGroups.TryGetValue(type, out group);
                         group?.Remove(entity);
+                        componentGroups[type].Remove(entity);
                     }
 
                     entityComponents.Remove(entity);

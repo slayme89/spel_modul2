@@ -1,6 +1,7 @@
 ﻿namespace Game.Managers
 {
-    public enum GameState {Splashscreen, Menu, Game, OnePlayerGame, TwoPlayerGame, GameOver, Restart, Exit };
+    public enum GameState { Menu, Game, OnePlayerGame, TwoPlayerGame, GameOver, Restart, ExitToMenu, Exit };
+
     public class GameStateManager
     {
         static GameStateManager instance;

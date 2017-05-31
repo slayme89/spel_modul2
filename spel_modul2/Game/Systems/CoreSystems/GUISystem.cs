@@ -8,14 +8,14 @@ namespace Game.Systems.CoreSystems
 {
     public class GUISystem : ISystem
     {
-        private bool P1Alive = false;
-        private bool P2Alive = false;
-        private bool AllDead = false;
+        
 
         public void Update(GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
-
+            bool P1Alive = false;
+            bool P2Alive = false;
+            bool AllDead = false;
             var allPlayers = cm.GetComponentsOfType<PlayerComponent>();
             if(allPlayers.Count <= 0)
             {

@@ -114,6 +114,21 @@ namespace Game
             {
                 base.Update(gameTime);
             }
+            else if (gameStateManager.State == GameState.Restart)
+            {
+                SetUpGameEntities();
+                LoadGameEntities();
+                base.LoadContent();
+                gameStateManager.State = GameState.Game;
+            }
+            else if (gameStateManager.State == GameState.ExitToMenu)
+            {
+                DeleteAllEntities();
+                gameStateManager.State = GameState.Menu;
+                base.Update(gameTime);
+                SetUpMenuEntities();
+                LoadMenuEntities();
+            }
         }
 
         protected override void Draw(GameTime gameTime)
@@ -125,25 +140,43 @@ namespace Game
                 sm.Render<RenderMenuSystem>(renderHelper);
                 sb.End();
             }
-            else if (gameStateManager.State == GameState.GameOver)
-            {
-                //sm.Render<GameOverSystem>(renderHelper);
-                base.Draw(gameTime);
-
-            }
-            else if (gameStateManager.State == GameState.Game)
+            else if (gameStateManager.State == GameState.Game || gameStateManager.State == GameState.GameOver)
             {
                 base.Draw(gameTime);
             }
-            else if (gameStateManager.State == GameState.Restart)
-            {
-                SetUpGameEntities();
-                LoadGameEntities();
-                base.LoadContent();
-                gameStateManager.State = GameState.Game;
-            }
+            
             if (gameStateManager.State == GameState.Exit)
                 Exit();
+        }
+
+        void DeleteAllEntities()
+        {
+            foreach(var entity in cm.GetComponentsOfType<PositionComponent>())
+                cm.RemoveEntity(entity.Key);
+            foreach (var entity in cm.GetComponentsOfType<GUIComponent>())
+                cm.RemoveEntity(entity.Key);
+            foreach (var entity in cm.GetComponentsOfType<AnimationGroupComponent>())
+                cm.RemoveEntity(entity.Key);
+            foreach (var entity in cm.GetComponentsOfType<ItemComponent>())
+                cm.RemoveEntity(entity.Key);
+            foreach (var entity in cm.GetComponentsOfType<SkillComponent>())
+                cm.RemoveEntity(entity.Key);
+            foreach (var entity in cm.GetComponentsOfType<MenuBackgroundComponent>())
+                cm.RemoveEntity(entity.Key);
+            foreach (var entity in cm.GetComponentsOfType<MenuButtonComponent>())
+                cm.RemoveEntity(entity.Key);
+            foreach (var entity in cm.GetComponentsOfType<MenuTitleComponent>())
+                cm.RemoveEntity(entity.Key);
+            foreach (var entity in cm.GetComponentsOfType<WorldComponent>())
+                cm.RemoveEntity(entity.Key);
+            foreach (var entity in cm.GetComponentsOfType<SoundComponent>())
+                cm.RemoveEntity(entity.Key);
+            foreach (var entity in cm.GetComponentsOfType<TextureComponent>())
+                cm.RemoveEntity(entity.Key);
+            foreach (var entity in cm.GetComponentsOfType<PlayerComponent>())
+                cm.RemoveEntity(entity.Key);
+            foreach (var entity in cm.GetComponentsOfType<CollisionComponent>())
+                cm.RemoveEntity(entity.Key);
         }
 
         //Game entities stuff
@@ -526,7 +559,8 @@ namespace Game
                     "Menu/1PlayerN",
                     "Menu/1PlayerH",
                     new Vector2(Viewport.TitleSafeArea.Center.X - 200, Viewport.TitleSafeArea.Top + 220),
-                    RenderLayer.MenuButton
+                    RenderLayer.MenuButton,
+                    0
                     )
             });
             // Main Menu - 2 Players
@@ -539,7 +573,8 @@ namespace Game
                     "Menu/2PlayersN",
                     "Menu/2PlayersH",
                     new Vector2(Viewport.TitleSafeArea.Center.X - 200, Viewport.TitleSafeArea.Top + 340),
-                    RenderLayer.MenuButton
+                    RenderLayer.MenuButton,
+                    1
                     )
             });
             // Main Menu - Quit game
@@ -552,7 +587,8 @@ namespace Game
                    "Menu/QuitN",
                    "Menu/QuitH",
                    new Vector2(Viewport.TitleSafeArea.Center.X - 200, Viewport.TitleSafeArea.Top + 460),
-                   RenderLayer.MenuButton
+                   RenderLayer.MenuButton,
+                   2
                    )
             });
             // Pause Menu //
@@ -567,7 +603,8 @@ namespace Game
                     "Menu/ResumeN",
                     "Menu/ResumeH",
                     new Vector2(Viewport.TitleSafeArea.Center.X - 200, Viewport.TitleSafeArea.Top + 220),
-                    RenderLayer.MenuButton
+                    RenderLayer.MenuButton,
+                    0
                     )
             });
             // Pause Menu - Quit
@@ -580,7 +617,8 @@ namespace Game
                     "Menu/QuitN",
                     "Menu/QuitH",
                     new Vector2(Viewport.TitleSafeArea.Center.X - 200, Viewport.TitleSafeArea.Top + 340),
-                    RenderLayer.MenuButton
+                    RenderLayer.MenuButton,
+                    1
                     )
             });
         }

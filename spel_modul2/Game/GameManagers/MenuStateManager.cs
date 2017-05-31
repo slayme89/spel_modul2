@@ -52,8 +52,8 @@ namespace Game.Managers
         // PAUSE QUIT - TODO
         public static void PauseQuit()
         {
-            GameStateManager.GetInstance().State = GameState.Exit;
+            GetInstance().State = MenuState.None;
+            GameStateManager.GetInstance().State = GameState.ExitToMenu;
         }
-
     }
 }

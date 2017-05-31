@@ -16,7 +16,7 @@ namespace Game.Systems
         private int SelectedButton;
         private float SelectCooldown = 0.0f;
         private float MaxSelectCooldown = 0.2f;
-        private bool DecrementSelectCooldown = true;
+        private bool DecrementSelectCooldown;
         EntityFactory factory = new EntityFactory();
 
         public void Update(GameTime gameTime)
@@ -60,7 +60,7 @@ namespace Game.Systems
                         {
                             //if the stick has been pushed in a direction
                             Point direction = MoveSystem.CalcDirection(stickDir.X, stickDir.Y);
-
+                            Debug.WriteLine(direction + "   " + cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[0]).HighlightTexturePath);
                             cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[SelectedButton]).Ishighlighted = false;
                             //stop sound for last button
                             if (cm.HasEntityComponent<SoundComponent>(ActiveButtonsList[SelectedButton]))
@@ -121,7 +121,13 @@ namespace Game.Systems
                     MenuStateManager.GetInstance().State = MenuState.PauseMainMenu;
                     break;
                 }
-
+                if(GameStateManager.GetInstance().State == GameState.ExitToMenu)
+                {
+                    ActiveButtonsList.Clear();
+                    SelectedButton = 0;
+                    MenuStateManager.GetInstance().State = MenuState.MainMenu;
+                }
+                    
             }
         }
 
@@ -134,7 +140,9 @@ namespace Game.Systems
                 ActiveButtonsList = new List<int>();
 
                 //Set buttons to "active" and add them to the buttonList
-                foreach (var button in cm.GetComponentsOfType<MenuButtonComponent>())
+                var menuButtonComps = cm.GetComponentsOfType<MenuButtonComponent>();
+
+                foreach (var button in menuButtonComps)
                 {
                     MenuButtonComponent buttonComp = (MenuButtonComponent)button.Value;
 
@@ -160,8 +168,11 @@ namespace Game.Systems
                     if (buttonComp.IsActive)
                     {
                         ActiveButtonsList.Add(button.Key);
+                        //ActiveButtonsList.Insert(buttonComp.OrderPosition, button.Key);
                     }
                 }
+                if(ActiveButtonsList.Count > 0 && cm.GetComponentForEntity<MenuButtonComponent>(ActiveButtonsList[0]).OrderPosition != 0)
+                    ActiveButtonsList.Reverse();
                 int checkButtons = 0;
                 foreach (var button in ActiveButtonsList)
                 {
