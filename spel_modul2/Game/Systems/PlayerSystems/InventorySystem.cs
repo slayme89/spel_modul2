@@ -99,7 +99,7 @@ namespace Game.Systems
                                             UnEquipItemVisually(invenComp.WeaponBodyHead[equipPos], cm);
                                             invenComp.WeaponBodyHead[equipPos] = 0;
                                         }
-                                            
+
                                     }
                                     else if (invenComp.LocationInInventory == LocationInInventory.Bagspace)
                                         //Picked an item to hold
@@ -129,7 +129,7 @@ namespace Game.Systems
                                     {
                                         StatsComponent statComp = cm.GetComponentForEntity<StatsComponent>(entity.Key);
                                         //Choose the skill selected if it has not already been picked and prerequisite requirements have been met
-                                        if (ChooseAvailableSkill(ref invenComp, GetSelectedSkillSlot(invenComp.SelectedSlot.X, invenComp.SelectedSlot.Y)) 
+                                        if (ChooseAvailableSkill(ref invenComp, GetSelectedSkillSlot(invenComp.SelectedSlot.X, invenComp.SelectedSlot.Y))
                                             && statComp.SpendableStats >= 5)
                                             statComp.SpendableStats -= 5;
                                     }
@@ -187,7 +187,7 @@ namespace Game.Systems
 
                                     if (selectedItemComp != null)
                                     {
-                                        if((int)selectedItemComp.Type <= 2)
+                                        if ((int)selectedItemComp.Type <= 2)
                                         {
                                             if (invenComp.HeldItem != 0)
                                                 invenComp.HeldItem = 0;
@@ -210,7 +210,8 @@ namespace Game.Systems
                                                 selectedItemComp.InventoryPosition = -(int)selectedItemComp.Type - 1;
                                                 UnEquipItemVisually(itemToMove, cm);
                                             }
-                                        }else if (selectedItemComp.Type == ItemType.Consumable)
+                                        }
+                                        else if (selectedItemComp.Type == ItemType.Consumable)
                                         {
                                             selectedItemComp.Use(entity.Key, selectedItemComp.InventoryPosition);
                                             invenComp.AmountOfItems--;
@@ -219,6 +220,26 @@ namespace Game.Systems
                                     }
                                 }
                                 UpdateActualEquippedItems(ref invenComp, ref cm, entity.Key);
+                            }
+                            //drop selected item
+                            else if (playerComp.Back.IsButtonDown())
+                            {
+                                if (invenComp.LocationInInventory == LocationInInventory.Bagspace)
+                                {
+                                    int selectedArraySlot = invenComp.SelectedSlot.Y + (invenComp.ColumnsRows.X) * invenComp.SelectedSlot.X;
+                                    ItemComponent selectedItemComp = cm.GetComponentForEntity<ItemComponent>(invenComp.Items[selectedArraySlot]);
+
+                                    if (selectedItemComp != null)
+                                    {
+                                        PositionComponent playerPosComp = cm.GetComponentForEntity<PositionComponent>(entity.Key);
+                                        cm.AddComponentsToEntity( invenComp.Items[selectedArraySlot], new IComponent[]{
+                                            new PositionComponent(playerPosComp.Position),
+                                            new InteractComponent(InteractType.Loot)
+                                        });
+                                        invenComp.Items[selectedArraySlot] = 0;
+                                        invenComp.AmountOfItems--;
+                                    }
+                                }
                             }
                             else if (cm.HasEntityComponent<ActionBarComponent>(entity.Key))
                             {

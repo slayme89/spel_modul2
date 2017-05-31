@@ -57,7 +57,7 @@ namespace Game.Systems
                             if (cm.HasEntityComponent<HealthComponent>(closestInteractable) && cm.GetComponentForEntity<HealthComponent>(closestInteractable).IsAlive)
                                 break;
                             InventoryComponent invenComp = cm.GetComponentForEntity<InventoryComponent>(player.Entity);
-                            if (invenComp.AmountOfItems <= invenComp.Items.Length)
+                            if (invenComp.AmountOfItems < invenComp.Items.Length)
                             {
                             //Remove components
                             cm.RemoveComponentFromEntity<InteractComponent>(closestInteractable);
