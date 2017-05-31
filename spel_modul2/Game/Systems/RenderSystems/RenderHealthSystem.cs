@@ -53,17 +53,23 @@ namespace Game.Systems
                 //else its an AI
                 else if (cm.HasEntityComponent<AIComponent>(entity.Key))
                 {
-
-                    CollisionComponent aiCollisionBox = cm.GetComponentForEntity<CollisionComponent>(entity.Key);
                     PositionComponent p;
                     CollisionComponent c;
-                    float scaledHealth = (float)currHealth / healthComponent.Max;
+                    
                     if (cm.TryGetEntityComponents(entity.Key, out p, out c))
                     {
-                        healthRectangle = new Rectangle((int)p.Position.X, (int)p.Position.Y, (int)scaledHealth * c.CollisionBox.Width, 10).WorldToScreen(ref viewport);
-                        healthRectangle.Offset(-c.CollisionBox.Width / 2, -c.CollisionBox.Height / 2 - 10);
+                        float scaledHealth = (float)currHealth / healthComponent.Max * c.CollisionBox.Width;
+                        healthRectangle = new Rectangle(
+                            (int)p.Position.X,
+                            (int)p.Position.Y,
+                            (int)scaledHealth,
+                            10).WorldToScreen(ref viewport);
+
+                        healthRectangle.Offset(
+                            -c.CollisionBox.Width / 2,
+                            -c.CollisionBox.Height / 2 - 10);
                     }
-                    rh.Draw(healthTexture, healthRectangle, Color.White, RenderLayer.Layer4);
+                    rh.Draw(healthTexture, healthRectangle, Color.White, RenderLayer.Layer5);
                 }  
             }
         }
