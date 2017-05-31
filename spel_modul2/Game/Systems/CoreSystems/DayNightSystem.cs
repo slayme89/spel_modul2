@@ -5,7 +5,7 @@ namespace Game.Systems
 {
     public class DayNightSystem : ISystem, IRenderSystem
     {
-        private double DayDuration = 24;
+        private double DayDuration = 200;
         private double CurrentTime = 0;
         //Fading stuff
         private int AlphaValue = 0;
@@ -18,18 +18,19 @@ namespace Game.Systems
             if (CurrentTime >= DayDuration)
                 CurrentTime = 0;
 
-            if(CurrentTime >= 12)
+            if(CurrentTime >=  DayDuration / 2)
             {
                 Counter += gameTime.ElapsedGameTime.TotalSeconds;
                 if (Counter >= .1)
                 {
-                    if (CurrentTime <= 18 && AlphaValue < 150)
+                    Counter = 0;
+                    if (CurrentTime <= DayDuration / 2 + DayDuration / 4 && AlphaValue < 150)
                         AlphaValue++;
                     else if( AlphaValue > 0)
                         AlphaValue--;
                 }
             }
-            if (CurrentTime >= 24)
+            if (CurrentTime >= DayDuration)
                 CurrentTime = 0;
         }
 
