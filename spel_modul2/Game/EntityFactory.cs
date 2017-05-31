@@ -68,6 +68,14 @@ namespace Game
                 //i.Items[position] = 0;
             }
         }
+        // One Stone
+        public void AddOneStone(int x, int y)
+        {
+            ComponentManager cm = ComponentManager.GetInstance();
+            cm.AddEntityWithComponents(new TextureComponent("GameWorld/Stones/stone-top", RenderLayer.Foreground1), new PositionComponent(x, y));
+            cm.AddEntityWithComponents(new TextureComponent("GameWorld/Stones/stone-bot", RenderLayer.Background1), new PositionComponent(x, y));
+            cm.AddEntityWithComponents(new CollisionComponent(14, 2), new PositionComponent(x, y - 5));
+        }
 
         // One tree
         public void AddOneTree(int x, int y)

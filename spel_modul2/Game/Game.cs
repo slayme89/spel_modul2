@@ -128,15 +128,16 @@ namespace Game
             factory.AddOneTree(128 * 17 - 4, 128 * 13 + 55);
             factory.AddOneTree(128 * 17 + 250, 128 * 13 + 55);
 
+            factory.AddOneStone(128, 128);
 
             // Other trees
-            factory.AddTreeChunk(128 * 2, 128 * 2);
-            factory.AddTreeChunk(128 * 3 + 100, 128 * 2);
-            factory.AddTreeChunk(128 * 7 + 100, 128 * 2);
-            factory.AddTreeChunk(128 * 10 + 100, 128 * 2);
-            factory.AddTreeChunk(128 * 15 + 100, 128 * 2);
-            factory.AddTreeChunk(128 * 20 + 100, 128 * 2);
-            factory.AddTreeChunk(128 * 25 + 100, 128 * 2);
+            //factory.AddTreeChunk(128 * 2, 128 * 2);
+            //factory.AddTreeChunk(128 * 3 + 100, 128 * 2);
+            //factory.AddTreeChunk(128 * 7 + 100, 128 * 2);
+            //factory.AddTreeChunk(128 * 10 + 100, 128 * 2);
+            //factory.AddTreeChunk(128 * 15 + 100, 128 * 2);
+            //factory.AddTreeChunk(128 * 20 + 100, 128 * 2);
+            //factory.AddTreeChunk(128 * 25 + 100, 128 * 2);
 
 
             //####################### STONES ####################################
