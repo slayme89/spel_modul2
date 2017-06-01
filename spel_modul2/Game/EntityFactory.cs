@@ -38,8 +38,8 @@ namespace Game
                 new AttackComponent(1, 0.8f, 0.35f, WeaponType.Sword),
                 new LevelComponent(2),
                 new KnockbackComponent(),
-                new InteractComponent(InteractType.Loot),
-                new ItemComponent(AddHealth, "Bread", ItemType.Consumable),
+                //new InteractComponent(InteractType.Loot),
+                //new ItemComponent(AddHealth, "Bread", ItemType.Consumable),
             };
         }
 
@@ -131,7 +131,7 @@ namespace Game
                 new MoveComponent(0.8f),
                 new PlayerControlComponent(ControllerType.Keyboard),
                 new CollisionComponent(30, 35),
-                new AttackComponent(1, 0.3f, 0.1f, WeaponType.None),
+                new AttackComponent(1, 0.3f, 0.1f, WeaponType.None, 35, 35),
                 new PlayerComponent(1),
                 new LevelComponent(1, 0),
                 new SoundComponent(new string[]{"Walk", "Attack", "Hurt" }, new string[]{ "Sound/walk", "Sound/sword", "Sound/damage" }),
@@ -163,7 +163,7 @@ namespace Game
                 new MoveComponent(0.8f),
                 new PlayerControlComponent(ControllerType.Gamepad1),
                 new CollisionComponent(30, 35),
-                new AttackComponent(1, 0.3f, 0.1f, WeaponType.None),
+                new AttackComponent(1, 0.3f, 0.1f, WeaponType.None, 35, 35),
                 new PlayerComponent(2),
                 new LevelComponent(1, 0),
                 new SoundComponent(new string[]{"Walk", "Attack", "Hurt" }, new string[]{ "Sound/walk", "Sound/sword", "Sound/damage" }),
@@ -181,7 +181,6 @@ namespace Game
             return new IComponent[]
             {
                 new PositionComponent(x, y),
-                new CollisionComponent(20, 20),
                 new InteractComponent(InteractType.Loot),
                 new ItemComponent(ItemManager.exampleUseItem, "KnightHelmetHead", ItemType.Head),
                 new AnimationGroupComponent("PlayerAnimation/MEDIUM/KnightArmorHeadSpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
@@ -204,7 +203,6 @@ namespace Game
             return new IComponent[]
             {
              new PositionComponent(x, y),
-                new CollisionComponent(20, 20),
                 new InteractComponent(InteractType.Loot),
                 new ItemComponent(ItemManager.exampleUseItem, "KnightArmorBody", ItemType.Body),
                 new AnimationGroupComponent("PlayerAnimation/MEDIUM/KnightArmorBodySpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
@@ -227,7 +225,6 @@ namespace Game
             return new IComponent[]
             {
                 new PositionComponent(x, y),
-                new CollisionComponent(20, 20),
                 new InteractComponent(InteractType.Loot),
                 new ItemComponent(ItemManager.exampleUseItem, "ArcherHatHead", ItemType.Head),
                 new AnimationGroupComponent("PlayerAnimation/MEDIUM/ArcherArmorHeadSpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
@@ -250,7 +247,6 @@ namespace Game
             return new IComponent[]
             {
                  new PositionComponent(x, y),
-                new CollisionComponent(20, 20),
                 new InteractComponent(InteractType.Loot),
                 new ItemComponent(ItemManager.exampleUseItem, "ArcherArmorBody", ItemType.Body),
                 new AnimationGroupComponent("PlayerAnimation/MEDIUM/ArcherArmorBodySpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
@@ -273,7 +269,6 @@ namespace Game
             return new IComponent[]
             {
                 new PositionComponent(x, y),
-                new CollisionComponent(20, 20),
                 new InteractComponent(InteractType.Loot),
                 new ItemComponent(ItemManager.exampleUseItem, "MageCowlHead", ItemType.Head),
                 new AnimationGroupComponent("PlayerAnimation/MEDIUM/MageArmorHeadSpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
@@ -296,7 +291,6 @@ namespace Game
             return new IComponent[]
             {
                 new PositionComponent(x, y),
-                new CollisionComponent(20, 20),
                 new InteractComponent(InteractType.Loot),
                 new ItemComponent(ItemManager.exampleUseItem, "MageArmorBody", ItemType.Body),
                 new AnimationGroupComponent("PlayerAnimation/MEDIUM/MageArmorBodySpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
@@ -319,7 +313,6 @@ namespace Game
             return new IComponent[]
             {
                 new PositionComponent(x, y),
-                new CollisionComponent(20, 20),
                 new InteractComponent(InteractType.Loot),
                 new ItemComponent(ItemManager.exampleUseItem, "Sword", ItemType.Weapon),
                 new AnimationGroupComponent("PlayerAnimation/MEDIUM/SwordSpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer4,

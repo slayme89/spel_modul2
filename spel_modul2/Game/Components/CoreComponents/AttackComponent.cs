@@ -32,6 +32,19 @@ namespace Game.Components
             AttackCollisionBox = new Rectangle(0, 0, 25, 25);
         }
 
+        public AttackComponent(int damage, float rateOfFire, float attackDelay, WeaponType weaponType, int attackSizeX, int attackSizeY)
+        {
+            BonusDamage = 0;
+            Damage = damage;
+            RateOfFire = rateOfFire;
+            Type = weaponType;
+            AttackCooldown = 0.0f;
+            AttackChargeUp = attackDelay;
+            AttackDelay = attackDelay;
+            CanAttack = true;
+            AttackCollisionBox = new Rectangle(0, 0, attackSizeX, attackSizeY);
+        }
+
         public object Clone()
         {
             return MemberwiseClone();

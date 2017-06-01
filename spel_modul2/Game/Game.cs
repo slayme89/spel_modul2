@@ -353,12 +353,23 @@ namespace Game
 
             //Blood stone with loot
             cm.AddEntityWithComponents(factory.CreateNormalSword(128 * 6, 128 * 10 - 50));
+            cm.AddEntityWithComponents(factory.CreateNormalSword(128 * 6, 128 * 10 - 50));
+
+            cm.AddEntityWithComponents(factory.CreateKnightBodyArmor(128 * 3, 128 * 13));
+            cm.AddEntityWithComponents(factory.CreateKnightHeadArmor(128 * 16, 128 * 13));
+            cm.AddEntityWithComponents(factory.CreateMageBodyArmor(128 * 16, 128 * 4));
+            cm.AddEntityWithComponents(factory.CreateMageHeadArmor(128 * 11, 128 * 6));
+            cm.AddEntityWithComponents(factory.CreateArcherBodyArmor(128 * 8, 128 * 3));
+            cm.AddEntityWithComponents(factory.CreateArcherHeadArmor(128 * 17, 128 * 6));
+
             cm.AddEntityWithComponents(new IComponent[]
             {
                  new TextureComponent("GameWorld/BloodStone1", RenderLayer.Foreground1),
                  new PositionComponent(128 * 6 - 10, 128 * 10 - 50),
                  new CollisionComponent(40, 30)
             });
+
+            
 
             //Player arms!
             cm.AddEntityWithComponents(new IComponent[]
@@ -466,57 +477,7 @@ namespace Game
                 new SoundComponent(new string[]{"Forest_Theme"}, new string[]{ "Sound/theme" }, new bool[] { true }),
             });
 
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-                new ItemComponent(ItemManager.exampleUseItem, "Staff", ItemType.Weapon),
-            });
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-                new ItemComponent(ItemManager.exampleUseItem, "Sword", ItemType.Weapon),
-                new AnimationGroupComponent("PlayerAnimation/MEDIUM/SwordSpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer3,
-                new[] {
-                    new Tuple<Point, Point>(new Point(0, 0), new Point(1, 1)),
-                    new Tuple<Point, Point>(new Point(0, 1), new Point(1, 1)),
-                    new Tuple<Point, Point>(new Point(0, 2), new Point(1, 1)),
-                    new Tuple<Point, Point>(new Point(0, 3), new Point(1, 1)),
-                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
-                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
-                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
-                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
-                }),
-                new SwordComponent(1),
-            });
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-                new ItemComponent(ItemManager.exampleUseItem, "GoldArmorHead", ItemType.Head),
-            });
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-                new ItemComponent(ItemManager.exampleUseItem, "GoldArmorBody", ItemType.Body),
-
-            });
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-                new ItemComponent(ItemManager.exampleUseItem, "ChainArmorHead", ItemType.Head),
-                new AnimationGroupComponent("PlayerAnimation/MEDIUM/KnightArmorHeadSpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
-                new[] {
-                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
-                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
-                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
-                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
-                }),
-            });
-            cm.AddComponentsToEntity(EntityManager.GetEntityId(), new IComponent[]
-            {
-                new ItemComponent(ItemManager.exampleUseItem, "ChainArmorBody", ItemType.Body),
-                new AnimationGroupComponent("PlayerAnimation/MEDIUM/KnightArmorBodySpritesheetMEDIUM", new Point(4, 4), 150, RenderLayer.Layer2,
-                new[] {
-                    new Tuple<Point, Point>(new Point(0, 0), new Point(4, 1)),
-                    new Tuple<Point, Point>(new Point(0, 1), new Point(4, 1)),
-                    new Tuple<Point, Point>(new Point(0, 2), new Point(4, 1)),
-                    new Tuple<Point, Point>(new Point(0, 3), new Point(4, 1)),
-                }),
-            });
+            
         }
 
         void LoadGameEntities()

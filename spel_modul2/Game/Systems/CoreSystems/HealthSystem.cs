@@ -142,7 +142,7 @@ namespace Game.Systems
             Vector2 newDir = new Vector2(posComp.Position.X - posCompAttacker.X, posComp.Position.Y - posCompAttacker.Y);
 
             knockbackComponent.prevDir = moveComp.Direction.ToVector2();
-            knockbackComponent.KnockbackDir = Vector2.Normalize(newDir * attackDmg);
+            knockbackComponent.KnockbackDir = Vector2.Normalize(newDir * attackDmg +  new Vector2(5, 5));
             knockbackComponent.Cooldown = attackDmg / 40.0f;
             knockbackComponent.KnockbackActive = true;
         }

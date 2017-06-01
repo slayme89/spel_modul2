@@ -37,6 +37,7 @@ namespace Game.Systems
                         if (dist < ai.DetectRange && dist < closestDist)
                         {
                             closestEntity = players[i].Item1;
+                            closestDist = dist;
                         }
                     }
 

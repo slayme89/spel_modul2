@@ -1,4 +1,5 @@
 ﻿using Game.Components;
+using Game.Managers;
 using GameEngine.Components;
 using GameEngine.Managers;
 using GameEngine.Systems;
@@ -16,7 +17,7 @@ namespace Game.Systems
         {
             ComponentManager cm = ComponentManager.GetInstance();
 
-            foreach(EnemySpawnComponent c in cm.GetComponentsOfType<EnemySpawnComponent>().Values)
+            foreach (EnemySpawnComponent c in cm.GetComponentsOfType<EnemySpawnComponent>().Values)
             {
                 for (int i = 0; i < c.MaxEnemies; i++)
                 {
@@ -42,6 +43,11 @@ namespace Game.Systems
             PositionComponent p = new PositionComponent();
             List<IComponent> template = new List<IComponent>(c.EnemyTemplate);
             int entity;
+            Random r = new Random();
+            int shouldEnemyHaveItems = r.Next(0, 3);
+
+
+
 
             for (int i = 0; i < template.Count; i++)
             {
@@ -60,6 +66,13 @@ namespace Game.Systems
                     entity = EntityManager.GetEntityId();
                     cm.AddComponentsToEntity(entity, template.ToArray());
                     c.EnemyEntities[index] = entity;
+
+                    if (shouldEnemyHaveItems > 1)
+                        cm.AddComponentsToEntity(entity, new IComponent[] {
+                                new InteractComponent(InteractType.Loot),
+                                new ItemComponent(AddHealth, "Bread",
+                                ItemType.Consumable),
+                        });
                     break;
                 }
                 else
@@ -74,9 +87,41 @@ namespace Game.Systems
                         entity = EntityManager.GetEntityId();
                         cm.AddComponentsToEntity(entity, template.ToArray());
                         c.EnemyEntities[index] = entity;
+
+                        if (shouldEnemyHaveItems > 1)
+                            cm.AddComponentsToEntity(entity, new IComponent[] {
+                                new InteractComponent(InteractType.Loot),
+                                new ItemComponent(AddHealth, "Bread",
+                                ItemType.Consumable),
+                            });
                         break;
                     }
                 }
+            }
+        }
+
+        //temporär fix
+        public void AddHealth(int entity, int position)
+        {
+            HealthComponent h;
+            InventoryComponent i;
+            ActionBarComponent a;
+            ComponentManager cm = ComponentManager.GetInstance();
+
+            if (cm.TryGetEntityComponents(entity, out h, out i, out a))
+            {
+                h.Current = MathHelper.Clamp(h.Current + 40, 0, h.Max);
+
+                for (int j = 0; j < a.Slots.Length; j++)
+                {
+                    if (a.Slots[j] == cm.GetComponentForEntity<ItemComponent>(i.Items[position]))
+                        a.Slots[j] = null;
+                }
+
+                //remove from inventory
+                i.ItemsToRemove.Add(i.Items[position]);
+                //cm.RemoveEntity(i.Items[position]);
+                //i.Items[position] = 0;
             }
         }
     }
