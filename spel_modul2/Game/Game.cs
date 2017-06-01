@@ -80,86 +80,75 @@ namespace Game
         {
             SystemManager sm = SystemManager.GetInstance();
             ComponentManager cm = ComponentManager.GetInstance();
-            
             gameStateManager.State = GameState.Splashscreen;
             menuStateManager.State = MenuState.MainMenu;
             sm.GetSystem<RenderSplashscreenSystem>().Load(Content);
-
-            ////SetUpGameEntities();
-            //SetUpMenuEntities();
-
-            ////LoadGameEntities();
-            //LoadMenuEntities();
-            //sm.GetSystem<ItemIconLoaderSystem>().Load(Content);
-
-
-            //base.LoadContent();
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (gameStateManager.State == GameState.Menu)
+            switch (gameStateManager.State)
             {
-                SystemManager.GetInstance().Update<InputSystem>(gameTime);
-                SystemManager.GetInstance().Update<MenuSystem>(gameTime);
-                SystemManager.GetInstance().Update<SoundSystem>(gameTime);
-                SystemManager.GetInstance().Update<MusicSystem>(gameTime);
-            }
-            else if (gameStateManager.State == GameState.GameOver)
-            {
-                SystemManager.GetInstance().Update<InputSystem>(gameTime);
-                SystemManager.GetInstance().Update<MenuSystem>(gameTime);
-                SystemManager.GetInstance().Update<SoundSystem>(gameTime);
-                SystemManager.GetInstance().Update<MusicSystem>(gameTime);
-                SystemManager.GetInstance().Update<GameOverSystem>(gameTime);
-            }
-            else if (gameStateManager.State == GameState.Game)
-            {
-                base.Update(gameTime);
-            }
-            else if (gameStateManager.State == GameState.Restart)
-            {
-                SetUpGameEntities();
-                LoadGameEntities();
-                base.LoadContent();
-                gameStateManager.State = GameState.Game;
-            }
-            else if (gameStateManager.State == GameState.ExitToMenu)
-            {
-                DeleteAllEntities();
-                gameStateManager.State = GameState.Menu;
-                base.Update(gameTime);
-                SetUpMenuEntities();
-                LoadMenuEntities();
-            }
-            else if (gameStateManager.State == GameState.Splashscreen)
-            {
-                SystemManager.GetInstance().Update<RenderSplashscreenSystem>(gameTime);
+                case GameState.Splashscreen:
+                    SystemManager.GetInstance().Update<RenderSplashscreenSystem>(gameTime);
+                    break;
+                case GameState.Menu:
+                    SystemManager.GetInstance().Update<InputSystem>(gameTime);
+                    SystemManager.GetInstance().Update<MenuSystem>(gameTime);
+                    SystemManager.GetInstance().Update<SoundSystem>(gameTime);
+                    SystemManager.GetInstance().Update<MusicSystem>(gameTime);
+                    break;
+                case GameState.GameOver:
+                    SystemManager.GetInstance().Update<InputSystem>(gameTime);
+                    SystemManager.GetInstance().Update<MenuSystem>(gameTime);
+                    SystemManager.GetInstance().Update<SoundSystem>(gameTime);
+                    SystemManager.GetInstance().Update<MusicSystem>(gameTime);
+                    SystemManager.GetInstance().Update<GameOverSystem>(gameTime);
+                    break;
+                case GameState.Game:
+                    base.Update(gameTime);
+                    break;
+                case GameState.Restart:
+                    SetUpGameEntities();
+                    LoadGameEntities();
+                    base.LoadContent();
+                    gameStateManager.State = GameState.Game;
+                    break;
+                case GameState.ExitToMenu:
+                    DeleteAllEntities();
+                    gameStateManager.State = GameState.Menu;
+                    base.Update(gameTime);
+                    SetUpMenuEntities();
+                    LoadMenuEntities();
+                    break;
             }
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            //gd.Clear(Color.White);
-            if (gameStateManager.State == GameState.Menu)
+
+            switch (gameStateManager.State)
             {
-                sb.Begin(SpriteSortMode.FrontToBack);
-                sm.Render<RenderMenuSystem>(renderHelper);
-                sb.End();
+                case GameState.Splashscreen:
+                    sb.Begin(SpriteSortMode.FrontToBack);
+                    sm.Render<RenderSplashscreenSystem>(renderHelper);
+                    sb.End();
+                    break;
+                case GameState.Menu:
+                    sb.Begin(SpriteSortMode.FrontToBack);
+                    sm.Render<RenderMenuSystem>(renderHelper);
+                    sb.End();
+                    break;
+                case GameState.Game:
+                    base.Draw(gameTime);
+                    break;
+                case GameState.GameOver:
+                    base.Draw(gameTime);
+                    break;
+                case GameState.Exit:
+                    Exit();
+                    break;
             }
-            else if (gameStateManager.State == GameState.Game || gameStateManager.State == GameState.GameOver)
-            {
-                base.Draw(gameTime);
-            }
-            else if(gameStateManager.State == GameState.Splashscreen)
-            {
-                sb.Begin(SpriteSortMode.FrontToBack);
-                sm.Render<RenderSplashscreenSystem>(renderHelper);
-                sb.End();
-            }
-            
-            if (gameStateManager.State == GameState.Exit)
-                Exit();
         }
 
         void DeleteAllEntities()
@@ -528,17 +517,12 @@ namespace Game
             sm.GetSystem<RenderHealthSystem>().Load(Content);
             sm.GetSystem<RenderExperienceSystem>().Load(Content);
             sm.GetSystem<GameOverSystem>().Load(Content);
-            
-            
+
         }
 
         //Menu entities stuff
         void SetUpMenuEntities()
         {
-            
-
-            //######################## Menu Entities ##################################
-
             //Menu controller
             cm.AddEntityWithComponents(factory.CreateMenuController(ControllerType.Keyboard));
 
