@@ -26,17 +26,17 @@ namespace Game.Systems
             {
                 if (SecondsSinceLastAlphaIncrease >= 0.01f)
                 {
-                    if (AlphaVal < 255)
+                    if (AlphaVal < 350)
                     {
                         AlphaVal++;
                     }
+                    else
+                        gm.State = GameState.ExitToMenu;
                     SecondsSinceLastAlphaIncrease = 0;
                 }
                 SecondsSinceLastAlphaIncrease += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (AlphaVal >= 255)
-                    gm.State = GameState.ExitToMenu;
             }
-            
+
         }
 
         public void Render(RenderHelper renderHelper)
@@ -47,17 +47,14 @@ namespace Game.Systems
                 Vector2 divideToFitScreen = (SplashTexture.Bounds.Size.ToVector2() / viewBounds.Size.ToVector2());
                 divideToFitScreen.Y = divideToFitScreen.X;
                 renderHelper.DrawFilledRectangle(viewBounds, new Color(Color.Black, AlphaVal), RenderLayer.Menubackground);
-                if (AlphaVal >= 65)
-                {
-                    renderHelper.Draw(
-                        SplashTexture,
-                        new Rectangle(
-                            viewBounds.Location + new Point(0, (viewBounds.Size.Y / 2) - (SplashTexture.Bounds.Size.Y / 2)),
-                            (SplashTexture.Bounds.Size.ToVector2() / divideToFitScreen).ToPoint()),
-                        Color.White,
-                        RenderLayer.MenuButton
-                    );
-                }
+                renderHelper.Draw(
+                    SplashTexture,
+                    new Rectangle(
+                        viewBounds.Location + new Point(0, (viewBounds.Size.Y / 2) - (SplashTexture.Bounds.Size.Y / 2)),
+                        (SplashTexture.Bounds.Size.ToVector2() / divideToFitScreen).ToPoint()),
+                    new Color(255, 255, 255, AlphaVal),
+                    RenderLayer.MenuButton
+                );
             }
         }
     }

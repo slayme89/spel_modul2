@@ -126,11 +126,11 @@ namespace Game
 
         protected override void Draw(GameTime gameTime)
         {
-
+            renderHelper.graphicsDevice.Clear(Color.Black);
             switch (gameStateManager.State)
             {
                 case GameState.Splashscreen:
-                    sb.Begin(SpriteSortMode.FrontToBack);
+                    sb.Begin(SpriteSortMode.FrontToBack,BlendState.NonPremultiplied);
                     sm.Render<RenderSplashscreenSystem>(renderHelper);
                     sb.End();
                     break;
