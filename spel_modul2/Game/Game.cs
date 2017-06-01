@@ -33,7 +33,7 @@ namespace Game
                 new RenderActionbarSystem(),
                 new RenderExperienceSystem(),
                 new RenderEnergySystem(),
-                new RenderAttackingCollisionBoxSystem(),
+                //new RenderAttackingCollisionBoxSystem(),
                 //new ItemIconLoaderSystem(),
                 new InventoryLoaderSystem(),
                 new SkillLoaderSystem(),
@@ -263,8 +263,11 @@ namespace Game
                 factory.AddTreeChunk(128 + 350 * i, 128 * 11);
 
             // ----------- Single trees ------------- - TODO
-
-
+            for (int i = 1; i <= 2; i++)
+                factory.AddOneTree(110, 140 * i + 300);
+            factory.AddOneTree(128 * 19, 120);
+            factory.AddOneTree(128 * 19, 128 * 6);
+            factory.AddOneTree(128 * 19, 128 * 4);
 
             //####################### STONES ####################################
 
@@ -285,6 +288,12 @@ namespace Game
                     new TextureComponent("stone1", RenderLayer.Foreground1),
                     new PositionComponent(128 * 17 - 4, 128 * 14 - 5)
             });
+
+
+            factory.AddOneStone(200, 200);
+            factory.AddOneStone(120 * 19, 128 * 4);
+            factory.AddOneStone(128 * 25, 128 * 5);
+            factory.AddOneStone(128 * 33, 128 * 11);
 
             //################## Map bounds (Collisions) ###############################
 
@@ -395,7 +404,7 @@ namespace Game
             cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(15 * 128, 13 * 128), 5, 100, 100, factory.CreateEnemy(0, 0)));
 
             cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(35 * 128, 7 * 128), 15, 700, 100, factory.CreateEnemy(0, 0)));
-
+            //cm.AddEntityWithComponents(new EnemySpawnComponent(new Point(36 * 128, 6 * 128), 3, 500, 100, factory.CreateEnemy(0, 0)));
             //################## GUI ######################
 
             // Dialog window

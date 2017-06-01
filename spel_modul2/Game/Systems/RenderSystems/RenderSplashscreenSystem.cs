@@ -1,5 +1,4 @@
-﻿using System;
-using GameEngine.Systems;
+﻿using GameEngine.Systems;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
