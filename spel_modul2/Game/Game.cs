@@ -62,6 +62,7 @@ namespace Game
                 new MusicSystem(),
                 new GameOverSystem(),
                 new DayNightSystem(),
+                new RenderSplashscreenSystem(),
             });
 
             base.Initialize();
@@ -80,16 +81,18 @@ namespace Game
             SystemManager sm = SystemManager.GetInstance();
             ComponentManager cm = ComponentManager.GetInstance();
             
-            gameStateManager.State = GameState.Menu;
+            gameStateManager.State = GameState.Splashscreen;
             menuStateManager.State = MenuState.MainMenu;
-            //SetUpGameEntities();
-            SetUpMenuEntities();
+            sm.GetSystem<RenderSplashscreenSystem>().Load(Content);
 
-            //LoadGameEntities();
-            LoadMenuEntities();
+            ////SetUpGameEntities();
+            //SetUpMenuEntities();
+
+            ////LoadGameEntities();
+            //LoadMenuEntities();
             //sm.GetSystem<ItemIconLoaderSystem>().Load(Content);
-            
-            
+
+
             //base.LoadContent();
         }
 
@@ -129,6 +132,10 @@ namespace Game
                 SetUpMenuEntities();
                 LoadMenuEntities();
             }
+            else if (gameStateManager.State == GameState.Splashscreen)
+            {
+                SystemManager.GetInstance().Update<RenderSplashscreenSystem>(gameTime);
+            }
         }
 
         protected override void Draw(GameTime gameTime)
@@ -143,6 +150,12 @@ namespace Game
             else if (gameStateManager.State == GameState.Game || gameStateManager.State == GameState.GameOver)
             {
                 base.Draw(gameTime);
+            }
+            else if(gameStateManager.State == GameState.Splashscreen)
+            {
+                sb.Begin(SpriteSortMode.FrontToBack);
+                sm.Render<RenderSplashscreenSystem>(renderHelper);
+                sb.End();
             }
             
             if (gameStateManager.State == GameState.Exit)
@@ -515,6 +528,7 @@ namespace Game
             sm.GetSystem<RenderHealthSystem>().Load(Content);
             sm.GetSystem<RenderExperienceSystem>().Load(Content);
             sm.GetSystem<GameOverSystem>().Load(Content);
+            
             
         }
 
