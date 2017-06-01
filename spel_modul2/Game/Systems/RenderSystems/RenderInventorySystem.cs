@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace Game.Systems
 {
-    public class RenderInventorySystem : ISystem, IRenderSystem
+    public class RenderInventorySystem : IRenderSystem
     {
         public void Render(RenderHelper rh)
         {
@@ -187,10 +187,6 @@ namespace Game.Systems
                     }
                 }
             }
-        }
-
-        public void Update(GameTime gameTime)
-        {
         }
     }
 }

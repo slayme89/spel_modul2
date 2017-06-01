@@ -151,6 +151,7 @@ namespace Game
             }
         }
 
+        //Ful hack
         void DeleteAllEntities()
         {
             foreach(var entity in cm.GetComponentsOfType<PositionComponent>())

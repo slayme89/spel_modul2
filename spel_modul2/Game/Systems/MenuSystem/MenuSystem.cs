@@ -17,15 +17,19 @@ namespace Game.Systems
         private float SelectCooldown = 0.0f;
         private float MaxSelectCooldown = 0.2f;
         private bool DecrementSelectCooldown;
+        bool exitPause = false;
         EntityFactory factory = new EntityFactory();
 
         public void Update(GameTime gameTime)
         {
             ComponentManager cm = ComponentManager.GetInstance();
+            GameStateManager gm = GameStateManager.GetInstance();
             ActivateMenuButtons();
             ActivateMenuBackground();
             ClearMenu();
             DecrementSelectCooldown = true;
+            exitPause = false;
+            bool enterPause = false;
 
             foreach (var controlEntity in cm.GetComponentsOfType<PlayerControlComponent>())
             {
@@ -84,43 +88,50 @@ namespace Game.Systems
                     }
 
                     // 1 Player
-                    if (GameStateManager.GetInstance().State == GameState.OnePlayerGame)
+                    if (gm.State == GameState.OnePlayerGame)
                     {
                         //remove the temporary menu controller
                         cm.RemoveEntity(controlEntity.Key);
                         cm.AddEntityWithComponents(factory.CreatePlayerOne(100, 128));
                         MenuStateManager.GetInstance().State = MenuState.None;
-                        GameStateManager.GetInstance().State = GameState.Restart;
+                        gm.State = GameState.Restart;
                         break;
                     }
                     // 2 Players
-                    if (GameStateManager.GetInstance().State == GameState.TwoPlayerGame)
+                    if (gm.State == GameState.TwoPlayerGame)
                     {
                         //remove the temporary menu controller
                         cm.RemoveEntity(controlEntity.Key);
                         cm.AddEntityWithComponents(factory.CreatePlayerOne(100, 128));
                         cm.AddEntityWithComponents(factory.CreatePlayerTwo(256, 128));
                         MenuStateManager.GetInstance().State = MenuState.None;
-                        GameStateManager.GetInstance().State = GameState.Restart;
+                        gm.State = GameState.Restart;
                         break;
                     }
-                    //// Exit the Pausemenu if menu button is pressed from GameState "Menu"
-                    //if (controlComp.Menu.IsButtonDown() && MenuStateManager.GetInstance().State == MenuState.PauseMainMenu)
-                    //{
-                    //    GameStateManager.GetInstance().State = GameState.Game;
-                    //    MenuStateManager.GetInstance().State = MenuState.None;
-                    //    //break;
-                    //}
                 }
-
-                // Enter the PauseMenu if menu button is pressed from GameState "Game"
-                if (controlComp.Menu.IsButtonDown() && (GameStateManager.GetInstance().State == GameState.Game || GameStateManager.GetInstance().State == GameState.GameOver))
+                if (controlComp.Menu.IsButtonDown())
                 {
-                    GameStateManager.GetInstance().State = GameState.Menu;
-                    MenuStateManager.GetInstance().State = MenuState.PauseMainMenu;
-                    break;
+                    //Debug.WriteLine(gm.State + " c " + gm.LastState);
+                    if (MenuStateManager.GetInstance().State == MenuState.PauseMainMenu && gm.State == GameState.Menu)
+                    {
+                        //// Exit the Pausemenu if menu button is pressed from GameState "Menu"
+                        Debug.WriteLine(gm.LastState + " a " + gm.State);
+                        gm.State = gm.LastState;
+                        MenuStateManager.GetInstance().State = MenuState.None;
+                    }
+                    else if ((gm.State == GameState.Game || gm.State == GameState.GameOver) && gm.LastState != GameState.Menu)
+                    {
+                        // Enter the PauseMenu if menu button is pressed from GameState "Game"
+                        Debug.WriteLine(gm.LastState + " b " + gm.State);
+                        gm.State = GameState.Menu;
+                        MenuStateManager.GetInstance().State = MenuState.PauseMainMenu;
+                    }
+                    else
+                        gm.LastState = gm.State;
+
                 }
-                if(GameStateManager.GetInstance().State == GameState.ExitToMenu)
+                
+                if(gm.State == GameState.ExitToMenu)
                 {
                     ActiveButtonsList.Clear();
                     SelectedButton = 0;
