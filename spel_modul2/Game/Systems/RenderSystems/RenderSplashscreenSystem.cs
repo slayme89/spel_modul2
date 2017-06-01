@@ -11,14 +11,12 @@ namespace Game.Systems
     {
         int AlphaVal = 0;
         float SecondsSinceLastAlphaIncrease = 0.0f;
-        Texture2D SplashText;
+        Texture2D SplashTexture;
         EntityFactory factory = new EntityFactory();
-        SpriteFont Font;
 
         public void Load(ContentManager content)
         {
-            SplashText = content.Load<Texture2D>("Splashscreen/splash");
-            Font = content.Load<SpriteFont>("NewSpriteFont");
+            SplashTexture = content.Load<Texture2D>("Splashscreen/splash");
         }
 
         public void Update(GameTime gameTime)
@@ -46,16 +44,16 @@ namespace Game.Systems
             if (GameStateManager.GetInstance().State == GameState.Splashscreen)
             {
                 Rectangle viewBounds = renderHelper.graphicsDevice.Viewport.Bounds;
-                Vector2 divideToFitScreen = (SplashText.Bounds.Size.ToVector2() / viewBounds.Size.ToVector2());
+                Vector2 divideToFitScreen = (SplashTexture.Bounds.Size.ToVector2() / viewBounds.Size.ToVector2());
                 divideToFitScreen.Y = divideToFitScreen.X;
                 renderHelper.DrawFilledRectangle(viewBounds, new Color(Color.Black, AlphaVal), RenderLayer.Menubackground);
-                if (AlphaVal >= 200)
+                if (AlphaVal >= 65)
                 {
                     renderHelper.Draw(
-                        SplashText,
+                        SplashTexture,
                         new Rectangle(
-                            viewBounds.Location + new Point(0, (viewBounds.Size.Y / 2) - (SplashText.Bounds.Size.Y / 2)),
-                            (SplashText.Bounds.Size.ToVector2() / divideToFitScreen).ToPoint()),
+                            viewBounds.Location + new Point(0, (viewBounds.Size.Y / 2) - (SplashTexture.Bounds.Size.Y / 2)),
+                            (SplashTexture.Bounds.Size.ToVector2() / divideToFitScreen).ToPoint()),
                         Color.White,
                         RenderLayer.MenuButton
                     );

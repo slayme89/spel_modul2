@@ -1250,7 +1250,7 @@
 /processorParam:TextureFormat=Color
 /build:GAMEOVERTitle.png
 
-#begin Splashscreen/splash.gif
+#begin Splashscreen/splash.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -1260,5 +1260,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Splashscreen/splash.gif
+/build:Splashscreen/splash.png
 
