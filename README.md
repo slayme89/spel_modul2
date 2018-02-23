@@ -1,5 +1,5 @@
-## VARJ - the game
+# VARJ - the game
 School assignment
 
-# A game engine and RPG-game written in C#
+A game engine and RPG-game written in C#
 
