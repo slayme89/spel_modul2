@@ -1,5 +1,5 @@
-# Spelkonstruktions projekt
+## VARJ - the game
 School assignment
 
-## Game engine and a RPG-game written in C#
+# A game engine and RPG-game written in C#
 
