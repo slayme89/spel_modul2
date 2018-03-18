@@ -1,4 +1,6 @@
-# VARJ - the game
+![My image](https://github.com/slayme89/spel_modul2/blob/master/VARJTitle.png)
+
+
 School assignment
 
 A game engine and RPG-game written in C#
